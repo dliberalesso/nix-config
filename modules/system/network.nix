@@ -1,6 +1,7 @@
 {
   unify.modules.laptop.nixos =
     {
+      hostConfig,
       lib,
       ...
     }:
@@ -26,14 +27,11 @@
           ];
         };
 
-        networkmanager = {
-          enable = true;
-          wifi.backend = "iwd";
-        };
+        networkmanager.enable = true;
 
         useDHCP = lib.mkDefault true;
-
-        wireless.iwd.enable = true;
       };
+
+      users.users.${hostConfig.user.username}.extraGroups = [ "networkmanager" ];
     };
 }
