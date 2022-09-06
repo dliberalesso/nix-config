@@ -33,9 +33,8 @@
     automountPath = "/mnt";
     defaultUser = "dli";
     startMenuLaunchers = false;
+    wslConf.network.hostname = "nixos-wsl"
   };
-
-  networking.hostName = "nixos-wsl";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.05";
