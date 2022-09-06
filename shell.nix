@@ -10,9 +10,10 @@
     overlays = [ ]; # Explicit blank overlay to avoid interference
   in
   import nixpkgs { inherit system overlays; }
-, ...
-}: pkgs.mkShell {
+, ... }:
+
+pkgs.mkShell {
   # Enable experimental features without having to specify the argument
   NIX_CONFIG = "experimental-features = nix-command flakes";
-  nativeBuildInputs = with pkgs; [ git gh home-manager nix ];
+  nativeBuildInputs = with pkgs; [ git home-manager nix ];
 }

@@ -1,7 +1,5 @@
 { inputs, lib, pkgs, config, modulesPath, ... }:
 
-with lib;
-
 {
   imports = [ 
     "${modulesPath}/profiles/minimal.nix"
@@ -33,9 +31,11 @@ with lib;
   wsl = {
     enable = true;
     automountPath = "/mnt";
-    defaultUser = "dliberalesso";
+    defaultUser = "dli";
     startMenuLaunchers = false;
   };
+
+  networking.hostName = "nixos-wsl";
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.05";

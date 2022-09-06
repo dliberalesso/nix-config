@@ -12,10 +12,10 @@
 
   outputs = { nixpkgs, nixos-wsl, ... }@inputs: {
     nixosConfigurations = {
-      winavell = nixpkgs.lib.nixosSystem {
+      nixosWSLConfig = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
-        modules = [ ./winavell.nix ];
+        modules = [ ./nixos-wsl-config.nix ];
       };
     };
   };
