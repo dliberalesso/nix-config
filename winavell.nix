@@ -9,13 +9,12 @@ with lib;
     inputs.nixos-wsl.nixosModules.wsl
   ];
 
+  # Make nix3 and legacy nix commands consistent
   nix = {
-    # This will add each flake input as a registry
-    # To make nix3 commands consistent with your flake
+    # Add each flake input as a registry
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
-    # This will additionally add your inputs to the system's legacy channels
-    # Making legacy nix commands consistent as well, awesome!
+    # Add the inputs to the system's legacy channels
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
   };
 
@@ -28,7 +27,6 @@ with lib;
     };
   };
 
-  # Remove if you wish to disable unfree packages for your system
   nixpkgs.config.allowUnfree = true;
 
   # Setup WSL
@@ -42,6 +40,7 @@ with lib;
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.05";
 
+  # Create a list of all packages and their versions
   environment.etc."current-system-packages".text = let
     packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
     sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
