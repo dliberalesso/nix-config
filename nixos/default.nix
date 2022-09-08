@@ -1,7 +1,7 @@
 { inputs, lib, pkgs, config, modulesPath, ... }:
 
 {
-  imports = [ 
+  imports = [
     "${modulesPath}/profiles/minimal.nix"
 
     inputs.nixos-wsl.nixosModules.wsl
@@ -40,9 +40,11 @@
   system.stateVersion = "22.05";
 
   # Create a list of all packages and their versions
-  environment.etc."current-system-packages".text = let
-    packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-    sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
-    formatted = builtins.concatStringsSep "\n" sortedUnique;
-  in formatted;
+  environment.etc."current-system-packages".text =
+    let
+      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+      sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
+      formatted = builtins.concatStringsSep "\n" sortedUnique;
+    in
+    formatted;
 }
