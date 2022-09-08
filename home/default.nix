@@ -2,6 +2,8 @@
 
 {
   imports = [
+    ./git.nix
+
     inputs.vscode-server.nixosModules.home
   ];
 
@@ -12,17 +14,14 @@
     homeDirectory = "/home/${username}";
   };
 
+  # Programs
+  programs.home-manager.enable = true;
   # programs.neovim.enable = true;
   home.packages = with pkgs; [ wget ];
 
-  # Enable home-manager and git
-  programs.home-manager.enable = true;
-  programs.git.enable = true;
-
+  # Services
   services.vscode-server.enable = true;
-  
-  # Nicely reload system units when changing configs
-  systemd.user.startServices = "sd-switch";
+  systemd.user.startServices = "sd-switch"; # Reload system units on config change
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "22.05";

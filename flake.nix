@@ -26,10 +26,10 @@
 
   outputs = { nixpkgs, home-manager, nixos-wsl, ... }@inputs: {
     nixosConfigurations = {
-      nixosWSLConfig = nixpkgs.lib.nixosSystem {
+      nixosWSL = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
-        modules = [ ./nixos-wsl-config.nix ];
+        modules = [ ./nixos ];
       };
     };
 
@@ -37,7 +37,7 @@
       dli = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home.nix ];
+        modules = [ ./home ];
       };
     };
   };
