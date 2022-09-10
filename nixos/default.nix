@@ -36,6 +36,10 @@
     wslConf.network.hostname = "nixos-wsl";
   };
 
+  # Fish
+  programs.fish.enable = true;
+  users.users.dli.shell = pkgs.fish;
+
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.05";
 
