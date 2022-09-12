@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./colors.nix
     ./fish.nix
     ./git.nix
 
