@@ -7,25 +7,29 @@
     inputs.nixos-wsl.nixosModules.wsl
   ];
 
-  # Make nix3 and legacy nix commands consistent
   nix = {
-    # Add each flake input as a registry
+    # Make nix3 and legacy nix commands consistent:
+    # # Add each flake input as a registry
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
-
-    # Add the inputs to the system's legacy channels
+    # # Add the inputs to the system's legacy channels
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
-  };
 
-  nix = {
     settings = {
       # Enable flakes and new 'nix' command
       experimental-features = "nix-command flakes";
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
     };
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
   };
 
   nixpkgs.config.allowUnfree = true;
+  environment.noXlibs = true;
 
   # Setup WSL
   wsl = {
