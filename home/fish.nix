@@ -6,13 +6,8 @@
 
     plugins = with pkgs; [
       {
-        name = "tide";
-        src = fetchFromGitHub {
-          owner = "IlanCosman";
-          repo = "tide";
-          rev = "v5.5.0";
-          sha256 = "ilPHBSaIuGqsbJkTXXsnz7Fb9VyI7PQyirTi/cyXh90=";
-        };
+        name = "hydro";
+        src = fishPlugins.hydro.src;
       }
     ];
 
