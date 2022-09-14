@@ -19,8 +19,10 @@
 
   # Programs
   programs.home-manager.enable = true;
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
   # programs.neovim.enable = true;
-  home.packages = with pkgs; [ nixpkgs-fmt wget ];
+  home.packages = with pkgs; [ wget ];
 
   # Services
   services.vscode-server.enable = true;
