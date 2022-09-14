@@ -9,6 +9,10 @@
         name = "hydro";
         src = fishPlugins.hydro.src;
       }
+      {
+        name = "forgit";
+        src = fishPlugins.forgit.src;
+      }
     ];
 
     interactiveShellInit = with config.colors; ''

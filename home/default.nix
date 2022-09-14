@@ -18,9 +18,15 @@
   };
 
   # Programs
-  programs.home-manager.enable = true;
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
+  programs = {
+    home-manager.enable = true;
+
+    direnv.enable = true;
+    direnv.nix-direnv.enable = true;
+
+    fzf.enable = true;
+  };
+  
   # programs.neovim.enable = true;
   home.packages = with pkgs; [ wget ];
 
