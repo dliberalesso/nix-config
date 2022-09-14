@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   options = with lib; with types; {
@@ -8,6 +8,7 @@
   # Dracula PRO - Van Helsing
   config.colors = {
     foreground = "#f8f8f2";
+    background = "#0b0d0f";
     selection = "#414d58";
     comment = "#708ca9";
     red = "#ff9580";

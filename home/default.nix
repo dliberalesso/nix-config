@@ -1,10 +1,9 @@
-{ inputs, lib, config, pkgs, ... }:
+{ inputs, pkgs, ... }:
 
 {
   imports = [
+    ./cli
     ./colors.nix
-    ./exa.nix
-    ./fish.nix
     ./git.nix
 
     inputs.vscode-server.nixosModules.home
@@ -18,16 +17,10 @@
   };
 
   # Programs
-  programs = {
-    home-manager.enable = true;
-
-    direnv.enable = true;
-    direnv.nix-direnv.enable = true;
-
-    fzf.enable = true;
-  };
-  
+  programs.home-manager.enable = true;
   # programs.neovim.enable = true;
+
+  # pkgs
   home.packages = with pkgs; [ wget ];
 
   # Services
