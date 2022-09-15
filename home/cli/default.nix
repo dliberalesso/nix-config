@@ -7,8 +7,12 @@
     ./fzf.nix
   ];
 
-  programs = {
-    direnv.enable = true;
-    direnv.nix-direnv.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
+
+  programs.fish.shellAliases = {
+    hms = "home-manager switch --flake .";
   };
 }
