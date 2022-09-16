@@ -14,19 +14,24 @@
   home = rec {
     username = "dli";
     homeDirectory = "/home/${username}";
+
+    packages = with pkgs; [
+      fd          # Alternative to find
+      grex        # Tool for generating regex
+      hyperfine   # Benchmarking
+      sd          # A better sed
+      ripgrep     # A better grep
+      tokei       # Code statistics
+      wget        # Retrieve files using HTTP, HTTPS, and FTP
+    ];
+
+    stateVersion = "22.05";
   };
 
-  # Programs
+  # Home Manager
   programs.home-manager.enable = true;
-  # programs.neovim.enable = true;
-
-  # pkgs
-  home.packages = with pkgs; [ wget ];
 
   # Services
   services.vscode-server.enable = true;
   systemd.user.startServices = "sd-switch"; # Reload system units on config change
-
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "22.05";
 }

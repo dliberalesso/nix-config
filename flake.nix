@@ -24,7 +24,7 @@
     };
   };
 
-  outputs = { flake-utils, home-manager, nixpkgs, ... }@inputs:
+  outputs = { home-manager, nixpkgs, ... }@inputs:
 
     let
       system = "x86_64-linux";

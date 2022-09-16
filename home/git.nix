@@ -14,6 +14,7 @@
       url."https://github.com/".insteadOf = "git://github.com/";
     };
 
+    delta.enable = true;
     lfs.enable = true;
     ignores = [ ".direnv" "result" ];
   };

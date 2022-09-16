@@ -1,13 +1,15 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
-  programs.exa.enable = true;
+  programs = {
+    exa.enable = true;
 
-  programs.fish.shellAliases = {
-    ls = "${pkgs.exa}/bin/exa --icons";
-    ll = "${pkgs.exa}/bin/exa -l --icons";
-    la = "${pkgs.exa}/bin/exa -a --icons";
-    lt = "${pkgs.exa}/bin/exa --tree --icons";
-    lla = "${pkgs.exa}/bin/exa -la --icons";
+    fish.shellAliases = {
+      ls = "exa --icons";
+      ll = "exa -l --icons";
+      la = "exa -a --icons";
+      lt = "exa --tree --icons";
+      lla = "exa -la --icons";
+    };
   };
 }

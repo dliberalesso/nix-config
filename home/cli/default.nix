@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ ... }:
 
 {
   imports = [
@@ -7,12 +7,22 @@
     ./fzf.nix
   ];
 
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-  };
+  programs = {
+    bat = {
+      enable = true;
+      config.color = "always";
+      config.pager = "less";
+    };
 
-  programs.fish.shellAliases = {
-    hms = "home-manager switch --flake .";
+    bottom.enable = true;
+
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+
+    tealdeer.enable = true;
+
+    zoxide.enable = true;
   };
 }
