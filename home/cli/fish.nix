@@ -9,18 +9,16 @@
         name = "hydro";
         src = fishPlugins.hydro.src;
       }
-      {
-        name = "forgit";
-        src = fishPlugins.forgit.src;
-      }
     ];
 
     interactiveShellInit = with config.colors; ''
       set -g fish_greeting
 
       # Hydro
-      set -gx hydro_color_pwd \${selection}
+      set -gx hydro_color_pwd \${green}
+      set -gx hydro_color_git \${pink}
       set -gx hydro_color_prompt \${green}
+      set -gx hydro_color_duration \${purple}
       set -gx fish_prompt_pwd_dir_length 3
 
       # Syntax Highlighting Colors
