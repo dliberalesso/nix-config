@@ -3,8 +3,6 @@
 {
   imports = [
     ./cli
-    ./colors.nix
-    ./git.nix
 
     inputs.vscode-server.nixosModules.home
   ];

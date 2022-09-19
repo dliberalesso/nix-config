@@ -2,17 +2,25 @@
 
 {
   imports = [
+    ./colors.nix
     ./exa.nix
     ./fish.nix
     ./fzf.nix
+    ./git.nix
     ./starship.nix
   ];
 
   programs = {
     bat = {
       enable = true;
-      config.color = "always";
-      config.pager = "less";
+
+      config = {
+        color = "always";
+        pager = "less";
+        theme = "dracula_pro";
+      };
+
+      themes.dracula_pro = builtins.readFile ./dracula_pro.tmTheme;
     };
 
     bottom.enable = true;

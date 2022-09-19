@@ -6,6 +6,8 @@
 
     interactiveShellInit = with config.colors; ''
       set -g fish_greeting
+      set -gx fish_term24bit 1
+      set -gx COLORTERM truecolor
 
       # Syntax Highlighting Colors
       set -gx fish_color_normal \${foreground}
