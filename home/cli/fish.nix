@@ -4,22 +4,8 @@
   programs.fish = {
     enable = true;
 
-    plugins = with pkgs; [
-      {
-        name = "hydro";
-        src = fishPlugins.hydro.src;
-      }
-    ];
-
     interactiveShellInit = with config.colors; ''
       set -g fish_greeting
-
-      # Hydro
-      set -gx hydro_color_pwd \${green}
-      set -gx hydro_color_git \${pink}
-      set -gx hydro_color_prompt \${green}
-      set -gx hydro_color_duration \${purple}
-      set -gx fish_prompt_pwd_dir_length 3
 
       # Syntax Highlighting Colors
       set -gx fish_color_normal \${foreground}

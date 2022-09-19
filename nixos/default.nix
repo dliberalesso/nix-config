@@ -41,8 +41,9 @@
   };
 
   # Fish
+  environment.shells = [ pkgs.fish ];
   programs.fish.enable = true;
-  users.users.dli.shell = pkgs.fish;
+  users.defaultUserShell = pkgs.fish;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   system.stateVersion = "22.05";

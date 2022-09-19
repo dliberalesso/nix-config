@@ -5,6 +5,7 @@
     ./exa.nix
     ./fish.nix
     ./fzf.nix
+    ./starship.nix
   ];
 
   programs = {
