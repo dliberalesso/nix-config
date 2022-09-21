@@ -3,13 +3,14 @@
 with config.theme;
 with config.theme.colors;
 
+# Let's theme the **** out of this!
+
 {
   imports = [
     ./colors.nix
     ./options.nix
   ];
 
-  # Let's theme the **** out of this
   theme.tmTheme = builtins.readFile ./assets/tmTheme/${variant}.tmTheme;
 
   # Bat
@@ -21,8 +22,6 @@ with config.theme.colors;
   home.activation.bat = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     $DRY_RUN_CMD bat cache --build $VERBOSE_ARG
   '';
-
-  # TODO: Bottom?
 
   # Delta
   programs.git.delta.options = {
