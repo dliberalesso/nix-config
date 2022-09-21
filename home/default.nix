@@ -2,12 +2,18 @@
 
 {
   imports = [
-    ./cli
+    ./cli.nix
+    ./git.nix
+    ./starship.nix
+    ./theme
 
     inputs.vscode-server.nixosModules.home
   ];
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfree = true;  
+
+  # Home Manager
+  programs.home-manager.enable = true;
 
   home = rec {
     username = "dli";
@@ -25,9 +31,6 @@
 
     stateVersion = "22.05";
   };
-
-  # Home Manager
-  programs.home-manager.enable = true;
 
   # Services
   services.vscode-server.enable = true;

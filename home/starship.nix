@@ -4,19 +4,9 @@
   programs.starship = {
     enable = true;
 
-    settings = with config.colors; {
+    settings = {
+      # Format
       username.format = "[$user]($style) on ";
-      character.success_symbol = "[❱](bold ${foreground})";
-      character.error_symbol = "[❱](bold ${red})";
-
-      # Colors
-      aws.style = "bold ${orange}";
-      cmd_duration.style = "bold ${yellow}";
-      directory.style = "bold ${green}";
-      hostname.style = "bold ${red}";
-      git_branch.style = "bold ${pink}";
-      git_status.style = "bold ${red}";
-      username.style_user = "bold ${purple}";
 
       # Nerd Font Symbols
       aws.symbol = " ";
