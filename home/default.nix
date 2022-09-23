@@ -4,6 +4,7 @@
   imports = [
     ./cli.nix
     ./git.nix
+    ./neovim.nix
     ./starship.nix
     ./theme
 
@@ -44,6 +45,7 @@
     git.enable = true;
     git.delta.enable = true;
     lazygit.enable = true;
+    neovim.enable = true;
     starship.enable = true;
     tealdeer.enable = true;
     zoxide.enable = true;
