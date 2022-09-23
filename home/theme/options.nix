@@ -20,10 +20,5 @@ with lib; with types;
       type = attrs;
       internal = true;
     };
-
-    tmTheme = mkOption {
-      type = lines;
-      internal = true;
-    };
   };
 }

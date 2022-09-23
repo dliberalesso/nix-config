@@ -11,12 +11,10 @@ with config.theme.colors;
     ./options.nix
   ];
 
-  theme.tmTheme = builtins.readFile ./assets/tmTheme/${variant}.tmTheme;
-
   # Bat
   programs.bat = {
     config.theme = variant;
-    themes.${variant} = tmTheme;
+    themes.${variant} = builtins.readFile ./assets/tmTheme/${variant}.tmTheme;
   };
 
   home.activation.bat = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
