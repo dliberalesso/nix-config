@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with config.theme;
 with config.theme.colors;
@@ -77,6 +77,19 @@ with config.theme.colors;
     set -gx fish_pager_color_secondary_completion \${foreground}
     set -gx fish_pager_color_secondary_description \${comment}
   '';
+
+  # Neovim
+  programs.neovim = {
+    extraConfig = ''
+      set termguicolors
+      syntax enable
+      colorscheme dracula
+    '';
+
+    plugins = with pkgs.vimPlugins; [
+      dracula-vim
+    ];
+  };
 
   # Starship
   programs.starship.settings = {
