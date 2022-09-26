@@ -7,6 +7,11 @@
   };
 
   programs.neovim = {
+    extraConfig = ''
+      set termguicolors
+      syntax enable
+    '';
+
     plugins = with pkgs.vimPlugins; [
       vim-sensible
 
