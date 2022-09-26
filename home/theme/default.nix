@@ -17,6 +17,7 @@ with config.theme.colors;
     themes.${variant} = builtins.readFile ./assets/tmTheme/${variant}.tmTheme;
   };
 
+  # FIXME: Not working for a fresh install
   home.activation.bat = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
     $DRY_RUN_CMD bat cache --build $VERBOSE_ARG
   '';
@@ -30,14 +31,8 @@ with config.theme.colors;
     plus-style = "syntax ${dracula_pro_blade.selection}";
   };
 
-  # Fish & FZF
+  # Fish
   programs.fish.interactiveShellInit = ''
-    set -gx FZF_DEFAULT_OPTS "\
-      --color=fg:${foreground},bg:${background},hl:${purple} \
-      --color=fg+:${foreground},bg+:${selection},hl+:${purple} \
-      --color=info:${orange},prompt:${green},pointer:${pink} \
-      --color=marker:${pink},spinner:${orange},header:${comment}"
-      
     # Syntax Highlighting Colors
     set -gx fish_color_normal \${foreground}
     set -gx fish_color_command \${cyan}
@@ -82,14 +77,25 @@ with config.theme.colors;
   programs.neovim = {
     extraConfig = ''
       set termguicolors
-      syntax enable
       colorscheme dracula
+      syntax enable
     '';
 
     plugins = with pkgs.vimPlugins; [
       dracula-vim
     ];
   };
+
+  # Skim
+  programs.skim.defaultOptions = [
+    (lib.concatStrings [
+      "--color="
+      "fg:${foreground},bg:${background},hl:${purple},"
+      "fg+:${foreground},bg+:${selection},hl+:${purple},"
+      "info:${orange},prompt:${green},pointer:${pink},"
+      "marker:${pink},spinner:${orange},header:${comment}"
+    ])
+  ];
 
   # Starship
   programs.starship.settings = {

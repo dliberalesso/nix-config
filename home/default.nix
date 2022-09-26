@@ -40,12 +40,12 @@
     direnv.nix-direnv.enable = true;
     exa.enable = true;
     fish.enable = true;
-    fzf.enable = true;
     gh.enable = true;
     git.enable = true;
     git.delta.enable = true;
     lazygit.enable = true;
     neovim.enable = true;
+    skim.enable = true;
     starship.enable = true;
     tealdeer.enable = true;
     zoxide.enable = true;

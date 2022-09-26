@@ -23,7 +23,7 @@
       };
     };
 
-    fzf = rec {
+    skim = rec {
       defaultCommand = "fd --type f";
       defaultOptions = [ "--height 50%" ];
 
