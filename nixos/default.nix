@@ -29,7 +29,9 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-  environment.noXlibs = true;
+
+  environment.noXlibs = lib.mkOverride 0 true;
+  hardware.opengl.enable = lib.mkOverride 0 false;
 
   # Setup WSL
   wsl = {
