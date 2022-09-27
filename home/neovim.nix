@@ -15,6 +15,9 @@
     plugins = with pkgs.vimPlugins; [
       vim-sensible
 
+      lualine-nvim
+      telescope-nvim
+
       vim-nix
 
       (nvim-treesitter.withPlugins (_:

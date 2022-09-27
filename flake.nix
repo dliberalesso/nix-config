@@ -2,15 +2,21 @@
   description = "My NixOS & Home-Manager config";
 
   inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     flake-utils.url = "github:numtide/flake-utils";
 
     home-manager = {
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
-      url = "github:nix-community/home-manager";
     };
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    neovim-nightly = {
+      url = github:neovim/neovim?dir=contrib;
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
     vscode-server = {
       url = "github:msteen/nixos-vscode-server";
@@ -19,8 +25,8 @@
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
-      inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
