@@ -11,8 +11,6 @@
     inputs.vscode-server.nixosModules.home
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   # Home Manager
   programs.home-manager.enable = true;
 
