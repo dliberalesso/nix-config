@@ -9,13 +9,13 @@
   programs.neovim = {
     extraConfig = ''
       set termguicolors
-      syntax enable
     '';
 
     plugins = with pkgs.vimPlugins; [
       vim-sensible
 
-      lualine-nvim
+      (import ./lualine.nix { inherit lualine-nvim; })
+
       telescope-nvim
 
       vim-nix
