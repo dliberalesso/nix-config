@@ -73,15 +73,14 @@ with lib;
       set -gx fish_pager_color_secondary_description \${comment}
     '';
 
-    neovim = mkIf cfg.neovim.enable {
-      extraConfig = ''
-        colorscheme dracula
+    neovim.plugins = mkIf cfg.neovim.enable [{
+      plugin = pkgs.vimPlugins.dracula-vim;
+      type = "lua";
+      config = ''
+        vim.o.termguicolors = true
+        vim.cmd('colorscheme dracula')
       '';
-
-      plugins = with pkgs.vimPlugins; [
-        dracula-vim
-      ];
-    };
+    }];
 
     skim.defaultOptions = mkIf cfg.skim.enable [
       (concatStrings [

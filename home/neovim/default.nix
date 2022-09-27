@@ -7,22 +7,20 @@
   };
 
   programs.neovim = {
-    extraConfig = ''
-      set termguicolors
-    '';
-
     plugins = with pkgs.vimPlugins; [
       vim-sensible
 
+      nvim-web-devicons
       (import ./lualine.nix { inherit lualine-nvim; })
 
       telescope-nvim
 
       vim-nix
 
-      (nvim-treesitter.withPlugins (_:
-        pkgs.tree-sitter.allGrammars)
-      )
+      (import ./treesitter.nix {
+        nvim-treesitter = (nvim-treesitter.withPlugins (_:
+          pkgs.tree-sitter.allGrammars));
+      })
     ];
 
     viAlias = true;
