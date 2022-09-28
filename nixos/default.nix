@@ -28,8 +28,6 @@
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
-
   # No graphical stuff please!
   environment.noXlibs = lib.mkOverride 0 true;
   hardware.opengl.enable = lib.mkOverride 0 false;
@@ -49,7 +47,7 @@
   users.defaultUserShell = pkgs.fish;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "22.05";
+  system.stateVersion = "22.11";
 
   # Create a list of all packages and their versions
   environment.etc."current-system-packages".text =
