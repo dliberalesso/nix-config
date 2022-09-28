@@ -5,7 +5,7 @@
     ./cli.nix
     ./dracula.nix
     ./git.nix
-    ./neovim.nix
+    ./neovim
     ./starship.nix
 
     inputs.vscode-server.nixosModules.home
