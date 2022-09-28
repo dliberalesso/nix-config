@@ -3,27 +3,6 @@
 
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
-<<<<<<< HEAD
-
-    flake-utils.url = github:numtide/flake-utils;
-
-    home-manager = {
-      url = github:nix-community/home-manager;
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
-    };
-
-    vscode-server = {
-      url = github:msteen/nixos-vscode-server;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    nixos-wsl = {
-      url = github:nix-community/NixOS-WSL;
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-=======
 
     flake-compat.url = "github:edolstra/flake-compat";
     flake-compat.flake = false;
@@ -45,7 +24,6 @@
 
     vscode-server.url = github:msteen/nixos-vscode-server;
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
->>>>>>> main
   };
 
   outputs = { home-manager, neovim-upstream, nixpkgs, ... }@inputs:
