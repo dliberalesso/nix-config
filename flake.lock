@@ -54,31 +54,6 @@
         "type": "github"
       }
     },
-    "neovim-nightly": {
-      "inputs": {
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "dir": "contrib",
-        "lastModified": 1664287819,
-        "narHash": "sha256-VBIfCdXcjieAcPoUFMeJNPdD5QqbC+c7RfvYSrkit+M=",
-        "owner": "neovim",
-        "repo": "neovim",
-        "rev": "f46060c4cbc1efe100019075214def53fe4d47b3",
-        "type": "github"
-      },
-      "original": {
-        "dir": "contrib",
-        "owner": "neovim",
-        "repo": "neovim",
-        "type": "github"
-      }
-    },
     "nixos-wsl": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -123,7 +98,6 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "neovim-nightly": "neovim-nightly",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "vscode-server": "vscode-server"
