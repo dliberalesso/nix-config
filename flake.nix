@@ -30,26 +30,17 @@
     };
   };
 
-  outputs = { home-manager, nixpkgs, neovim-nightly, ... }@inputs:
+  outputs = { home-manager, nixpkgs, ... }@inputs:
 
     let
-      hostPlatform = "x86_64-linux";
-
-      overlays = {
-        neovim-nightly = neovim-nightly.overlay;
-      };
-
-      pkgs = import nixpkgs {
-        inherit hostPlatform;
-        overlays = builtins.attrValues overlays;
-        config.allowUnfree = true;
-      };
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
     in
 
-    rec {
+    {
       nixosConfigurations = {
         nixosWSL = nixpkgs.lib.nixosSystem {
-          inherit pkgs;
+          inherit system;
           specialArgs = { inherit inputs; };
           modules = [ ./nixos ];
         };
@@ -63,6 +54,6 @@
         };
       };
 
-      devShells.${hostPlatform}.default = import ./shell.nix { inherit pkgs; };
+      devShells.${system}.default = import ./shell.nix { inherit pkgs; };
     };
 }
