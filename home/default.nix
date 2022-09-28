@@ -11,15 +11,13 @@
     inputs.vscode-server.nixosModules.home
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   # Home Manager
   programs.home-manager.enable = true;
 
   home = rec {
     username = "dli";
     homeDirectory = "/home/${username}";
-    stateVersion = "22.05";
+    stateVersion = "22.11";
   };
 
   # Packages & Programs
