@@ -11,6 +11,7 @@
 
     plugins = with pkgs.vimPlugins; [
       vim-sensible
+      (import ./dracula.nix { inherit dracula-vim; })
 
       nvim-web-devicons
       (import ./lualine.nix { inherit lualine-nvim; })

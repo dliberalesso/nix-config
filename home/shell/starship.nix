@@ -1,10 +1,10 @@
-{ ... }:
+{ config, ... }:
 
 {
   programs.starship = {
     enable = true;
 
-    settings = {
+    settings = with config.theme.colors; {
       # Format
       username.format = "[$user]($style) on ";
 
@@ -32,6 +32,17 @@
       python.symbol = " ";
       spack.symbol = "🅢 ";
       rust.symbol = " ";
+
+      # Theme
+      character.success_symbol = "[❱](bold ${foreground})";
+      character.error_symbol = "[✗](bold ${red})";
+      aws.style = "bold ${orange}";
+      cmd_duration.style = "bold ${yellow}";
+      directory.style = "bold ${green}";
+      hostname.style = "bold ${red}";
+      git_branch.style = "bold ${pink}";
+      git_status.style = "bold ${red}";
+      username.style_user = "bold ${purple}";
     };
   };
 }

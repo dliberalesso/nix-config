@@ -1,4 +1,4 @@
-{ ... }:
+{ config, ... }:
 
 {
   programs.bat = {
@@ -7,6 +7,7 @@
     config = {
       color = "always";
       pager = "less";
+      theme = config.theme.name;
     };
   };
 }
