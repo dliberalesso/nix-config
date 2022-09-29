@@ -1,7 +1,7 @@
-{ dracula-vim, ... }:
+{ dracula-nvim, ... }:
 
 {
-  plugin = dracula-vim;
+  plugin = dracula-nvim;
   type = "lua";
   config = ''
     vim.o.termguicolors = true

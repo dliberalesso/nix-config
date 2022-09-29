@@ -9,6 +9,9 @@
 
     flake-utils.url = github:numtide/flake-utils;
 
+    dracula-nvim.url = github:Mofiqul/dracula.nvim;
+    dracula-nvim.flake = false;
+
     home-manager.url = github:nix-community/home-manager;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.utils.follows = "flake-utils";
@@ -26,21 +29,16 @@
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { home-manager, neovim-upstream, nixpkgs, ... }@inputs:
+  outputs = { home-manager, nixpkgs, ... }@inputs:
 
     let
       system = "x86_64-linux";
 
       pkgs = import nixpkgs {
         inherit system;
-
         overlays = [
-          # Why can't I just use 'neovim-upstream.overlay'?
-          (final: prev: {
-            neovim-unwrapped = neovim-upstream.packages.${system}.neovim;
-          })
+          (import ./overlays { inherit inputs system; })
         ];
-
         config.allowUnfree = true;
       };
     in

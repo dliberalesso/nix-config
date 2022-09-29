@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "dracula-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1663088448,
+        "narHash": "sha256-w1E7SE2sQr5nz/ftPz87jSNTGsMVKwAlVruoMa4oikE=",
+        "owner": "Mofiqul",
+        "repo": "dracula.nvim",
+        "rev": "0b4f6e009867027caddc1f28a81d8a7da6a2b277",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Mofiqul",
+        "repo": "dracula.nvim",
+        "type": "github"
+      }
+    },
     "flake-compat": {
       "flake": false,
       "locked": {
@@ -123,6 +139,7 @@
     },
     "root": {
       "inputs": {
+        "dracula-nvim": "dracula-nvim",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
