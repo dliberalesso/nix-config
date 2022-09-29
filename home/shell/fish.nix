@@ -1,38 +1,14 @@
-{ config, lib, pkgs, ... }:
-
-# Let's theme the **** out of this!
-
-let
-  cfg = config.programs;
-
-  background = "#282a36";
-  selection = "#44475a";
-  foreground = "#f8f8f2";
-  comment = "#6272a4";
-  cyan = "#8be9fd";
-  green = "#50fa7b";
-  orange = "#ffb86c";
-  pink = "#ff79c6";
-  purple = "#bd93f9";
-  red = "#ff5555";
-  yellow = "#f1fa8c";
-in
-
-with lib;
+{ config, ... }:
 
 {
-  config.programs = {
-    bat.config.theme = mkIf cfg.bat.enable "Dracula";
+  programs.fish = {
+    enable = true;
 
-    git.delta.options = mkIf cfg.git.delta.enable {
-      syntax-theme = "Dracula";
-      minus-emph-style = "syntax ${selection}";
-      minus-style = "syntax #584145";
-      plus-emph-style = "syntax ${selection}";
-      plus-style = "syntax #415854";
-    };
+    interactiveShellInit = with config.theme.colors; ''
+      set -g fish_greeting
+      set -gx fish_term24bit 1
+      set -gx COLORTERM truecolor
 
-    fish.interactiveShellInit = mkIf cfg.fish.enable ''
       # Syntax Highlighting Colors
       set -gx fish_color_normal \${foreground}
       set -gx fish_color_command \${cyan}
@@ -72,37 +48,5 @@ with lib;
       set -gx fish_pager_color_secondary_completion \${foreground}
       set -gx fish_pager_color_secondary_description \${comment}
     '';
-
-    neovim.plugins = mkIf cfg.neovim.enable [{
-      plugin = pkgs.vimPlugins.dracula-vim;
-      type = "lua";
-      config = ''
-        vim.o.termguicolors = true
-        vim.cmd('colorscheme dracula')
-      '';
-    }];
-
-    skim.defaultOptions = mkIf cfg.skim.enable [
-      (concatStrings [
-        "--color="
-        "fg:${foreground},bg:${background},hl:${purple},"
-        "fg+:${foreground},bg+:${selection},hl+:${purple},"
-        "info:${orange},prompt:${green},pointer:${pink},"
-        "marker:${pink},spinner:${orange},header:${comment}"
-      ])
-    ];
-
-    starship.settings = mkIf cfg.starship.enable {
-      character.success_symbol = "[❱](bold ${foreground})";
-      character.error_symbol = "[✗](bold ${red})";
-
-      aws.style = "bold ${orange}";
-      cmd_duration.style = "bold ${yellow}";
-      directory.style = "bold ${green}";
-      hostname.style = "bold ${red}";
-      git_branch.style = "bold ${pink}";
-      git_status.style = "bold ${red}";
-      username.style_user = "bold ${purple}";
-    };
   };
 }
