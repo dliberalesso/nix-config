@@ -1,34 +1,19 @@
 { ... }:
 
 {
-  programs = {
-    git = {
-      userName = "Douglas Liberalesso";
-      userEmail = "dliberalesso@gmail.com";
+  programs.git = {
+    enable = true;
 
-      extraConfig = {
-        init.defaultBranch = "main";
-        url."https://github.com/".insteadOf = "git://github.com/";
-      };
+    userName = "Douglas Liberalesso";
+    userEmail = "dliberalesso@gmail.com";
 
-      lfs.enable = true;
-
-      ignores = [ ".direnv" "result" ];
+    extraConfig = {
+      init.defaultBranch = "main";
+      url."https://github.com/".insteadOf = "git://github.com/";
     };
 
-    lazygit = {
-      settings = {
-        git = {
-          paging = {
-            colorArg = "always";
-            pager = "delta --dark --paging=never";
-          };
-        };
+    lfs.enable = true;
 
-        update = {
-          method = "never";
-        };
-      };
-    };
+    ignores = [ ".direnv" "result" ];
   };
 }

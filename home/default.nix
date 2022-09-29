@@ -21,33 +21,8 @@
   };
 
   # Packages & Programs
-  home.packages = with pkgs; [
-    fd
-    grex
-    hyperfine
-    sd
-    ripgrep
-    tokei
-    wget
-  ];
-
-  programs = {
-    bat.enable = true;
-    bottom.enable = true;
-    direnv.enable = true;
-    direnv.nix-direnv.enable = true;
-    exa.enable = true;
-    fish.enable = true;
-    gh.enable = true;
-    git.enable = true;
-    git.delta.enable = true;
-    lazygit.enable = true;
-    neovim.enable = true;
-    skim.enable = true;
-    starship.enable = true;
-    tealdeer.enable = true;
-    zoxide.enable = true;
-  };
+  home.packages = with pkgs; [ ];
+  programs = { };
 
   # Services
   services.vscode-server.enable = true;
