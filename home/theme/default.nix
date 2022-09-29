@@ -1,0 +1,5 @@
+{
+  imports = [
+    ./dracula.nix
+  ];
+}

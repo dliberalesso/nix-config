@@ -3,10 +3,10 @@
 {
   imports = [
     ./cli.nix
-    ./dracula.nix
     ./git.nix
     ./neovim
     ./starship.nix
+    ./theme
 
     inputs.vscode-server.nixosModules.home
   ];
