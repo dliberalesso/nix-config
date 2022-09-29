@@ -2,10 +2,10 @@
 
 {
   imports = [
-    ./cli.nix
-    ./git.nix
+    ./cli
+    ./git
     ./neovim
-    ./starship.nix
+    ./shell
     ./theme
 
     inputs.vscode-server.nixosModules.home
