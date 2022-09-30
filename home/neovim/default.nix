@@ -2,6 +2,8 @@
 
 let
   colors = config.theme.colors;
+
+
 in
 
 {
@@ -21,6 +23,8 @@ in
 
       nvim-web-devicons
       (import ./lualine.nix { inherit lualine-nvim; })
+
+      (import ./colorizer.nix { inherit nvim-colorizer-lua; })
 
       telescope-nvim
 
