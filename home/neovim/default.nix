@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.sessionVariables = {
@@ -11,7 +11,7 @@
 
     plugins = with pkgs.vimPlugins; [
       vim-sensible
-      (import ./dracula.nix { inherit dracula-nvim; })
+      (import ./alucard.nix { inherit config dracula-vim; })
 
       nvim-web-devicons
       (import ./lualine.nix { inherit lualine-nvim; })

@@ -9,9 +9,6 @@
 
     flake-utils.url = github:numtide/flake-utils;
 
-    dracula-nvim.url = github:Mofiqul/dracula.nvim;
-    dracula-nvim.flake = false;
-
     home-manager.url = github:nix-community/home-manager;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.utils.follows = "flake-utils";
