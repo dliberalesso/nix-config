@@ -17,10 +17,10 @@ in
 
     plugins = with pkgs.vimPlugins; [
       vim-sensible
-      (import ./alucard.nix { inherit colors dracula-vim; })
+      (import ./alucard.nix { inherit colors dracula-nvim; })
 
       nvim-web-devicons
-      (import ./lualine.nix { inherit colors lualine-nvim; })
+      (import ./lualine.nix { inherit lualine-nvim; })
 
       telescope-nvim
 
