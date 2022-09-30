@@ -8,8 +8,8 @@
     defaultOptions = with config.theme.colors; [
       (lib.concatStrings [
         "--color="
-        "fg:${foreground},bg:${background},hl:${purple},"
-        "fg+:${foreground},bg+:${selection},hl+:${purple},"
+        "fg:${fg},bg:${bg},hl:${purple},"
+        "fg+:${fg},bg+:${selection},hl+:${purple},"
         "info:${orange},prompt:${green},pointer:${pink},"
         "marker:${pink},spinner:${orange},header:${comment}"
       ])

@@ -34,7 +34,7 @@
       rust.symbol = " ";
 
       # Theme
-      character.success_symbol = "[❱](bold ${foreground})";
+      character.success_symbol = "[❱](bold ${fg})";
       character.error_symbol = "[✗](bold ${red})";
       aws.style = "bold ${orange}";
       cmd_duration.style = "bold ${yellow}";
