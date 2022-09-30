@@ -1,5 +1,9 @@
 { config, pkgs, ... }:
 
+let
+  colors = config.theme.colors;
+in
+
 {
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -13,10 +17,10 @@
 
     plugins = with pkgs.vimPlugins; [
       vim-sensible
-      (import ./alucard.nix { inherit config dracula-vim; })
+      (import ./alucard.nix { inherit colors dracula-vim; })
 
       nvim-web-devicons
-      (import ./lualine.nix { inherit lualine-nvim; })
+      (import ./lualine.nix { inherit colors lualine-nvim; })
 
       telescope-nvim
 

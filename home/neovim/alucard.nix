@@ -1,9 +1,9 @@
-{ config, dracula-vim, ... }:
+{ colors, dracula-vim, ... }:
 
 {
   plugin = dracula-vim;
   type = "lua";
-  config = with config.theme.colors; ''
+  config = with colors; ''
     vim.cmd [[
       set termguicolors
 
