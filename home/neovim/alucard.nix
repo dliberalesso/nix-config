@@ -4,8 +4,6 @@
   plugin = dracula-nvim;
   type = "lua";
   config = with colors; ''
-    vim.o.termguicolors = true
-
     require('dracula').setup {
       colors = {
         bg = "${bg}",

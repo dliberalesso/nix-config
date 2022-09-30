@@ -16,7 +16,7 @@ in
     package = pkgs.neovim; # From neovim-upstream overlay
 
     plugins = with pkgs.vimPlugins; [
-      vim-sensible
+      (import ./sensible.nix { inherit vim-sensible; })
       (import ./alucard.nix { inherit colors dracula-nvim; })
 
       nvim-web-devicons
