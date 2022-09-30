@@ -9,6 +9,8 @@
   programs.neovim = {
     enable = true;
 
+    package = pkgs.neovim; # From neovim-upstream overlay
+
     plugins = with pkgs.vimPlugins; [
       vim-sensible
       (import ./alucard.nix { inherit config dracula-vim; })

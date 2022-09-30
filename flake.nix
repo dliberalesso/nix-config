@@ -26,16 +26,17 @@
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { home-manager, nixpkgs, ... }@inputs:
+  outputs = { home-manager, neovim-upstream, nixpkgs, ... }@inputs:
 
     let
       system = "x86_64-linux";
 
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [
-          (import ./overlays { inherit inputs system; })
-        ];
+        overlays = builtins.attrValues {
+          default = import ./overlays { inherit inputs; };
+          neovim-upstream = neovim-upstream.overlay;
+        };
         config.allowUnfree = true;
       };
     in
