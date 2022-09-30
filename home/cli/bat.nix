@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   programs.bat = {
@@ -19,6 +19,6 @@
     "linkGeneration"
     "writeBoundary"
   ] ''
-    $DRY_RUN_CMD bat cache --build $VERBOSE_ARG
+    $DRY_RUN_CMD ${pkgs.bat}/bin/bat cache --build $VERBOSE_ARG
   '';
 }
