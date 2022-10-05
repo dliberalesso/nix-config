@@ -41,6 +41,11 @@
     wslConf.network.hostname = "nixos-wsl";
   };
 
+  # Packages to install
+  environment.systemPackages = with pkgs; [
+    wslu # Utilities for WSL, i.e. wslview
+  ];
+
   # Fish
   environment.shells = [ pkgs.fish ];
   programs.fish.enable = true;
