@@ -4,7 +4,6 @@
   imports = [
     ./cli
     ./git
-    ./neovim
     ./shell
     ./theme
 

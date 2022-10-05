@@ -9,16 +9,9 @@
 
     flake-utils.url = github:numtide/flake-utils;
 
-    dracula-nvim.url = github:Mofiqul/dracula.nvim;
-    dracula-nvim.flake = false;
-
     home-manager.url = github:nix-community/home-manager;
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.inputs.utils.follows = "flake-utils";
-
-    neovim-upstream.url = github:neovim/neovim?dir=contrib;
-    neovim-upstream.inputs.nixpkgs.follows = "nixpkgs";
-    neovim-upstream.inputs.flake-utils.follows = "flake-utils";
 
     nixos-wsl.url = github:nix-community/NixOS-WSL;
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
@@ -29,7 +22,7 @@
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { home-manager, neovim-upstream, nixpkgs, ... }@inputs:
+  outputs = { home-manager, nixpkgs, ... }@inputs:
 
     let
       system = "x86_64-linux";
@@ -38,7 +31,6 @@
         inherit system;
         overlays = builtins.attrValues {
           default = import ./overlays { inherit inputs; };
-          neovim-upstream = neovim-upstream.overlay;
         };
         config.allowUnfree = true;
       };
