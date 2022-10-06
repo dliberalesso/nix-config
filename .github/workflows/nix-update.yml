@@ -1,3 +1,5 @@
+name: "Update flake.lock"
+
 on:
   schedule:
     - cron: "0 0 * * *" # daily at 00:00
@@ -8,13 +10,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # a flake-enabled Nix executable needs to be installed
-      # (alternatively use `cachix/install-nix-action`)
-      - uses: nixbuild/nix-quick-install-action@v16
-        with:
-          nix_conf: experimental-features = nix-command flakes
+      - uses: cachix/install-nix-action@v17
 
-      # updates `flake.lock` and generates change report
       - uses: jessestricker/nix-flake-update@v1
         id: nix-update
 
