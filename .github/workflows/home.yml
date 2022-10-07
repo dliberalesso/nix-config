@@ -21,7 +21,6 @@ on:
 
 jobs:
   build-home:
-    name: "Build/cache Home Manager 🏠"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

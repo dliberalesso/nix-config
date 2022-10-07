@@ -21,7 +21,6 @@ on:
 
 jobs:
   build-nixos:
-    name: "Build/cache NixOs-WSL ❄️"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
