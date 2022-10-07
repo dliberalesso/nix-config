@@ -19,6 +19,7 @@
       experimental-features = "nix-command flakes";
       # Deduplicate and optimize nix store
       auto-optimise-store = true;
+
       # Cache
       substituters = [
         "https://cachix.cachix.org"
@@ -30,6 +31,10 @@
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "dliberalesso.cachix.org-1:7qs1S5Qd766dYFU86nVux/wRMZ8UEUbhn3Qxp/TwiOc="
       ];
+
+      # Required by Cachix to be used as non-root user
+      trusted-users = [ "root" "@wheel" ];
+      allowed-users = [ "@wheel" ];
     };
 
     gc = {
