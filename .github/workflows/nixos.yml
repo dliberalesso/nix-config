@@ -2,8 +2,6 @@ name: "NixOS"
 
 on:
   pull_request:
-    branches:
-      - main
 
   push:
     branches:

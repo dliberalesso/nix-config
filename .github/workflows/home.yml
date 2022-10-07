@@ -2,8 +2,6 @@ name: "Home"
 
 on:
   pull_request:
-    branches:
-      - main
 
   push:
     branches:
