@@ -1,10 +1,12 @@
 # nix-config
 
+[![Build](https://github.com/dliberalesso/nix-config/actions/workflows/build.yml/badge.svg)](https://github.com/dliberalesso/nix-config/actions/workflows/build.yml)
+
 ### NixOS-WSL
 
 The NixOS-WSL configuration can be installed by running the following command.
 
-```console
+```shell
 sudo nixos-rebuild switch --flake github:dliberalesso/nix-config#nixosWSL
 ```
 
@@ -12,7 +14,7 @@ sudo nixos-rebuild switch --flake github:dliberalesso/nix-config#nixosWSL
 
 The entire Home-Manager configuration can also be built as any other flake.
 
-```console
+```shell
 nix build github:dliberalesso/nix-config#homeConfigurations.dli.activationPackage
 result/activate
 ```
