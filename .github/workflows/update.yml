@@ -2,7 +2,7 @@ name: "Update"
 
 on:
   schedule:
-    - cron: "0 4 * * 0,3" # At 04:00 on Sunday and Wednesday
+    - cron: "0 7 * * *" # At 07:00 UTC everyday
 
   workflow_dispatch:
 
@@ -17,7 +17,7 @@ jobs:
 
       - name: "Update flake.lock"
         uses: jessestricker/nix-flake-update@v1
-        id: update
+        id: nix-update
 
       - name: "Create pull request"
         uses: peter-evans/create-pull-request@v4
