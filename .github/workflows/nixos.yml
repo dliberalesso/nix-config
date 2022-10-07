@@ -3,7 +3,7 @@ name: "NixOS"
 on:
   pull_request:
     branches:
-      - update
+      - main
 
   push:
     branches:

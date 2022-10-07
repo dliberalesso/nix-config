@@ -3,7 +3,7 @@ name: "Home"
 on:
   pull_request:
     branches:
-      - update
+      - main
 
   push:
     branches:
