@@ -51,6 +51,8 @@
     in
 
     {
+      formatter.${system} = pkgs.nixpkgs-fmt;
+
       nixosConfigurations = {
         nixosWSL = nixpkgs.lib.nixosSystem {
           inherit system pkgs;

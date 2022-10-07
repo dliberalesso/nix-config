@@ -59,8 +59,8 @@ jobs:
       - name: "Set priority flag for Cachix 🚩"
         run: nix-env --set-flag priority 0 cachix
 
-      - name: "Test shell"
-        run: nix-shell --run "echo OK"
-
       - name: "Build Home Manager config 🏠"
         run: nix build .#homeConfigurations.dli.activationPackage -v -L
+
+      - name: "Test shell"
+        run: nix develop -c echo OK
