@@ -23,7 +23,9 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           branch: update
+          delete-branch: true
           commit-message: ${{ steps.nix-update.outputs.commit-message }}
           title: ${{ steps.nix-update.outputs.pull-request-title }}
           body: ${{ steps.nix-update.outputs.pull-request-body }}
+          assignees: dliberalesso
           labels: dependencies, nix
