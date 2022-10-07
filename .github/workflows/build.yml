@@ -1,0 +1,64 @@
+name: "Build"
+
+on:
+  pull_request:
+    branches:
+      - update
+
+  push:
+    branches:
+      - main
+
+    paths-ignore:
+      - "LICENSE"
+      - "README.md"
+      - ".editorconfig"
+      - ".git-crypt/**"
+      - ".gitattributes"
+      - ".gitignore"    
+
+  workflow_dispatch:
+
+jobs:
+  build-nixos-wsl:
+    name: "Build/cache NixOs-WSL ❄️"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "Install Nix ❄️"
+        uses: cachix/install-nix-action@v17
+
+      - name: "Install Cachix ❄️"
+        uses: cachix/cachix-action@v10
+        with:
+          name: dliberalesso
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: "Build NixOS-WSL config ❄️"
+        run: nix build .#nixosConfigurations.nixosWSL.config.system.build.toplevel -v -L
+
+  build-home-dli:
+    name: "Build/cache Home Manager 🏠"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: "Install Nix ❄️"
+        uses: cachix/install-nix-action@v17
+
+      - name: "Install Cachix ❄️"
+        uses: cachix/cachix-action@v10
+        with:
+          name: dliberalesso
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      # Needed because cachix is also installed by Home Manager
+      - name: "Set priority flag for Cachix 🚩"
+        run: nix-env --set-flag priority 0 cachix
+
+      - name: "Test shell"
+        run: nix-shell --run "echo OK"
+
+      - name: "Build Home Manager config 🏠"
+        run: nix build .#homeConfigurations.dli.activationPackage -v -L

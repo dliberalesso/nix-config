@@ -20,7 +20,7 @@
   };
 
   # Packages & Programs
-  home.packages = with pkgs; [ ];
+  home.packages = with pkgs; [ cachix ];
   programs = { };
 
   # Services
