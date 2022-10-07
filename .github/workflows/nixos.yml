@@ -1,0 +1,34 @@
+name: "NixOS"
+
+on:
+  pull_request:
+    branches:
+      - update
+
+  push:
+    branches:
+      - main
+
+    paths-ignore:
+      - "LICENSE"
+      - "README.md"
+      - ".editorconfig"
+      - ".git-crypt/**"
+      - ".gitattributes"
+      - ".gitignore"    
+
+  workflow_dispatch:
+
+jobs:
+  build-nixos:
+    name: "Build/cache NixOs-WSL ❄️"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/install-cachix
+        with:
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: "Build NixOS-WSL config ❄️"
+        run: nix build .#nixosConfigurations.nixosWSL.config.system.build.toplevel -v -L

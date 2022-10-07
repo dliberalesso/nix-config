@@ -55,6 +55,7 @@
     defaultUser = "dli";
     startMenuLaunchers = false;
     wslConf.network.hostname = "nixos-wsl";
+    docker-desktop.enable = true;
   };
 
   # Packages to install

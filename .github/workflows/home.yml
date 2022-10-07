@@ -1,0 +1,37 @@
+name: "Home"
+
+on:
+  pull_request:
+    branches:
+      - update
+
+  push:
+    branches:
+      - main
+
+    paths-ignore:
+      - "LICENSE"
+      - "README.md"
+      - ".editorconfig"
+      - ".git-crypt/**"
+      - ".gitattributes"
+      - ".gitignore"    
+
+  workflow_dispatch:
+
+jobs:
+  build-home:
+    name: "Build/cache Home Manager 🏠"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: ./.github/actions/install-cachix
+        with:
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: "Build Home Manager config 🏠"
+        run: nix build .#homeConfigurations.dli.activationPackage -v -L
+
+      - name: "Test shell"
+        run: nix develop -c echo OK

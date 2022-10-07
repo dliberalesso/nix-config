@@ -71,6 +71,7 @@
 
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
+          pkgs.act
           pkgs.git
           # Is this the same home-manager listed in the 'inputs'?
           pkgs.home-manager
