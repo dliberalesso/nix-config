@@ -34,6 +34,7 @@ jobs:
         with:
           name: dliberalesso
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          extraPullNames: cachix, nix-community
 
       - name: "Build NixOS-WSL config ❄️"
         run: nix build .#nixosConfigurations.nixosWSL.config.system.build.toplevel -v -L
@@ -52,6 +53,7 @@ jobs:
         with:
           name: dliberalesso
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          extraPullNames: cachix, nix-community
 
       # Needed because cachix is also installed by Home Manager
       - name: "Set priority flag for Cachix 🚩"
