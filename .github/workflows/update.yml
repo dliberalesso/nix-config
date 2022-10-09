@@ -1,8 +1,9 @@
 name: "Update"
 
 on:
-  schedule:
-    - cron: "0 7 * * *" # At 07:00 UTC everyday
+  schedule:  
+    - cron: "0 7 * * 0" # At 07:00 UTC on SUN
+    - cron: "0 7 * * 1-6" # At 07:00 UTC from MON to SAT
 
   workflow_dispatch:
 
@@ -20,7 +21,8 @@ jobs:
         id: nix-update
 
       - name: "Create pull request"
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v4        
+        id: cpr
         with:
           token: ${{ secrets.PAT }}
           branch: update
@@ -32,3 +34,10 @@ jobs:
           body: ${{ steps.nix-update.outputs.pull-request-body }}
           assignees: dliberalesso
           labels: dependencies, nix
+      
+      - name: Enable Pull Request Automerge
+        if: (steps.cpr.outputs.pull-request-operation == 'created') && (github.event.workflow_dispatch || github.event.schedule != '0 7 * * 0')
+        uses: peter-evans/enable-pull-request-automerge@v2
+        with:
+          token: ${{ secrets.PAT }}
+          pull-request-number: ${{ steps.cpr.outputs.pull-request-number }}
