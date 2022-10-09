@@ -36,7 +36,7 @@ jobs:
           labels: dependencies, nix
       
       - name: Enable Pull Request Automerge
-        if: (steps.cpr.outputs.pull-request-operation == 'created') && (github.event.workflow_dispatch || github.event.schedule != '0 7 * * 0')
+        if: (steps.cpr.outputs.pull-request-operation == 'created') && (github.event_name == "workflow_dispatch" || github.event.schedule != '0 7 * * 0')
         uses: peter-evans/enable-pull-request-automerge@v2
         with:
           token: ${{ secrets.PAT }}
