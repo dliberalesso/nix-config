@@ -24,7 +24,9 @@ jobs:
         with:
           branch: update
           delete-branch: true
+          committer: Douglas Liberalesso <dliberalesso@users.noreply.github.com>
           commit-message: ${{ steps.nix-update.outputs.commit-message }}
+          author: Douglas Liberalesso <dliberalesso@users.noreply.github.com>
           title: ${{ steps.nix-update.outputs.pull-request-title }}
           body: ${{ steps.nix-update.outputs.pull-request-body }}
           assignees: dliberalesso
