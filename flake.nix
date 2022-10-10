@@ -36,14 +36,7 @@
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs =
-    { self
-    , flake-utils
-    , home-manager
-    , nixpkgs
-    , ...
-    } @ inputs:
-
+  outputs = { self, flake-utils, home-manager, nixpkgs, ... } @ inputs:
     {
       nixosConfigurations = {
         nixosWSL = nixpkgs.lib.nixosSystem {
@@ -65,29 +58,27 @@
 
     //
 
-    flake-utils.lib.eachDefaultSystem (
-      system: {
-        legacyPackages = import nixpkgs {
-          inherit system;
-          overlays = builtins.attrValues {
-            default = import ./overlays { inherit inputs; };
-          };
-          config.allowUnfree = true;
-          config.allowAliases = true;
+    flake-utils.lib.eachDefaultSystem (system: {
+      legacyPackages = import nixpkgs {
+        inherit system;
+        overlays = builtins.attrValues {
+          default = import ./overlays { inherit inputs; };
         };
+        config.allowUnfree = true;
+        config.allowAliases = true;
+      };
 
-        formatter = self.legacyPackages.${system}.nixpkgs-fmt;
+      formatter = self.legacyPackages.${system}.nixpkgs-fmt;
 
-        devShells.default = with self.legacyPackages.${system}; mkShell {
-          buildInputs = [
-            act
-            git
-            home-manager.packages.${system}.default
-            nix
-            nixpkgs-fmt
-            rnix-lsp
-          ];
-        };
-      }
-    );
+      devShells.default = with self.legacyPackages.${system}; mkShell {
+        buildInputs = [
+          act
+          git
+          home-manager.packages.${system}.default
+          nix
+          nixpkgs-fmt
+          rnix-lsp
+        ];
+      };
+    });
 }
