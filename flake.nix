@@ -36,7 +36,7 @@
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = 
+  outputs =
     { self
     , flake-utils
     , home-manager
