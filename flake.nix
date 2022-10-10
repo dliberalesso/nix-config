@@ -36,26 +36,19 @@
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { home-manager, nixpkgs, ... }@inputs:
-
-    let
-      system = "x86_64-linux";
-
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = builtins.attrValues {
-          default = import ./overlays { inherit inputs; };
-        };
-        config.allowUnfree = true;
-      };
-    in
+  outputs = 
+    { self
+    , flake-utils
+    , home-manager
+    , nixpkgs
+    , ...
+    } @ inputs:
 
     {
-      formatter.${system} = pkgs.nixpkgs-fmt;
-
       nixosConfigurations = {
         nixosWSL = nixpkgs.lib.nixosSystem {
-          inherit system pkgs;
+          system = "x86_64-linux";
+          pkgs = self.legacyPackages.x86_64-linux;
           specialArgs = { inherit inputs; };
           modules = [ ./nixos ];
         };
@@ -63,22 +56,38 @@
 
       homeConfigurations = {
         dli = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = self.legacyPackages.x86_64-linux;
           extraSpecialArgs = { inherit inputs; };
           modules = [ ./home ];
         };
       };
+    }
 
-      devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [
-          pkgs.act
-          pkgs.git
-          # Is this the same home-manager listed in the 'inputs'?
-          pkgs.home-manager
-          pkgs.nix
-          pkgs.nixpkgs-fmt
-          pkgs.rnix-lsp
-        ];
-      };
-    };
+    //
+
+    flake-utils.lib.eachDefaultSystem (
+      system: {
+        legacyPackages = import nixpkgs {
+          inherit system;
+          overlays = builtins.attrValues {
+            default = import ./overlays { inherit inputs; };
+          };
+          config.allowUnfree = true;
+          config.allowAliases = true;
+        };
+
+        formatter = self.legacyPackages.${system}.nixpkgs-fmt;
+
+        devShells.default = with self.legacyPackages.${system}; mkShell {
+          buildInputs = [
+            act
+            git
+            home-manager.packages.${system}.default
+            nix
+            nixpkgs-fmt
+            rnix-lsp
+          ];
+        };
+      }
+    );
 }
