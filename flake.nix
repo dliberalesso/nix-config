@@ -18,7 +18,7 @@
   inputs = {
     nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
 
-    flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.url = github:edolstra/flake-compat;
     flake-compat.flake = false;
 
     flake-utils.url = github:numtide/flake-utils;
