@@ -26,9 +26,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - uses: ./.github/actions/install-cachix
+      - name: "Install Nix ❄️"
+        uses: cachix/install-nix-action@v17
+
+      - name: "Install Cachix ❄️"
+        uses: cachix/cachix-action@v10
         with:
+          name: dliberalesso
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          extraPullNames: cachix, nix-community
 
       - name: "Build NixOS-WSL config ❄️"
         run: nix build .#nixosConfigurations.nixosWSL.config.system.build.toplevel -v -L
