@@ -2,8 +2,6 @@
 
 {
   imports = [
-    "${modulesPath}/profiles/minimal.nix"
-
     inputs.nixos-wsl.nixosModules.wsl
   ];
 
@@ -47,6 +45,9 @@
   # No graphical stuff please!
   environment.noXlibs = lib.mkOverride 0 true;
   hardware.opengl.enable = lib.mkOverride 0 false;
+
+  # There is a problem with programs.sqlite
+  programs.command-not-found.enable = lib.mkOverride 0 false;
 
   # Setup WSL
   wsl = {
