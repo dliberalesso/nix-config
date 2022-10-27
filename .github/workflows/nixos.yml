@@ -30,7 +30,7 @@ jobs:
         uses: cachix/install-nix-action@v18
 
       - name: "Install Cachix ❄️"
-        uses: cachix/cachix-action@v11
+        uses: cachix/cachix-action@v12
         with:
           name: dliberalesso
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
