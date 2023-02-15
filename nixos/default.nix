@@ -52,9 +52,9 @@
   # Setup WSL
   wsl = {
     enable = true;
-    automountPath = "/mnt";
     defaultUser = "dli";
     startMenuLaunchers = false;
+    wslConf.automount.root = "/mnt";
     wslConf.network.hostname = "nixos-wsl";
     docker-desktop.enable = true;
   };
