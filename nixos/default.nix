@@ -52,6 +52,7 @@
   # Setup WSL
   wsl = {
     enable = true;
+    nativeSystemd = true;
     defaultUser = "dli";
     startMenuLaunchers = false;
     wslConf.automount.root = "/mnt";
