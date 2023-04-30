@@ -57,7 +57,6 @@
     startMenuLaunchers = false;
     wslConf.automount.root = "/mnt";
     wslConf.network.hostname = "nixos-wsl";
-    docker-desktop.enable = true;
   };
 
   # Packages to install
