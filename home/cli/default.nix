@@ -3,7 +3,7 @@
 {
   imports = [
     ./bat.nix
-    ./exa.nix
+    ./eza.nix
     ./skim.nix
     ./tealdeer.nix
   ];

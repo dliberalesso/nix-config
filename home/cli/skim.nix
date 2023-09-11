@@ -24,7 +24,7 @@
 
     changeDirWidgetCommand = "fd --type d";
     changeDirWidgetOptions = [
-      "--preview 'exa --tree --icons | head -200'"
+      "--preview 'eza --tree --icons | head -200'"
     ];
 
     historyWidgetOptions = [ ];
