@@ -11,7 +11,10 @@
     };
 
     themes = {
-      alucard = builtins.readFile config.theme.tmTheme;
+      alucard = {
+        src = ../theme;
+        file = config.theme.name + ".tmTheme";
+      };
     };
   };
 

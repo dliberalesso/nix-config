@@ -13,11 +13,6 @@
       type = attrs;
       readOnly = true;
     };
-
-    tmTheme = mkOption {
-      type = path;
-      readOnly = true;
-    };
   };
 
   config.theme = {
@@ -61,7 +56,5 @@
       color_14 = "#99FFEE";
       color_15 = "#FFFFFF";
     };
-
-    tmTheme = ./alucard.tmTheme;
   };
 }
