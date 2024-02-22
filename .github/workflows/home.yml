@@ -37,8 +37,8 @@ jobs:
           extraPullNames: cachix, nix-community
 
       # Needed because cachix is also installed by Home Manager
-      - name: "Set priority flag for Cachix 🚩"
-        run: nix-env --set-flag priority 0 cachix
+      # - name: "Set priority flag for Cachix 🚩"
+      #  run: nix-env --set-flag priority 0 cachix
 
       - name: "Build Home Manager config 🏠"
         run: nix build .#homeConfigurations.dli.activationPackage -v -L
