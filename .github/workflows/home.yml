@@ -38,7 +38,6 @@ jobs:
 
       # Needed because cachix is also installed by Home Manager
       - name: "Set priority flag for Cachix 🚩"
-        shell: bash
         run: nix-env --set-flag priority 0 cachix
 
       - name: "Build Home Manager config 🏠"
