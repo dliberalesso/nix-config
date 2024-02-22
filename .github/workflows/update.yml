@@ -21,7 +21,7 @@ jobs:
         id: nix-update
 
       - name: "Create pull request"
-        uses: peter-evans/create-pull-request@v5        
+        uses: peter-evans/create-pull-request@v6        
         id: cpr
         with:
           token: ${{ secrets.PAT }}
