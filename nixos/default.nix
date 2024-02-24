@@ -70,7 +70,7 @@
   users.defaultUserShell = pkgs.fish;
 
   # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "22.11";
+  system.stateVersion = "24.05";
 
   # Create a list of all packages and their versions
   environment.etc."current-system-packages".text =
