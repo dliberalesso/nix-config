@@ -4,7 +4,7 @@
   imports = [
     ./bat.nix
     ./eza.nix
-    ./skim.nix
+    ./fzf.nix
     ./tealdeer.nix
   ];
 

@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 {
-  programs.skim = rec {
+  programs.fzf = rec {
     enable = true;
 
     defaultCommand = "fd --type f";
