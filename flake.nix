@@ -67,16 +67,15 @@
         config.allowAliases = true;
       };
 
-      formatter = self.legacyPackages.${system}.nixpkgs-fmt;
+      formatter = self.legacyPackages.${system}.alejandra;
 
       devShells.default = with self.legacyPackages.${system}; mkShell {
         buildInputs = [
           act
+          alejandra
           git
           home-manager.packages.${system}.default
           nix
-          nixpkgs-fmt
-          rnix-lsp
         ];
       };
     });
