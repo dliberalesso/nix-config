@@ -13,12 +13,12 @@
     grex
     hyperfine
     sd
-    ripgrep
     tokei
     wget
   ];
 
   programs = {
     bottom.enable = true;
+    ripgrep.enable = true;
   };
 }
