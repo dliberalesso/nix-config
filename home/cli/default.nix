@@ -9,7 +9,6 @@
   ];
 
   home.packages = with pkgs; [
-    devenv
     fd
     grex
     hyperfine
