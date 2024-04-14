@@ -9,6 +9,7 @@
   ];
 
   home.packages = with pkgs; [
+    devenv
     fd
     grex
     hyperfine
@@ -19,6 +20,7 @@
 
   programs = {
     bottom.enable = true;
+    jq.enable = true;
     ripgrep.enable = true;
   };
 }
