@@ -10,11 +10,14 @@ on:
 jobs:
   update:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - uses: actions/checkout@v4
 
       - name: "Install Nix ❄️"
-        uses: cachix/install-nix-action@v26
+        uses: DeterminateSystems/nix-installer-action@main
 
       - name: "Update flake.lock"
         uses: jessestricker/nix-flake-update@v1
