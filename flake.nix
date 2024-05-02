@@ -31,7 +31,7 @@
     nixos-wsl.inputs.flake-compat.follows = "flake-compat";
     nixos-wsl.inputs.flake-utils.follows = "flake-utils";
 
-    vscode-server.url = github:msteen/nixos-vscode-server;
+    vscode-server.url = github:nix-community/nixos-vscode-server;
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
   };
 
