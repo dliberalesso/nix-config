@@ -4,7 +4,7 @@
 <plist version="1.0">
 <dict>
 	<key>name</key>
-	<string>alucard</string>
+	<string>mydracula</string>
 	<key>settings</key>
 	<array>
 		<dict>
@@ -920,7 +920,7 @@
 	<key>colorSpaceName</key>
 	<string>sRGB</string>
 	<key>semanticClass</key>
-	<string>theme.alucard</string>
+	<string>theme.mydracula</string>
 	<key>author</key>
 	<string>dli</string>
 </dict>

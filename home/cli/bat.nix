@@ -14,7 +14,7 @@
     };
 
     themes = {
-      alucard = {
+      mydracula = {
         src = ../theme;
         file = config.theme.name + ".tmTheme";
       };

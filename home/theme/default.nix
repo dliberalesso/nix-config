@@ -15,7 +15,7 @@
   };
 
   config.theme = {
-    name = "alucard";
+    name = "mydracula";
 
     colors = rec {
       fg = "#F8F8F2";
