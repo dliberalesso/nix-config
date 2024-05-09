@@ -1,6 +1,9 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   programs.bat = {
     enable = true;
 
@@ -18,10 +21,11 @@
     };
   };
 
-  home.activation.bat = lib.hm.dag.entryAfter [
-    "linkGeneration"
-    "writeBoundary"
-  ] ''
-    $DRY_RUN_CMD ${pkgs.bat}/bin/bat cache --build $VERBOSE_ARG
-  '';
+  home.activation.bat =
+    lib.hm.dag.entryAfter [
+      "linkGeneration"
+      "writeBoundary"
+    ] ''
+      $DRY_RUN_CMD ${pkgs.bat}/bin/bat cache --build $VERBOSE_ARG
+    '';
 }

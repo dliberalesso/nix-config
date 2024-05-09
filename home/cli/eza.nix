@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   programs.eza.enable = true;
 
   programs.fish.shellAliases = rec {

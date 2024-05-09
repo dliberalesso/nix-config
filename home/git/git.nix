@@ -1,6 +1,4 @@
-{ ... }:
-
-{
+{...}: {
   programs.git = {
     enable = true;
 
@@ -14,6 +12,6 @@
 
     lfs.enable = true;
 
-    ignores = [ ".direnv" "result" ];
+    ignores = [".direnv" "result"];
   };
 }

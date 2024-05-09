@@ -1,6 +1,8 @@
-{ config, lib, ... }:
-
 {
+  config,
+  lib,
+  ...
+}: {
   programs.fzf = rec {
     enable = true;
 
@@ -27,6 +29,6 @@
       "--preview 'eza --tree --icons | head -200'"
     ];
 
-    historyWidgetOptions = [ ];
+    historyWidgetOptions = [];
   };
 }

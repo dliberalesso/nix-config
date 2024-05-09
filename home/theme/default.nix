@@ -1,9 +1,8 @@
-{ lib, ... }:
-
+{lib, ...}:
 # Let"s theme the **** out of this!
-
 {
-  options.theme = with lib; with types; {
+  options.theme = with lib;
+  with types; {
     name = mkOption {
       type = str;
       readOnly = true;
