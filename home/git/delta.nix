@@ -1,11 +1,7 @@
-{ config, ... }:
-
-let
+{config, ...}: let
   syntax-theme = config.theme.name;
   selection = config.theme.colors.selection;
-in
-
-{
+in {
   programs.git.delta = {
     enable = true;
 
