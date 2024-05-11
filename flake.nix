@@ -33,6 +33,8 @@
 
     vscode-server.url = github:nix-community/nixos-vscode-server;
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
+
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = {
@@ -40,6 +42,7 @@
     flake-utils,
     home-manager,
     nixpkgs,
+    catppuccin,
     ...
   } @ inputs:
     {

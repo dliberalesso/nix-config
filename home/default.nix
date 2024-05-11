@@ -4,16 +4,18 @@
   ...
 }: {
   imports = [
-    ./cli
-    ./git
-    ./shell
-    ./theme
-
     inputs.vscode-server.nixosModules.home
+    inputs.catppuccin.homeManagerModules.catppuccin
+
+    ./catppuccin.nix
+    ./git.nix
+    ./cli.nix
+    ./shell.nix
   ];
 
   # Home Manager
   programs.home-manager.enable = true;
+  xdg.enable = true;
 
   home = rec {
     username = "dli";
