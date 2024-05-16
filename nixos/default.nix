@@ -63,7 +63,7 @@
     defaultUser = "dli";
     startMenuLaunchers = false;
     wslConf.automount.root = "/mnt";
-    wslConf.network.hostname = "nixos-wsl";
+    wslConf.network.hostname = "nixosWSL";
   };
 
   # Packages to install
