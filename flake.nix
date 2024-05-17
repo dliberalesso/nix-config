@@ -16,22 +16,29 @@
   };
 
   inputs = {
-    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    flake-compat.url = github:edolstra/flake-compat;
+    flake-compat.url = "github:edolstra/flake-compat";
     flake-compat.flake = false;
 
-    flake-utils.url = github:numtide/flake-utils;
+    flake-parts.url = "github:hercules-ci/flake-parts";
 
-    home-manager.url = github:nix-community/home-manager;
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
+
+    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
+    pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
+    pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixpkgs";
+    pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
+
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixos-wsl.url = github:nix-community/NixOS-WSL;
+    nixos-wsl.url = "github:nix-community/NixOS-WSL";
     nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
     nixos-wsl.inputs.flake-compat.follows = "flake-compat";
-    nixos-wsl.inputs.flake-utils.follows = "flake-utils";
 
-    vscode-server.url = github:nix-community/nixos-vscode-server;
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
 
     catppuccin.url = "github:catppuccin/nix";
@@ -39,51 +46,75 @@
 
   outputs =
     { self
-    , flake-utils
+    , flake-parts
     , home-manager
     , nixpkgs
-    , catppuccin
     , ...
     } @ inputs:
-    {
-      nixosConfigurations = {
-        nixosWSL = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          pkgs = self.legacyPackages.x86_64-linux;
-          specialArgs = { inherit inputs; };
-          modules = [ ./nixos ];
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        inputs.pre-commit-hooks.flakeModule
+        inputs.treefmt-nix.flakeModule
+      ];
+
+      systems = nixpkgs.lib.systems.flakeExposed;
+
+      flake = {
+        nixosConfigurations = {
+          nixosWSL = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            pkgs = self.legacyPackages.x86_64-linux;
+            specialArgs = { inherit inputs; };
+            modules = [ ./nixos ];
+          };
+        };
+
+        homeConfigurations = {
+          dli = home-manager.lib.homeManagerConfiguration {
+            pkgs = self.legacyPackages.x86_64-linux;
+            extraSpecialArgs = { inherit inputs; };
+            modules = [ ./home ];
+          };
         };
       };
 
-      homeConfigurations = {
-        dli = home-manager.lib.homeManagerConfiguration {
-          pkgs = self.legacyPackages.x86_64-linux;
-          extraSpecialArgs = { inherit inputs; };
-          modules = [ ./home ];
-        };
-      };
-    }
-    // flake-utils.lib.eachDefaultSystem (system: {
-      legacyPackages = import nixpkgs {
-        inherit system;
-        overlays = builtins.attrValues {
-          default = import ./overlays { inherit inputs; };
-        };
-        config.allowUnfree = true;
-        config.allowAliases = true;
-      };
+      perSystem =
+        { config
+        , pkgs
+        , system
+        , ...
+        }: {
+          treefmt = {
+            projectRootFile = "flake.nix";
+            programs = {
+              prettier.enable = true;
+              nixpkgs-fmt.enable = true;
+              shfmt.enable = true;
+            };
+          };
 
-      formatter = self.legacyPackages.${system}.nixpkgs-fmt;
+          pre-commit.check.enable = true;
+          pre-commit.settings.hooks = {
+            treefmt.enable = true;
+            treefmt.package = config.treefmt.build.wrapper;
+          };
 
-      devShells.default = with self.legacyPackages.${system};
-        mkShell {
-          buildInputs = [
-            act
-            git
-            home-manager.packages.${system}.default
-            nix
-            nixpkgs-fmt
-          ];
+          legacyPackages = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+            config.allowAliases = true;
+          };
+
+          devShells.default = pkgs.mkShell {
+            shellHook = ''
+              ${config.pre-commit.installationScript}
+            '';
+
+            nativeBuildInputs = with pkgs; [
+              just
+              nixd
+            ];
+          };
         };
-    });
+    };
 }
