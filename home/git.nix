@@ -14,7 +14,7 @@
 
       lfs.enable = true;
 
-      ignores = [".direnv" "result"];
+      ignores = [ ".direnv" "result" ];
     };
 
     gh.enable = true;

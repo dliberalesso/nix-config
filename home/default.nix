@@ -1,7 +1,6 @@
-{
-  inputs,
-  pkgs,
-  ...
+{ inputs
+, pkgs
+, ...
 }: {
   imports = [
     inputs.vscode-server.nixosModules.home
@@ -24,8 +23,8 @@
   };
 
   # Packages & Programs
-  home.packages = with pkgs; [cachix];
-  programs = {};
+  home.packages = with pkgs; [ cachix ];
+  programs = { };
 
   # Services
   services.vscode-server.enable = true;

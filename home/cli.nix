@@ -1,7 +1,6 @@
-{
-  lib,
-  pkgs,
-  ...
+{ lib
+, pkgs
+, ...
 }: {
   home.packages = with pkgs; [
     fd
@@ -54,7 +53,7 @@
         "--preview 'eza --tree --icons | head -200'"
       ];
 
-      historyWidgetOptions = [];
+      historyWidgetOptions = [ ];
     };
   };
 

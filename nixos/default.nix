@@ -1,10 +1,9 @@
-{
-  inputs,
-  lib,
-  pkgs,
-  config,
-  modulesPath,
-  ...
+{ inputs
+, lib
+, pkgs
+, config
+, modulesPath
+, ...
 }: {
   imports = [
     inputs.nixos-wsl.nixosModules.wsl
@@ -13,7 +12,7 @@
   nix = {
     # Make nix3 and legacy nix commands consistent:
     # # Add each flake input as a registry
-    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
+    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
     # # Add the inputs to the system's legacy channels
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
@@ -36,8 +35,8 @@
       ];
 
       # Required by Cachix to be used as non-root user
-      trusted-users = ["root" "@wheel"];
-      allowed-users = ["@wheel"];
+      trusted-users = [ "root" "@wheel" ];
+      allowed-users = [ "@wheel" ];
     };
 
     gc = {
@@ -72,7 +71,7 @@
   ];
 
   # Fish
-  environment.shells = [pkgs.fish];
+  environment.shells = [ pkgs.fish ];
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
@@ -80,10 +79,11 @@
   system.stateVersion = "24.05";
 
   # Create a list of all packages and their versions
-  environment.etc."current-system-packages".text = let
-    packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
-    sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
-    formatted = builtins.concatStringsSep "\n" sortedUnique;
-  in
+  environment.etc."current-system-packages".text =
+    let
+      packages = builtins.map (p: "${p.name}") config.environment.systemPackages;
+      sortedUnique = builtins.sort builtins.lessThan (lib.unique packages);
+      formatted = builtins.concatStringsSep "\n" sortedUnique;
+    in
     formatted;
 }

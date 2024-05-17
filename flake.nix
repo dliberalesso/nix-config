@@ -37,29 +37,29 @@
     catppuccin.url = "github:catppuccin/nix";
   };
 
-  outputs = {
-    self,
-    flake-utils,
-    home-manager,
-    nixpkgs,
-    catppuccin,
-    ...
-  } @ inputs:
+  outputs =
+    { self
+    , flake-utils
+    , home-manager
+    , nixpkgs
+    , catppuccin
+    , ...
+    } @ inputs:
     {
       nixosConfigurations = {
         nixosWSL = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           pkgs = self.legacyPackages.x86_64-linux;
-          specialArgs = {inherit inputs;};
-          modules = [./nixos];
+          specialArgs = { inherit inputs; };
+          modules = [ ./nixos ];
         };
       };
 
       homeConfigurations = {
         dli = home-manager.lib.homeManagerConfiguration {
           pkgs = self.legacyPackages.x86_64-linux;
-          extraSpecialArgs = {inherit inputs;};
-          modules = [./home];
+          extraSpecialArgs = { inherit inputs; };
+          modules = [ ./home ];
         };
       };
     }
@@ -67,22 +67,22 @@
       legacyPackages = import nixpkgs {
         inherit system;
         overlays = builtins.attrValues {
-          default = import ./overlays {inherit inputs;};
+          default = import ./overlays { inherit inputs; };
         };
         config.allowUnfree = true;
         config.allowAliases = true;
       };
 
-      formatter = self.legacyPackages.${system}.alejandra;
+      formatter = self.legacyPackages.${system}.nixpkgs-fmt;
 
       devShells.default = with self.legacyPackages.${system};
         mkShell {
           buildInputs = [
             act
-            alejandra
             git
             home-manager.packages.${system}.default
             nix
+            nixpkgs-fmt
           ];
         };
     });
