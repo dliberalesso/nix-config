@@ -15,7 +15,7 @@ on:
       - ".editorconfig"
       - ".git-crypt/**"
       - ".gitattributes"
-      - ".gitignore"    
+      - ".gitignore"
 
   workflow_dispatch:
 

@@ -1,7 +1,7 @@
 name: "Update"
 
 on:
-  schedule:  
+  schedule:
     - cron: "0 7 * * 0" # At 07:00 UTC on SUN
     - cron: "0 7 * * 1-6" # At 07:00 UTC from MON to SAT
 
@@ -32,7 +32,7 @@ jobs:
           git-committer-email: dliberalesso@users.noreply.github.com
           pr-assignees: dliberalesso
           pr-labels: dependencies, nix
-      
+
       - name: Enable Pull Request Automerge
         if: (steps.nix-update.outputs.pull-request-operation == 'created' || steps.nix-update.outputs.pull-request-operation == 'updated') && (github.event_name == 'workflow_dispatch' || github.event.schedule == '0 7 * * 0')
         uses: peter-evans/enable-pull-request-automerge@v3
