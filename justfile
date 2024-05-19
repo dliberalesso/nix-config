@@ -20,6 +20,8 @@ remodel:
 clean:
   sudo nix-collect-garbage -d
   nix-collect-garbage -d
+  sudo nix-collect-garbage --delete-older-than 30d
+  nix-collect-garbage --delete-older-than 30d
   sudo nix-store --optimise
   nix-store --optimise
 
