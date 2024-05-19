@@ -23,7 +23,7 @@ clean:
   sudo nix-store --optimise
   nix-store --optimise
 
-upgrade: update clean rebuild remodel clean
+upgrade: clean rebuild remodel clean
 
 repair:
   sudo nix-store --verify --check-contents --repair
