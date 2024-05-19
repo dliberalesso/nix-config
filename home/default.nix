@@ -7,8 +7,9 @@
     inputs.catppuccin.homeManagerModules.catppuccin
 
     ./catppuccin.nix
-    ./git.nix
     ./cli.nix
+    ./git.nix
+    ./neovim.nix
     ./shell.nix
   ];
 
