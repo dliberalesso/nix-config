@@ -90,6 +90,7 @@
               prettier.enable = true;
               nixpkgs-fmt.enable = true;
               shfmt.enable = true;
+              stylua.enable = true;
             };
           };
 

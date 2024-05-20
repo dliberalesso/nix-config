@@ -66,7 +66,7 @@ vim.opt.smartcase = true
 -- Better undo history
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = os.getenv('HOME') .. '/.cache/nvim/undodir'
+vim.opt.undodir = os.getenv "HOME" .. "/.cache/nvim/undodir"
 vim.opt.undofile = true
 
 -- Decrease update time

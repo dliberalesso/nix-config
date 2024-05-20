@@ -9,10 +9,10 @@ return {
       integrations = {
         mini = { enabled = true },
         treesitter = true,
-        which_key = true
-      }
+        which_key = true,
+      },
     })
 
-    vim.cmd.colorscheme "catppuccin"
-  end
+    vim.cmd.colorscheme("catppuccin")
+  end,
 }
