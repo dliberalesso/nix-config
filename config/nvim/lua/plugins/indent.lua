@@ -3,7 +3,9 @@ return {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
     event = { "BufReadPre", "BufNewFile" },
-    config = true,
+    opts = {
+      scope = { enabled = false },
+    },
   },
   {
     "echasnovski/mini.indentscope",
