@@ -23,11 +23,6 @@ return {
     config = true,
   },
   {
-    "echasnovski/mini.comment",
-    event = { "BufReadPre", "BufNewFile" },
-    config = true,
-  },
-  {
     "echasnovski/mini.diff",
     event = { "BufReadPre", "BufNewFile" },
     opts = { view = { style = "sign" } },
