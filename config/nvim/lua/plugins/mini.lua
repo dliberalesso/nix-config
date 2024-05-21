@@ -23,11 +23,6 @@ return {
     config = true,
   },
   {
-    "echasnovski/mini.diff",
-    event = { "BufReadPre", "BufNewFile" },
-    opts = { view = { style = "sign" } },
-  },
-  {
     "echasnovski/mini.pairs",
     event = { "BufReadPre", "BufNewFile" },
     config = true,
