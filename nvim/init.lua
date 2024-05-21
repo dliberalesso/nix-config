@@ -1,6 +1,7 @@
-require "options"
-require "keymaps"
-require "autocmds"
+-- Set <space> as the leader key
+-- Must happen before plugins are loaded (otherwise wrong leader will be used)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
