@@ -3,7 +3,6 @@
 , ...
 }: {
   home.packages = with pkgs; [
-    fd
     grex
     hyperfine
     sd
@@ -13,6 +12,8 @@
 
   programs = {
     bottom.enable = true;
+    eza.enable = true;
+    fd.enable = true;
     jq.enable = true;
     ripgrep.enable = true;
     tealdeer.enable = true;
@@ -24,15 +25,6 @@
         color = "always";
         pager = "less";
       };
-    };
-
-    eza.enable = true;
-    fish.shellAliases = rec {
-      ls = "${pkgs.eza}/bin/eza --icons";
-      ll = "${ls} -l";
-      la = "${ls} -a";
-      lt = "${ls} --tree";
-      lla = "${ls} -la";
     };
 
     fzf = rec {
