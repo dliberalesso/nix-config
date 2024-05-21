@@ -15,6 +15,7 @@ return {
             enabled = true,
             indentscope_color = "mauve",
           },
+          noice = true,
           neotree = true,
           telescope = { enabled = true },
           treesitter = true,
