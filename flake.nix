@@ -112,6 +112,7 @@
             '';
 
             nativeBuildInputs = with pkgs; [
+              lua-language-server
               just
               nixd
             ];
