@@ -7,12 +7,6 @@ return {
     opts = { set_vim_settings = false },
   },
   {
-    "echasnovski/mini.tabline",
-    event = "VeryLazy",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    config = true,
-  },
-  {
     "echasnovski/mini.ai",
     event = { "BufReadPre", "BufNewFile" },
     opts = { n_lines = 500 },
