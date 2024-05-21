@@ -4,15 +4,15 @@ return {
   lazy = false,
   priority = 1000,
   config = function()
-    require("catppuccin").setup({
+    require("catppuccin").setup {
       flavour = "mocha",
       integrations = {
         mini = { enabled = true },
         treesitter = true,
         which_key = true,
       },
-    })
+    }
 
-    vim.cmd.colorscheme("catppuccin")
+    vim.cmd.colorscheme "catppuccin"
   end,
 }
