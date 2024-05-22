@@ -3,7 +3,13 @@ return {
   {
     "echasnovski/mini.statusline",
     event = "VeryLazy",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
+      {
+        "echasnovski/mini-git",
+        main = "mini.git",
+      },
+    },
     opts = { set_vim_settings = false },
   },
   {
