@@ -35,3 +35,6 @@ fmt:
 
 lint:
   nix flake check
+
+lazy:
+  nvim --headless "+Lazy! sync" +qa
