@@ -20,6 +20,13 @@
             "${config.home.homeDirectory}/nix-config/nvim";
         };
       }
+      {
+        name = ".local/share/nvim/site/parser";
+        value = {
+          source = config.lib.file.mkOutOfStoreSymlink
+            "${pkgs.symlinkJoin { name = "treesitter-parsers"; paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies; }}/parser";
+        };
+      }
     ]
 
     ++
