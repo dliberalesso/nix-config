@@ -6,6 +6,10 @@ return {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
       "nvim-tree/nvim-web-devicons",
+      {
+        "telescope-fzf-native-nvim",
+        dev = true,
+      },
     },
 
     event = "VeryLazy",
@@ -19,7 +23,7 @@ return {
         },
       }
 
-      -- pcall(require('telescope').load_extension, 'fzf')
+      pcall(require("telescope").load_extension, "fzf")
       pcall(require("telescope").load_extension, "ui-select")
 
       local builtin = require "telescope.builtin"

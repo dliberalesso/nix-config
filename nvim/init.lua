@@ -19,6 +19,11 @@ vim.opt.rtp:prepend(lazypath)
 
 -- [[ Configure and install plugins ]]
 require("lazy").setup("plugins", {
+  dev = {
+    path = vim.fn.stdpath "data" .. "/nixpkgs",
+    -- patterns = { "." },
+    fallback = false,
+  },
   install = { colorscheme = { "catppuccin" } },
   performance = {
     rtp = {
