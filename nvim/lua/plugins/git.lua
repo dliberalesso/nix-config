@@ -1,7 +1,7 @@
 return {
   {
     "echasnovski/mini.diff",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     opts = { view = { style = "sign" } },
   },
   {

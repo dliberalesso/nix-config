@@ -14,27 +14,27 @@ return {
   },
   {
     "echasnovski/mini.ai",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     opts = { n_lines = 500 },
   },
   {
     "echasnovski/mini.align",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     config = true,
   },
   {
     "echasnovski/mini.pairs",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     config = true,
   },
   {
     "echasnovski/mini.surround",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     config = true,
   },
   {
     "echasnovski/mini.trailspace",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     config = true,
   },
 }
