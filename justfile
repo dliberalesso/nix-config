@@ -36,15 +36,15 @@ fmt:
 lint:
   nix flake check
 
-lazy:
+nvim-lazy:
   nvim --headless "+Lazy! sync" +qa
 
-startuptime:
+nvim-startuptime:
   nvim --startuptime startuptime.log -c 'autocmd VimEnter * if has('\''nvim'\'') | set shada= shadafile=NONE | else | set viminfo= viminfofile=NONE | endif' -c 'if exists('\''*timer_start'\'') | call timer_start(0, {-> execute('\''qall!'\'')}) | else | autocmd VimEnter * qall! | endif'
   bat startuptime.log
-  just remove-startuptime
+  just nvim-remove-startuptime
 
 [private]
 [confirm]
-remove-startuptime:
+nvim-remove-startuptime:
   rm startuptime.log
