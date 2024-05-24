@@ -1,4 +1,4 @@
-{ config, ... }: {
+{ config, lib, pkgs, ... }: {
   programs.neovim = {
     enable = true;
     defaultEditor = true;
@@ -8,12 +8,38 @@
     withNodeJs = false;
     withPython3 = false;
     withRuby = false;
+
+    plugins = with pkgs.vimPlugins; [
+      lazy-nvim
+    ];
   };
 
-  home.file = {
-    ".config/nvim" = {
-      source = config.lib.file.mkOutOfStoreSymlink
-        "${config.home.homeDirectory}/nix-config/config/nvim";
-    };
-  };
+  home.file = builtins.listToAttrs (
+    [
+      {
+        name = ".config/nvim";
+        value = {
+          recursive = true;
+          source = config.lib.file.mkOutOfStoreSymlink
+            "${config.home.homeDirectory}/nix-config/nvim";
+        };
+      }
+      {
+        name = ".local/share/nvim/site/parser";
+        value = {
+          source = config.lib.file.mkOutOfStoreSymlink
+            "${pkgs.symlinkJoin { name = "treesitter-parsers"; paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies; }}/parser";
+        };
+      }
+    ]
+
+    ++
+
+    lib.lists.forEach [
+      "telescope-fzf-native-nvim"
+    ]
+      (name:
+        { name = ".local/share/nvim/nixpkgs/${name}"; value = { source = builtins.getAttr "${name}" pkgs.vimPlugins; }; }
+      )
+  );
 }

@@ -2,12 +2,14 @@ return {
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
-    event = { "BufReadPre", "BufNewFile" },
-    config = true,
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      scope = { enabled = false },
+    },
   },
   {
     "echasnovski/mini.indentscope",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufReadPost", "BufNewFile" },
     config = true,
   },
   {

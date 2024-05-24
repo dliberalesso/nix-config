@@ -1,4 +1,4 @@
 .direnv/
 .vscode/
 .pre-commit-config.yaml
-config/nvim/lazy-lock.json
+*/lazy-lock.json
