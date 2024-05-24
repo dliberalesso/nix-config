@@ -112,9 +112,16 @@
             '';
 
             nativeBuildInputs = with pkgs; [
+              # Formatters
+              nixpkgs-fmt
+              stylua
+
+              # Language servers
               lua-language-server
-              just
               nixd
+
+              # Tools
+              just
             ];
           };
         };
