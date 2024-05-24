@@ -7,7 +7,7 @@ return {
       "nvim-telescope/telescope-ui-select.nvim",
       "nvim-tree/nvim-web-devicons",
       {
-        "telescope-fzf-native-nvim",
+        "nvim-telescope/telescope-fzf-native.nvim",
         dev = true,
       },
     },
@@ -23,7 +23,11 @@ return {
         },
       }
 
-      pcall(require("telescope").load_extension, "fzf")
+      local ok, res = pcall(require("telescope").load_extension, "fzf")
+      if not ok then
+        vim.notify(res, vim.log.levels.ERROR)
+      end
+
       pcall(require("telescope").load_extension, "ui-select")
 
       local builtin = require "telescope.builtin"

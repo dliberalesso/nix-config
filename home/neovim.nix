@@ -9,9 +9,7 @@
     withPython3 = false;
     withRuby = false;
 
-    plugins = with pkgs.vimPlugins; [
-      lazy-nvim
-    ];
+    plugins = with pkgs.vimPlugins; [ lazy-nvim ];
   };
 
   home.file = builtins.listToAttrs (
@@ -36,10 +34,10 @@
     ++
 
     lib.lists.forEach [
-      "telescope-fzf-native-nvim"
+      { package = "telescope-fzf-native-nvim"; name = "telescope-fzf-native.nvim"; }
     ]
-      (name:
-        { name = ".local/share/nvim/nixpkgs/${name}"; value = { source = builtins.getAttr "${name}" pkgs.vimPlugins; }; }
+      ({ package, name ? package }:
+        { name = ".local/share/nvim/nixpkgs/${name}"; value = { source = builtins.getAttr "${package}" pkgs.vimPlugins; }; }
       )
   );
 }
