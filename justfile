@@ -25,7 +25,7 @@ clean:
   sudo nix-store --optimise
   nix-store --optimise
 
-upgrade: clean rebuild remodel clean
+upgrade: clean rebuild remodel clean nvim-lazy
 
 repair:
   sudo nix-store --verify --check-contents --repair
