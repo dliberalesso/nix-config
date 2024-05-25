@@ -4,7 +4,7 @@ return {
     "echasnovski/mini.statusline",
     event = "VeryLazy",
     dependencies = {
-      "nvim-tree/nvim-web-devicons",
+      "rachartier/tiny-devicons-auto-colors.nvim",
       {
         "echasnovski/mini-git",
         main = "mini.git",

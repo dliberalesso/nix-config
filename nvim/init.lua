@@ -8,6 +8,7 @@ vim.g.maplocalleader = " "
 
 -- [[ Configure and install plugins ]]
 require("lazy").setup("plugins", {
+  defaults = { lazy = true },
   dev = {
     path = vim.fn.stdpath "data" .. "/nixpkgs",
     -- patterns = { "." },

@@ -3,7 +3,7 @@ return {
     "b0o/incline.nvim",
 
     dependencies = {
-      "nvim-tree/nvim-web-devicons",
+      "rachartier/tiny-devicons-auto-colors.nvim",
       "echasnovski/mini.diff",
     },
 

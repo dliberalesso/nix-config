@@ -4,7 +4,7 @@ return {
 
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
+      "rachartier/tiny-devicons-auto-colors.nvim",
       "MunifTanjim/nui.nvim",
       "3rd/image.nvim",
     },

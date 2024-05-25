@@ -5,7 +5,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
-      "nvim-tree/nvim-web-devicons",
+      "rachartier/tiny-devicons-auto-colors.nvim",
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         dev = true,
