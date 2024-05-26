@@ -2,12 +2,12 @@ return {
   {
     "neovim/nvim-lspconfig",
 
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
-
     dependencies = {
       { "j-hui/fidget.nvim", config = true },
       { "folke/neodev.nvim", config = true },
     },
+
+    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 
     config = function()
       local lspconfig = require "lspconfig"

@@ -1,12 +1,12 @@
 return {
   "nvim-treesitter/nvim-treesitter",
 
-  event = { "BufReadPost", "BufNewFile" },
-
   dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
     "hiphish/rainbow-delimiters.nvim",
   },
+
+  event = { "BufReadPost", "BufNewFile" },
 
   config = function()
     require("nvim-treesitter.configs").setup {

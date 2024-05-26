@@ -2,13 +2,19 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
 
-    cmd = "Neotree",
-
     dependencies = {
       "nvim-lua/plenary.nvim",
       "rachartier/tiny-devicons-auto-colors.nvim",
       "MunifTanjim/nui.nvim",
       "3rd/image.nvim",
+    },
+
+    cmd = "Neotree",
+
+    opts = {
+      filesystem = {
+        hijack_netrw_behavior = "open_current",
+      },
     },
 
     init = function()
@@ -23,11 +29,5 @@ return {
         end,
       })
     end,
-
-    opts = {
-      filesystem = {
-        hijack_netrw_behavior = "open_current",
-      },
-    },
   },
 }

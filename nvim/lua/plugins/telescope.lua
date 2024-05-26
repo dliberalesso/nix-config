@@ -2,14 +2,14 @@ return {
   {
     "nvim-telescope/telescope.nvim",
 
-    event = "VeryLazy",
-
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-telescope/telescope-ui-select.nvim",
       "rachartier/tiny-devicons-auto-colors.nvim",
       { "nvim-telescope/telescope-fzf-native.nvim", dev = true },
     },
+
+    event = "VeryLazy",
 
     config = function()
       require("telescope").setup {
