@@ -2,11 +2,9 @@ return {
   {
     "b0o/incline.nvim",
 
-    dependencies = {
-      "rachartier/tiny-devicons-auto-colors.nvim",
-    },
-
     event = { "BufReadPre", "BufNewFile" },
+
+    dependencies = { "rachartier/tiny-devicons-auto-colors.nvim" },
 
     config = function()
       local devicons = require "nvim-web-devicons"

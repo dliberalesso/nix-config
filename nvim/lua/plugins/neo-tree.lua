@@ -2,14 +2,14 @@ return {
   {
     "nvim-neo-tree/neo-tree.nvim",
 
+    cmd = "Neotree",
+
     dependencies = {
       "nvim-lua/plenary.nvim",
       "rachartier/tiny-devicons-auto-colors.nvim",
       "MunifTanjim/nui.nvim",
       "3rd/image.nvim",
     },
-
-    cmd = "Neotree",
 
     init = function()
       vim.api.nvim_create_autocmd("BufEnter", {
