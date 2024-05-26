@@ -5,6 +5,10 @@ return {
     event = "VeryLazy",
     dependencies = {
       "rachartier/tiny-devicons-auto-colors.nvim",
+      {
+        "echasnovski/mini-git",
+        main = "mini.git",
+      },
     },
     opts = { set_vim_settings = false },
   },
