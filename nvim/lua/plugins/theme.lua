@@ -10,6 +10,7 @@ return {
       require("catppuccin").setup {
         flavour = "mocha",
         integrations = {
+          gitsigns = true,
           indent_blankline = { enabled = true },
           markdown = true,
           mini = {
