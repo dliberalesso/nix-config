@@ -1,5 +1,8 @@
 return {
-  "echasnovski/mini.basics",
+  {
+    "echasnovski/mini.basics",
+    event = "VimEnter",
+  },
   {
     "echasnovski/mini.statusline",
     dependencies = {
