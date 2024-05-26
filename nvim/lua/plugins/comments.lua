@@ -1,6 +1,6 @@
 return {
   {
-    "echasnovski/mini.comment",
+    "folke/ts-comments.nvim",
     event = { "BufReadPost", "BufNewFile" },
     config = true,
   },
