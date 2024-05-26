@@ -2,10 +2,7 @@ return {
   {
     "neovim/nvim-lspconfig",
 
-    dependencies = {
-      { "j-hui/fidget.nvim", config = true },
-      { "folke/neodev.nvim", config = true },
-    },
+    dependencies = { { "folke/neodev.nvim", config = true } },
 
     event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 
