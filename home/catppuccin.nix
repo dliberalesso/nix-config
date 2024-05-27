@@ -1,5 +1,5 @@
 {
-  catppuccin.flavour = "mocha";
+  catppuccin.flavor = "mocha";
 
   programs.bat.catppuccin.enable = true;
   programs.bottom.catppuccin.enable = true;
