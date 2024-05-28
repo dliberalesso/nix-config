@@ -12,12 +12,6 @@ return {
     },
   },
   {
-    "echasnovski/mini.statusline",
-    dependencies = { "rachartier/tiny-devicons-auto-colors.nvim" },
-    event = "VeryLazy",
-    opts = { set_vim_settings = false },
-  },
-  {
     "echasnovski/mini.ai",
     event = { "BufReadPost", "BufNewFile" },
     opts = { n_lines = 500 },
