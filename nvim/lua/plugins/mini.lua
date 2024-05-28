@@ -1,7 +1,15 @@
 return {
   {
     "echasnovski/mini.basics",
-    event = "VimEnter",
+    lazy = false,
+    opts = {
+      options = { win_borders = "bold" },
+      mappings = {
+        option_toggle_prefix = [[<leader>t]],
+        windows = true,
+        move_with_alt = true,
+      },
+    },
   },
   {
     "echasnovski/mini.statusline",
