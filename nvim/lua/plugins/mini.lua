@@ -5,10 +5,7 @@ return {
   },
   {
     "echasnovski/mini.statusline",
-    dependencies = {
-      "rachartier/tiny-devicons-auto-colors.nvim",
-      { "echasnovski/mini-git", main = "mini.git" },
-    },
+    dependencies = { "rachartier/tiny-devicons-auto-colors.nvim" },
     event = "VeryLazy",
     opts = { set_vim_settings = false },
   },
