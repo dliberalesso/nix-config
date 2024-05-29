@@ -64,7 +64,7 @@ opt.scrolloff = 10
 opt.sidescrolloff = 10
 
 -- Set highlight on search
-opt.hlsearch = false
+opt.hlsearch = true
 opt.incsearch = true
 
 -- Preview substitutions live
