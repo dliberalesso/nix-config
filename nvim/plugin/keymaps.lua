@@ -18,10 +18,10 @@ set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- TIP: Disable arrow keys in normal mode
-set({ "n", "v", "o", "x" }, "<left>", "")
-set({ "n", "v", "o", "x" }, "<right>", "")
-set({ "n", "v", "o", "x" }, "<up>", "")
-set({ "n", "v", "o", "x" }, "<down>", "")
+set({ "n", "i", "v", "o", "x" }, "<left>", "")
+set({ "n", "i", "v", "o", "x" }, "<right>", "")
+set({ "n", "i", "v", "o", "x" }, "<up>", "")
+set({ "n", "i", "v", "o", "x" }, "<down>", "")
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
