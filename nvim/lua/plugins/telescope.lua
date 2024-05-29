@@ -4,9 +4,10 @@ return {
 
     dependencies = {
       "nvim-lua/plenary.nvim",
+
+      -- Telescope extensions
+      { "nvim-telescope/telescope-fzf-native.nvim", dev = true }, -- dev because of Nix
       "nvim-telescope/telescope-ui-select.nvim",
-      "rachartier/tiny-devicons-auto-colors.nvim",
-      { "nvim-telescope/telescope-fzf-native.nvim", dev = true },
     },
 
     event = "VeryLazy",
@@ -20,11 +21,8 @@ return {
         },
       }
 
-      local ok, res = pcall(require("telescope").load_extension, "fzf")
-      if not ok then
-        vim.notify(res, vim.log.levels.ERROR)
-      end
-
+      -- Load extensions
+      pcall(require("telescope").load_extension, "fzf")
       pcall(require("telescope").load_extension, "ui-select")
 
       local builtin = require "telescope.builtin"

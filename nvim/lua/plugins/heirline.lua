@@ -2,10 +2,7 @@ return {
   {
     "rebelot/heirline.nvim",
 
-    dependencies = {
-      "rachartier/tiny-devicons-auto-colors.nvim",
-      "zeioth/heirline-components.nvim",
-    },
+    dependencies = { "zeioth/heirline-components.nvim" },
 
     event = "VeryLazy",
 
