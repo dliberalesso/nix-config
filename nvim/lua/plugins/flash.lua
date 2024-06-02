@@ -1,4 +1,6 @@
-return {
+local enabled = true
+
+local M = {
   "folke/flash.nvim",
   event = "VeryLazy",
   ---@type Flash.Config
@@ -12,3 +14,5 @@ return {
     { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
   },
 }
+
+return enabled and M or {}

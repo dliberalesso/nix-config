@@ -1,4 +1,6 @@
-return {
+local enabled = true
+
+local M = {
   "nvim-treesitter/nvim-treesitter",
 
   dependencies = {
@@ -20,3 +22,5 @@ return {
     }
   end,
 }
+
+return enabled and M or {}

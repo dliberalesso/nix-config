@@ -1,4 +1,6 @@
-return {
+local enabled = true
+
+local M = {
   {
     "lewis6991/gitsigns.nvim",
 
@@ -67,3 +69,5 @@ return {
     },
   },
 }
+
+return enabled and M or {}

@@ -1,31 +1,33 @@
-return {
-  {
-    "neovim/nvim-lspconfig",
+local enabled = true
 
-    dependencies = { { "folke/neodev.nvim", config = true } },
+local M = {
+  "neovim/nvim-lspconfig",
 
-    event = { "BufReadPost", "BufNewFile", "BufWritePre" },
+  dependencies = { { "folke/neodev.nvim", config = true } },
 
-    config = function()
-      local lspconfig = require "lspconfig"
+  event = { "BufReadPost", "BufNewFile", "BufWritePre" },
 
-      local capabilities = nil
-      if pcall(require, "cmp_nvim_lsp") then
-        capabilities = require("cmp_nvim_lsp").default_capabilities()
-      end
+  config = function()
+    local lspconfig = require "lspconfig"
 
-      local servers = {
-        lua_ls = {},
-        nixd = {},
-      }
+    local capabilities = nil
+    if pcall(require, "cmp_nvim_lsp") then
+      capabilities = require("cmp_nvim_lsp").default_capabilities()
+    end
 
-      for name, opts in pairs(servers) do
-        opts = vim.tbl_deep_extend("force", {}, {
-          capabilities = capabilities,
-        }, opts)
+    local servers = {
+      lua_ls = {},
+      nixd = {},
+    }
 
-        lspconfig[name].setup(opts)
-      end
-    end,
-  },
+    for name, opts in pairs(servers) do
+      opts = vim.tbl_deep_extend("force", {}, {
+        capabilities = capabilities,
+      }, opts)
+
+      lspconfig[name].setup(opts)
+    end
+  end,
 }
+
+return enabled and M or {}
