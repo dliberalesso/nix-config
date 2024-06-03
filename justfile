@@ -44,8 +44,8 @@ nvim-startuptime:
   bat startuptime.log
   just nvim-remove-startuptime
 
-wezterm-jfrs:
-  cp {{justfile_directory()}}/config/wezterm.lua /mnt/c/Users/dli50/.wezterm.lua
+wezterm user:
+  cp {{justfile_directory()}}/config/wezterm.lua /mnt/c/Users/{{user}}/.wezterm.lua
 
 [private]
 [confirm]
