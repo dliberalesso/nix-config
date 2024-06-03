@@ -17,6 +17,7 @@
     jq.enable = true;
     ripgrep.enable = true;
     tealdeer.enable = true;
+    yazi.enable = true;
 
     bat = {
       enable = true;

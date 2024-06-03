@@ -9,5 +9,6 @@
     git.delta.catppuccin.enable = true;
     lazygit.catppuccin.enable = true;
     starship.catppuccin.enable = true;
+    yazi.catppuccin.enable = true;
   };
 }
