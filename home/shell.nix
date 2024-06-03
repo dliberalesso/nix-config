@@ -10,8 +10,10 @@
       '';
     };
 
-    direnv.enable = true;
-    direnv.nix-direnv.enable = true;
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
 
     starship = {
       enable = true;
@@ -49,9 +51,7 @@
 
     zoxide = {
       enable = true;
-      options = [
-        "--cmd cd"
-      ];
+      options = [ "--cmd cd" ];
     };
   };
 }
