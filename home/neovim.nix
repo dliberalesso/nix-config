@@ -19,7 +19,7 @@
         value = {
           recursive = true;
           source = config.lib.file.mkOutOfStoreSymlink
-            "${config.home.homeDirectory}/nix-config/nvim";
+            "${config.home.homeDirectory}/nix-config/config/nvim";
         };
       }
       {
