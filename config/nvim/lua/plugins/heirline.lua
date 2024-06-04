@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   "rebelot/heirline.nvim",
 
   dependencies = { "zeioth/heirline-components.nvim" },
@@ -95,5 +99,3 @@ local M = {
     heirline.setup(opts)
   end,
 }
-
-return enabled and M or {}

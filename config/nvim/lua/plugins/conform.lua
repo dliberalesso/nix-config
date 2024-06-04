@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   "stevearc/conform.nvim",
 
   event = { "BufWritePre" },
@@ -20,5 +24,3 @@ local M = {
     vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
   end,
 }
-
-return enabled and M or {}

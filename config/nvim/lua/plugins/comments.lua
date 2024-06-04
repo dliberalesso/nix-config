@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   {
     "folke/ts-comments.nvim",
     event = { "BufReadPost", "BufNewFile" },
@@ -13,5 +17,3 @@ local M = {
     config = true,
   },
 }
-
-return enabled and M or {}

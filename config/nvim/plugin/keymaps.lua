@@ -31,4 +31,4 @@ set({ "n", "i", "v", "o", "x" }, "<down>", "")
 -- set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Source current file
-set("n", "<leader><leader>x", "<cmd>source %<CR>", { desc = "Execute the current file" })
+set("n", "<leader>cx", "<cmd>source %<CR>", { desc = "Execute the current file" })

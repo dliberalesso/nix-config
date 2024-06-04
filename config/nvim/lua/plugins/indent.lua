@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
@@ -18,5 +22,3 @@ local M = {
     config = true,
   },
 }
-
-return enabled and M or {}

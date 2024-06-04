@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   "nvim-telescope/telescope.nvim",
 
   dependencies = {
@@ -8,52 +12,92 @@ local M = {
 
     -- Telescope extensions
     { "nvim-telescope/telescope-fzf-native.nvim", dev = true }, -- dev because of Nix
-    "nvim-telescope/telescope-ui-select.nvim",
+    "debugloop/telescope-undo.nvim",
   },
 
-  event = "VeryLazy",
+  cmd = "Telescope",
 
-  config = function()
-    require("telescope").setup {
+  keys = {
+    {
+      "<leader><leader>",
+      "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
+      desc = "Switch Buffers",
+    },
+    { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
+    { "<leader>fu", "<cmd>Telescope undo<cr>", desc = "Find in undo tree" },
+  },
+
+  config = function(_, opts)
+    local telescope = require "telescope"
+
+    telescope.setup(opts)
+
+    -- Load extensions
+    pcall(telescope.load_extension, "fzf")
+    pcall(telescope.load_extension, "notify")
+    pcall(telescope.load_extension, "undo")
+  end,
+
+  opts = function()
+    local get_icon = require("icons").get_icon
+
+    local actions = require "telescope.actions"
+    local mappings = {
+      i = {
+        ["<C-n>"] = actions.cycle_history_next,
+        ["<C-p>"] = actions.cycle_history_prev,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<ESC>"] = actions.close,
+        ["<C-c>"] = false,
+      },
+      n = { ["q"] = actions.close },
+    }
+
+    return {
+      defaults = {
+        prompt_prefix = get_icon("PromptPrefix", 1),
+        selection_caret = get_icon("Selected", 1),
+        path_display = { "truncate" },
+        sorting_strategy = "ascending",
+
+        layout_config = {
+          horizontal = {
+            prompt_position = "top",
+            preview_width = 0.50,
+          },
+          vertical = {
+            mirror = false,
+          },
+          width = 0.87,
+          height = 0.80,
+          preview_cutoff = 120,
+        },
+
+        mappings = mappings,
+      },
+
       extensions = {
-        ["ui-select"] = {
-          require("telescope.themes").get_dropdown(),
+        undo = {
+          use_delta = true,
+          side_by_side = true,
+          diff_context_lines = 0,
+          entry_format = "󰣜 #$ID, $STAT, $TIME",
+          layout_strategy = "horizontal",
+
+          layout_config = {
+            preview_width = 0.65,
+          },
+
+          mappings = {
+            i = {
+              ["<cr>"] = require("telescope-undo.actions").yank_additions,
+              ["<S-cr>"] = require("telescope-undo.actions").yank_deletions,
+              ["<C-cr>"] = require("telescope-undo.actions").restore,
+            },
+          },
         },
       },
     }
-
-    -- Load extensions
-    pcall(require("telescope").load_extension, "fzf")
-    pcall(require("telescope").load_extension, "ui-select")
-
-    local builtin = require "telescope.builtin"
-
-    local map = vim.keymap.set
-    map("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-    map("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-    map("n", "<leader>sf", builtin.find_files, { desc = "[S]earch [F]iles" })
-    map("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
-    map("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-    map("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
-    map("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-    map("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-    map("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-    map("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
-
-    map("n", "<leader>/", function()
-      builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown {
-        winblend = 10,
-        previewer = false,
-      })
-    end, { desc = "[/] Fuzzily search in current buffer" })
-
-    map("n", "<leader>s/", function()
-      builtin.live_grep {
-        grep_open_files = true,
-        prompt_title = "Live Grep in Open Files",
-      }
-    end, { desc = "[S]earch [/] in Open Files" })
   end,
 }
-
-return enabled and M or {}
