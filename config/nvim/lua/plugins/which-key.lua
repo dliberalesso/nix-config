@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   "folke/which-key.nvim",
 
   event = "VeryLazy", -- Sets the loading event to 'VimEnter'
@@ -24,5 +28,3 @@ local M = {
     }, { mode = "v" })
   end,
 }
-
-return enabled and M or {}

@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   "neovim/nvim-lspconfig",
 
   dependencies = { { "folke/neodev.nvim", config = true } },
@@ -29,5 +33,3 @@ local M = {
     end
   end,
 }
-
-return enabled and M or {}

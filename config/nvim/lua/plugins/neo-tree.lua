@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   "nvim-neo-tree/neo-tree.nvim",
 
   dependencies = {
@@ -35,5 +39,3 @@ local M = {
     })
   end,
 }
-
-return enabled and M or {}

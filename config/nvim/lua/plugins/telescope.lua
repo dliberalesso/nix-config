@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   "nvim-telescope/telescope.nvim",
 
   dependencies = {
@@ -55,5 +59,3 @@ local M = {
     end, { desc = "[S]earch [/] in Open Files" })
   end,
 }
-
-return enabled and M or {}

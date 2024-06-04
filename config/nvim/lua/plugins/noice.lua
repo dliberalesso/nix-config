@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   "folke/noice.nvim",
 
   dependencies = {
@@ -29,5 +33,3 @@ local M = {
     },
   },
 }
-
-return enabled and M or {}

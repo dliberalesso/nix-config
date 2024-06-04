@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   {
     "echasnovski/mini.basics",
     lazy = false,
@@ -39,5 +43,3 @@ local M = {
     config = true,
   },
 }
-
-return enabled and M or {}

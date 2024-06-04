@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   "catppuccin/nvim",
   name = "catppuccin",
 
@@ -67,5 +71,3 @@ local M = {
     },
   },
 }
-
-return enabled and M or {}

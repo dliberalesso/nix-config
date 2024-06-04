@@ -1,6 +1,10 @@
 local enabled = true
 
-local M = {
+if not enabled then
+  return {}
+end
+
+return {
   "b0o/incline.nvim",
 
   event = "VeryLazy",
@@ -70,5 +74,3 @@ local M = {
     }
   end,
 }
-
-return enabled and M or {}
