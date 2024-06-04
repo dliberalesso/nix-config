@@ -33,7 +33,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v12
 
       - name: "Install Magic Cache ❄️"
-        uses: DeterminateSystems/magic-nix-cache-action@v6
+        uses: DeterminateSystems/magic-nix-cache-action@v7
 
       - name: "Install Cachix ❄️"
         uses: cachix/cachix-action@v15
