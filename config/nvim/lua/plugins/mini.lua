@@ -11,7 +11,7 @@ return {
     opts = {
       options = { win_borders = "bold" },
       mappings = {
-        option_toggle_prefix = [[<leader>t]],
+        option_toggle_prefix = [[<leader>u]],
         windows = true,
         move_with_alt = true,
       },
