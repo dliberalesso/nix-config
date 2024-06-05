@@ -1,28 +1,133 @@
-local enabled = true
-
-if not enabled then
-  return {}
-end
-
 return {
   "nvim-treesitter/nvim-treesitter",
+  main = "nvim-treesitter.configs",
 
-  dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    "hiphish/rainbow-delimiters.nvim",
+  dependencies = { { "nvim-treesitter/nvim-treesitter-textobjects", lazy = true } },
+
+  event = "User AstroFile",
+
+  cmd = {
+    "TSBufDisable",
+    "TSBufEnable",
+    "TSBufToggle",
+    "TSDisable",
+    "TSEnable",
+    "TSToggle",
+    "TSInstallInfo",
+    "TSModuleInfo",
   },
 
-  event = { "BufReadPost", "BufNewFile" },
+  init = function(plugin)
+    -- PERF: add nvim-treesitter queries to the rtp and it's custom query predicates early
+    -- This is needed because a bunch of plugins no longer `require("nvim-treesitter")`, which
+    -- no longer trigger the **nvim-treeitter** module to be loaded in time.
+    -- Luckily, the only thins that those plugins need are the custom queries, which we make available
+    -- during startup.
+    -- CODE FROM LazyVim (thanks folke!) https://github.com/LazyVim/LazyVim/commit/1e1b68d633d4bd4faa912ba5f49ab6b8601dc0c9
+    require("lazy.core.loader").add_to_rtp(plugin)
+    require "nvim-treesitter.query_predicates"
+  end,
 
-  config = function()
-    require("nvim-treesitter.configs").setup {
-      ensure_installed = {},
+  opts = function()
+    if require("astrocore").is_available "mason.nvim" then
+      require("lazy").load { plugins = { "mason.nvim" } }
+    end
+    return {
       auto_install = false,
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
-      },
+      ensure_installed = {},
+      highlight = { enable = true },
+      incremental_selection = { enable = true },
       indent = { enable = true },
+      textobjects = {
+        select = {
+          enable = true,
+          lookahead = true,
+          keymaps = {
+            ["ak"] = { query = "@block.outer", desc = "around block" },
+            ["ik"] = { query = "@block.inner", desc = "inside block" },
+            ["ac"] = { query = "@class.outer", desc = "around class" },
+            ["ic"] = { query = "@class.inner", desc = "inside class" },
+            ["a?"] = { query = "@conditional.outer", desc = "around conditional" },
+            ["i?"] = { query = "@conditional.inner", desc = "inside conditional" },
+            ["af"] = { query = "@function.outer", desc = "around function " },
+            ["if"] = { query = "@function.inner", desc = "inside function " },
+            ["ao"] = { query = "@loop.outer", desc = "around loop" },
+            ["io"] = { query = "@loop.inner", desc = "inside loop" },
+            ["aa"] = { query = "@parameter.outer", desc = "around argument" },
+            ["ia"] = { query = "@parameter.inner", desc = "inside argument" },
+          },
+        },
+        move = {
+          enable = true,
+          set_jumps = true,
+          goto_next_start = {
+            ["]k"] = { query = "@block.outer", desc = "Next block start" },
+            ["]f"] = { query = "@function.outer", desc = "Next function start" },
+            ["]a"] = { query = "@parameter.inner", desc = "Next argument start" },
+          },
+          goto_next_end = {
+            ["]K"] = { query = "@block.outer", desc = "Next block end" },
+            ["]F"] = { query = "@function.outer", desc = "Next function end" },
+            ["]A"] = { query = "@parameter.inner", desc = "Next argument end" },
+          },
+          goto_previous_start = {
+            ["[k"] = { query = "@block.outer", desc = "Previous block start" },
+            ["[f"] = { query = "@function.outer", desc = "Previous function start" },
+            ["[a"] = { query = "@parameter.inner", desc = "Previous argument start" },
+          },
+          goto_previous_end = {
+            ["[K"] = { query = "@block.outer", desc = "Previous block end" },
+            ["[F"] = { query = "@function.outer", desc = "Previous function end" },
+            ["[A"] = { query = "@parameter.inner", desc = "Previous argument end" },
+          },
+        },
+        swap = {
+          enable = true,
+          swap_next = {
+            [">K"] = { query = "@block.outer", desc = "Swap next block" },
+            [">F"] = { query = "@function.outer", desc = "Swap next function" },
+            [">A"] = { query = "@parameter.inner", desc = "Swap next argument" },
+          },
+          swap_previous = {
+            ["<K"] = { query = "@block.outer", desc = "Swap previous block" },
+            ["<F"] = { query = "@function.outer", desc = "Swap previous function" },
+            ["<A"] = { query = "@parameter.inner", desc = "Swap previous argument" },
+          },
+        },
+      },
     }
+  end,
+  config = function(plugin, opts)
+    local ts = require(plugin.main)
+
+    -- HACK: force install all parsers bundled with neovim
+    -- TODO: remove when nvim-treesitter v1 released
+    if opts.ensure_installed ~= "all" then
+      opts.ensure_installed = require("astrocore").list_insert_unique(
+        opts.ensure_installed,
+        { "bash", "c", "lua", "markdown", "markdown_inline", "python", "query", "vim", "vimdoc" }
+      )
+    end
+    if vim.fn.executable "git" == 0 then
+      opts.ensure_installed = nil
+    end
+
+    -- disable all treesitter modules on large buffer
+    if vim.tbl_get(require("astrocore").config, "features", "large_buf") then
+      for _, module in ipairs(ts.available_modules()) do
+        if not opts[module] then
+          opts[module] = {}
+        end
+        local module_opts = opts[module]
+        local disable = module_opts.disable
+        module_opts.disable = function(lang, bufnr)
+          return vim.b[bufnr].large_buf
+            or (type(disable) == "table" and vim.tbl_contains(disable, lang))
+            or (type(disable) == "function" and disable(lang, bufnr))
+        end
+      end
+    end
+
+    ts.setup(opts)
   end,
 }
