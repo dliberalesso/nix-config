@@ -8,8 +8,6 @@
     withNodeJs = false;
     withPython3 = false;
     withRuby = false;
-
-    plugins = with pkgs.vimPlugins; [ lazy-nvim ];
   };
 
   home.file = builtins.listToAttrs (
@@ -20,13 +18,6 @@
           recursive = true;
           source = config.lib.file.mkOutOfStoreSymlink
             "${config.home.homeDirectory}/nix-config/config/nvim";
-        };
-      }
-      {
-        name = ".local/share/nvim/site/parser";
-        value = {
-          source = config.lib.file.mkOutOfStoreSymlink
-            "${pkgs.symlinkJoin { name = "treesitter-parsers"; paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies; }}/parser";
         };
       }
     ]

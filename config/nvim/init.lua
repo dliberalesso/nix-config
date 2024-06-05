@@ -1,51 +1,19 @@
--- Enable the experimental Lua module loader
-vim.loader.enable()
+-- This file simply bootstraps the installation of Lazy.nvim and then calls other files for execution
+-- This file doesn't necessarily need to be touched, BE CAUTIOUS editing this file and proceed at your own risk.
+local lazypath = vim.env.LAZY or vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+if not (vim.env.LAZY or (vim.uv or vim.loop).fs_stat(lazypath)) then
+  -- stylua: ignore
+  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
+end
+vim.opt.rtp:prepend(lazypath)
 
--- Set <space> as the leader key
--- Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+-- validate that lazy is available
+if not pcall(require, "lazy") then
+  -- stylua: ignore
+  vim.api.nvim_echo({ { ("Unable to load lazy from: %s\n"):format(lazypath), "ErrorMsg" }, { "Press any key to exit...", "MoreMsg" } }, true, {})
+  vim.fn.getchar()
+  vim.cmd.quit()
+end
 
--- [[ Configure and install plugins ]]
-require("lazy").setup("plugins", {
-  defaults = { lazy = true },
-  dev = {
-    path = vim.fn.stdpath "data" .. "/nixpkgs",
-    -- patterns = { "." },
-    fallback = false,
-  },
-  install = { colorscheme = { "catppuccin" } },
-  performance = {
-    rtp = {
-      disabled_plugins = {
-        "netrw",
-        "netrwPlugin",
-        "netrwSettings",
-        "netrwFileHandlers",
-        "gzip",
-        "zip",
-        "zipPlugin",
-        "tar",
-        "tarPlugin",
-        "getscript",
-        "getscriptPlugin",
-        "vimball",
-        "vimballPlugin",
-        "2html_plugin",
-        "tohtml",
-        "logipat",
-        "rrhelper",
-        "spellfile_plugin",
-        "matchit",
-        "tutor",
-        "rplugin",
-        "syntax",
-        "synmenu",
-        "optwin",
-        "compiler",
-        "bugreport",
-        "ftplugin",
-      },
-    },
-  },
-})
+require "lazy_setup"
+require "polish"
