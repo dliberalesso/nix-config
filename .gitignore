@@ -2,3 +2,4 @@
 .vscode/
 .pre-commit-config.yaml
 **/lazy-lock.json
+**/lazyvim.json

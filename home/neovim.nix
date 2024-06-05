@@ -8,8 +8,6 @@
     withNodeJs = false;
     withPython3 = false;
     withRuby = false;
-
-    plugins = with pkgs.vimPlugins; [ lazy-nvim ];
   };
 
   home.file = builtins.listToAttrs (
