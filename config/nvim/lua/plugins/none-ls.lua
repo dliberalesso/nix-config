@@ -11,10 +11,24 @@ return {
     -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/formatting
     -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
     config.sources = {
-      -- Set a formatter
+      -- fish
+      null_ls.builtins.diagnostics.fish,
+      null_ls.builtins.formatting.fish_indent,
+
+      -- javascript, markdown, css, html...
+      null_ls.builtins.formatting.prettierd,
+
+      -- lua
+      null_ls.builtins.diagnostics.selene,
       null_ls.builtins.formatting.stylua,
+
+      -- nix
+      null_ls.builtins.diagnostics.deadnix,
+      null_ls.builtins.diagnostics.statix,
       null_ls.builtins.formatting.nixpkgs_fmt,
-      -- null_ls.builtins.formatting.prettier,
+
+      -- sh
+      null_ls.builtins.formatting.shfmt,
     }
     return config -- return final config table
   end,

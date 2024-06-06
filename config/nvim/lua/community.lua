@@ -5,6 +5,7 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrocommunity",
-  { import = "astrocommunity.pack.lua" },
+  { import = "astrocommunity.comment.ts-comments-nvim" },
+  { import = "astrocommunity.motion.mini-surround" },
   -- import/override with your plugins folder
 }

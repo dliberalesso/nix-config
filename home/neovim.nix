@@ -8,6 +8,27 @@
     withNodeJs = false;
     withPython3 = false;
     withRuby = false;
+
+    extraPackages = with pkgs; [
+      # Formatters
+      nixpkgs-fmt
+      prettierd
+      shfmt
+      stylua
+
+      # Language Servers
+      lua-language-server
+      marksman
+      nixd
+      taplo
+      vscode-langservers-extracted
+      yaml-language-server
+
+      # Linters/Static analyzers
+      deadnix
+      selene
+      statix
+    ];
   };
 
   home.file = builtins.listToAttrs (
@@ -15,9 +36,16 @@
       {
         name = ".config/nvim";
         value = {
-          recursive = true;
+          # recursive = true;
           source = config.lib.file.mkOutOfStoreSymlink
             "${config.home.homeDirectory}/nix-config/config/nvim";
+        };
+      }
+      {
+        name = ".local/share/nvim/site/parser";
+        value = {
+          source = config.lib.file.mkOutOfStoreSymlink
+            "${pkgs.symlinkJoin { name = "treesitter-parsers"; paths = pkgs.vimPlugins.nvim-treesitter.withAllGrammars.dependencies; }}/parser";
         };
       }
     ]

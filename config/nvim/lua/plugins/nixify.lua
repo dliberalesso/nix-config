@@ -11,12 +11,23 @@ return {
   { "jay-babu/mason-null-ls.nvim", enabled = false },
   { "jay-babu/mason-nvim-dap.nvim", enabled = false },
 
+  -- Every parser will be installed using Nix
+  -- See home/neovim.nix
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = nil,
+    opts = {
+      ensure_installed = {},
+      auto_install = false,
+    },
+  },
+
   -- We will install and manage this plugin using Nix
   -- See home/neovim.nix
   {
     "nvim-telescope/telescope-fzf-native.nvim",
-    dev = true,
-    build = false,
     enabled = true,
+    dev = true,
+    build = nil,
   },
 }

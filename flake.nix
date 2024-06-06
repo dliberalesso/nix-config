@@ -26,17 +26,25 @@
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
-    pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
-    pre-commit-hooks.inputs.nixpkgs.follows = "nixpkgs";
-    pre-commit-hooks.inputs.nixpkgs-stable.follows = "nixpkgs";
-    pre-commit-hooks.inputs.flake-compat.follows = "flake-compat";
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nixpkgs-stable.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
+    };
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    nixos-wsl.url = "github:nix-community/NixOS-WSL";
-    nixos-wsl.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-wsl.inputs.flake-compat.follows = "flake-compat";
+    nixos-wsl = {
+      url = "github:nix-community/NixOS-WSL";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+      };
+    };
 
     vscode-server.url = "github:nix-community/nixos-vscode-server";
     vscode-server.inputs.nixpkgs.follows = "nixpkgs";
@@ -91,6 +99,7 @@
               nixpkgs-fmt.enable = true;
               shfmt.enable = true;
               stylua.enable = true;
+              taplo.enable = true;
             };
           };
 
@@ -112,14 +121,6 @@
             '';
 
             nativeBuildInputs = with pkgs; [
-              # Formatters
-              nixpkgs-fmt
-              stylua
-
-              # Language servers
-              lua-language-server
-              nixd
-
               # Tools
               just
             ];
