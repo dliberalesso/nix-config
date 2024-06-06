@@ -20,6 +20,9 @@ return {
     opts = {
       ensure_installed = {},
       auto_install = false,
+      highlight = {
+        additional_vim_regex_highlighting = false,
+      },
     },
   },
 
