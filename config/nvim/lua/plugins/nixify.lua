@@ -15,7 +15,8 @@ return {
   -- See home/neovim.nix
   {
     "nvim-treesitter/nvim-treesitter",
-    build = nil,
+    ---@diagnostic disable-next-line:assign-type-mismatch
+    build = false,
     opts = {
       ensure_installed = {},
       auto_install = false,
@@ -28,6 +29,7 @@ return {
     "nvim-telescope/telescope-fzf-native.nvim",
     enabled = true,
     dev = true,
-    build = nil,
+    ---@diagnostic disable-next-line:assign-type-mismatch
+    build = false,
   },
 }
