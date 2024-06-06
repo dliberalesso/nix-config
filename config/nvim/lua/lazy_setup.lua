@@ -21,7 +21,7 @@ require("lazy").setup({
     -- patterns = { "." },
     fallback = false,
   },
-  install = { colorscheme = { "astrodark", "habamax" } },
+  install = { colorscheme = { "catppuccin", "astrodark", "habamax" } },
   ui = { backdrop = 100 },
   performance = {
     rtp = {
