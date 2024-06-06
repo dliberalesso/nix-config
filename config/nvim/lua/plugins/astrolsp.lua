@@ -20,7 +20,14 @@ return {
         settings = { json = { validate = { enable = true } } },
       },
 
-      lua_ls = { settings = { Lua = { hint = { enable = true, arrayIndex = "Disable" } } } },
+      lua_ls = {
+        settings = {
+          Lua = {
+            format = { enable = false },
+            hint = { enable = true, arrayIndex = "Disable" },
+          },
+        },
+      },
 
       yamlls = {
         on_new_config = function(config)
