@@ -20,7 +20,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v11
 
       - name: "Update flake.lock"
-        uses: DeterminateSystems/update-flake-lock@v21
+        uses: DeterminateSystems/update-flake-lock@v22
         id: nix-update
         with:
           token: ${{ secrets.PAT }}
