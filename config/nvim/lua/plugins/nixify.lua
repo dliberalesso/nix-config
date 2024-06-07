@@ -17,6 +17,7 @@ return {
     "nvim-treesitter/nvim-treesitter",
     ---@diagnostic disable-next-line:assign-type-mismatch
     build = false,
+    opts_extend = {},
     opts = {
       ensure_installed = {},
       auto_install = false,
