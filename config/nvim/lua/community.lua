@@ -5,6 +5,7 @@
 ---@type LazySpec
 return {
   "AstroNvim/astrocommunity",
+  { import = "astrocommunity.color.nvim-highlight-colors" },
   { import = "astrocommunity.comment.ts-comments-nvim" },
   { import = "astrocommunity.completion.cmp-emoji" },
   { import = "astrocommunity.lsp.inc-rename-nvim" },
