@@ -15,6 +15,18 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
+-- Loading shada is SLOW
+-- Let's load it after UI-enter so it doesn't block startup.
+local shada = vim.o.shada
+vim.o.shada = ""
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  callback = function()
+    vim.o.shada = shada
+    pcall(vim.cmd.rshada, { bang = true })
+  end,
+})
+
 ---@type LazySpec
 local spec = {
   {
@@ -43,8 +55,13 @@ local config = {
   install = { colorscheme = { "catppuccin", "astrodark", "habamax" } },
   ui = { backdrop = 100 },
   performance = {
+    cache = {
+      enabled = true,
+      disable_events = { "UiEnter" },
+    },
+    reset_packpath = true,
     rtp = {
-      -- disable some rtp plugins, add more to your liking
+      reset = true,
       disabled_plugins = {
         "netrw",
         "netrwPlugin",
