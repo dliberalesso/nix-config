@@ -55,13 +55,7 @@ local config = {
   install = { colorscheme = { "catppuccin", "astrodark", "habamax" } },
   ui = { backdrop = 100 },
   performance = {
-    cache = {
-      enabled = true,
-      disable_events = { "UiEnter" },
-    },
-    reset_packpath = true,
     rtp = {
-      reset = true,
       disabled_plugins = {
         "netrw",
         "netrwPlugin",
