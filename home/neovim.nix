@@ -28,6 +28,9 @@
       deadnix
       selene
       statix
+
+      # Others
+      gcc
     ];
   };
 
