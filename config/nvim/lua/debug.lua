@@ -1,4 +1,5 @@
-local plugin = require("lazy.core.config").spec.plugins["inc-rename.nvim"]
-local opts = require("lazy.core.plugin").values(plugin, "opts", false)
+local astrocore = require "astrocore"
+local opts = astrocore.plugin_opts "nvim-treesitter"
+local ensure_installed = opts.ensure_installed
 
-print(vim.inspect(plugin))
+astrocore.notify(vim.inspect(ensure_installed))
