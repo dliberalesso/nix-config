@@ -10,14 +10,4 @@ return {
   { "williamboman/mason-lspconfig.nvim", enabled = false },
   { "jay-babu/mason-null-ls.nvim", enabled = false },
   { "jay-babu/mason-nvim-dap.nvim", enabled = false },
-
-  -- We will install and manage this plugin using Nix
-  -- See home/neovim.nix
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    enabled = true,
-    dev = true,
-    ---@diagnostic disable-next-line:assign-type-mismatch
-    build = false,
-  },
 }
