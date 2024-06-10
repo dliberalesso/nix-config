@@ -38,7 +38,7 @@ lint:
   nix flake check
 
 nvim-lazy:
-  nvim --headless "+Lazy! sync" "+HeadlessTSUpdate" +qa
+  nvim --headless "+Lazy! restore" "+Lazy! clean" "+HeadlessTSUpdate" +qa
 
 nvim-startuptime:
   nvim --startuptime startuptime.log -c 'autocmd VimEnter * if has('\''nvim'\'') | set shada= shadafile=NONE | else | set viminfo= viminfofile=NONE | endif' -c 'if exists('\''*timer_start'\'') | call timer_start(0, {-> execute('\''qall!'\'')}) | else | autocmd VimEnter * qall! | endif'
