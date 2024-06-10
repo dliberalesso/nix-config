@@ -3,6 +3,7 @@ default:
 
 update:
   nix flake update
+  nvim --headless "+Lazy! update" +qa
 
 diff:
   git diff ':!flake.lock'
