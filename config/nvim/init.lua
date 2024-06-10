@@ -47,11 +47,6 @@ local spec = {
 local config = {
   local_spec = true, -- load project specific .lazy.lua spec files. They will be added at the end of the spec.
   defaults = { lazy = true },
-  dev = {
-    path = vim.fn.stdpath "data" .. "/nixpkgs",
-    -- patterns = { "." },
-    fallback = false,
-  },
   install = { colorscheme = { "catppuccin", "astrodark", "habamax" } },
   ui = { backdrop = 100 },
   performance = {
