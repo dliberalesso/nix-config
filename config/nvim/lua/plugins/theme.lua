@@ -14,6 +14,7 @@ return {
     },
   },
 
+  { "AstroNvim/astrotheme", event = "User LazyColorscheme" },
   { "catppuccin/nvim", name = "catppuccin", event = "User LazyColorscheme" },
   { "rebelot/kanagawa.nvim", event = "User LazyColorscheme" },
   { "rose-pine/neovim", name = "rose-pine", event = "User LazyColorscheme" },
