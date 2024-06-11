@@ -2,6 +2,7 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     {
+      -- TODO: use `lazy.nvim` keys for this
       "AstroNvim/astrolsp",
       opts = function(_, opts)
         local maps = opts.mappings
@@ -14,12 +15,13 @@ return {
         }
       end,
     },
-    { "folke/neoconf.nvim", lazy = true, opts = {} },
+    -- { "folke/neoconf.nvim", lazy = true, opts = {} },
   },
-  cmd = function(_, cmds) -- HACK: lazy load lspconfig on `:Neoconf` if neoconf is available
-    if require("astrocore").is_available "neoconf.nvim" then
-      table.insert(cmds, "Neoconf")
-    end
+  cmd = function(_, cmds)
+    -- HACK: lazy load lspconfig on `:Neoconf` if neoconf is available
+    -- if require("astrocore").is_available "neoconf.nvim" then
+    --   table.insert(cmds, "Neoconf")
+    -- end
     vim.list_extend(cmds, { "LspInfo", "LspLog", "LspStart" }) -- add normal `nvim-lspconfig` commands
   end,
   event = "User AstroFile",
@@ -30,7 +32,6 @@ return {
 
       require("astrocore").event "LspSetup"
     end
-    local astrocore = require "astrocore"
     setup_servers()
   end,
 }
