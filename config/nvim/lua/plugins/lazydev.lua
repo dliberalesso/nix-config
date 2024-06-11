@@ -1,7 +1,7 @@
 return {
-  { "Bilal2453/luvit-meta" },
   {
     "folke/lazydev.nvim",
+    dependencies = { "Bilal2453/luvit-meta" },
     ft = "lua",
     opts = {
       library = {
@@ -11,6 +11,8 @@ return {
         { path = "astroui", words = { "AstroUI" } },
         { path = "astrotheme", words = { "AstroTheme" } },
         { path = "lazy.nvim", words = { "Lazy" } },
+        -- { path = "nvim-notify", word = { "notify" } },
+        { path = "catppuccin", word = { "Catppuccin" } },
       },
     },
   },
