@@ -1,15 +1,14 @@
 -- Loading shada is SLOW
 -- Let's load it after UI-enter so it doesn't block startup.
-local shada = vim.o.shada
+-- See lua/core/astrocore_autocmds.lua
+_G.shada = vim.o.shada
 vim.o.shada = ""
 
 vim.loader.enable()
 
 require("utils.notify").init()
-require("utils.shada").init(shada)
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim" --[[@as string]]
-local conf_path = vim.fn.stdpath "config" --[[@as string]]
 
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system {
@@ -31,14 +30,6 @@ vim.g.icons_enabled = true
 ---@type LazySpec
 local spec = {
   { "folke/lazy.nvim", dir = vim.env.LAZY },
-  -- Maybe this should be in an autocmd via astrocore
-  {
-    name = "utils.shada",
-    main = "utils.shada",
-    dir = conf_path,
-    event = "VeryLazy",
-    config = true,
-  },
   { import = "core" },
   { import = "plugins" },
 }

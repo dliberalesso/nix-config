@@ -240,6 +240,16 @@ return {
           end,
         },
       },
+      load_shada = {
+        {
+          event = "User",
+          pattern = "VeryLazy",
+          callback = function()
+            vim.o.shada = _G.shada
+            pcall(vim.cmd.rshada, { bang = true })
+          end,
+        },
+      },
       q_close_windows = {
         {
           event = "BufWinEnter",
