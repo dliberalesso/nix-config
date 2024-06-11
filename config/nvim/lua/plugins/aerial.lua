@@ -1,20 +1,20 @@
+---@type LazySpec
 return {
   "stevearc/aerial.nvim",
-  event = "User AstroFile",
+
   dependencies = {
-    {
-      "AstroNvim/astrocore",
-      opts = function(_, opts)
-        local maps = opts.mappings
-        maps.n["<Leader>lS"] = {
-          function()
-            require("aerial").toggle()
-          end,
-          desc = "Symbols outline",
-        }
-      end,
-    },
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-tree/nvim-web-devicons",
   },
+
+  event = "User AstroFile",
+
+  config = function(_, opts)
+    require("aerial").setup(opts)
+
+    vim.keymap.set("n", "<leader>lS", "<cmd>AerialToggle!<cr>", { desc = "Symbols outline" })
+  end,
+
   opts = function()
     local opts = {
       attach_mode = "global",
