@@ -1,41 +1,40 @@
----@type LazySpec
 return {
-  "AstroNvim/astrocommunity",
-  { import = "astrocommunity.colorscheme.catppuccin" },
-  { import = "astrocommunity.colorscheme.kanagawa-nvim" },
-  { import = "astrocommunity.colorscheme.rose-pine" },
-  { import = "astrocommunity.colorscheme.tokyonight-nvim" },
-
   {
-    "AstroNvim/astroui",
-    ---@type AstroUIOpts
+    "catppuccin/nvim",
+    name = "catppuccin",
+    ---@type CatppuccinOptions
     opts = {
-      colorscheme = "catppuccin",
+      integrations = {
+        aerial = true,
+        alpha = true,
+        cmp = true,
+        dap = true,
+        dap_ui = true,
+        gitsigns = true,
+        illuminate = true,
+        indent_blankline = true,
+        markdown = true,
+        mini = { enabled = true, indentscope_color = "mauve" },
+        native_lsp = { enabled = true },
+        neotree = true,
+        notify = true,
+        semantic_tokens = true,
+        symbols_outline = true,
+        telescope = true,
+        treesitter = true,
+        ts_rainbow = false,
+        ufo = true,
+        which_key = true,
+        window_picker = true,
+      },
     },
   },
-
-  { "AstroNvim/astrotheme", event = "User LazyColorscheme" },
-  { "catppuccin/nvim", name = "catppuccin", event = "User LazyColorscheme" },
-  { "rebelot/kanagawa.nvim", event = "User LazyColorscheme" },
-  { "rose-pine/neovim", name = "rose-pine", event = "User LazyColorscheme" },
-  { "folke/tokyonight.nvim", event = "User LazyColorscheme" },
-
   {
-    "AstroNvim/astrocore",
-    ---@type AstroCoreOpts
+    "nvim-telescope/telescope.nvim",
     opts = {
-      mappings = {
-        n = {
-          ["<Leader>ft"] = {
-            function()
-              -- Trigger the User LazyColorscheme event
-              vim.cmd.doautocmd "User LazyColorscheme"
-              -- Then open the colorscheme picker
-              require("telescope.builtin").colorscheme { enable_preview = true }
-            end,
-            desc = "Find themes",
-          },
-        },
+      highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
       },
     },
   },

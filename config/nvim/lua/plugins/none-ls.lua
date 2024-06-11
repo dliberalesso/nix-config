@@ -1,35 +1,48 @@
--- Customize None-ls sources
-
 ---@type LazySpec
 return {
   "nvimtools/none-ls.nvim",
-  opts = function(_, config)
-    -- config variable is the default configuration table for the setup function call
+  main = "null-ls",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    {
+      "AstroNvim/astrolsp",
+      opts = function(_, opts)
+        local maps = opts.mappings
+        maps.n["<Leader>lI"] = {
+          "<Cmd>NullLsInfo<CR>",
+          desc = "Null-ls information",
+          cond = function()
+            return vim.fn.exists ":NullLsInfo" > 0
+          end,
+        }
+      end,
+    },
+  },
+  event = "User AstroFile",
+  opts = function()
     local null_ls = require "null-ls"
+    return {
+      on_attach = require("astrolsp").on_attach,
+      sources = {
+        -- fish
+        null_ls.builtins.diagnostics.fish,
+        null_ls.builtins.formatting.fish_indent,
 
-    -- Check supported formatters and linters
-    -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/formatting
-    -- https://github.com/nvimtools/none-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
-    config.sources = {
-      -- fish
-      null_ls.builtins.diagnostics.fish,
-      null_ls.builtins.formatting.fish_indent,
+        -- javascript, markdown, css, html...
+        null_ls.builtins.formatting.prettierd,
 
-      -- javascript, markdown, css, html...
-      null_ls.builtins.formatting.prettierd,
+        -- lua
+        null_ls.builtins.diagnostics.selene,
+        null_ls.builtins.formatting.stylua,
 
-      -- lua
-      null_ls.builtins.diagnostics.selene,
-      null_ls.builtins.formatting.stylua,
+        -- nix
+        null_ls.builtins.diagnostics.deadnix,
+        null_ls.builtins.diagnostics.statix,
+        null_ls.builtins.formatting.nixpkgs_fmt,
 
-      -- nix
-      null_ls.builtins.diagnostics.deadnix,
-      null_ls.builtins.diagnostics.statix,
-      null_ls.builtins.formatting.nixpkgs_fmt,
-
-      -- sh
-      null_ls.builtins.formatting.shfmt,
+        -- sh
+        null_ls.builtins.formatting.shfmt,
+      },
     }
-    return config -- return final config table
   end,
 }

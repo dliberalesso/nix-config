@@ -1,6 +1,15 @@
+-- Loading shada is SLOW
+-- Let's load it after UI-enter so it doesn't block startup.
+local shada = vim.o.shada
+vim.o.shada = ""
+
 vim.loader.enable()
 
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
+require("utils.notify").init()
+require("utils.shada").init(shada)
+
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim" --[[@as string]]
+local conf_path = vim.fn.stdpath "config" --[[@as string]]
 
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system {
@@ -15,32 +24,23 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
--- Loading shada is SLOW
--- Let's load it after UI-enter so it doesn't block startup.
-local shada = vim.o.shada
-vim.o.shada = ""
-vim.api.nvim_create_autocmd("User", {
-  pattern = "VeryLazy",
-  callback = function()
-    vim.o.shada = shada
-    pcall(vim.cmd.rshada, { bang = true })
-  end,
-})
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+vim.g.icons_enabled = true
 
 ---@type LazySpec
 local spec = {
+  { "folke/lazy.nvim", dir = vim.env.LAZY },
+  -- Maybe this should be in an autocmd via astrocore
   {
-    "AstroNvim/AstroNvim",
-    import = "astronvim.plugins",
-    opts = { -- AstroNvim options must be set here with the `import` key
-      mapleader = " ", -- This ensures the leader key must be configured before Lazy is set up
-      maplocalleader = ",", -- This ensures the localleader key must be configured before Lazy is set up
-      icons_enabled = true, -- Set to false to disable icons (if no Nerd Font is available)
-    },
+    name = "utils.shada",
+    main = "utils.shada",
+    dir = conf_path,
+    event = "VeryLazy",
+    config = true,
   },
-  { import = "community" },
+  { import = "core" },
   { import = "plugins" },
-  { import = "mappings" },
 }
 
 ---@type LazyConfig
