@@ -1,6 +1,7 @@
+-- WARN: How is this getting loaded?
+---@type LazySpec
 return {
   "stevearc/resession.nvim",
-  lazy = true,
   dependencies = {
     {
       "AstroNvim/astrocore",
