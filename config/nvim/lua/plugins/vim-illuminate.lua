@@ -1,7 +1,9 @@
+---@type LazySpec
 return {
   "RRethy/vim-illuminate",
   event = "User AstroFile",
   dependencies = {
+    -- TODO: Set keymaps during config
     {
       "AstroNvim/astrocore",
       opts = function(_, opts)

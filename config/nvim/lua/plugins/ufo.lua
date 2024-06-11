@@ -1,9 +1,11 @@
+---@type LazySpec
 return {
   {
     "kevinhwang91/nvim-ufo",
     event = { "User AstroFile", "InsertEnter" },
     dependencies = {
-      { "kevinhwang91/promise-async", lazy = true },
+      "kevinhwang91/promise-async",
+      -- TODO: set keymaps during config
       {
         "AstroNvim/astrocore",
         opts = function(_, opts)
