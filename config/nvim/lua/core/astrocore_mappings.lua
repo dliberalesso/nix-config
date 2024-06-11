@@ -407,7 +407,7 @@ return {
       desc = "Toggle syntax highlight",
     }
 
-    maps.n["<Leader>xx"] = { "<cmd>source %<cr>", desc = "Execute the current file" }
+    maps.n["<Leader>rr"] = { "<cmd>source %<cr>", desc = "Execute the current file" }
 
     opts.mappings = maps
   end,
