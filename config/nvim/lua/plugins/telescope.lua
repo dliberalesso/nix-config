@@ -2,12 +2,8 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
-      { "nvim-lua/plenary.nvim" },
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        enabled = true,
-        build = "make",
-      },
+      "nvim-lua/plenary.nvim",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
       "nvim-treesitter/nvim-treesitter",
       {
         "AstroNvim/astrocore",
@@ -179,13 +175,13 @@ return {
     cmd = "Telescope",
     opts = function()
       local actions = require "telescope.actions"
-      local get_icon = require("astroui").get_icon
+      local selected_icon = require("astroui").get_icon("Selected", 1)
       return {
         defaults = {
           git_worktrees = require("astrocore").config.git_worktrees,
-          prompt_prefix = get_icon("Selected", 1),
-          selection_caret = get_icon("Selected", 1),
-          multi_icon = get_icon("Selected", 1),
+          prompt_prefix = selected_icon,
+          selection_caret = selected_icon,
+          multi_icon = selected_icon,
           path_display = { "truncate" },
           sorting_strategy = "ascending",
           layout_config = {
@@ -205,21 +201,19 @@ return {
             n = { q = actions.close },
           },
         },
+        highlight = {
+          enable = true,
+          additional_vim_regex_highlighting = false,
+        },
       }
     end,
     config = function(_, opts)
       local telescope = require "telescope"
       telescope.setup(opts)
-      local is_available = require("astrocore").is_available
-      if is_available "nvim-notify" then
-        telescope.load_extension "notify"
-      end
-      if is_available "aerial.nvim" then
-        telescope.load_extension "aerial"
-      end
-      if is_available "telescope-fzf-native.nvim" then
-        telescope.load_extension "fzf"
-      end
+
+      telescope.load_extension "notify"
+      telescope.load_extension "aerial"
+      telescope.load_extension "fzf"
     end,
   },
   {

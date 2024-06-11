@@ -15,7 +15,7 @@ return {
         illuminate = true,
         indent_blankline = true,
         markdown = true,
-        mini = { enabled = true, indentscope_color = "mauve" },
+        mini = { enabled = true },
         native_lsp = { enabled = true },
         neotree = true,
         notify = true,
@@ -27,15 +27,6 @@ return {
         ufo = true,
         which_key = true,
         window_picker = true,
-      },
-    },
-  },
-  {
-    "nvim-telescope/telescope.nvim",
-    opts = {
-      highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
       },
     },
   },
