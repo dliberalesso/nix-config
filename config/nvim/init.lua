@@ -6,7 +6,7 @@ vim.o.shada = ""
 
 vim.loader.enable()
 
-require("utils.notify").init()
+-- require("utils.notify").init()
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim" --[[@as string]]
 
