@@ -15,10 +15,10 @@ return {
 
   -- We will install and manage this plugin using Nix
   -- See home/neovim.nix
-  {
-    "nvim-telescope/telescope-fzf-native.nvim",
-    dev = true,
-    build = false,
-    enabled = true,
-  },
+  -- {
+  --   "nvim-telescope/telescope-fzf-native.nvim",
+  --   dev = true,
+  --   build = false,
+  --   enabled = true,
+  -- },
 }
