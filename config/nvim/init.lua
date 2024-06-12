@@ -1,12 +1,9 @@
--- Loading shada is SLOW
--- Let's load it after UI-enter so it doesn't block startup.
--- See lua/core/astrocore_autocmds.lua
-_G.shada = vim.o.shada
-vim.o.shada = ""
-
 vim.loader.enable()
 
--- require("utils.notify").init()
+-- Loading shada is SLOW
+-- Let's load it after UI-enter so it doesn't block startup.
+require("utils.shada").init(vim.o.shada)
+vim.o.shada = ""
 
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim" --[[@as string]]
 
@@ -27,10 +24,17 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 vim.g.icons_enabled = true
 
----@type LazySpec
+local confpath = vim.fn.stdpath "config" --[[@as string]]
+
+---@type LazySpec[]
 local spec = {
-  { "folke/lazy.nvim", dir = vim.env.LAZY },
-  { import = "core" },
+  {
+    main = "utils.shada",
+    name = "utils.shada",
+    dir = confpath,
+    event = "VeryLazy",
+    config = true,
+  },
   { import = "plugins" },
 }
 
@@ -38,7 +42,7 @@ local spec = {
 local config = {
   local_spec = true, -- load project specific .lazy.lua spec files. They will be added at the end of the spec.
   defaults = { lazy = true },
-  install = { colorscheme = { "catppuccin", "astrodark", "habamax" } },
+  install = { colorscheme = { "catppuccin", "habamax" } },
   ui = { backdrop = 100 },
   performance = {
     rtp = {
