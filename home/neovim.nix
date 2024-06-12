@@ -31,12 +31,34 @@
 
       # Others
       gcc
+      just
+      unzip
+      zip
     ];
   };
 
-  home.file.".config/nvim" = {
-    # recursive = true;
-    source = config.lib.file.mkOutOfStoreSymlink
-      "${config.home.homeDirectory}/nix-config/config/nvim";
+  programs.fish.shellAliases = {
+    astro = "NVIM_APPNAME=nvim-astro nvim";
+    lazy = "NVIM_APPNAME=nvim-lazy nvim";
+    mine = "NVIM_APPNAME=nvim-mine nvim";
+    normal = "NVIM_APPNAME=nvim-normal nvim";
   };
+
+  home.file = builtins.listToAttrs (
+    lib.lists.forEach [
+      ""
+      "-astro"
+      "-lazy"
+      "-mine"
+      "-normal"
+    ]
+      (name:
+        {
+          name = ".config/nvim${name}";
+          value = {
+            source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/config/nvim${name}";
+          };
+        }
+      )
+  );
 }
