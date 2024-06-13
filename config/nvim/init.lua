@@ -1,10 +1,10 @@
 vim.loader.enable()
 
--- Loading shada is SLOW
--- Let's load it after UI-enter so it doesn't block startup.
-require("utils.shada").init(vim.o.shada)
-vim.o.shada = ""
+vim.g.mapleader = " "
+vim.g.maplocalleader = ","
+vim.g.icons_enabled = true
 
+local confpath = vim.fn.stdpath "config" --[[@as string]]
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim" --[[@as string]]
 
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -20,12 +20,6 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = ","
-vim.g.icons_enabled = true
-
-local confpath = vim.fn.stdpath "config" --[[@as string]]
-
 ---@type LazySpec[]
 local spec = {
   {
@@ -33,6 +27,9 @@ local spec = {
     name = "utils.shada",
     dir = confpath,
     event = "VeryLazy",
+    init = function()
+      require("utils.shada").init(vim.o.shada)
+    end,
     config = true,
   },
   { import = "plugins" },

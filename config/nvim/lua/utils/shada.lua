@@ -4,14 +4,14 @@
 local M = {}
 
 M.shada = ""
-M.did_init = false
+M._did_init = false
 
 function M.init(shada)
-  if M.did_init then
+  if M._did_init then
     return
   end
 
-  M.did_init = true
+  M._did_init = true
 
   M.shada = shada
   vim.o.shada = ""
