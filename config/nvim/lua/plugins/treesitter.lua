@@ -97,7 +97,6 @@ return {
       "regex",
       "toml",
       "tsx",
-      "toml",
       "vim",
       "vimdoc",
       "xml",
