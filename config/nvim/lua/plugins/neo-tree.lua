@@ -11,24 +11,24 @@ return {
 
   cmd = "Neotree",
 
-  ---@return LazyKeysSpec[]
   keys = {
-    -- TODO: Add `<leader>e` to focus, respecting what is already opened
-    -- TODO: Add `<leader>e` to focus last buffer when inside neo-tree
-    -- TODO: Maybe add `<leader>eq` to close
     {
       "<leader>e",
       function()
-        require("neo-tree.command").execute { focus = true, reveal = true, source = "last" }
+        if vim.bo.filetype == "neo-tree" then
+          vim.cmd.wincmd "p"
+        else
+          require("neo-tree.command").execute { focus = true, reveal = true, source = "last" }
+        end
       end,
-      desc = "File Explorer",
+      desc = "Explorer (focus)",
     },
     {
       "<leader>E",
       function()
         require("neo-tree.command").execute { toggle = true, reveal = true, source = "last" }
       end,
-      desc = "File Explorer",
+      desc = "Explorer (toggle)",
     },
     {
       "<leader>fe",
@@ -85,6 +85,10 @@ return {
       hijack_netrw_behavior = "open_current",
     },
     sources = { "filesystem", "buffers", "git_status", "document_symbols" },
+    source_selector = {
+      winbar = true,
+      content_layout = "center",
+    },
     window = {
       mappings = {
         ["l"] = "open",
