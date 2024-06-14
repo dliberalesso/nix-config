@@ -38,7 +38,7 @@ local spec = {
 ---@type LazyConfig
 local config = {
   local_spec = true, -- load project specific .lazy.lua spec files. They will be added at the end of the spec.
-  defaults = { lazy = true },
+  defaults = { lazy = true, version = false },
   install = { colorscheme = { "catppuccin", "habamax" } },
   ui = { backdrop = 100 },
   diff = { cmd = "diffview.nvim" },
