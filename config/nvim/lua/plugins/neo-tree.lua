@@ -18,36 +18,36 @@ return {
         if vim.bo.filetype == "neo-tree" then
           vim.cmd.wincmd "p"
         else
-          require("neo-tree.command").execute { focus = true, reveal = true, source = "last" }
+          require("neo-tree.command").execute { reveal = true, source = "last" }
         end
       end,
-      desc = "Explorer (focus)",
+      desc = "Explorer",
     },
     {
       "<leader>E",
       function()
-        require("neo-tree.command").execute { toggle = true, reveal = true, source = "last" }
+        require("neo-tree.command").execute { action = "close" }
       end,
-      desc = "Explorer (toggle)",
+      desc = "which_key_ignore",
     },
     {
       "<leader>fe",
       function()
-        require("neo-tree.command").execute { toggle = true, reveal = true, source = "filesystem" }
+        require("neo-tree.command").execute { reveal = true, source = "filesystem" }
       end,
       desc = "File Explorer",
     },
     {
       "<leader>be",
       function()
-        require("neo-tree.command").execute { toggle = true, reveal = true, source = "buffers" }
+        require("neo-tree.command").execute { reveal = true, source = "buffers" }
       end,
       desc = "Buffer Explorer",
     },
     {
       "<leader>ge",
       function()
-        require("neo-tree.command").execute { toggle = true, reveal = true, source = "git_status" }
+        require("neo-tree.command").execute { reveal = true, source = "git_status" }
       end,
       desc = "Git Explorer",
     },
