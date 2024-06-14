@@ -31,7 +31,7 @@ return {
       rainbow_delimiters = true,
       --     semantic_tokens = true,
       --     symbols_outline = true,
-      --     telescope = true,
+      telescope = true,
       treesitter = true,
       --     ufo = true,
       --     which_key = true,
