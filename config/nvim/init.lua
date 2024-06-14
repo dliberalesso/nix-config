@@ -72,6 +72,9 @@ local config = {
         "compiler",
         "bugreport",
         "ftplugin",
+        "matchparen",
+        "spellfile",
+        "osc52", -- Wezterm doesn't support osc52 yet
       },
     },
   },
