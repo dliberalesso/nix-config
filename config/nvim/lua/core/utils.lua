@@ -1,5 +1,7 @@
 local M = {}
 
+---@param core_module string
+---@param rest table
 ---@return LazySpec
 function M.core_spec(core_module, rest)
   local name = "core." .. core_module
