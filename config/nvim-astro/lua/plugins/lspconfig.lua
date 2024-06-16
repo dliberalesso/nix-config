@@ -10,7 +10,7 @@ return {
           "<Cmd>LspInfo<CR>",
           desc = "LSP information",
           cond = function()
-            return vim.fn.exists ":LspInfo" > 0
+            return vim.fn.exists(":LspInfo") > 0
           end,
         }
       end,
@@ -30,7 +30,7 @@ return {
       vim.tbl_map(require("astrolsp").lsp_setup, require("astrolsp").config.servers)
       require("astrocore").exec_buffer_autocmds("FileType", { group = "lspconfig" })
 
-      require("astrocore").event "LspSetup"
+      require("astrocore").event("LspSetup")
     end
     setup_servers()
   end,

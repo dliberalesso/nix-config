@@ -19,10 +19,10 @@ return {
         virtual_text = true,
         signs = {
           text = {
-            [vim.diagnostic.severity.ERROR] = get_icon "DiagnosticError",
-            [vim.diagnostic.severity.HINT] = get_icon "DiagnosticHint",
-            [vim.diagnostic.severity.WARN] = get_icon "DiagnosticWarn",
-            [vim.diagnostic.severity.INFO] = get_icon "DiagnosticInfo",
+            [vim.diagnostic.severity.ERROR] = get_icon("DiagnosticError"),
+            [vim.diagnostic.severity.HINT] = get_icon("DiagnosticHint"),
+            [vim.diagnostic.severity.WARN] = get_icon("DiagnosticWarn"),
+            [vim.diagnostic.severity.INFO] = get_icon("DiagnosticInfo"),
           },
         },
         update_in_insert = true,
@@ -37,7 +37,7 @@ return {
           prefix = "",
         },
         -- TODO: remove check when dropping support for neovim v0.10
-        jump = vim.fn.has "nvim-0.11" == 1 and { float = true } or nil,
+        jump = vim.fn.has("nvim-0.11") == 1 and { float = true } or nil,
       },
       rooter = {
         enabled = true,

@@ -51,7 +51,7 @@ return {
           desc = "Save view with mkview for real files",
           callback = function(event)
             if vim.b[event.buf].view_activated then
-              vim.cmd.mkview { mods = { emsg_silent = true } }
+              vim.cmd.mkview({ mods = { emsg_silent = true } })
             end
           end,
         },
@@ -65,7 +65,7 @@ return {
               local ignore_filetypes = { "gitcommit", "gitrebase", "svg", "hgcommit" }
               if buftype == "" and filetype and filetype ~= "" and not vim.tbl_contains(ignore_filetypes, filetype) then
                 vim.b[event.buf].view_activated = true
-                vim.cmd.loadview { mods = { emsg_silent = true } }
+                vim.cmd.loadview({ mods = { emsg_silent = true } })
               end
             end
           end,
@@ -76,7 +76,7 @@ return {
           event = { "BufAdd", "BufEnter", "TabNewEntered" },
           desc = "Update buffers when adding new buffers",
           callback = function(args)
-            local buf_utils = require "astrocore.buffer"
+            local buf_utils = require("astrocore.buffer")
             if not vim.t.bufs then
               vim.t.bufs = {}
             end
@@ -93,7 +93,7 @@ return {
               vim.t.bufs = bufs
             end
             vim.t.bufs = vim.tbl_filter(buf_utils.is_valid, vim.t.bufs)
-            require("astrocore").event "BufsUpdated"
+            require("astrocore").event("BufsUpdated")
           end,
         },
         {
@@ -116,7 +116,7 @@ return {
             end
             vim.t.bufs = vim.tbl_filter(require("astrocore.buffer").is_valid, vim.t.bufs)
             if removed then
-              require("astrocore").event "BufsUpdated"
+              require("astrocore").event("BufsUpdated")
             end
             vim.cmd.redrawtabline()
           end,
@@ -168,17 +168,17 @@ return {
               if not vim.api.nvim_buf_is_valid(args.buf) then
                 return
               end
-              local astro = require "astrocore"
+              local astro = require("astrocore")
               local current_file = vim.api.nvim_buf_get_name(args.buf)
               if vim.g.vscode or not (current_file == "" or vim.bo[args.buf].buftype == "nofile") then
-                astro.event "File"
+                astro.event("File")
                 local folder = vim.fn.fnamemodify(current_file, ":p:h")
-                if vim.fn.has "win32" == 1 then
+                if vim.fn.has("win32") == 1 then
                   folder = ('"%s"'):format(folder)
                 end
-                if vim.fn.executable "git" == 1 then
+                if vim.fn.executable("git") == 1 then
                   if astro.cmd({ "git", "-C", folder, "rev-parse" }, false) or astro.file_worktree() then
-                    astro.event "GitFile"
+                    astro.event("GitFile")
                     pcall(vim.api.nvim_del_augroup_by_name, "file_user_events")
                   end
                 else
@@ -216,7 +216,7 @@ return {
             vim.b[args.buf].cmp_enabled = false -- disable completion
             vim.b[args.buf].miniindentscope_disable = true -- disable indent scope
             vim.b[args.buf].matchup_matchparen_enabled = 0 -- disable vim-matchup
-            local astrocore = require "astrocore"
+            local astrocore = require("astrocore")
             if vim.tbl_get(astrocore.config, "features", "highlighturl") then
               astrocore.config.features.highlighturl = false
               vim.tbl_map(function(win)
@@ -245,7 +245,7 @@ return {
           event = "User",
           pattern = "VeryLazy",
           callback = function()
-            vim.o.shada = _G.shada
+            vim.o.shada = "!,'1000,<50,s10,h"
             pcall(vim.cmd.rshada, { bang = true })
           end,
         },

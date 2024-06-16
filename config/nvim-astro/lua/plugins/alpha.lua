@@ -70,10 +70,10 @@ return {
               if should_skip then
                 return
               end
-              require("lazy").load { plugins = { "alpha-nvim" } }
+              require("lazy").load({ plugins = { "alpha-nvim" } })
               require("alpha").start(true)
               vim.schedule(function()
-                vim.cmd.doautocmd "FileType"
+                vim.cmd.doautocmd("FileType")
               end)
             end,
           },
@@ -82,7 +82,7 @@ return {
     },
   },
   opts = function()
-    local dashboard = require "alpha.themes.dashboard"
+    local dashboard = require("alpha.themes.dashboard")
 
     dashboard.leader = "LDR"
 
@@ -141,7 +141,7 @@ return {
     }
 
     dashboard.config.layout = {
-      { type = "padding", val = vim.fn.max { 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) } },
+      { type = "padding", val = vim.fn.max({ 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) }) },
       dashboard.section.header,
       { type = "padding", val = 5 },
       dashboard.section.buttons,

@@ -54,7 +54,7 @@ return {
       },
       provider_selector = function(_, filetype, buftype)
         local function handleFallbackException(bufnr, err, providerName)
-          if type(err) == "string" and err:match "UfoFallbackException" then
+          if type(err) == "string" and err:match("UfoFallbackException") then
             return require("ufo").getFolds(bufnr, providerName)
           else
             return require("promise").reject(err)
@@ -79,8 +79,8 @@ return {
     "AstroNvim/astrolsp",
     optional = true,
     opts = function(_, opts)
-      local astrocore = require "astrocore"
-      if astrocore.is_available "nvim-ufo" then
+      local astrocore = require("astrocore")
+      if astrocore.is_available("nvim-ufo") then
         opts.capabilities = astrocore.extend_tbl(opts.capabilities, {
           textDocument = { foldingRange = { dynamicRegistration = false, lineFoldingOnly = true } },
         })

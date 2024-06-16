@@ -29,14 +29,14 @@ return {
     -- INFO: add command for installing parsers without opening nvim
     -- `nvim --headless "+HeadlessTSUpdate" +qa`
     vim.api.nvim_create_user_command("HeadlessTSUpdate", function()
-      local lazy_plugin = require "lazy.core.plugin"
+      local lazy_plugin = require("lazy.core.plugin")
       local opts = lazy_plugin.values(plugin, "opts", false)
       local ensure_installed = opts.ensure_installed
 
-      vim.cmd {
+      vim.cmd({
         cmd = "TSUpdateSync",
         args = ensure_installed,
-      }
+      })
     end, { desc = "Install treesitter parsers declared in `ensure_installed`" })
   end,
 

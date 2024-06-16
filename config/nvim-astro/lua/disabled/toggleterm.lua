@@ -6,9 +6,9 @@ return {
       "AstroNvim/astrocore",
       opts = function(_, opts)
         local maps = opts.mappings
-        local astro = require "astrocore"
+        local astro = require("astrocore")
         maps.n["<Leader>t"] = vim.tbl_get(opts, "_map_sections", "t")
-        if vim.fn.executable "git" == 1 and vim.fn.executable "lazygit" == 1 then
+        if vim.fn.executable("git") == 1 and vim.fn.executable("lazygit") == 1 then
           maps.n["<Leader>g"] = vim.tbl_get(opts, "_map_sections", "g")
           local lazygit = {
             callback = function()
@@ -22,16 +22,16 @@ return {
           maps.n["<Leader>gg"] = { lazygit.callback, desc = lazygit.desc }
           maps.n["<Leader>tl"] = { lazygit.callback, desc = lazygit.desc }
         end
-        if vim.fn.executable "node" == 1 then
+        if vim.fn.executable("node") == 1 then
           maps.n["<Leader>tn"] = {
             function()
-              astro.toggle_term_cmd "node"
+              astro.toggle_term_cmd("node")
             end,
             desc = "ToggleTerm node",
           }
         end
-        local gdu = vim.fn.has "mac" == 1 and "gdu-go" or "gdu"
-        if vim.fn.has "win32" == 1 and vim.fn.executable(gdu) ~= 1 then
+        local gdu = vim.fn.has("mac") == 1 and "gdu-go" or "gdu"
+        if vim.fn.has("win32") == 1 and vim.fn.executable(gdu) ~= 1 then
           gdu = "gdu_windows_amd64.exe"
         end
         if vim.fn.executable(gdu) == 1 then
@@ -42,15 +42,15 @@ return {
             desc = "ToggleTerm gdu",
           }
         end
-        if vim.fn.executable "btm" == 1 then
+        if vim.fn.executable("btm") == 1 then
           maps.n["<Leader>tt"] = {
             function()
-              astro.toggle_term_cmd "btm"
+              astro.toggle_term_cmd("btm")
             end,
             desc = "ToggleTerm btm",
           }
         end
-        local python = vim.fn.executable "python" == 1 and "python" or vim.fn.executable "python3" == 1 and "python3"
+        local python = vim.fn.executable("python") == 1 and "python" or vim.fn.executable("python3") == 1 and "python3"
         if python then
           maps.n["<Leader>tp"] = {
             function()

@@ -2,7 +2,7 @@
 --- defer notifications on startup as well as allow for freely
 --- pausing and resuming of notifications
 
----@class utils.notify
+---@class core.notify
 local M = {}
 
 ---@type table[]
@@ -61,11 +61,6 @@ function M.notify(message, level, opts)
   end
 end
 
-function M.init()
-  M.setup()
-  M.defer_startup()
-end
-
 --- Set `vim.notify` to extend it to be pause-able
 ---@param notify function|notify? the original notification function (defaults to `vim.notify`)
 function M.setup(notify)
@@ -89,7 +84,7 @@ function M.defer_startup()
   M.pause()
 
   -- defer initially for 500ms or until `vim.notify` changes
-  local uv = vim.uv or vim.loop
+  local uv = vim.uv
   local timer, checker = uv.new_timer(), uv.new_check()
 
   local function replay()

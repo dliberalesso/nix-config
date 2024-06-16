@@ -10,7 +10,7 @@ return {
         maps.n["<Leader>S"] = vim.tbl_get(opts, "_map_sections", "S")
         maps.n["<Leader>Sl"] = {
           function()
-            require("resession").load "Last Session"
+            require("resession").load("Last Session")
           end,
           desc = "Load last session",
         }
@@ -67,7 +67,7 @@ return {
             event = "VimLeavePre",
             desc = "Save session on close",
             callback = function()
-              local buf_utils = require "astrocore.buffer"
+              local buf_utils = require("astrocore.buffer")
               local autosave = buf_utils.sessions.autosave
               if autosave and buf_utils.is_valid_session() then
                 local save = require("resession").save

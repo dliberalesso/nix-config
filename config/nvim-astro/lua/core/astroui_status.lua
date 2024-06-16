@@ -11,7 +11,7 @@ return {
         vim.schedule(gitsigns.preview_hunk)
       end
     end
-    for _, sign in ipairs { "Topdelete", "Untracked", "Add", "Change", "Changedelete", "Delete" } do
+    for _, sign in ipairs({ "Topdelete", "Untracked", "Add", "Change", "Changedelete", "Delete" }) do
       local name = "GitSigns" .. sign
       if not sign_handlers[name] then
         sign_handlers[name] = gitsigns_handler
@@ -20,13 +20,13 @@ return {
     sign_handlers["gitsigns_extmark_signs_"] = gitsigns_handler
     -- diagnostic handlers
     local diagnostics_handler = function(args)
-      if args.mods:find "c" then
+      if args.mods:find("c") then
         vim.schedule(vim.lsp.buf.code_action)
       else
         vim.schedule(vim.diagnostic.open_float)
       end
     end
-    for _, sign in ipairs { "Error", "Hint", "Info", "Warn" } do
+    for _, sign in ipairs({ "Error", "Hint", "Info", "Warn" }) do
       local name = "DiagnosticSign" .. sign
       if not sign_handlers[name] then
         sign_handlers[name] = diagnostics_handler
@@ -39,7 +39,7 @@ return {
         vim.schedule(dap.toggle_breakpoint)
       end
     end
-    for _, sign in ipairs { "", "Rejected", "Condition" } do
+    for _, sign in ipairs({ "", "Rejected", "Condition" }) do
       local name = "DapBreakpoint" .. sign
       if not sign_handlers[name] then
         sign_handlers[name] = dap_breakpoint_handler
@@ -129,7 +129,7 @@ return {
       },
       sign_handlers = sign_handlers,
       setup_colors = function()
-        local astroui = require "astroui"
+        local astroui = require("astroui")
         ---@type AstroUIStatusOpts
         local status_opts = astroui.config.status
         local color = assert(status_opts.fallback_colors)
@@ -235,7 +235,7 @@ return {
           end
         end
 
-        for _, section in ipairs {
+        for _, section in ipairs({
           "git_branch",
           "file_info",
           "git_diff",
@@ -247,7 +247,7 @@ return {
           "treesitter",
           "nav",
           "virtual_env",
-        } do
+        }) do
           if not colors[section .. "_bg"] then
             colors[section .. "_bg"] = colors["section_bg"]
           end

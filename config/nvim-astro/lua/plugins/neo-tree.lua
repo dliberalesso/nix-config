@@ -11,9 +11,9 @@ return {
         maps.n["<Leader>o"] = {
           function()
             if vim.bo.filetype == "neo-tree" then
-              vim.cmd.wincmd "p"
+              vim.cmd.wincmd("p")
             else
-              vim.cmd.Neotree "focus"
+              vim.cmd.Neotree("focus")
             end
           end,
           desc = "Toggle Explorer Focus",
@@ -28,7 +28,7 @@ return {
               else
                 local stats = (vim.uv or vim.loop).fs_stat(vim.api.nvim_buf_get_name(0)) -- TODO: REMOVE vim.loop WHEN DROPPING SUPPORT FOR Neovim v0.9
                 if stats and stats.type == "directory" then
-                  require("lazy").load { plugins = { "neo-tree.nvim" } }
+                  require("lazy").load({ plugins = { "neo-tree.nvim" } })
                   return true
                 end
               end
@@ -43,7 +43,7 @@ return {
             callback = function()
               local manager_avail, manager = pcall(require, "neo-tree.sources.manager")
               if manager_avail then
-                for _, source in ipairs { "filesystem", "git_status", "document_symbols" } do
+                for _, source in ipairs({ "filesystem", "git_status", "document_symbols" }) do
                   local module = "neo-tree.sources." .. source
                   if package.loaded[module] then
                     manager.refresh(require(module).name)
@@ -58,8 +58,8 @@ return {
   },
   cmd = "Neotree",
   opts = function()
-    local astro, get_icon = require "astrocore", require("astroui").get_icon
-    local git_available = vim.fn.executable "git" == 1
+    local astro, get_icon = require("astrocore"), require("astroui").get_icon
+    local git_available = vim.fn.executable("git") == 1
     local sources = {
       { source = "filesystem", display_name = get_icon("FolderClosed", 1, true) .. "File" },
       { source = "buffers", display_name = get_icon("DefaultFile", 1, true) .. "Bufs" },
@@ -81,28 +81,28 @@ return {
       default_component_configs = {
         indent = {
           padding = 0,
-          expander_collapsed = get_icon "FoldClosed",
-          expander_expanded = get_icon "FoldOpened",
+          expander_collapsed = get_icon("FoldClosed"),
+          expander_expanded = get_icon("FoldOpened"),
         },
         icon = {
-          folder_closed = get_icon "FolderClosed",
-          folder_open = get_icon "FolderOpen",
-          folder_empty = get_icon "FolderEmpty",
-          folder_empty_open = get_icon "FolderEmpty",
-          default = get_icon "DefaultFile",
+          folder_closed = get_icon("FolderClosed"),
+          folder_open = get_icon("FolderOpen"),
+          folder_empty = get_icon("FolderEmpty"),
+          folder_empty_open = get_icon("FolderEmpty"),
+          default = get_icon("DefaultFile"),
         },
-        modified = { symbol = get_icon "FileModified" },
+        modified = { symbol = get_icon("FileModified") },
         git_status = {
           symbols = {
-            added = get_icon "GitAdd",
-            deleted = get_icon "GitDelete",
-            modified = get_icon "GitChange",
-            renamed = get_icon "GitRenamed",
-            untracked = get_icon "GitUntracked",
-            ignored = get_icon "GitIgnored",
-            unstaged = get_icon "GitUnstaged",
-            staged = get_icon "GitStaged",
-            conflict = get_icon "GitConflict",
+            added = get_icon("GitAdd"),
+            deleted = get_icon("GitDelete"),
+            modified = get_icon("GitChange"),
+            renamed = get_icon("GitRenamed"),
+            untracked = get_icon("GitUntracked"),
+            ignored = get_icon("GitIgnored"),
+            unstaged = get_icon("GitUnstaged"),
+            staged = get_icon("GitStaged"),
+            conflict = get_icon("GitConflict"),
           },
         },
       },
@@ -194,7 +194,7 @@ return {
         follow_current_file = { enabled = true },
         filtered_items = { hide_gitignored = git_available },
         hijack_netrw_behavior = "open_current",
-        use_libuv_file_watcher = vim.fn.has "win32" ~= 1,
+        use_libuv_file_watcher = vim.fn.has("win32") ~= 1,
       },
       event_handlers = {
         {
@@ -207,16 +207,16 @@ return {
       },
     }
 
-    if astro.is_available "telescope.nvim" then
+    if astro.is_available("telescope.nvim") then
       opts.commands.find_in_dir = function(state)
         local node = state.tree:get_node()
         local path = node.type == "file" and node:get_parent_id() or node:get_id()
-        require("telescope.builtin").find_files { cwd = path }
+        require("telescope.builtin").find_files({ cwd = path })
       end
       opts.window.mappings.F = "find_in_dir"
     end
 
-    if astro.is_available "toggleterm.nvim" then
+    if astro.is_available("toggleterm.nvim") then
       local toggleterm_in_direction = function(state, direction)
         local node = state.tree:get_node()
         local path = node.type == "file" and node:get_parent_id() or node:get_id()
@@ -226,7 +226,7 @@ return {
       ---@diagnostic disable-next-line: assign-type-mismatch
       opts.window.mappings[prefix] =
         { "show_help", nowait = false, config = { title = "New Terminal", prefix_key = prefix } }
-      for suffix, direction in pairs { f = "float", h = "horizontal", v = "vertical" } do
+      for suffix, direction in pairs({ f = "float", h = "horizontal", v = "vertical" }) do
         local command = "toggleterm_" .. direction
         opts.commands[command] = function(state)
           toggleterm_in_direction(state, direction)

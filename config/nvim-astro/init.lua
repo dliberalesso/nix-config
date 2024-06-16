@@ -1,24 +1,23 @@
+vim.loader.enable()
+
 -- Loading shada is SLOW
 -- Let's load it after UI-enter so it doesn't block startup.
 -- See lua/core/astrocore_autocmds.lua
-_G.shada = vim.o.shada
 vim.o.shada = ""
 
-vim.loader.enable()
+require("utils.notify").init()
 
--- require("utils.notify").init()
-
-local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim" --[[@as string]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim" --[[@as string]]
 
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system {
+  vim.fn.system({
     "git",
     "clone",
     "--filter=blob:none",
     "https://github.com/folke/lazy.nvim.git",
     "--branch=stable", -- latest stable release
     lazypath,
-  }
+  })
 end
 
 vim.opt.rtp:prepend(lazypath)
@@ -37,7 +36,7 @@ local spec = {
 ---@type LazyConfig
 local config = {
   local_spec = true, -- load project specific .lazy.lua spec files. They will be added at the end of the spec.
-  defaults = { lazy = true },
+  defaults = { lazy = true, version = false },
   install = { colorscheme = { "catppuccin", "astrodark", "habamax" } },
   ui = { backdrop = 100 },
   performance = {
@@ -70,6 +69,9 @@ local config = {
         "compiler",
         "bugreport",
         "ftplugin",
+        "matchparen",
+        "spellfile",
+        "osc52", -- Wezterm doesn't support osc52 yet
       },
     },
   },

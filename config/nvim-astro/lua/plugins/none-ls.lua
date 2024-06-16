@@ -12,7 +12,7 @@ return {
           "<Cmd>NullLsInfo<CR>",
           desc = "Null-ls information",
           cond = function()
-            return vim.fn.exists ":NullLsInfo" > 0
+            return vim.fn.exists(":NullLsInfo") > 0
           end,
         }
       end,
@@ -20,7 +20,7 @@ return {
   },
   event = "User AstroFile",
   opts = function()
-    local null_ls = require "null-ls"
+    local null_ls = require("null-ls")
     return {
       on_attach = require("astrolsp").on_attach,
       sources = {

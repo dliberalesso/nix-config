@@ -3,7 +3,7 @@ return {
   "AstroNvim/astrocore",
   ---@param opts AstroCoreOpts
   opts = function(_, opts)
-    local astro = require "astrocore"
+    local astro = require("astrocore")
     local get_icon = require("astroui").get_icon
     -- initialize internally use mapping section titles
     opts._map_sections = {
@@ -45,13 +45,13 @@ return {
       local gx_desc = "Opens filepath or URI under cursor with the system handler (file explorer, web browser, …)"
       maps.n["gx"] = {
         function()
-          astro.system_open(vim.fn.expand "<cfile>")
+          astro.system_open(vim.fn.expand("<cfile>"))
         end,
         desc = gx_desc,
       }
       maps.x["gx"] = {
         function()
-          local lines = vim.fn.getregion(vim.fn.getpos ".", vim.fn.getpos "v", { type = vim.fn.mode() })
+          local lines = vim.fn.getregion(vim.fn.getpos("."), vim.fn.getpos("v"), { type = vim.fn.mode() })
           astro.system_open(table.concat(vim.tbl_map(vim.trim, lines)))
         end,
         desc = gx_desc,
@@ -61,7 +61,7 @@ return {
     maps.x["<Leader>/"] = { "gc", remap = true, desc = "Toggle comment" }
 
     -- Neovim Default LSP Mappings
-    if vim.fn.has "nvim-0.11" ~= 1 then
+    if vim.fn.has("nvim-0.11") ~= 1 then
       maps.n["gra"] = {
         function()
           vim.lsp.buf.code_action()
@@ -201,31 +201,31 @@ return {
     maps.n["<Leader>bs"] = vim.tbl_get(sections, "bs")
     maps.n["<Leader>bse"] = {
       function()
-        require("astrocore.buffer").sort "extension"
+        require("astrocore.buffer").sort("extension")
       end,
       desc = "By extension",
     }
     maps.n["<Leader>bsr"] = {
       function()
-        require("astrocore.buffer").sort "unique_path"
+        require("astrocore.buffer").sort("unique_path")
       end,
       desc = "By relative path",
     }
     maps.n["<Leader>bsp"] = {
       function()
-        require("astrocore.buffer").sort "full_path"
+        require("astrocore.buffer").sort("full_path")
       end,
       desc = "By full path",
     }
     maps.n["<Leader>bsi"] = {
       function()
-        require("astrocore.buffer").sort "bufnr"
+        require("astrocore.buffer").sort("bufnr")
       end,
       desc = "By buffer number",
     }
     maps.n["<Leader>bsm"] = {
       function()
-        require("astrocore.buffer").sort "modified"
+        require("astrocore.buffer").sort("modified")
       end,
       desc = "By modification",
     }
@@ -238,7 +238,7 @@ return {
       desc = "Hover diagnostics",
     }
     -- TODO: Remove mapping after dropping support for Neovim v0.10, it's automatic
-    if vim.fn.has "nvim-0.11" == 0 then
+    if vim.fn.has("nvim-0.11") == 0 then
       maps.n["[d"] = {
         function()
           vim.diagnostic.goto_prev()
@@ -253,7 +253,7 @@ return {
       }
     end
     -- TODO: Remove mapping after dropping support for Neovim v0.9, it's automatic
-    if vim.fn.has "nvim-0.10" == 0 then
+    if vim.fn.has("nvim-0.10") == 0 then
       maps.n["<C-W>d"] = {
         function()
           vim.diagnostic.open_float()

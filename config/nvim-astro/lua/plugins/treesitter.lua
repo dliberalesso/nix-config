@@ -6,8 +6,8 @@ return {
       commands = {
         HeadlessTSUpdate = {
           function()
-            local astrocore = require "astrocore"
-            local opts = astrocore.plugin_opts "nvim-treesitter"
+            local astrocore = require("astrocore")
+            local opts = astrocore.plugin_opts("nvim-treesitter")
             local ensure_installed = opts.ensure_installed
 
             vim.cmd.TSUpdateSync(ensure_installed)

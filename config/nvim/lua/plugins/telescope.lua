@@ -11,186 +11,8 @@ return {
 
     cmd = "Telescope",
 
-    keys = {
-      {
-        "<leader>gb",
-        function()
-          require("telescope.builtin").git_branches { use_file_path = true }
-        end,
-        desc = "Git branches",
-      },
-      {
-        "<leader>gc",
-        function()
-          require("telescope.builtin").git_commits { use_file_path = true }
-        end,
-        desc = "Git commits (repository)",
-      },
-      {
-        "<leader>gC",
-        function()
-          require("telescope.builtin").git_bcommits { use_file_path = true }
-        end,
-        desc = "Git commits (current file)",
-      },
-      {
-        "<leader>gt",
-        function()
-          require("telescope.builtin").git_status { use_file_path = true }
-        end,
-        desc = "Git status",
-      },
-      {
-        "<leader>f<CR>",
-        function()
-          require("telescope.builtin").resume()
-        end,
-        desc = "Resume previous search",
-      },
-      {
-        "<leader>f'",
-        function()
-          require("telescope.builtin").marks()
-        end,
-        desc = "Find marks",
-      },
-      {
-        "<leader>f/",
-        function()
-          require("telescope.builtin").current_buffer_fuzzy_find()
-        end,
-        desc = "Find words in current buffer",
-      },
-      {
-        "<leader>fb",
-        function()
-          require("telescope.builtin").buffers()
-        end,
-        desc = "Find buffers",
-      },
-      {
-        "<leader>fc",
-        function()
-          require("telescope.builtin").grep_string()
-        end,
-        desc = "Find word under cursor",
-      },
-      {
-        "<leader>fC",
-        function()
-          require("telescope.builtin").commands()
-        end,
-        desc = "Find commands",
-      },
-      {
-        "<leader>ff",
-        function()
-          require("telescope.builtin").find_files()
-        end,
-        desc = "Find files",
-      },
-      {
-        "<leader>fF",
-        function()
-          require("telescope.builtin").find_files { hidden = true, no_ignore = true }
-        end,
-        desc = "Find all files",
-      },
-      {
-        "<leader>fh",
-        function()
-          require("telescope.builtin").help_tags()
-        end,
-        desc = "Find help",
-      },
-      {
-        "<leader>fk",
-        function()
-          require("telescope.builtin").keymaps()
-        end,
-        desc = "Find keymaps",
-      },
-      {
-        "<leader>fm",
-        function()
-          require("telescope.builtin").man_pages()
-        end,
-        desc = "Find man",
-      },
-      {
-        "<Leader>fn",
-        function()
-          local telescope = require "telescope"
-          telescope.load_extension "notify"
-          telescope.extensions.notify.notify()
-        end,
-        desc = "Find notifications",
-      },
-      {
-        "<leader>fo",
-        function()
-          require("telescope.builtin").oldfiles()
-        end,
-        desc = "Find history",
-      },
-      {
-        "<leader>fr",
-        function()
-          require("telescope.builtin").registers()
-        end,
-        desc = "Find registers",
-      },
-      {
-        "<leader>ft",
-        function()
-          require("telescope.builtin").colorscheme { enable_preview = true }
-        end,
-        desc = "Find themes",
-      },
-      {
-        "<leader>fw",
-        function()
-          require("telescope.builtin").live_grep()
-        end,
-        desc = "Find words",
-      },
-      {
-        "<leader>fW",
-        function()
-          require("telescope.builtin").live_grep {
-            additional_args = function(args)
-              return vim.list_extend(args, { "--hidden", "--no-ignore" })
-            end,
-          }
-        end,
-        desc = "Find words in all files",
-      },
-      {
-        "<leader>fx",
-        function()
-          require("telescope.builtin").find_files {
-            prompt_title = "Config Files",
-            cwd = vim.fn.stdpath "config",
-            follow = true,
-          }
-        end,
-        desc = "Find Nvim config files",
-      },
-      {
-        "<leader>ls",
-        function()
-          -- TODO: Delete if we won't use `aerial.nvim
-          -- local telescope = require "telescope"
-          -- telescope.load_extension "aerial"
-          -- telescope.extensions.aerial.aerial()
-          require("telescope.builtin").lsp_document_symbols()
-        end,
-        desc = "Search symbols",
-      },
-    },
-
     opts = function()
-      local actions = require "telescope.actions"
+      local actions = require("telescope.actions")
       local selected_icon = "❯ "
       return {
         defaults = {
@@ -224,12 +46,168 @@ return {
     end,
 
     config = function(_, opts)
-      local telescope = require "telescope"
+      local telescope = require("telescope")
       telescope.setup(opts)
 
-      telescope.load_extension "fzf"
+      telescope.load_extension("fzf")
     end,
   },
+  require("core.utils").core_spec("mappings", {
+    opts = function(_, maps)
+      maps.n["<leader>gb"] = {
+        function()
+          require("telescope.builtin").git_branches({ use_file_path = true })
+        end,
+        desc = "Git branches",
+      }
+      maps.n["<leader>gc"] = {
+        function()
+          require("telescope.builtin").git_commits({ use_file_path = true })
+        end,
+        desc = "Git commits (repository)",
+      }
+      maps.n["<leader>gC"] = {
+        function()
+          require("telescope.builtin").git_bcommits({ use_file_path = true })
+        end,
+        desc = "Git commits (current file)",
+      }
+      maps.n["<leader>gt"] = {
+        function()
+          require("telescope.builtin").git_status({ use_file_path = true })
+        end,
+        desc = "Git status",
+      }
+      maps.n["<leader>f<CR>"] = {
+        function()
+          require("telescope.builtin").resume()
+        end,
+        desc = "Resume previous search",
+      }
+      maps.n["<leader>f'"] = {
+        function()
+          require("telescope.builtin").marks()
+        end,
+        desc = "Find marks",
+      }
+      maps.n["<leader>f/"] = {
+        function()
+          require("telescope.builtin").current_buffer_fuzzy_find()
+        end,
+        desc = "Find words in current buffer",
+      }
+      maps.n["<leader>fb"] = {
+        function()
+          require("telescope.builtin").buffers()
+        end,
+        desc = "Find buffers",
+      }
+      maps.n["<leader>fc"] = {
+        function()
+          require("telescope.builtin").grep_string()
+        end,
+        desc = "Find word under cursor",
+      }
+      maps.n["<leader>fC"] = {
+        function()
+          require("telescope.builtin").commands()
+        end,
+        desc = "Find commands",
+      }
+      maps.n["<leader>ff"] = {
+        function()
+          require("telescope.builtin").find_files()
+        end,
+        desc = "Find files",
+      }
+      maps.n["<leader>fF"] = {
+        function()
+          require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
+        end,
+        desc = "Find all files",
+      }
+      maps.n["<leader>fh"] = {
+        function()
+          require("telescope.builtin").help_tags()
+        end,
+        desc = "Find help",
+      }
+      maps.n["<leader>fk"] = {
+        function()
+          require("telescope.builtin").keymaps()
+        end,
+        desc = "Find keymaps",
+      }
+      maps.n["<leader>fm"] = {
+        function()
+          require("telescope.builtin").man_pages()
+        end,
+        desc = "Find man",
+      }
+      maps.n["<Leader>fn"] = {
+        function()
+          local telescope = require("telescope")
+          telescope.load_extension("notify")
+          telescope.extensions.notify.notify()
+        end,
+        desc = "Find notifications",
+      }
+      maps.n["<leader>fo"] = {
+        function()
+          require("telescope.builtin").oldfiles()
+        end,
+        desc = "Find history",
+      }
+      maps.n["<leader>fr"] = {
+        function()
+          require("telescope.builtin").registers()
+        end,
+        desc = "Find registers",
+      }
+      maps.n["<leader>ft"] = {
+        function()
+          require("telescope.builtin").colorscheme({ enable_preview = true })
+        end,
+        desc = "Find themes",
+      }
+      maps.n["<leader>fw"] = {
+        function()
+          require("telescope.builtin").live_grep()
+        end,
+        desc = "Find words",
+      }
+      maps.n["<leader>fW"] = {
+        function()
+          require("telescope.builtin").live_grep({
+            additional_args = function(args)
+              return vim.list_extend(args, { "--hidden", "--no-ignore" })
+            end,
+          })
+        end,
+        desc = "Find words in all files",
+      }
+      maps.n["<leader>fx"] = {
+        function()
+          require("telescope.builtin").find_files({
+            prompt_title = "Config Files",
+            cwd = vim.fn.stdpath("config"),
+            follow = true,
+          })
+        end,
+        desc = "Find Nvim config files",
+      }
+      maps.n["<leader>ls"] = {
+        function()
+          -- TODO: Delete if we won't use `aerial.nvim
+          -- local telescope = require "telescope"
+          -- telescope.load_extension "aerial"
+          -- telescope.extensions.aerial.aerial()
+          require("telescope.builtin").lsp_document_symbols()
+        end,
+        desc = "Search symbols",
+      }
+    end,
+  }),
   -- {
   --   "AstroNvim/astrolsp",
   --   optional = true,

@@ -46,7 +46,7 @@ return {
       },
       opts = { floating = { border = "rounded" } },
       config = function(_, opts)
-        local dap, dapui = require "dap", require "dapui"
+        local dap, dapui = require("dap"), require("dapui")
         dap.listeners.after.event_initialized["dapui_config"] = function()
           dapui.open()
         end
@@ -223,11 +223,11 @@ return {
         if not opts.signs then
           opts.signs = {}
         end
-        opts.signs.DapBreakpoint = { text = get_icon "DapBreakpoint", texthl = "DiagnosticInfo" }
-        opts.signs.DapBreakpointCondition = { text = get_icon "DapBreakpointCondition", texthl = "DiagnosticInfo" }
-        opts.signs.DapBreakpointRejected = { text = get_icon "DapBreakpointRejected", texthl = "DiagnosticError" }
-        opts.signs.DapLogPoint = { text = get_icon "DapLogPoint", texthl = "DiagnosticInfo" }
-        opts.signs.DapStopped = { text = get_icon "DapStopped", texthl = "DiagnosticWarn" }
+        opts.signs.DapBreakpoint = { text = get_icon("DapBreakpoint"), texthl = "DiagnosticInfo" }
+        opts.signs.DapBreakpointCondition = { text = get_icon("DapBreakpointCondition"), texthl = "DiagnosticInfo" }
+        opts.signs.DapBreakpointRejected = { text = get_icon("DapBreakpointRejected"), texthl = "DiagnosticError" }
+        opts.signs.DapLogPoint = { text = get_icon("DapLogPoint"), texthl = "DiagnosticInfo" }
+        opts.signs.DapStopped = { text = get_icon("DapStopped"), texthl = "DiagnosticWarn" }
       end,
     },
   },

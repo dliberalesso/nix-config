@@ -10,7 +10,7 @@ return {
       opts = function(_, opts)
         local maps = opts.mappings
         -- TODO: set this keymaps using `lazy.nvim` keys
-        if require("astrocore").is_available "telescope.nvim" then
+        if require("astrocore").is_available("telescope.nvim") then
           maps.n["<Leader>fT"] = { "<Cmd>TodoTelescope<CR>", desc = "Find TODOs" }
         end
         -- TODO: set the following keymaps during config

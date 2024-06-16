@@ -9,7 +9,7 @@ return {
         local maps = opts.mappings
         maps.n["<Leader>uD"] = {
           function()
-            require("notify").dismiss { pending = true, silent = true }
+            require("notify").dismiss({ pending = true, silent = true })
           end,
           desc = "Dismiss notifications",
         }
@@ -22,11 +22,11 @@ return {
   opts = function(_, opts)
     local get_icon = require("astroui").get_icon
     opts.icons = {
-      DEBUG = get_icon "Debugger",
-      ERROR = get_icon "DiagnosticError",
-      INFO = get_icon "DiagnosticInfo",
-      TRACE = get_icon "DiagnosticHint",
-      WARN = get_icon "DiagnosticWarn",
+      DEBUG = get_icon("Debugger"),
+      ERROR = get_icon("DiagnosticError"),
+      INFO = get_icon("DiagnosticInfo"),
+      TRACE = get_icon("DiagnosticHint"),
+      WARN = get_icon("DiagnosticWarn"),
     }
     opts.max_height = function()
       return math.floor(vim.o.lines * 0.75)
@@ -35,14 +35,14 @@ return {
       return math.floor(vim.o.columns * 0.75)
     end
     opts.on_open = function(win)
-      local astrocore = require "astrocore"
+      local astrocore = require("astrocore")
       vim.api.nvim_win_set_config(win, { zindex = 175 })
       if not astrocore.config.features.notifications then
         vim.api.nvim_win_close(win, true)
         return
       end
-      if astrocore.is_available "nvim-treesitter" then
-        require("lazy").load { plugins = { "nvim-treesitter" } }
+      if astrocore.is_available("nvim-treesitter") then
+        require("lazy").load({ plugins = { "nvim-treesitter" } })
       end
       vim.wo[win].conceallevel = 3
       local buf = vim.api.nvim_win_get_buf(win)
@@ -53,7 +53,7 @@ return {
     end
   end,
   config = function(_, opts)
-    local notify = require "notify"
+    local notify = require("notify")
     notify.setup(opts)
     require("utils.notify").setup(notify)
   end,

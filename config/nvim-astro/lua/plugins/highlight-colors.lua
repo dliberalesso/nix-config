@@ -9,7 +9,7 @@ return {
         local maps = opts.mappings
         maps.n["<Leader>uz"] = {
           function()
-            vim.cmd.HighlightColors "Toggle"
+            vim.cmd.HighlightColors("Toggle")
           end,
           desc = "Toggle color highlight",
         }

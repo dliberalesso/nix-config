@@ -44,7 +44,7 @@ return {
     },
   },
   opts = function()
-    local status = require "astroui.status"
+    local status = require("astroui.status")
     return {
       opts = {
         colors = require("astroui").config.status.setup_colors(),
@@ -67,7 +67,7 @@ return {
         status.component.virtual_env(),
         status.component.treesitter(),
         status.component.nav(),
-        status.component.mode { surround = { separator = "right" } },
+        status.component.mode({ surround = { separator = "right" } }),
       },
       winbar = { -- winbar
         init = function(self)
@@ -79,17 +79,17 @@ return {
             return not status.condition.is_active()
           end,
           status.component.separated_path(),
-          status.component.file_info {
-            file_icon = { hl = status.hl.file_icon "winbar", padding = { left = 0 } },
+          status.component.file_info({
+            file_icon = { hl = status.hl.file_icon("winbar"), padding = { left = 0 } },
             filename = {},
             filetype = false,
             file_read_only = false,
             hl = status.hl.get_attributes("winbarnc", true),
             surround = false,
             update = "BufEnter",
-          },
+          }),
         },
-        status.component.breadcrumbs { hl = status.hl.get_attributes("winbar", true) },
+        status.component.breadcrumbs({ hl = status.hl.get_attributes("winbar", true) }),
       },
       tabline = { -- bufferline
         { -- automatic sidebar padding
@@ -105,19 +105,19 @@ return {
           hl = { bg = "tabline_bg" },
         },
         status.heirline.make_buflist(status.component.tabline_file_info()), -- component for each buffer tab
-        status.component.fill { hl = { bg = "tabline_bg" } }, -- fill the rest of the tabline with background color
+        status.component.fill({ hl = { bg = "tabline_bg" } }), -- fill the rest of the tabline with background color
         { -- tab list
           condition = function()
             return #vim.api.nvim_list_tabpages() >= 2
           end, -- only show tabs if there are more than one
-          status.heirline.make_tablist { -- component for each tab
+          status.heirline.make_tablist({ -- component for each tab
             provider = status.provider.tabnr(),
             hl = function(self)
               return status.hl.get_attributes(status.heirline.tab_type(self, "tab"), true)
             end,
-          },
+          }),
           { -- close button for current tab
-            provider = status.provider.close_button { kind = "TabClose", padding = { left = 1, right = 1 } },
+            provider = status.provider.close_button({ kind = "TabClose", padding = { left = 1, right = 1 } }),
             hl = status.hl.get_attributes("tab_close", true),
             on_click = {
               callback = function()

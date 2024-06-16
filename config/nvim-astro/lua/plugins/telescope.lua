@@ -9,32 +9,32 @@ return {
         "AstroNvim/astrocore",
         opts = function(_, opts)
           local maps = opts.mappings
-          local astro = require "astrocore"
+          local astro = require("astrocore")
           local is_available = astro.is_available
           maps.n["<Leader>f"] = vim.tbl_get(opts, "_map_sections", "f")
-          if vim.fn.executable "git" == 1 then
+          if vim.fn.executable("git") == 1 then
             maps.n["<Leader>g"] = vim.tbl_get(opts, "_map_sections", "g")
             maps.n["<Leader>gb"] = {
               function()
-                require("telescope.builtin").git_branches { use_file_path = true }
+                require("telescope.builtin").git_branches({ use_file_path = true })
               end,
               desc = "Git branches",
             }
             maps.n["<Leader>gc"] = {
               function()
-                require("telescope.builtin").git_commits { use_file_path = true }
+                require("telescope.builtin").git_commits({ use_file_path = true })
               end,
               desc = "Git commits (repository)",
             }
             maps.n["<Leader>gC"] = {
               function()
-                require("telescope.builtin").git_bcommits { use_file_path = true }
+                require("telescope.builtin").git_bcommits({ use_file_path = true })
               end,
               desc = "Git commits (current file)",
             }
             maps.n["<Leader>gt"] = {
               function()
-                require("telescope.builtin").git_status { use_file_path = true }
+                require("telescope.builtin").git_status({ use_file_path = true })
               end,
               desc = "Git status",
             }
@@ -59,11 +59,11 @@ return {
           }
           maps.n["<Leader>fa"] = {
             function()
-              require("telescope.builtin").find_files {
+              require("telescope.builtin").find_files({
                 prompt_title = "Config Files",
-                cwd = vim.fn.stdpath "config",
+                cwd = vim.fn.stdpath("config"),
                 follow = true,
-              }
+              })
             end,
             desc = "Find AstroNvim config files",
           }
@@ -93,7 +93,7 @@ return {
           }
           maps.n["<Leader>fF"] = {
             function()
-              require("telescope.builtin").find_files { hidden = true, no_ignore = true }
+              require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
             end,
             desc = "Find all files",
           }
@@ -115,7 +115,7 @@ return {
             end,
             desc = "Find man",
           }
-          if is_available "nvim-notify" then
+          if is_available("nvim-notify") then
             maps.n["<Leader>fn"] = {
               function()
                 require("telescope").extensions.notify.notify()
@@ -137,11 +137,11 @@ return {
           }
           maps.n["<Leader>ft"] = {
             function()
-              require("telescope.builtin").colorscheme { enable_preview = true }
+              require("telescope.builtin").colorscheme({ enable_preview = true })
             end,
             desc = "Find themes",
           }
-          if vim.fn.executable "rg" == 1 then
+          if vim.fn.executable("rg") == 1 then
             maps.n["<Leader>fw"] = {
               function()
                 require("telescope.builtin").live_grep()
@@ -150,18 +150,18 @@ return {
             }
             maps.n["<Leader>fW"] = {
               function()
-                require("telescope.builtin").live_grep {
+                require("telescope.builtin").live_grep({
                   additional_args = function(args)
                     return vim.list_extend(args, { "--hidden", "--no-ignore" })
                   end,
-                }
+                })
               end,
               desc = "Find words in all files",
             }
           end
           maps.n["<Leader>ls"] = {
             function()
-              if is_available "aerial.nvim" then
+              if is_available("aerial.nvim") then
                 require("telescope").extensions.aerial.aerial()
               else
                 require("telescope.builtin").lsp_document_symbols()
@@ -174,7 +174,7 @@ return {
     },
     cmd = "Telescope",
     opts = function()
-      local actions = require "telescope.actions"
+      local actions = require("telescope.actions")
       local selected_icon = require("astroui").get_icon("Selected", 1)
       return {
         defaults = {
@@ -208,19 +208,19 @@ return {
       }
     end,
     config = function(_, opts)
-      local telescope = require "telescope"
+      local telescope = require("telescope")
       telescope.setup(opts)
 
-      telescope.load_extension "notify"
-      telescope.load_extension "aerial"
-      telescope.load_extension "fzf"
+      telescope.load_extension("notify")
+      telescope.load_extension("aerial")
+      telescope.load_extension("fzf")
     end,
   },
   {
     "AstroNvim/astrolsp",
     optional = true,
     opts = function(_, opts)
-      if require("astrocore").is_available "telescope.nvim" then
+      if require("astrocore").is_available("telescope.nvim") then
         local maps = opts.mappings
         maps.n["<Leader>lD"] = {
           function()
@@ -230,12 +230,12 @@ return {
         }
         if maps.n.gd then
           maps.n.gd[1] = function()
-            require("telescope.builtin").lsp_definitions { reuse_win = true }
+            require("telescope.builtin").lsp_definitions({ reuse_win = true })
           end
         end
         if maps.n.gI then
           maps.n.gI[1] = function()
-            require("telescope.builtin").lsp_implementations { reuse_win = true }
+            require("telescope.builtin").lsp_implementations({ reuse_win = true })
           end
         end
         if maps.n["<Leader>lR"] then
@@ -245,7 +245,7 @@ return {
         end
         if maps.n.gy then
           maps.n.gy[1] = function()
-            require("telescope.builtin").lsp_type_definitions { reuse_win = true }
+            require("telescope.builtin").lsp_type_definitions({ reuse_win = true })
           end
         end
         if maps.n["<Leader>lG"] then
@@ -254,12 +254,12 @@ return {
               if query then
                 -- word under cursor if given query is empty
                 if query == "" then
-                  query = vim.fn.expand "<cword>"
+                  query = vim.fn.expand("<cword>")
                 end
-                require("telescope.builtin").lsp_workspace_symbols {
+                require("telescope.builtin").lsp_workspace_symbols({
                   query = query,
                   prompt_title = ("Find word (%s)"):format(query),
-                }
+                })
               end
             end)
           end

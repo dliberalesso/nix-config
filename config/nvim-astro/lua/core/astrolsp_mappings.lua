@@ -60,7 +60,7 @@ return {
 
     local formatting_enabled = function(client)
       local disabled = opts.formatting.disabled
-      return client.supports_method "textDocument/formatting"
+      return client.supports_method("textDocument/formatting")
         and disabled ~= true
         and not vim.tbl_contains(disabled, client.name)
     end
@@ -88,7 +88,7 @@ return {
     }
 
     -- TODO: Remove mapping after dropping support for Neovim v0.9, it's automatic
-    if vim.fn.has "nvim-0.10" == 0 then
+    if vim.fn.has("nvim-0.10") == 0 then
       maps.n["K"] = {
         function()
           vim.lsp.buf.hover()
@@ -174,7 +174,7 @@ return {
       end,
       desc = "Toggle LSP semantic highlight (buffer)",
       cond = function(client)
-        return client.supports_method "textDocument/semanticTokens/full" and vim.lsp.semantic_tokens
+        return client.supports_method("textDocument/semanticTokens/full") and vim.lsp.semantic_tokens
       end,
     }
     opts.mappings = require("astrocore").extend_tbl(opts.mappings, maps)

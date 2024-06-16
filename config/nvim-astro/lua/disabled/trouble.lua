@@ -16,7 +16,7 @@ return {
             { "<Cmd>Trouble diagnostics toggle filter.buf=0<CR>", desc = "Document Diagnostics (Trouble)" }
           maps.n[prefix .. "l"] = { "<Cmd>Trouble loclist toggle<CR>", desc = "Location List (Trouble)" }
           maps.n[prefix .. "q"] = { "<Cmd>Trouble quickfix toggle<CR>", desc = "Quickfix List (Trouble)" }
-          if require("astrocore").is_available "todo-comments.nvim" then
+          if require("astrocore").is_available("todo-comments.nvim") then
             maps.n[prefix .. "t"] = {
               "<cmd>Trouble todo<cr>",
               desc = "Todo (Trouble)",
@@ -40,11 +40,11 @@ return {
         },
         icons = {
           indent = {
-            fold_open = get_icon "FoldOpened",
-            fold_closed = get_icon "FoldClosed",
+            fold_open = get_icon("FoldOpened"),
+            fold_closed = get_icon("FoldClosed"),
           },
-          folder_closed = get_icon "FolderClosed",
-          folder_open = get_icon "FolderOpen",
+          folder_closed = get_icon("FolderClosed"),
+          folder_open = get_icon("FolderOpen"),
           kinds = lspkind_avail and lspkind.symbol_map,
         },
       }
