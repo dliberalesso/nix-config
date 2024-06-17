@@ -166,7 +166,7 @@ return {
       }
       maps.n["<leader>ft"] = {
         function()
-          require("telescope.builtin").colorscheme({ enable_preview = true })
+          require("telescope.builtin").colorscheme({ enable_preview = true, ignore_builtins = true })
         end,
         desc = "Find themes",
       }
