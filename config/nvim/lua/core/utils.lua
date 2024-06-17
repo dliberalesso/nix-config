@@ -9,6 +9,7 @@ function M.core_spec(core_module, rest)
     name = name,
     main = name,
     dir = vim.fn.stdpath("config"), --[[@as string]]
+    config = true,
   }, rest)
 end
 

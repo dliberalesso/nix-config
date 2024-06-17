@@ -12,6 +12,7 @@ return {
       f = { name = "File" },
       b = { name = "Buffer" },
       g = { name = "Git" },
+      l = { name = "LSP" },
       p = { name = "Packages" },
     }, { prefix = "<leader>" })
   end,
