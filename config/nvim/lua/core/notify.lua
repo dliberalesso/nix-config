@@ -61,6 +61,17 @@ function M.notify(message, level, opts)
   end
 end
 
+function M.init()
+  if M.did_init then
+    return
+  end
+
+  M.did_init = true
+
+  M.setup()
+  M.defer_startup()
+end
+
 --- Set `vim.notify` to extend it to be pause-able
 ---@param notify function|notify? the original notification function (defaults to `vim.notify`)
 function M.setup(notify)

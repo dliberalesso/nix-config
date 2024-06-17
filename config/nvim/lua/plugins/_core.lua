@@ -2,12 +2,9 @@ local core_spec = require("core.utils").core_spec
 
 ---@type LazySpec[]
 return {
-  core_spec("init", {
-    event = "VeryLazy",
-    priority = -10000,
-
+  core_spec("notify", {
     init = function()
-      require("core.init").init()
+      require("core.notify").init()
     end,
   }),
   core_spec("settings", {
@@ -15,7 +12,9 @@ return {
   }),
   core_spec("mappings", {
     event = "VeryLazy",
-    priority = 10000,
     opts = require("core.utils").empty_map_table(),
+  }),
+  core_spec("shada", {
+    event = "VeryLazy",
   }),
 }
