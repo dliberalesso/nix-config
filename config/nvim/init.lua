@@ -20,7 +20,18 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup("plugins", {
+require("lazy").setup({
+  {
+    "dstein64/vim-startuptime",
+    -- lazy-load on a command
+    cmd = "StartupTime",
+    -- init is called during startup. Configuration for vim plugins typically should be set in an init function
+    init = function()
+      vim.g.startuptime_tries = 10
+    end,
+  },
+  { import = "plugins" },
+}, {
   local_spec = true, -- load project specific .lazy.lua, which will be added at the end of the spec.
   defaults = { lazy = true, version = false },
   install = { colorscheme = { "catppuccin", "habamax" } },
