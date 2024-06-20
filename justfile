@@ -3,7 +3,6 @@ default:
 
 update:
   nix flake update
-  nvim --headless "+Lazy! update" +qa
 
 diff:
   git diff ':!flake.lock'
@@ -18,6 +17,7 @@ remodel:
   git add *
   home-manager switch --flake .#dli
 
+# Run GC and optmise Nix Store
 clean:
   sudo nix-collect-garbage -d
   nix-collect-garbage -d
@@ -26,7 +26,7 @@ clean:
   sudo nix-store --optimise
   nix-store --optimise
 
-upgrade: clean rebuild remodel clean nvim-lazy
+upgrade: clean rebuild remodel clean
 
 repair:
   sudo nix-store --verify --check-contents --repair
@@ -37,18 +37,5 @@ fmt:
 lint:
   nix flake check
 
-nvim-lazy:
-  nvim --headless "+Lazy! restore" "+Lazy! clean" "+HeadlessTSUpdate" +qa
-
-nvim-startuptime:
-  nvim --startuptime startuptime.log -c 'autocmd VimEnter * if has('\''nvim'\'') | set shada= shadafile=NONE | else | set viminfo= viminfofile=NONE | endif' -c 'if exists('\''*timer_start'\'') | call timer_start(0, {-> execute('\''qall!'\'')}) | else | autocmd VimEnter * qall! | endif'
-  bat startuptime.log
-  just nvim-remove-startuptime
-
 wezterm user:
   cp {{justfile_directory()}}/config/wezterm.lua /mnt/c/Users/{{user}}/.wezterm.lua
-
-[private]
-[confirm]
-nvim-remove-startuptime:
-  rm startuptime.log

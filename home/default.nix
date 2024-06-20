@@ -9,7 +9,6 @@
     ./catppuccin.nix
     ./cli.nix
     ./git.nix
-    ./neovim.nix
     ./shell.nix
   ];
 
@@ -26,6 +25,11 @@
   # Packages & Programs
   home.packages = with pkgs; [ cachix ];
   programs = { };
+
+  # Neovim
+  programs.fish.shellAliases = {
+    nvim = ''nix run "github:dliberalesso/nix-neovim"'';
+  };
 
   # Services
   services.vscode-server.enable = true;

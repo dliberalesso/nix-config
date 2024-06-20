@@ -99,7 +99,6 @@
               nixpkgs-fmt.enable = true;
               shfmt.enable = true;
               stylua.enable = true;
-              taplo.enable = true;
             };
           };
 
