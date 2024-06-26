@@ -5,6 +5,7 @@
   home.packages = with pkgs; [
     grex
     hyperfine
+    manix
     sd
     tokei
     wget
