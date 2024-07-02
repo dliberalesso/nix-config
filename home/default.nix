@@ -23,13 +23,10 @@
   };
 
   # Packages & Programs
-  home.packages = with pkgs; [ cachix ];
-  programs = { };
-
-  # Neovim
-  programs.fish.shellAliases = {
-    nvim = ''nix run "github:dliberalesso/nix-neovim"'';
-  };
+  home.packages = with pkgs; [
+    cachix
+    nvim-with-aliases
+  ];
 
   # Services
   services.vscode-server.enable = true;
