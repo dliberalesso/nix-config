@@ -42,29 +42,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-nightly = {
-      url = "github:nix-community/neovim-nightly-overlay";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-        git-hooks.follows = "git-hooks";
-      };
-    };
-
-    nix-neovim = {
-      url = "github:dliberalesso/nix-neovim";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-        flake-root.follows = "flake-root";
-        git-hooks.follows = "git-hooks";
-        neovim-nightly.follows = "neovim-nightly";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-    };
-
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs = {
@@ -131,21 +108,8 @@
         perSystem =
           { config
           , pkgs
-          , system
           , ...
           }: {
-            _module.args.pkgs = import inputs.nixpkgs {
-              inherit system;
-              config = {
-                allowUnfree = true;
-                allowAliases = true;
-              };
-              overlays = [
-                inputs.neovim-nightly.overlays.default
-                inputs.nix-neovim.overlays.default
-              ];
-            };
-
             devShells.default = pkgs.mkShell {
               nativeBuildInputs = with pkgs; [
                 just
