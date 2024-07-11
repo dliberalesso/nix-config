@@ -32,6 +32,12 @@
     fzf = rec {
       enable = true;
 
+      package = pkgs.fzf.overrideAttrs (oa: {
+        postInstall = oa.postInstall + ''
+          rm -rf $out/share/nvim/
+        '';
+      });
+
       defaultCommand = "fd --type f";
       defaultOptions = [
         "--height 50%"
