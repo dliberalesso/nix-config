@@ -48,8 +48,8 @@
   boot.tmp.cleanOnBoot = true;
 
   # No graphical stuff please!
-  environment.noXlibs = lib.mkOverride 0 true;
-  hardware.opengl.enable = lib.mkOverride 0 false;
+  # environment.noXlibs = lib.mkOverride 0 true;
+  # hardware.opengl.enable = lib.mkOverride 0 false;
 
   # There is a problem with programs.sqlite
   programs.command-not-found.enable = lib.mkOverride 0 false;
@@ -57,7 +57,7 @@
   # Setup WSL
   wsl = {
     enable = true;
-    nativeSystemd = true;
+    # nativeSystemd = true;
     defaultUser = "dli";
     startMenuLaunchers = false;
     wslConf.automount.root = "/mnt";
