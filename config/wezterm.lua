@@ -5,6 +5,7 @@ local config = wezterm.config_builder()
 config.default_domain = "WSL:NixOS"
 
 config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+config.use_fancy_tab_bar = false
 config.default_cursor_style = "SteadyBar"
 
 config.font_size = 12
