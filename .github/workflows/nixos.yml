@@ -43,4 +43,4 @@ jobs:
           extraPullNames: cachix, nix-community
 
       - name: "Build NixOS-WSL config ❄️"
-        run: nix build .#nixosConfigurations.nixosWSL.config.system.build.toplevel -v -L
+        run: nix build .#nixosConfigurations.nixWSL.config.system.build.toplevel -v -L
