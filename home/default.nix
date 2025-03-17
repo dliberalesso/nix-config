@@ -17,9 +17,9 @@
   xdg.enable = true;
 
   home = rec {
-    username = "dli";
+    username = "dli50";
     homeDirectory = "/home/${username}";
-    stateVersion = "24.05";
+    stateVersion = "25.05";
   };
 
   # Packages & Programs

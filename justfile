@@ -10,12 +10,12 @@ diff:
 # Rebuild nixos
 rebuild:
   git add *
-  nixos-rebuild switch --flake .#nixosWSL --use-remote-sudo
+  nixos-rebuild switch --flake .#nixWSL --use-remote-sudo
 
 # Rebuild home
 remodel:
   git add *
-  home-manager switch --flake .#dli
+  home-manager switch --flake .#dli50
 
 # Run GC and optmise Nix Store
 clean:

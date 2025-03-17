@@ -80,30 +80,46 @@
 
         systems = [ "x86_64-linux" ];
 
-        flake = {
-          nixosConfigurations.nixosWSL = withSystem "x86_64-linux" (
-            { pkgs
-            , system
-            , ...
-            }:
-            nixpkgs.lib.nixosSystem {
-              inherit system pkgs;
-              specialArgs = { inherit inputs; };
-              modules = [ ./nixos ];
-            }
-          );
+        flake =
+          let
+            specialArgs = { inherit inputs; };
+          in
+          {
+            nixosConfigurations.nixWSL = withSystem "x86_64-linux" (
+              { pkgs
+              , system
+              , ...
+              }:
+              nixpkgs.lib.nixosSystem {
+                inherit system pkgs specialArgs;
+                modules = [
+                  ./nixos/common.nix
+                  ./nixos/wsl.nix
 
-          homeConfigurations.dli = withSystem "x86_64-linux" (
-            { pkgs
-            , ...
-            }:
-            home-manager.lib.homeManagerConfiguration {
-              inherit pkgs;
-              extraSpecialArgs = { inherit inputs; };
-              modules = [ ./home ];
-            }
-          );
-        };
+                  home-manager.nixosModules.home-manager
+                  {
+                    home-manager = {
+                      useGlobalPkgs = true;
+                      useUserPackages = true;
+                      users.dli50 = import ./home;
+                      extraSpecialArgs = specialArgs;
+                    };
+                  }
+                ];
+              }
+            );
+
+            homeConfigurations.dli50 = withSystem "x86_64-linux" (
+              { pkgs
+              , ...
+              }:
+              home-manager.lib.homeManagerConfiguration {
+                inherit pkgs;
+                extraSpecialArgs = specialArgs;
+                modules = [ ./home ];
+              }
+            );
+          };
 
         perSystem =
           { config

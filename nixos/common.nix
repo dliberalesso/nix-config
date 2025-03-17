@@ -4,15 +4,11 @@
 , config
 , ...
 }: {
-  imports = [
-    inputs.nixos-wsl.nixosModules.wsl
-  ];
-
   nix = {
     # Make nix3 and legacy nix commands consistent:
-    # # Add each flake input as a registry
+    # - Add each flake input as a registry
     registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
-    # # Add the inputs to the system's legacy channels
+    # - Add the inputs to the system's legacy channels
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
 
     settings = {
@@ -47,33 +43,13 @@
 
   boot.tmp.cleanOnBoot = true;
 
-  # No graphical stuff please!
-  # environment.noXlibs = lib.mkOverride 0 true;
-  # hardware.opengl.enable = lib.mkOverride 0 false;
-
-  # There is a problem with programs.sqlite
-  programs.command-not-found.enable = lib.mkOverride 0 false;
-
-  # Setup WSL
-  wsl = {
-    enable = true;
-    # nativeSystemd = true;
-    defaultUser = "dli";
-    startMenuLaunchers = false;
-    wslConf.automount.root = "/mnt";
-    wslConf.network.hostname = "nixosWSL";
-  };
-
-  # Packages to install
-  environment.systemPackages = with pkgs; [
-    wslu # Utilities for WSL, i.e. wslview
-  ];
-
   # Fish
   environment.shells = [ pkgs.fish ];
   programs.fish.enable = true;
   users.defaultUserShell = pkgs.fish;
 
-  # https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  system.stateVersion = "24.05";
+  # There is a problem with programs.sqlite
+  programs.command-not-found.enable = lib.mkOverride 0 false;
+
+  system.stateVersion = "25.05";
 }
