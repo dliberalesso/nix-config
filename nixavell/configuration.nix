@@ -10,6 +10,7 @@
       ./input.nix
       ./hardware-configuration.nix
       ./hyperion.nix
+      ./nixvim.nix
       ./nvidia.nix
     ];
 
@@ -108,6 +109,7 @@
 
       delta
       git
+      git-lfs
       gh
       lazygit
 
