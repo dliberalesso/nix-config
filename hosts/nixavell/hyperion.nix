@@ -7,7 +7,7 @@
 
   systemd.services.hyperion = {
     enable = true;
-    wantedBy = ["multi-user.target"];
+    wantedBy = [ "multi-user.target" ];
     serviceConfig = {
       ExecStart = "${pkgs.hyperion-ng}/bin/hyperiond --userdata /tmp/hyperion --service #/etc/nixos/hyperion.json";
       ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";
