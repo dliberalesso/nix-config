@@ -1,4 +1,7 @@
-{ inputs, pkgs, ... }: {
+{ inputs
+, pkgs
+, ...
+}: {
   programs.nixvim = {
     enable = true;
     package = inputs.neovim-nightly.packages.${pkgs.system}.default;
