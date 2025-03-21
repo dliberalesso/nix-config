@@ -18,7 +18,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    catppuccin.url = "github:catppuccin/nix";
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -42,6 +45,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    neovim-nightly = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        git-hooks.follows = "git-hooks";
+      };
+    };
+
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs = {
@@ -50,13 +63,22 @@
       };
     };
 
-    treefmt-nix = {
-      url = "github:numtide/treefmt-nix";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        nuschtosSearch.follows = "nuschtosSearch";
+      };
+    };
+
+    nuschtosSearch = {
+      url = "github:NuschtOS/search";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    vscode-server = {
-      url = "github:nix-community/nixos-vscode-server";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -85,29 +107,53 @@
             specialArgs = { inherit inputs; };
           in
           {
-            nixosConfigurations.nixWSL = withSystem "x86_64-linux" (
-              { pkgs
-              , system
-              , ...
-              }:
-              nixpkgs.lib.nixosSystem {
-                inherit system pkgs specialArgs;
-                modules = [
-                  ./nixos/common.nix
-                  ./nixos/wsl.nix
+            nixosConfigurations = {
+              nixWSL = withSystem "x86_64-linux" (
+                { pkgs
+                , system
+                , ...
+                }:
+                nixpkgs.lib.nixosSystem {
+                  inherit system pkgs specialArgs;
+                  modules = [
+                    ./nixos/wsl.nix
 
-                  home-manager.nixosModules.home-manager
-                  {
-                    home-manager = {
-                      useGlobalPkgs = true;
-                      useUserPackages = true;
-                      users.dli50 = import ./home;
-                      extraSpecialArgs = specialArgs;
-                    };
-                  }
-                ];
-              }
-            );
+                    home-manager.nixosModules.home-manager
+                    {
+                      home-manager = {
+                        useGlobalPkgs = true;
+                        useUserPackages = true;
+                        users.dli50 = import ./home/common;
+                        extraSpecialArgs = specialArgs;
+                      };
+                    }
+                  ];
+                }
+              );
+
+              nixavell = withSystem "x86_64-linux" (
+                { pkgs
+                , system
+                , ...
+                }:
+                nixpkgs.lib.nixosSystem {
+                  inherit system pkgs specialArgs;
+                  modules = [
+                    ./nixos/nixavell
+
+                    home-manager.nixosModules.home-manager
+                    {
+                      home-manager = {
+                        useGlobalPkgs = true;
+                        useUserPackages = true;
+                        users.dli50 = import ./home/nixavell.nix;
+                        extraSpecialArgs = specialArgs;
+                      };
+                    }
+                  ];
+                }
+              );
+            };
 
             homeConfigurations.dli50 = withSystem "x86_64-linux" (
               { pkgs
@@ -116,7 +162,7 @@
               home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
                 extraSpecialArgs = specialArgs;
-                modules = [ ./home ];
+                modules = [ ./home/common ];
               }
             );
           };
@@ -124,8 +170,15 @@
         perSystem =
           { config
           , pkgs
+          , system
           , ...
           }: {
+            _module.args.pkgs = import inputs.nixpkgs {
+              inherit system;
+
+              config.allowUnfree = true;
+            };
+
             devShells.default = pkgs.mkShell {
               nativeBuildInputs = with pkgs; [
                 just

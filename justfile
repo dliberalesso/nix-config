@@ -10,7 +10,7 @@ diff:
 # Rebuild nixos
 rebuild:
   git add *
-  nixos-rebuild switch --flake .#nixWSL --use-remote-sudo
+  nixos-rebuild switch --flake .#$(hostname) --use-remote-sudo
 
 # Rebuild home
 remodel:
