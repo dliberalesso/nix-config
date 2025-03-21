@@ -12,7 +12,7 @@
     ./shell.nix
 
     inputs.nixvim.homeManagerModules.nixvim
-    ../modules/nixvim
+    ../../nixvim
   ];
 
   # Home Manager

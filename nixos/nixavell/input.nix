@@ -1,6 +1,17 @@
-{ pkgs, ... }:
+{ pkgs
+, ...
+}: {
+  nixpkgs.overlays = [
+    (final: prev: {
+      libratbag = prev.libratbag.overrideAttrs (oldAttrs: {
+        postPatch = ''
+          substituteInPlace data/devices/logitech-g502-x-wireless.device \
+            --replace "DeviceMatch=usb:046d:c098" "DeviceMatch=usb:046d:c098;usb:046d:c547"
+        '';
+      });
+    })
+  ];
 
-{
   # Logitech UDEV rules
   hardware.logitech.wireless.enable = true;
 
@@ -33,9 +44,6 @@
           };
         };
       };
-      #       mouse = {
-      #
-      #       };
     };
   };
 

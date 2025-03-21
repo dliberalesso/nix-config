@@ -107,29 +107,53 @@
             specialArgs = { inherit inputs; };
           in
           {
-            nixosConfigurations.nixWSL = withSystem "x86_64-linux" (
-              { pkgs
-              , system
-              , ...
-              }:
-              nixpkgs.lib.nixosSystem {
-                inherit system pkgs specialArgs;
-                modules = [
-                  ./nixos/common.nix
-                  ./nixos/wsl.nix
+            nixosConfigurations = {
+              nixWSL = withSystem "x86_64-linux" (
+                { pkgs
+                , system
+                , ...
+                }:
+                nixpkgs.lib.nixosSystem {
+                  inherit system pkgs specialArgs;
+                  modules = [
+                    ./nixos/wsl.nix
 
-                  home-manager.nixosModules.home-manager
-                  {
-                    home-manager = {
-                      useGlobalPkgs = true;
-                      useUserPackages = true;
-                      users.dli50 = import ./home;
-                      extraSpecialArgs = specialArgs;
-                    };
-                  }
-                ];
-              }
-            );
+                    home-manager.nixosModules.home-manager
+                    {
+                      home-manager = {
+                        useGlobalPkgs = true;
+                        useUserPackages = true;
+                        users.dli50 = import ./home/common;
+                        extraSpecialArgs = specialArgs;
+                      };
+                    }
+                  ];
+                }
+              );
+
+              nixavell = withSystem "x86_64-linux" (
+                { pkgs
+                , system
+                , ...
+                }:
+                nixpkgs.lib.nixosSystem {
+                  inherit system pkgs specialArgs;
+                  modules = [
+                    ./nixos/nixavell
+
+                    home-manager.nixosModules.home-manager
+                    {
+                      home-manager = {
+                        useGlobalPkgs = true;
+                        useUserPackages = true;
+                        users.dli50 = import ./home/nixavell.nix;
+                        extraSpecialArgs = specialArgs;
+                      };
+                    }
+                  ];
+                }
+              );
+            };
 
             homeConfigurations.dli50 = withSystem "x86_64-linux" (
               { pkgs
@@ -138,7 +162,7 @@
               home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
                 extraSpecialArgs = specialArgs;
-                modules = [ ./home ];
+                modules = [ ./home/common ];
               }
             );
           };
@@ -146,8 +170,15 @@
         perSystem =
           { config
           , pkgs
+          , system
           , ...
           }: {
+            _module.args.pkgs = import inputs.nixpkgs {
+              inherit system;
+
+              config.allowUnfree = true;
+            };
+
             devShells.default = pkgs.mkShell {
               nativeBuildInputs = with pkgs; [
                 just

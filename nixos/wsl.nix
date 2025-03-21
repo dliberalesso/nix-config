@@ -1,10 +1,11 @@
 { inputs
-  # , lib
 , pkgs
 , ...
 }: {
   imports = [
     inputs.nixos-wsl.nixosModules.wsl
+
+    ./common.nix
   ];
 
   # Setup WSL
