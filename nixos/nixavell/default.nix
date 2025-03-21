@@ -11,12 +11,22 @@
     ./nvidia.nix
   ];
 
-  # Packages to install
   environment.systemPackages = with pkgs; [
-    pcsc-safenet #FIXME
+    pcsc-tools
   ];
 
-  services.pcscd.enable = true;
+  services.pcscd = {
+    enable = true;
+    plugins = [ pkgs.pcsc-safenet ];
+  };
+
+  programs.firefox = {
+    enable = true;
+
+    policies.SecurityDevices.Add = {
+      "PKCS#11 JFRS" = "${pkgs.pcsc-safenet}/lib/libeToken.so";
+    };
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
