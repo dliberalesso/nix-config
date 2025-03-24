@@ -3,6 +3,7 @@
 }: {
   imports = [
     ./common
+    ./programs/spicetify.nix
   ];
 
   home.packages = with pkgs; [
@@ -14,6 +15,6 @@
 
     prismlauncher
     obsidian
-    spotify
+    # spotify
   ];
 }
