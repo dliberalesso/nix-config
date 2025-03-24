@@ -28,15 +28,31 @@
       flake = false;
     };
 
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
 
     flake-root.url = "github:srid/flake-root";
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
 
     git-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
+      };
+    };
+
+    hercules-ci-effects = {
+      url = "github:hercules-ci/hercules-ci-effects";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
       };
     };
 
@@ -52,6 +68,8 @@
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
         git-hooks.follows = "git-hooks";
+        hercules-ci-effects.follows = "hercules-ci-effects";
+        treefmt-nix.follows = "treefmt-nix";
       };
     };
 
@@ -74,12 +92,20 @@
 
     nuschtosSearch = {
       url = "github:NuschtOS/search";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
+
+    systems.url = "github:nix-systems/default";
 
     spicetify = {
       url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
     };
 
     treefmt-nix = {
