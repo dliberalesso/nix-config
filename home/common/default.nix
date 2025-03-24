@@ -5,14 +5,14 @@
 }: {
   imports = [
     inputs.catppuccin.homeManagerModules.catppuccin
+    ../../modules/catppuccin.nix
 
-    ./catppuccin.nix
+    inputs.nixvim.homeManagerModules.nixvim
+    ../../modules/nixvim.nix
+
     ./cli.nix
     ./git.nix
     ./shell.nix
-
-    inputs.nixvim.homeManagerModules.nixvim
-    ../../nixvim
   ];
 
   # Home Manager

@@ -3,6 +3,9 @@
 , ...
 }: {
   imports = [
+    inputs.catppuccin.nixosModules.catppuccin
+    ../../modules/catppuccin.nix
+
     ../common.nix
 
     ./hardware-configuration.nix
