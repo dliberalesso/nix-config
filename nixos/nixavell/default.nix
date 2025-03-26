@@ -6,13 +6,16 @@
     inputs.catppuccin.nixosModules.catppuccin
     ../../modules/catppuccin.nix
 
+    ../services
+
     ../common.nix
 
     ./hardware-configuration.nix
-    ./hyperion.nix
     ./input.nix
     ./nvidia.nix
   ];
+
+  services.hyperion.enable = true;
 
   environment.systemPackages = with pkgs; [
     pcsc-tools
