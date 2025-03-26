@@ -2,8 +2,8 @@
 , ...
 }: {
   nixpkgs.overlays = [
-    (final: prev: {
-      libratbag = prev.libratbag.overrideAttrs (oldAttrs: {
+    (_final: prev: {
+      libratbag = prev.libratbag.overrideAttrs (_oldAttrs: {
         postPatch = ''
           substituteInPlace data/devices/logitech-g502-x-wireless.device \
             --replace "DeviceMatch=usb:046d:c098" "DeviceMatch=usb:046d:c098;usb:046d:c547"

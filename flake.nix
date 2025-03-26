@@ -229,10 +229,13 @@
             treefmt = {
               inherit (config.flake-root) projectRootFile;
               programs = {
+                deadnix.enable = true;
                 prettier.enable = true;
                 nixpkgs-fmt.enable = true;
                 shfmt.enable = true;
                 stylua.enable = true;
+                statix.enable = true;
+                taplo.enable = true;
               };
             };
           };
