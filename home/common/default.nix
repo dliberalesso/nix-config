@@ -6,9 +6,6 @@
     inputs.catppuccin.homeManagerModules.catppuccin
     ../../modules/catppuccin.nix
 
-    inputs.nixvim.homeManagerModules.nixvim
-    ../../modules/nixvim.nix
-
     ./cli.nix
     ./git.nix
     ./shell.nix
@@ -25,7 +22,11 @@
   };
 
   # Packages & Programs
-  home.packages = with pkgs; [ cachix ];
+  home.packages = with pkgs; [
+    cachix
+
+    inputs.neovim-nightly.packages.${pkgs.system}.default
+  ];
 
   # Services
   systemd.user.startServices = "sd-switch"; # Reload system units on config change
