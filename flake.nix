@@ -88,16 +88,19 @@
   };
 
   outputs =
-    { flake-parts
-    , home-manager
-    , nixpkgs
-    , ...
-    } @ inputs:
+    {
+      flake-parts,
+      home-manager,
+      nixpkgs,
+      ...
+    }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } (
-      { withSystem
-      , inputs
-      , ...
-      }: {
+      {
+        withSystem,
+        inputs,
+        ...
+      }:
+      {
         imports = with inputs; [
           flake-root.flakeModule
           git-hooks.flakeModule
@@ -113,9 +116,10 @@
           {
             nixosConfigurations = {
               nixWSL = withSystem "x86_64-linux" (
-                { pkgs
-                , system
-                , ...
+                {
+                  pkgs,
+                  system,
+                  ...
                 }:
                 nixpkgs.lib.nixosSystem {
                   inherit system pkgs specialArgs;
@@ -136,9 +140,10 @@
               );
 
               nixavell = withSystem "x86_64-linux" (
-                { pkgs
-                , system
-                , ...
+                {
+                  pkgs,
+                  system,
+                  ...
                 }:
                 nixpkgs.lib.nixosSystem {
                   inherit system pkgs specialArgs;
@@ -160,8 +165,9 @@
             };
 
             homeConfigurations.dli50 = withSystem "x86_64-linux" (
-              { pkgs
-              , ...
+              {
+                pkgs,
+                ...
               }:
               home-manager.lib.homeManagerConfiguration {
                 inherit pkgs;
@@ -172,11 +178,13 @@
           };
 
         perSystem =
-          { config
-          , pkgs
-          , system
-          , ...
-          }: {
+          {
+            config,
+            pkgs,
+            system,
+            ...
+          }:
+          {
             _module.args.pkgs = import inputs.nixpkgs {
               inherit system;
 
@@ -204,7 +212,7 @@
               programs = {
                 deadnix.enable = true;
                 prettier.enable = true;
-                nixpkgs-fmt.enable = true;
+                nixfmt.enable = true;
                 shfmt.enable = true;
                 stylua.enable = true;
                 statix.enable = true;
