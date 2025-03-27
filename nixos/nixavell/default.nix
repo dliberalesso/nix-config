@@ -1,7 +1,9 @@
-{ inputs
-, pkgs
-, ...
-}: {
+{
+  inputs,
+  pkgs,
+  ...
+}:
+{
   imports = [
     inputs.catppuccin.nixosModules.catppuccin
     ../../modules/catppuccin.nix
@@ -87,6 +89,9 @@
   users.users.dli50 = {
     isNormalUser = true;
     description = "Douglas Liberalesso";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
   };
 }

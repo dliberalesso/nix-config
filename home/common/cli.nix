@@ -1,7 +1,9 @@
-{ lib
-, pkgs
-, ...
-}: {
+{
+  lib,
+  pkgs,
+  ...
+}:
+{
   home.packages = with pkgs; [
     grex
     hyperfine
@@ -33,9 +35,11 @@
       enable = true;
 
       package = pkgs.fzf.overrideAttrs (oa: {
-        postInstall = oa.postInstall + ''
-          rm -rf $out/share/nvim/
-        '';
+        postInstall =
+          oa.postInstall
+          + ''
+            rm -rf $out/share/nvim/
+          '';
       });
 
       defaultCommand = "fd --type f";
@@ -58,10 +62,12 @@
   };
 
   home.activation.tealdeer =
-    lib.hm.dag.entryAfter [
-      "linkGeneration"
-      "writeBoundary"
-    ] ''
-      $DRY_RUN_CMD ${pkgs.tealdeer}/bin/tldr --update $VERBOSE_ARG
-    '';
+    lib.hm.dag.entryAfter
+      [
+        "linkGeneration"
+        "writeBoundary"
+      ]
+      ''
+        $DRY_RUN_CMD ${pkgs.tealdeer}/bin/tldr --update $VERBOSE_ARG
+      '';
 }

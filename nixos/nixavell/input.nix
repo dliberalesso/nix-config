@@ -1,6 +1,8 @@
-{ pkgs
-, ...
-}: {
+{
+  pkgs,
+  ...
+}:
+{
   nixpkgs.overlays = [
     (_final: prev: {
       libratbag = prev.libratbag.overrideAttrs (_oldAttrs: {
@@ -36,7 +38,10 @@
     enable = true;
     keyboards = {
       externalkbd = {
-        ids = [ "258a:0090:fcfe2b1f" "258a:0090:ab99cdb6" ];
+        ids = [
+          "258a:0090:fcfe2b1f"
+          "258a:0090:ab99cdb6"
+        ];
         settings = {
           main = {
             capslock = "esc";

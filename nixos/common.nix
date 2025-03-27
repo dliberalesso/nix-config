@@ -1,9 +1,11 @@
-{ inputs
-, lib
-, pkgs
-, config
-, ...
-}: {
+{
+  inputs,
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+{
   nix = {
     # Make nix3 and legacy nix commands consistent:
     # - Add each flake input as a registry
@@ -30,7 +32,10 @@
       ];
 
       # Required by Cachix to be used as non-root user
-      trusted-users = [ "root" "@wheel" ];
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
       allowed-users = [ "@wheel" ];
     };
 

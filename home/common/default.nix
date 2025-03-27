@@ -1,7 +1,9 @@
-{ inputs
-, pkgs
-, ...
-}: {
+{
+  inputs,
+  pkgs,
+  ...
+}:
+{
   imports = [
     inputs.catppuccin.homeManagerModules.catppuccin
     ../../modules/catppuccin.nix
