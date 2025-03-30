@@ -43,28 +43,18 @@
       };
     };
 
-    hercules-ci-effects = {
-      url = "github:hercules-ci/hercules-ci-effects";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-nightly = {
-      url = "github:nix-community/neovim-nightly-overlay";
+    nixCats.url = "github:BirdeeHub/nixCats-nvim";
+
+    nixCats-LazyVim = {
+      url = "./nixCats-LazyVim";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-        flake-parts.follows = "flake-parts";
-        git-hooks.follows = "git-hooks";
-        hercules-ci-effects.follows = "hercules-ci-effects";
-        treefmt-nix.follows = "treefmt-nix";
+        nixCats.follows = "nixCats";
       };
     };
 

@@ -27,7 +27,7 @@
   home.packages = with pkgs; [
     cachix
 
-    inputs.neovim-nightly.packages.${pkgs.system}.default
+    inputs.nixCats-LazyVim.packages.${pkgs.system}.default
   ];
 
   # Services
