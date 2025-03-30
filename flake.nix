@@ -50,14 +50,6 @@
 
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
-    nixCats-LazyVim = {
-      url = "./nixCats-LazyVim";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        nixCats.follows = "nixCats";
-      };
-    };
-
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs = {

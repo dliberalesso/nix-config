@@ -11,6 +11,8 @@
     ./cli.nix
     ./git.nix
     ./shell.nix
+
+    ../programs/nixcats-neovim.nix
   ];
 
   # Home Manager
@@ -26,8 +28,6 @@
   # Packages & Programs
   home.packages = with pkgs; [
     cachix
-
-    inputs.nixCats-LazyVim.packages.${pkgs.system}.default
   ];
 
   # Services

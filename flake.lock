@@ -151,26 +151,6 @@
         "type": "github"
       }
     },
-    "nixCats-LazyVim": {
-      "inputs": {
-        "nixCats": [
-          "nixCats"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-zKIEazbWv0zBJ5L8itqXOVA28n6wLuRvSjxgu8u/fEg=",
-        "path": "/nix/store/0nrdln084zi19b2fwrj285ibgld6ny9i-source/nixCats-LazyVim",
-        "type": "path"
-      },
-      "original": {
-        "path": "/nix/store/0nrdln084zi19b2fwrj285ibgld6ny9i-source/nixCats-LazyVim",
-        "type": "path"
-      }
-    },
     "nixos-wsl": {
       "inputs": {
         "flake-compat": [
@@ -219,7 +199,6 @@
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
         "nixCats": "nixCats",
-        "nixCats-LazyVim": "nixCats-LazyVim",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "spicetify": "spicetify",
