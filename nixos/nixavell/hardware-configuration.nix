@@ -20,6 +20,7 @@
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelParams = [ ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
