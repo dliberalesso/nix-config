@@ -86,7 +86,7 @@ in
           nix = with pkgs; [
             deadnix
             nixd
-            nixfmt
+            nixfmt-rfc-style
             statix
           ];
           go = with pkgs; [
