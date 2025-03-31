@@ -1,6 +1,35 @@
-{ inputs, ... }:
+{ inputs, pkgs, ... }:
 let
   inherit (inputs.nixCats) utils;
+
+  excludedRtpPlugins = [
+    "ftplugin.vim"
+    "indent.vim"
+    "menu.vim"
+    "mswin.vim"
+    "plugin/gzip.vim"
+    "plugin/matchit.vim"
+    "plugin/matchparen.vim"
+    "plugin/netrwPlugin.vim"
+    "plugin/osc52.lua"
+    "plugin/rplugin.vim"
+    "plugin/rplugin.vim.orig"
+    "plugin/spellfile.vim"
+    "plugin/tohtml.vim"
+    "plugin/tohtml.lua"
+    "plugin/tutor.vim"
+    "plugin/tarPlugin.vim"
+    "plugin/zipPlugin.vim"
+  ];
+
+  postInstallCommands = map (target: "rm -f $out/share/nvim/runtime/${target}") excludedRtpPlugins;
+
+  neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oa: {
+    postInstall = ''
+      ${oa.postInstall or ""}
+      ${builtins.concatStringsSep "\n" postInstallCommands}
+    '';
+  });
 in
 {
   imports = [ inputs.nixCats.homeModule ];
@@ -159,6 +188,7 @@ in
             viAlias = true;
             vimAlias = true;
             # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
+            inherit neovim-unwrapped;
             withRuby = false;
             withPython3 = false;
             withNodeJs = false;
