@@ -5,6 +5,10 @@ in
 {
   imports = [ inputs.nixCats.homeModule ];
 
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
   # this value, nixCats is the defaultPackageName you pass to mkNixosModules
   # it will be the namespace for your options.
   nixCats = {
