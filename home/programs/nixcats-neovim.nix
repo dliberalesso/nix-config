@@ -166,6 +166,10 @@ in
           #   '' --set CATTESTVAR2 "It worked again!"''
           # ];
         };
+
+        optionalLuaPreInit = {
+          general = [ "vim.loader.enable()" ];
+        };
       };
 
     # see :help nixCats.flake.outputs.packageDefinitions
