@@ -3,7 +3,7 @@ let
   inherit (inputs.nixCats) utils;
 
   excludedRtpPlugins = [
-    "ftplugin.vim"
+    # "ftplugin.vim"
     "indent.vim"
     "menu.vim"
     "mswin.vim"
