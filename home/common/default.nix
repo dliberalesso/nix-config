@@ -8,6 +8,7 @@
     inputs.catppuccin.homeManagerModules.catppuccin
     ../../modules/catppuccin.nix
 
+    ./bat.nix
     ./cli.nix
     ./git.nix
     ./shell.nix

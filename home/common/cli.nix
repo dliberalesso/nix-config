@@ -22,15 +22,6 @@
     tealdeer.enable = true;
     yazi.enable = true;
 
-    bat = {
-      enable = true;
-
-      config = {
-        color = "always";
-        pager = "less";
-      };
-    };
-
     fzf = rec {
       enable = true;
 
