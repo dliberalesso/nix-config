@@ -26,6 +26,8 @@
     stateVersion = "25.05";
   };
 
+  home.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # Packages & Programs
   home.packages = with pkgs; [
     cachix

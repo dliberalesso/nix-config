@@ -1,55 +1,53 @@
 {
   config,
+  lib,
   ...
 }:
+let
+  cfg = config.nixos.nvidia;
+in
 {
-  # Enable OpenGL
-  hardware.graphics.enable = true;
+  options.nixos.nvidia = {
+    enable = lib.mkEnableOption "Enable nvidia driver";
+  };
 
-  # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = [ "nvidia" ];
+  config = lib.mkIf cfg.enable {
 
-  hardware.nvidia = {
+    # Enable OpenGL
+    hardware.graphics.enable = true;
 
-    # Modesetting is required.
-    modesetting.enable = true;
+    # Load nvidia driver for Xorg and Wayland
+    services.xserver.videoDrivers = [ "nvidia" ];
 
-    # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
-    # Enable this if you have graphical corruption issues or application crashes after waking
-    # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
-    # of just the bare essentials.
-    powerManagement.enable = false;
+    hardware.nvidia = {
+      modesetting.enable = true;
 
-    # Fine-grained power management. Turns off GPU when not in use.
-    # Experimental and only works on modern Nvidia GPUs (Turing or newer).
-    powerManagement.finegrained = false;
+      # Nvidia power management. Experimental, and can cause sleep/suspend to fail.
+      # Enable this if you have graphical corruption issues or application crashes after waking
+      # up from sleep. This fixes it by saving the entire VRAM memory to /tmp/ instead
+      # of just the bare essentials.
+      powerManagement.enable = true;
 
-    # Use the NVidia open source kernel module (not to be confused with the
-    # independent third-party "nouveau" open source driver).
-    # Support is limited to the Turing and later architectures. Full list of
-    # supported GPUs is at:
-    # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
-    # Only available from driver 515.43.04+
-    open = true;
+      # Fine-grained power management. Turns off GPU when not in use.
+      # Experimental and only works on modern Nvidia GPUs (Turing or newer).
+      powerManagement.finegrained = true;
 
-    # Enable the Nvidia settings menu,
-    # accessible via `nvidia-settings`.
-    nvidiaSettings = true;
+      open = true;
+      nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
 
-    # Optionally, you may need to select the appropriate driver version for your specific GPU.
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
+      prime = {
+        sync.enable = false;
 
-    prime = {
-      sync.enable = false;
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
 
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
+        # Make sure to use the correct Bus ID values for your system!
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
       };
-
-      # Make sure to use the correct Bus ID values for your system!
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
     };
   };
 }

@@ -5,10 +5,10 @@
   ...
 }:
 let
-  cfg = config.services.hyperion;
+  cfg = config.nixos.hyperion;
 in
 {
-  options.services.hyperion = {
+  options.nixos.hyperion = {
     enable = lib.mkEnableOption "Enable hyperion-ng";
   };
 

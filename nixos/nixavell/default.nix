@@ -1,6 +1,5 @@
 {
   inputs,
-  pkgs,
   ...
 }:
 {
@@ -8,83 +7,45 @@
     inputs.catppuccin.nixosModules.catppuccin
     ../../modules/catppuccin.nix
 
-    ../services
-
     ../common.nix
 
+    ./audio.nix
+    ./boot.nix
+    ./fonts.nix
     ./hardware-configuration.nix
+    ./hyperion.nix
     ./input.nix
+    ./locale.nix
+    ./network.nix
     ./nvidia.nix
+    ./pcscd.nix
+    ./xdg.nix
   ];
 
-  services.hyperion.enable = true;
+  hostName = "nixavell";
 
-  environment.systemPackages = with pkgs; [
-    pcsc-tools
-  ];
-
-  services.pcscd = {
-    enable = true;
-    plugins = [ pkgs.pcsc-safenet ];
+  nixos = {
+    audio.enable = true;
+    boot.enable = true;
+    fonts.enable = true;
+    hyperion.enable = true;
+    locale.enable = true;
+    network.enable = true;
+    nvidia.enable = true;
+    pcscd.enable = true;
+    xdg.enable = true;
   };
-
-  programs.firefox = {
-    enable = true;
-
-    policies.SecurityDevices.Add = {
-      "PKCS#11 JFRS" = "${pkgs.pcsc-safenet}/lib/libeToken.so";
-    };
-  };
-
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  networking.hostName = "nixavell";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
-  time.timeZone = "America/Sao_Paulo";
-  time.hardwareClockInLocalTime = true;
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "pt_BR.UTF-8";
-    LC_IDENTIFICATION = "pt_BR.UTF-8";
-    LC_MEASUREMENT = "pt_BR.UTF-8";
-    LC_MONETARY = "pt_BR.UTF-8";
-    LC_NAME = "pt_BR.UTF-8";
-    LC_NUMERIC = "pt_BR.UTF-8";
-    LC_PAPER = "pt_BR.UTF-8";
-    LC_TELEPHONE = "pt_BR.UTF-8";
-    LC_TIME = "pt_BR.UTF-8";
-  };
-
-  # Enable the X11 windowing system.
-  # You can disable this if you're only using the Wayland session.
-  # services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
+  services.displayManager.sddm.wayland.enable = true;
+  programs.hyprland = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
+    withUWSM = true; # recommended for most users
+    # xwayland.enable = true; # Xwayland can be disabled.
   };
 
-  fonts.packages = with pkgs; [
-    monaspace
-  ];
+  services.desktopManager.plasma6.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dli50 = {

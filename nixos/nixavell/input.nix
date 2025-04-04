@@ -26,6 +26,8 @@
     variant = "nodeadkeys";
   };
 
+  # services.libinput.enable = true;
+
   environment.systemPackages = with pkgs; [
     keyd
     libratbag

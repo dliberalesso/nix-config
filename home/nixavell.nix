@@ -6,6 +6,7 @@
   imports = [
     ./common
     ./programs/spicetify.nix
+    ./scripts
   ];
 
   home.packages = with pkgs; [
@@ -18,4 +19,11 @@
     prismlauncher
     obsidian
   ];
+
+  programs = {
+    rofi = {
+      enable = true;
+      package = pkgs.rofi-wayland;
+    };
+  };
 }
