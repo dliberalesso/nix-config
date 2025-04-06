@@ -11,7 +11,7 @@ let
     "plugin/matchit.vim"
     "plugin/matchparen.vim"
     "plugin/netrwPlugin.vim"
-    "plugin/osc52.lua"
+    # "plugin/osc52.lua"
     "plugin/rplugin.vim"
     "plugin/rplugin.vim.orig"
     "plugin/spellfile.vim"

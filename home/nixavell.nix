@@ -5,6 +5,7 @@
 {
   imports = [
     ./common
+    ./programs/ghostty.nix
     ./programs/spicetify.nix
     ./scripts
   ];
