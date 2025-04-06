@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -14,7 +15,10 @@ in
   config = lib.mkIf cfg.enable {
 
     # Enable OpenGL
-    hardware.graphics.enable = true;
+    hardware.graphics = {
+      enable = true;
+      extraPackages = with pkgs; [ nvidia-vaapi-driver ];
+    };
 
     # Load nvidia driver for Xorg and Wayland
     services.xserver.videoDrivers = [ "nvidia" ];
