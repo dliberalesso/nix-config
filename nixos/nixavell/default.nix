@@ -15,6 +15,7 @@
     ./greetd.nix
     ./hardware-configuration.nix
     ./hyperion.nix
+    ./hyprland.nix
     ./input.nix
     ./locale.nix
     ./network.nix
@@ -31,6 +32,7 @@
     fonts.enable = true;
     greetd.enable = true;
     hyperion.enable = true;
+    hyprland.enable = true;
     locale.enable = true;
     network.enable = true;
     nvidia.enable = true;
@@ -43,12 +45,6 @@
   # Enable the KDE Plasma Desktop Environment.
   # services.displayManager.sddm.enable = true;
   # services.displayManager.sddm.wayland.enable = true;
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true; # recommended for most users
-    # xwayland.enable = true; # Xwayland can be disabled.
-  };
-
   # services.desktopManager.plasma6.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
