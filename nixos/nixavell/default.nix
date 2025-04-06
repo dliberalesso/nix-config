@@ -47,7 +47,7 @@
     # xwayland.enable = true; # Xwayland can be disabled.
   };
 
-  services.desktopManager.plasma6.enable = true;
+  # services.desktopManager.plasma6.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dli50 = {
