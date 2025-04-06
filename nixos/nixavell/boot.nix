@@ -32,8 +32,8 @@ in
       ];
 
       kernelParams = [
-        # "nvidia_drm.modeset=1"
-        # "nvidia_drm.fbdev=1"
+        "nvidia_drm.modeset=1"
+        "nvidia_drm.fbdev=1"
         "module_blacklist=i915"
       ];
 
@@ -53,16 +53,23 @@ in
         ];
 
         kernelModules = [
-          # "nvidia"
-          # "nvidiafb"
-          # "nvidia_drm"
-          # "nvidia_uvm"
-          # "nvidia_modeset"
+          "nvidia"
+          "nvidiafb"
+          "nvidia_drm"
+          "nvidia_uvm"
+          "nvidia_modeset"
         ];
       };
 
       loader = {
-        systemd-boot.enable = true;
+        systemd-boot.enable = false;
+
+        grub = {
+          enable = true;
+          device = "nodev";
+          useOSProber = true;
+          efiSupport = true;
+        };
 
         efi.canTouchEfiVariables = true;
       };

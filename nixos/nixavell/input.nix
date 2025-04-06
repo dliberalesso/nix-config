@@ -36,6 +36,7 @@
   services.ratbagd.enable = true;
 
   # Remap keys & mouse buttons
+  # TODO: remap caps -> esc on laptops kbd too
   services.keyd = {
     enable = true;
     keyboards = {
@@ -46,8 +47,8 @@
         ];
         settings = {
           main = {
-            # capslock = "esc";
-            capslock = "`";
+            capslock = "esc";
+            esc = "`";
           };
         };
       };
