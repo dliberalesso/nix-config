@@ -21,10 +21,10 @@
   console.keyMap = "br-abnt2";
 
   # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "br";
-    variant = "nodeadkeys";
-  };
+  # services.xserver.xkb = {
+  #   layout = "br";
+  #   variant = "nodeadkeys";
+  # };
 
   # services.libinput.enable = true;
 
@@ -46,18 +46,18 @@
         ];
         settings = {
           main = {
-            capslock = "esc";
-            esc = "`";
+            # capslock = "esc";
+            capslock = "`";
           };
         };
       };
     };
   };
 
-  environment.variables = {
-    GTK_IM_MODULE = "cedilla";
-    QT_IM_MODULE = "cedilla";
-  };
+  # environment.variables = {
+  #   GTK_IM_MODULE = "cedilla";
+  #   QT_IM_MODULE = "cedilla";
+  # };
 
   # Optional, but makes sure that when you type the make palm rejection work with keyd
   # https://github.com/rvaiya/keyd/issues/723
