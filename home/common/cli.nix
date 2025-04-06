@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   ...
 }:
@@ -20,7 +19,6 @@
     fd.enable = true;
     jq.enable = true;
     ripgrep.enable = true;
-    tealdeer.enable = true;
     yazi.enable = true;
 
     fzf = rec {
@@ -52,14 +50,4 @@
       historyWidgetOptions = [ ];
     };
   };
-
-  home.activation.tealdeer =
-    lib.hm.dag.entryAfter
-      [
-        "linkGeneration"
-        "writeBoundary"
-      ]
-      ''
-        $DRY_RUN_CMD ${pkgs.tealdeer}/bin/tldr --update $VERBOSE_ARG
-      '';
 }

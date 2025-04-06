@@ -12,6 +12,7 @@
     ./cli.nix
     ./git.nix
     ./shell.nix
+    ./tealdeer.nix
 
     ../programs/nixcats-neovim.nix
   ];
