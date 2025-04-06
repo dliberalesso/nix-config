@@ -12,6 +12,7 @@
     ./audio.nix
     ./boot.nix
     ./fonts.nix
+    ./greetd.nix
     ./hardware-configuration.nix
     ./hyperion.nix
     ./input.nix
@@ -28,6 +29,7 @@
     audio.enable = true;
     boot.enable = true;
     fonts.enable = true;
+    greetd.enable = true;
     hyperion.enable = true;
     locale.enable = true;
     network.enable = true;
@@ -37,8 +39,8 @@
   };
 
   # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.wayland.enable = true;
+  # services.displayManager.sddm.enable = true;
+  # services.displayManager.sddm.wayland.enable = true;
   programs.hyprland = {
     enable = true;
     withUWSM = true; # recommended for most users
