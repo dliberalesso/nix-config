@@ -11,7 +11,7 @@ in
 {
   options = {
     hostName = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
     };
 
     nixos.network = {
