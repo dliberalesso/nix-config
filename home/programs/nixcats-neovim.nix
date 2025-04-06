@@ -154,7 +154,7 @@ in
         };
 
         # categories of the function you would have passed to withPackages
-        extraPython3Packages = {
+        python3.libraries = {
           # test = [ (_:[]) ];
         };
 
@@ -186,17 +186,21 @@ in
             suffix-LD = true;
             wrapRc = false;
             unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/nix-config/config/nvim'";
+
             # IMPORTANT:
             # your alias may not conflict with your other packages.
-            # aliases = [ "vi" "vim" ];
-            viAlias = true;
-            vimAlias = true;
+            aliases = [
+              "vi"
+              "vim"
+            ];
+
             # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
             inherit neovim-unwrapped;
-            withRuby = false;
-            withPython3 = false;
-            withNodeJs = false;
-            withPerl = false;
+
+            hosts.node.enable = false;
+            hosts.perl.enable = false;
+            hosts.python.enable = false;
+            hosts.ruby.enable = false;
           };
           # and a set of categories that you want
           # (and other information to pass to lua)
