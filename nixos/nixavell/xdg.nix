@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   pkgs,
   ...
@@ -16,8 +17,7 @@ in
     xdg.portal = {
       enable = true;
 
-      extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
-      configPackages = [ pkgs.hyprland ];
+      configPackages = [ inputs.hyprland.packages.${pkgs.system}.hyprland ];
     };
   };
 }
