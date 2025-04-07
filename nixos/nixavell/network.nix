@@ -2,7 +2,6 @@
   config,
   lib,
   options,
-  pkgs,
   ...
 }:
 let
@@ -45,9 +44,5 @@ in
         ];
       };
     };
-
-    environment.systemPackages = with pkgs; [
-      networkmanagerapplet
-    ];
   };
 }

@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 let
@@ -15,14 +16,17 @@ in
     programs = {
       hyprland = {
         enable = true;
-        withUWSM = true; # recommended for most users
-        # xwayland.enable = true; # Xwayland can be disabled.
+        withUWSM = true;
+        # xwayland.enable = false;
       };
-
-      # FIXME: Systemd service is broken
-      # nm-applet.enable = true;
 
       waybar.enable = true;
     };
+
+    # WARNING How are these autostarting?
+    environment.systemPackages = with pkgs; [
+      dunst
+      networkmanagerapplet
+    ];
   };
 }
