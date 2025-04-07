@@ -44,3 +44,6 @@ jobs:
 
       - name: "Build NixOS-WSL config ❄️"
         run: nix build .#nixosConfigurations.nixWSL.config.system.build.toplevel -v -L
+
+      - name: "Build NixOS-Nixavell config ❄️"
+        run: nix build .#nixosConfigurations.nixavell.config.system.build.toplevel -v -L
