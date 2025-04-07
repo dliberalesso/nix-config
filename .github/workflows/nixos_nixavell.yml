@@ -1,4 +1,4 @@
-name: "NixOS"
+name: "NixOS - Nixavell"
 
 on:
   pull_request:
@@ -42,5 +42,5 @@ jobs:
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
           extraPullNames: cachix, nix-community
 
-      - name: "Build NixOS-WSL config ❄️"
-        run: nix build .#nixosConfigurations.nixWSL.config.system.build.toplevel -v -L
+      - name: "Build NixOS - Nixavell config ❄️"
+        run: nix build .#nixosConfigurations.nixavell.config.system.build.toplevel -v -L

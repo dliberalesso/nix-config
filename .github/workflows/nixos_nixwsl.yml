@@ -1,0 +1,46 @@
+name: "NixOS - nixWSL"
+
+on:
+  pull_request:
+    branches:
+      - main
+
+  push:
+    branches:
+      - main
+
+    paths-ignore:
+      - "LICENSE"
+      - "README.md"
+      - ".editorconfig"
+      - ".git-crypt/**"
+      - ".gitattributes"
+      - ".gitignore"
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build & Cache NixOS
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: "Install Nix ❄️"
+        uses: DeterminateSystems/nix-installer-action@v16
+
+      - name: "Install Magic Cache ❄️"
+        uses: DeterminateSystems/magic-nix-cache-action@v9
+
+      - name: "Install Cachix ❄️"
+        uses: cachix/cachix-action@v16
+        with:
+          name: dliberalesso
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          extraPullNames: cachix, nix-community
+
+      - name: "Build NixOS - nixWSL config ❄️"
+        run: nix build .#nixosConfigurations.nixWSL.config.system.build.toplevel -v -L
