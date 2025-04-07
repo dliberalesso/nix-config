@@ -31,16 +31,18 @@ in
       firewall = {
         enable = true;
         allowedTCPPorts = [
+          # SSH
           22
+
+          # HTTP
           80
           443
-          59010
-          59011
           8080
         ];
         allowedUDPPorts = [
-          59010
-          59011
+          #DHCP
+          68
+          546
         ];
       };
     };
