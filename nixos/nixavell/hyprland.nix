@@ -21,7 +21,7 @@ in
         package = hyprlandPkgs.hyprland;
         portalPackage = hyprlandPkgs.xdg-desktop-portal-hyprland;
         withUWSM = true;
-        xwayland.enable = false;
+        # xwayland.enable = false;
       };
 
       waybar.enable = true;
