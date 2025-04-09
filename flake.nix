@@ -45,13 +45,13 @@
       };
     };
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        pre-commit-hooks.follows = "git-hooks";
-      };
-    };
+    # hyprland = {
+    #   url = "github:hyprwm/Hyprland";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     pre-commit-hooks.follows = "git-hooks";
+    #   };
+    # };
 
     home-manager = {
       url = "github:nix-community/home-manager";
