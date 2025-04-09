@@ -40,6 +40,14 @@
   services.keyd = {
     enable = true;
     keyboards = {
+      internalkbd = {
+        ids = [ "0001:0001:70533846" ];
+        settings = {
+          main = {
+            capslock = "esc";
+          };
+        };
+      };
       externalkbd = {
         ids = [
           "258a:0090:fcfe2b1f"
