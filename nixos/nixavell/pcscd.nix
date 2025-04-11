@@ -15,6 +15,16 @@ in
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
       pcsc-tools
+      pcsc-safenet
+      nssTools
+
+      # FIXME: This should enable the `eToken` on `chrome`
+      (writeShellScriptBin "setup-pcsc-chrome" ''
+        NSSDB="''${HOME}/.pki/nssdb"
+        mkdir -p ''${NSSDB}
+
+        ${nssTools}/bin/modutil -force -dbdir sql:$NSSDB -add eToken -libfile ${pcsc-safenet}/lib/libeToken.so.10
+      '')
     ];
 
     services.pcscd = {
@@ -26,7 +36,7 @@ in
       enable = true;
 
       policies.SecurityDevices.Add = {
-        "PKCS#11 JFRS" = "${pkgs.pcsc-safenet}/lib/libeToken.so";
+        eToken = "${pkgs.pcsc-safenet}/lib/libeToken.so.10";
       };
     };
   };
