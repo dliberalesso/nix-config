@@ -27,7 +27,6 @@ in
     environment.systemPackages = with pkgs; [
       dunst
       hyprpaper
-      networkmanagerapplet
     ];
 
     # https://search.nixos.org/options?query=systemd.user.services
