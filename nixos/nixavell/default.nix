@@ -47,6 +47,7 @@
     isNormalUser = true;
     description = "Douglas Liberalesso";
     extraGroups = [
+      "audio"
       "networkmanager"
       "wheel"
     ];
