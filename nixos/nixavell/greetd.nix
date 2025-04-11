@@ -16,9 +16,11 @@ in
     services.greetd = {
       enable = true;
       settings = {
-        terminal.vt = 1;
-        default_session = {
+        initial_session = {
           user = "dli50";
+          command = "${lib.getExe pkgs.uwsm} start hyprland-uwsm.desktop";
+        };
+        default_session = {
           command = ''
             ${pkgs.greetd.tuigreet}/bin/tuigreet \
             --time \
