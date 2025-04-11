@@ -19,6 +19,10 @@ in
       configPackages = [
         pkgs.hyprland
       ];
+
+      extraPortals = [
+        pkgs.xdg-desktop-portal-gtk
+      ];
     };
   };
 }
