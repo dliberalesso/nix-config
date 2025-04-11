@@ -20,16 +20,15 @@ in
         # xwayland.enable = false;
       };
 
-      waybar.enable = true;
       hyprlock.enable = true; # brings `hypridle`
     };
 
-    # WARNING How are these autostarting?
     environment.systemPackages = with pkgs; [
       brightnessctl
       dunst
       hyprpaper
       hyprsunset
+      simple-bar
     ];
   };
 }

@@ -20,6 +20,11 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -76,6 +81,7 @@
       flake-parts,
       home-manager,
       nixpkgs,
+      self,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } (
@@ -89,6 +95,8 @@
           flake-root.flakeModule
           git-hooks.flakeModule
           treefmt-nix.flakeModule
+
+          ./packages
         ];
 
         systems = [ "x86_64-linux" ];
@@ -171,6 +179,10 @@
           {
             _module.args.pkgs = import inputs.nixpkgs {
               inherit system;
+
+              overlays = [
+                self.overlays.default
+              ];
 
               config.allowUnfree = true;
             };
