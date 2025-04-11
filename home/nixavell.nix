@@ -9,10 +9,12 @@
     ./scripts
 
     ./cursor.nix
+    ./gtk-qt.nix
   ];
 
   home = {
     cursor.enable = true;
+    gtk_qt.enable = true;
   };
 
   home.packages = with pkgs; [
