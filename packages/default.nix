@@ -1,5 +1,5 @@
 {
   imports = [
-    ./simple-bar
+    ./ags
   ];
 }
