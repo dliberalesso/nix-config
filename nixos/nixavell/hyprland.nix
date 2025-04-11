@@ -1,12 +1,10 @@
 {
   config,
-  # inputs,
   lib,
   pkgs,
   ...
 }:
 let
-  # hyprlandPkgs = inputs.hyprland.packages.${pkgs.system};
   cfg = config.nixos.hyprland;
 in
 {
@@ -18,8 +16,6 @@ in
     programs = {
       hyprland = {
         enable = true;
-        # package = hyprlandPkgs.hyprland;
-        # portalPackage = hyprlandPkgs.xdg-desktop-portal-hyprland;
         withUWSM = true;
         # xwayland.enable = false;
       };

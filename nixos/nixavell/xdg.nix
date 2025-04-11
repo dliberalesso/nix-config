@@ -1,6 +1,5 @@
 {
   config,
-  # inputs,
   lib,
   pkgs,
   ...
@@ -19,7 +18,6 @@ in
 
       configPackages = [
         pkgs.hyprland
-        # inputs.hyprland.packages.${pkgs.system}.hyprland
       ];
     };
   };
