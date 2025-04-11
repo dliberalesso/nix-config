@@ -21,12 +21,15 @@ in
       };
 
       waybar.enable = true;
+      hyprlock.enable = true; # brings `hypridle`
     };
 
     # WARNING How are these autostarting?
     environment.systemPackages = with pkgs; [
+      brightnessctl
       dunst
       hyprpaper
+      hyprsunset
     ];
 
     # https://search.nixos.org/options?query=systemd.user.services
