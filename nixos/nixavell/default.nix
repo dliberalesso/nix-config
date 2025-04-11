@@ -42,11 +42,6 @@
 
   services.logind.lidSwitchExternalPower = "ignore";
 
-  # Enable the KDE Plasma Desktop Environment.
-  # services.displayManager.sddm.enable = true;
-  # services.displayManager.sddm.wayland.enable = true;
-  # services.desktopManager.plasma6.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.dli50 = {
     isNormalUser = true;
