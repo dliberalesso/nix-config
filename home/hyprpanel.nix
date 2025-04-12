@@ -47,14 +47,13 @@
     # See 'https://hyprpanel.com/configuration/settings.html'.
     # Default: <same as gui>
     settings = {
+      bar.clock.format = "%a %d %b  %H:%M";
       bar.launcher.autoDetectIcon = true;
       bar.workspaces.show_icons = true;
 
       menus.clock = {
-        time = {
-          military = true;
-          hideSeconds = true;
-        };
+        time.military = true;
+        weather.enabled = false;
         weather.unit = "metric";
       };
 
