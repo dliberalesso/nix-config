@@ -50,6 +50,14 @@
       };
     };
 
+    hyprpanel = {
+      url = "github:Jas-SinghFSU/HyprPanel";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        ags.follows = "ags";
+      };
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -181,6 +189,7 @@
               inherit system;
 
               overlays = [
+                inputs.hyprpanel.overlay
                 self.overlays.default
               ];
 

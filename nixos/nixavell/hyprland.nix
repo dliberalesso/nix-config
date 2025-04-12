@@ -25,10 +25,12 @@ in
 
     environment.systemPackages = with pkgs; [
       brightnessctl
-      dunst
+      # dunst
       hyprpaper
       hyprsunset
-      simple-bar
+      # simple-bar
     ];
+
+    services.upower.enable = true;
   };
 }

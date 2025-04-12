@@ -8,8 +8,11 @@
     ./programs/spicetify.nix
     ./scripts
 
+    # TODO: Check catppuccin/nix
     ./cursor.nix
     ./gtk-qt.nix
+
+    ./hyprpanel.nix
   ];
 
   home = {
