@@ -20,5 +20,7 @@ in
       alsa.support32Bit = true;
       pulse.enable = true;
     };
+
+    hardware.bluetooth.enable = true;
   };
 }
