@@ -6,15 +6,7 @@
   imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
 
   programs.hyprpanel = {
-
-    # Enable the module.
-    # Default: false
     enable = true;
-
-    # Add '/nix/store/.../hyprpanel' to your
-    # Hyprland config 'exec-once'.
-    # Default: false
-    # hyprland.enable = true;
 
     # Fix the overwrite issue with HyprPanel.
     # See below for more information.
@@ -61,11 +53,10 @@
       menus.dashboard.stats.enable_gpu = true;
 
       theme.name = "catppuccin_mocha";
-      theme.bar.transparent = false;
-      # theme.font = {
-      #   name = "CaskaydiaCove NF";
-      #   size = "16px";
-      # };
+      theme.font = {
+        #   name = "CaskaydiaCove NF";
+        size = "1.1rem";
+      };
 
       wallpaper.enable = false;
     };
