@@ -15,7 +15,7 @@
   #   variant = "nodeadkeys";
   # };
 
-  # services.libinput.enable = true;
+  services.libinput.enable = true;
 
   environment.systemPackages = with pkgs; [
     keyd
@@ -25,6 +25,7 @@
           --replace "DeviceMatch=usb:046d:c098" "DeviceMatch=usb:046d:c098;usb:046d:c547"
       '';
     }))
+    xorg.setxkbmap
   ];
 
   services.ratbagd.enable = true;
