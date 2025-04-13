@@ -3,17 +3,6 @@
   ...
 }:
 {
-  nixpkgs.overlays = [
-    (_final: prev: {
-      libratbag = prev.libratbag.overrideAttrs (_oldAttrs: {
-        postPatch = ''
-          substituteInPlace data/devices/logitech-g502-x-wireless.device \
-            --replace "DeviceMatch=usb:046d:c098" "DeviceMatch=usb:046d:c098;usb:046d:c547"
-        '';
-      });
-    })
-  ];
-
   # Logitech UDEV rules
   hardware.logitech.wireless.enable = true;
 
@@ -30,7 +19,12 @@
 
   environment.systemPackages = with pkgs; [
     keyd
-    libratbag
+    (libratbag.overrideAttrs (_: {
+      postPatch = ''
+        substituteInPlace data/devices/logitech-g502-x-wireless.device \
+          --replace "DeviceMatch=usb:046d:c098" "DeviceMatch=usb:046d:c098;usb:046d:c547"
+      '';
+    }))
   ];
 
   services.ratbagd.enable = true;
