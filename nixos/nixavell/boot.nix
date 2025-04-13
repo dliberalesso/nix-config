@@ -53,11 +53,11 @@ in
         ];
 
         kernelModules = [
-          # "nvidia"
-          # "nvidiafb"
-          # "nvidia_drm"
-          # "nvidia_uvm"
-          # "nvidia_modeset"
+          "nvidia"
+          "nvidiafb"
+          "nvidia_drm"
+          "nvidia_uvm"
+          "nvidia_modeset"
         ];
       };
 
