@@ -14,30 +14,18 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      pcsc-tools
-      pcsc-safenet
-      nssTools
-
-      # FIXME: This should enable the `eToken` on `chrome`
+      # WARN: This should be run by the user when needed
       (writeShellScriptBin "setup-pcsc-chrome" ''
         NSSDB="''${HOME}/.pki/nssdb"
         mkdir -p ''${NSSDB}
 
-        ${nssTools}/bin/modutil -force -dbdir sql:$NSSDB -add eToken -libfile ${pcsc-safenet}/lib/libeToken.so.10
+        ${nssTools}/bin/modutil -force -dbdir sql:$NSSDB -add eToken -libfile ${pcsc-safenet}/lib/libeToken.so
       '')
     ];
 
     services.pcscd = {
       enable = true;
       plugins = [ pkgs.pcsc-safenet ];
-    };
-
-    programs.firefox = {
-      enable = true;
-
-      policies.SecurityDevices.Add = {
-        eToken = "${pkgs.pcsc-safenet}/lib/libeToken.so.10";
-      };
     };
   };
 }
