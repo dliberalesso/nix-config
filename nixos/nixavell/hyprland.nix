@@ -24,13 +24,12 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      brightnessctl
-      # dunst
       hyprpaper
       hyprsunset
       # simple-bar
     ];
 
+    hardware.brillo.enable = true; # Backlight and Keyboard LED control
     services.upower.enable = true; # Battery and power related modules
     services.gvfs.enable = true; # For network cover art urls to be cached (spotify for example)
   };
