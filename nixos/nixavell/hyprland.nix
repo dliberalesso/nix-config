@@ -27,6 +27,7 @@ in
       hyprpaper
       hyprsunset
       # simple-bar
+      wl-clipboard
     ];
 
     hardware.brillo.enable = true; # Backlight and Keyboard LED control
