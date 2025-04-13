@@ -31,6 +31,10 @@ in
         config.boot.kernelPackages.v4l2loopback
       ];
 
+      blacklistedKernelModules = [
+        "i915"
+      ];
+
       kernelParams = [
         "nvidia_drm.modeset=1"
         "nvidia_drm.fbdev=1"
