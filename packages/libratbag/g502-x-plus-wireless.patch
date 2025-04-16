@@ -1,0 +1,162 @@
+--- /dev/null
++++ b/data/devices/logitech-g502-x-plus-wireless.device
+@@ -0,0 +1,8 @@
++[Device]
++Name=Logitech G502 X PLUS Wireless
++DeviceMatch=usb:046d:c095;usb:046d:c547
++DeviceType=mouse
++Driver=hidpp20
++
++[Driver/hidpp20]
++DeviceIndex=1
+--- a/src/driver-hidpp20.c
++++ b/src/driver-hidpp20.c
+@@ -411,7 +411,13 @@ hidpp20drv_read_led_8071(struct ratbag_led *led, struct hidpp20drv_data* drv_dat
+ 	hidpp20_rgb_effects_get_device_info(drv_data->dev, &device_info);
+ 	cluster_info = drv_data->led_infos.color_leds_8071[led->index];
+ 	profile = &drv_data->profiles->profiles[led->profile->index];
+-	h_led = &profile->leds[led->index];
++	if (drv_data->profiles->profile_format_id == HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G502X &&
++		drv_data->num_leds == 1) {
++		// On G502X the led effect is on the second led slot.
++		h_led = &profile->leds[1];
++	} else {
++		h_led = &profile->leds[led->index];
++	}
+ 
+ 	switch (h_led->mode) {
+ 	case HIDPP20_LED_ON:
+@@ -689,7 +695,13 @@ hidpp20drv_update_led_8070_8071(struct ratbag_led *led, struct ratbag_profile* p
+ 
+ 	if (drv_data->capabilities & HIDPP_CAP_ONBOARD_PROFILES_8100) {
+ 		h_profile = &drv_data->profiles->profiles[profile->index];
+-		h_led = &(h_profile->leds[led->index]);
++		if (drv_data->profiles->profile_format_id == HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G502X &&
++			drv_data->num_leds == 1) {
++			// On G502X the effects need to be set on the second led slot.
++			h_led = &(h_profile->leds[1]);
++		} else {
++			h_led = &(h_profile->leds[led->index]);
++		}
+ 	}
+ 
+ 	if (!h_led)
+--- a/src/hidpp20.c
++++ b/src/hidpp20.c
+@@ -1798,10 +1798,6 @@ int hidpp20_adjustable_report_rate_set_report_rate(struct hidpp20_device *device
+ #define HIDPP20_HOST_MODE				0x02
+ 
+ #define HIDPP20_ONBOARD_PROFILES_MEMORY_TYPE_G402	0x01
+-#define HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G402	0x01
+-#define HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G303	0x02
+-#define HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G900	0x03
+-#define HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G915	0x04
+ #define HIDPP20_ONBOARD_PROFILES_MACRO_TYPE_G402	0x01
+ 
+ #define HIDPP20_USER_PROFILES_G402			0x0000
+@@ -1831,7 +1827,8 @@ union hidpp20_internal_profile {
+ 		} name;
+ 		struct hidpp20_internal_led leds[2]; /* G303, g502, g900 only */
+ 		struct hidpp20_internal_led alt_leds[2];
+-		uint8_t free[2];
++		uint8_t custom_animation_g502x;
++		uint8_t free;
+ 		uint16_t crc;
+ 	} __attribute__((packed)) profile;
+ };
+@@ -2220,7 +2217,8 @@ hidpp20_onboard_profiles_validate(struct hidpp20_device *device,
+ 	if ((info->profile_format_id != HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G402) &&
+ 	    (info->profile_format_id != HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G303) &&
+ 	    (info->profile_format_id != HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G900) &&
+-	    (info->profile_format_id != HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G915)) {
++	    (info->profile_format_id != HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G915) &&
++	    (info->profile_format_id != HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G502X)) {
+ 		hidpp_log_error(&device->base,
+ 				"Profile layout not supported: 0x%02x.\n",
+ 				info->profile_format_id);
+@@ -2285,6 +2283,7 @@ hidpp20_onboard_profiles_allocate(struct hidpp20_device *device,
+ 	profiles->has_g_shift = (info.mechanical_layout & 0x03) == 0x02;
+ 	profiles->has_dpi_shift = ((info.mechanical_layout & 0x0c) >> 2) == 0x02;
+ 	profiles->active_profile_index = active_profile_index;
++	profiles->profile_format_id = info.profile_format_id;
+ 	switch(info.various_info & 0x07) {
+ 	case 1:
+ 		profiles->corded = 1;
+@@ -2959,6 +2958,10 @@ hidpp20_onboard_profiles_write_profile(struct hidpp20_device *device,
+ 
+ 	memcpy(pdata->profile.name.txt, profile->name, sizeof(profile->name));
+ 
++	// This field needs to be zero for leds to work in G502X
++	// If a non zero value is set, custom animation will be used instead
++	pdata->profile.custom_animation_g502x = 0x00;
++
+ 	rc = hidpp20_onboard_profiles_write_sector(device, sector, sector_size, data, true);
+ 	if (rc < 0) {
+ 		hidpp_log_error(&device->base, "failed to write profile\n");
+--- a/src/hidpp20.h
++++ b/src/hidpp20.h
+@@ -619,6 +619,15 @@ enum hidpp20_color_led_zone_effect {
+ #define HIDPP20_DPI_COUNT				5
+ #define HIDPP20_LED_COUNT				2
+ 
++enum hidpp20_onboard_profiles_profile_type {
++	HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G402 = 0x01,
++	HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G303 = 0x02,
++	HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G900 = 0x03,
++	HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G915 = 0x04,
++	HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G502X = 0x05,
++} __attribute__((packed));
++_Static_assert(sizeof(enum hidpp20_onboard_profiles_profile_type) == sizeof(uint8_t), "Invalid size");
++
+ union hidpp20_button_binding {
+ 	struct {
+ 		uint8_t type;
+@@ -916,6 +925,7 @@ struct hidpp20_profiles {
+ 	uint8_t sector_count;
+ 	uint16_t sector_size;
+ 	uint8_t active_profile_index;
++	uint8_t profile_format_id;
+ 	struct hidpp20_profile *profiles;
+ };
+ 
+diff --git a/src/libratbag.c b/src/libratbag.c
+index 2248f2f..6d64981 100644
+--- a/src/libratbag.c
++++ b/src/libratbag.c
+@@ -1949,9 +1949,6 @@ ratbag_action_macro_num_keys(const struct ratbag_button_action *action)
+ 		    event.type == RATBAG_MACRO_EVENT_INVALID) {
+ 			break;
+ 		}
+-		if (ratbag_key_is_modifier(event.event.key)) {
+-			continue;
+-		}
+ 		if (event.type == RATBAG_MACRO_EVENT_KEY_PRESSED) {
+ 			count += 1;
+ 		}
+@@ -1975,8 +1972,13 @@ ratbag_action_keycode_from_macro(const struct ratbag_button_action *action,
+ 	if (macro->events[0].type == RATBAG_MACRO_EVENT_NONE)
+ 		return -EINVAL;
+ 
+-	if (ratbag_action_macro_num_keys(action) != 1)
+-		return -EINVAL;
++	int count = ratbag_action_macro_num_keys(action);
++	if (count == 1 && ratbag_key_is_modifier(macro->events[0].event.key)){
++		key = macro->events[0].event.key;
++		*key_out = key;
++		*modifiers_out = modifiers;
++		return 1;
++	}
+ 
+ 	for (i = 0; i < MAX_MACRO_EVENTS; i++) {
+ 		struct ratbag_macro_event event;
+--- a/test/receiver-check.py
++++ b/test/receiver-check.py
+@@ -46,7 +46,7 @@ logitech_receivers = [
+     0xC53F,  # USB_DEVICE_ID_LOGITECH_NANO_RECEIVER_LIGHTSPEED_1_1
+     0xC53A,  # USB_DEVICE_ID_LOGITECH_NANO_RECEIVER_POWERPLAY
+     0xC545,  # USB_DEVICE_ID_LOGITECH_NANO_RECEIVER_LIGHTSPEED_1_2
+-    0xC547,  # USB_DEVICE_ID_LOGITECH_NANO_RECEIVER_LIGHTSPEED_1_3
++    # 0xC547,  # USB_DEVICE_ID_LOGITECH_NANO_RECEIVER_LIGHTSPEED_1_3
+     0xC548,  # Bolt receiver
+ ]
+ RECEIVERS = [f"usb:046d:{r:04x}" for r in logitech_receivers]
