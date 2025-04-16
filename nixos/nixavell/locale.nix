@@ -34,6 +34,11 @@ in
         LC_TELEPHONE = "pt_BR.UTF-8";
         LC_TIME = "pt_BR.UTF-8";
       };
+
+      supportedLocales = [
+        "en_US.UTF-8/UTF-8"
+        "pt_BR.UTF-8/UTF-8"
+      ];
     };
   };
 }
