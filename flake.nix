@@ -20,10 +20,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    ags = {
-      url = "github:aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # ags = {
+    #   url = "github:aylur/ags";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     catppuccin = {
       url = "github:catppuccin/nix";
@@ -50,13 +50,13 @@
       };
     };
 
-    hyprpanel = {
-      url = "github:Jas-SinghFSU/HyprPanel";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        ags.follows = "ags";
-      };
-    };
+    # hyprpanel = {
+    #   url = "github:Jas-SinghFSU/HyprPanel";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     ags.follows = "ags";
+    #   };
+    # };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -189,7 +189,7 @@
               inherit system;
 
               overlays = [
-                inputs.hyprpanel.overlay
+                # inputs.hyprpanel.overlay
                 self.overlays.default
               ];
 

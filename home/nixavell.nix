@@ -12,7 +12,7 @@
     ./cursor.nix
     ./gtk-qt.nix
 
-    ./hyprpanel.nix
+    # ./hyprpanel.nix
   ];
 
   home = {
@@ -35,6 +35,10 @@
     rofi = {
       enable = true;
       package = pkgs.rofi-wayland;
+    };
+
+    waybar = {
+      enable = true;
     };
   };
 
