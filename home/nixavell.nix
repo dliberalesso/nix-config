@@ -37,4 +37,6 @@
       package = pkgs.rofi-wayland;
     };
   };
+
+  services.clipse.enable = true;
 }

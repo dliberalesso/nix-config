@@ -59,4 +59,6 @@
   programs.command-not-found.enable = lib.mkOverride 0 false;
 
   system.stateVersion = "25.05";
+
+  programs.bandwhich.enable = true;
 }

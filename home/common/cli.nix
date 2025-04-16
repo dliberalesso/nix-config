@@ -4,10 +4,12 @@
 }:
 {
   home.packages = with pkgs; [
+    dust
     grex
     hyperfine
     lazysql
     manix
+    procs
     sd
     tokei
     wget
