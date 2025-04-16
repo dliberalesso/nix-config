@@ -16,8 +16,9 @@
     ./hardware-configuration.nix
     ./hyperion.nix
     ./hyprland.nix
-    ./input.nix
+    ./keyboard.nix
     ./locale.nix
+    ./mouse.nix
     ./network.nix
     ./nvidia.nix
     ./pcscd.nix
