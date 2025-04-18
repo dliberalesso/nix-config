@@ -11,6 +11,8 @@
   home.packages = with pkgs; [
     wezterm
 
+    qalculate-gtk
+
     google-chrome
 
     prismlauncher
