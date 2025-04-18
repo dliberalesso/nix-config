@@ -25,6 +25,7 @@
     home.packages = with pkgs; [
       brightnessctl
       playerctl
+      wev
       wl-clipboard
     ];
 
