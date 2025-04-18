@@ -5,7 +5,7 @@
 {
   imports = [
     ./common
-    ./programs/spicetify.nix
+    ./programs
     ./scripts
 
     # TODO: Check catppuccin/nix
@@ -20,16 +20,7 @@
     gtk_qt.enable = true;
   };
 
-  home.packages = with pkgs; [
-    kdePackages.kcalc
 
-    wezterm
-
-    google-chrome
-
-    prismlauncher
-    obsidian
-  ];
 
   programs = {
     rofi = {
