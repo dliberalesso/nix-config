@@ -19,8 +19,8 @@ in
       font-awesome
       material-icons
       monaspace
-      noto-fonts-emoji
-      noto-fonts-cjk-sans
+      nerd-fonts.jetbrains-mono
+      noto-fonts
       symbola
     ];
   };
