@@ -11,10 +11,9 @@
     ./bat.nix
     ./cli.nix
     ./git.nix
+    ./nixcats-neovim.nix
     ./shell.nix
     ./tealdeer.nix
-
-    ../programs/nixcats-neovim.nix
   ];
 
   # Home Manager
