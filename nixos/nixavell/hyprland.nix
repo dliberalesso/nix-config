@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 let
@@ -19,18 +18,10 @@ in
         withUWSM = true;
         # xwayland.enable = false;
       };
-
-      hyprlock.enable = true; # brings `hypridle`
     };
 
-    environment.systemPackages = with pkgs; [
-      hyprpaper
-      hyprsunset
-      # simple-bar
-      wl-clipboard
-    ];
-
-    hardware.brillo.enable = true; # Backlight and Keyboard LED control
+    security.pam.services.hyprlock = { };
+    services.power-profiles-daemon.enable = true;
     services.upower.enable = true; # Battery and power related modules
     services.gvfs.enable = true; # For network cover art urls to be cached (spotify for example)
   };

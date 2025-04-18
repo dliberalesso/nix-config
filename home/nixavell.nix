@@ -5,33 +5,21 @@
 {
   imports = [
     ./common
+    ./hyprde
     ./programs
     ./scripts
-
-    # TODO: Check catppuccin/nix
-    ./cursor.nix
-    ./gtk-qt.nix
-
-    # ./hyprpanel.nix
   ];
 
-  home = {
-    cursor.enable = true;
-    gtk_qt.enable = true;
-  };
+  i18n.inputMethod = {
+    enabled = "fcitx5";
 
+    fcitx5 = {
+      addons = with pkgs; [
+        fcitx5-gtk
+        kdePackages.fcitx5-qt
+      ];
 
-
-  programs = {
-    rofi = {
-      enable = true;
-      package = pkgs.rofi-wayland;
-    };
-
-    waybar = {
-      enable = true;
+      waylandFrontend = true;
     };
   };
-
-  services.clipse.enable = true;
 }
