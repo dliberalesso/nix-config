@@ -11,7 +11,7 @@
   home.packages = with pkgs; [
     wezterm
 
-    qalculate-gtk
+    qalculate-qt
 
     google-chrome
 
