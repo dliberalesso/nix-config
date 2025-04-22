@@ -49,6 +49,7 @@
     description = "Douglas Liberalesso";
     extraGroups = [
       "audio"
+      "input"
       "networkmanager"
       "video"
       "wheel"
