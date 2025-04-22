@@ -8,7 +8,6 @@
     grex
     hyperfine
     lazysql
-    manix
     procs
     sd
     tokei
