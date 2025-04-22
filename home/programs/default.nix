@@ -14,8 +14,11 @@
     qalculate-qt
 
     google-chrome
+    vesktop
 
     prismlauncher
     obsidian
   ];
+
+  programs.zathura.enable = true;
 }
