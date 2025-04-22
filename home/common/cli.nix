@@ -11,6 +11,7 @@
     procs
     sd
     tokei
+    trash-cli
     wget
   ];
 
