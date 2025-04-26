@@ -11,6 +11,7 @@
 
     ./audio.nix
     ./boot.nix
+    ./espanso
     ./fonts.nix
     ./greetd.nix
     ./hardware-configuration.nix
@@ -30,6 +31,7 @@
   nixos = {
     audio.enable = true;
     boot.enable = true;
+    espanso.enable = true;
     fonts.enable = true;
     greetd.enable = true;
     hyperion.enable = true;
