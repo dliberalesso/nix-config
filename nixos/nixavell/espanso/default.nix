@@ -22,7 +22,7 @@ in
       espanso
 
       (pkgs.writeShellScriptBin "start-espanso" ''
-        ${pkgs.uwsm}/bin/uwsm app -- ${lib.getExe espanso} daemon
+        ${lib.getExe pkgs.uwsm} app -- ${lib.getExe espanso} daemon
       '')
     ];
 
