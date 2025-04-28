@@ -10,16 +10,20 @@
     overwrite.enable = true;
 
     settings = {
-      bar.clock.format = "%a %d %b  %H:%M";
-      bar.launcher.icon = "󱄅";
+      bar = {
+        clock.format = "%a %d %b  %H:%M";
+        launcher.icon = "󱄅";
+      };
 
       menus.clock = {
         time.military = true;
         weather.enabled = false;
       };
 
-      menus.dashboard.directories.enabled = false;
-      menus.dashboard.stats.enable_gpu = true;
+      menus = {
+        dashboard.directories.enabled = false;
+        dashboard.stats.enable_gpu = true;
+      };
 
       theme.name = "catppuccin_mocha";
       theme.font.size = "1.1rem";
