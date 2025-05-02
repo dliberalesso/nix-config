@@ -87,15 +87,14 @@
   outputs =
     {
       flake-parts,
-      home-manager,
       nixpkgs,
       self,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } (
       {
-        withSystem,
         inputs,
+        withSystem,
         ...
       }:
       {
@@ -109,72 +108,42 @@
 
         systems = [ "x86_64-linux" ];
 
-        flake =
+        flake.nixosConfigurations =
           let
-            specialArgs = { inherit inputs; };
+            generateConfig =
+              {
+                modules,
+              }:
+              withSystem "x86_64-linux" (
+                {
+                  pkgs,
+                  system,
+                  ...
+                }:
+                nixpkgs.lib.nixosSystem {
+                  inherit system pkgs;
+
+                  modules = [ ./modules/core ] ++ modules;
+
+                  specialArgs = { inherit inputs; };
+                }
+              );
           in
           {
-            nixosConfigurations = {
-              nixWSL = withSystem "x86_64-linux" (
-                {
-                  pkgs,
-                  system,
-                  ...
-                }:
-                nixpkgs.lib.nixosSystem {
-                  inherit system pkgs specialArgs;
-                  modules = [
-                    ./nixos/wsl.nix
-
-                    home-manager.nixosModules.home-manager
-                    {
-                      home-manager = {
-                        useGlobalPkgs = true;
-                        useUserPackages = true;
-                        users.dli50 = import ./home/common;
-                        extraSpecialArgs = specialArgs;
-                      };
-                    }
-                  ];
-                }
-              );
-
-              nixavell = withSystem "x86_64-linux" (
-                {
-                  pkgs,
-                  system,
-                  ...
-                }:
-                nixpkgs.lib.nixosSystem {
-                  inherit system pkgs specialArgs;
-                  modules = [
-                    ./nixos/nixavell
-
-                    home-manager.nixosModules.home-manager
-                    {
-                      home-manager = {
-                        useGlobalPkgs = true;
-                        useUserPackages = true;
-                        users.dli50 = import ./home/nixavell.nix;
-                        extraSpecialArgs = specialArgs;
-                      };
-                    }
-                  ];
-                }
-              );
+            nixavell = generateConfig {
+              modules = [
+                ./modules/hyprde
+                ./modules/laptop
+                ./modules/programs
+                ./modules/scripts
+              ];
             };
 
-            homeConfigurations.dli50 = withSystem "x86_64-linux" (
-              {
-                pkgs,
-                ...
-              }:
-              home-manager.lib.homeManagerConfiguration {
-                inherit pkgs;
-                extraSpecialArgs = specialArgs;
-                modules = [ ./home/common ];
-              }
-            );
+            nixWSL = generateConfig {
+              modules = [
+                ./modules/wsl.nix
+              ];
+            };
           };
 
         perSystem =

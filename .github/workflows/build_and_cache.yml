@@ -20,34 +20,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  home:
-    name: home
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: "Install Nix ❄️"
-        uses: DeterminateSystems/nix-installer-action@v17
-
-      - name: "Install Cachix ❄️"
-        uses: cachix/cachix-action@v16
-        with:
-          name: dliberalesso
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-          extraPullNames: cachix, nix-community
-
-      - name: "Build Home Manager config 🏠"
-        run: nix build .#homeConfigurations.dli50.activationPackage -v -L
-
-      - name: "Test shell"
-        run: nix develop -c echo OK
-
   nixwsl:
     name: nixwsl
-    needs: home
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -70,7 +44,7 @@ jobs:
 
   nixavell:
     name: nixavell
-    needs: [home, nixwsl]
+    needs: nixwsl
     runs-on: ubuntu-latest
     permissions:
       contents: read
