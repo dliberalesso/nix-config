@@ -4,6 +4,13 @@
   ...
 }:
 {
+  imports = [
+    ./fonts.nix
+    ./greetd.nix
+    ./hyprland.nix
+    ./xdg.nix
+  ];
+
   home-manager.users.dli50 = {
     imports = [
       ./cursor.nix

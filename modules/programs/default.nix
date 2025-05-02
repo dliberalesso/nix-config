@@ -3,6 +3,10 @@
   ...
 }:
 {
+  imports = [
+    ./espanso
+  ];
+
   home-manager.users.dli50 = {
     imports = [
       ./irpf.nix

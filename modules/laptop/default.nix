@@ -1,21 +1,15 @@
 {
   imports = [
-    ./espanso
-
     ./audio.nix
     ./boot.nix
-    ./fonts.nix
-    ./greetd.nix
     ./hardware-configuration.nix
     ./hyperion.nix
-    ./hyprland.nix
     ./keyboard.nix
     ./locale.nix
     ./mouse.nix
     ./network.nix
     ./nvidia.nix
     ./pcscd.nix
-    ./xdg.nix
   ];
 
   services.logind.lidSwitchExternalPower = "ignore";
