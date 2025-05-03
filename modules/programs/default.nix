@@ -6,7 +6,7 @@
   imports = [
     ./espanso
 
-    ./irpf.nix
+    # ./irpf.nix
     ./spicetify.nix
   ];
 
@@ -21,6 +21,8 @@
 
       prismlauncher
       obsidian
+
+      irpf
     ];
 
     programs.zathura.enable = true;
