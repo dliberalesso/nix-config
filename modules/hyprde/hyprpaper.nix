@@ -6,21 +6,17 @@ let
   inherit (config.hyprde) wallpaper;
 in
 {
-  services.hyprpaper = {
+  home-manager.users.dli50.services.hyprpaper = {
     enable = true;
 
     settings = {
       ipc = "off";
 
-      preload = [
-        "${wallpaper}"
-      ];
+      preload = [ "${wallpaper}" ];
 
       splash = false;
 
-      wallpaper = [
-        " , ${wallpaper}"
-      ];
+      wallpaper = [ " , ${wallpaper}" ];
     };
   };
 }

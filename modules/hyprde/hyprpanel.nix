@@ -3,32 +3,44 @@
   ...
 }:
 {
-  imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
+  services = {
+    power-profiles-daemon.enable = true;
+    upower.enable = true; # Battery and power related modules
+    gvfs.enable = true; # For network cover art urls to be cached (spotify for example)
+  };
 
-  programs.hyprpanel = {
-    enable = true;
-    overwrite.enable = true;
+  home-manager.users.dli50 = {
+    imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
 
-    settings = {
-      bar = {
-        clock.format = "%a %d %b  %H:%M";
-        launcher.icon = "󱄅";
+    programs.hyprpanel = {
+      enable = true;
+      overwrite.enable = true;
+
+      settings = {
+        bar = {
+          clock.format = "%a %d %b  %H:%M";
+          launcher.icon = "󱄅";
+        };
+
+        menus = {
+          clock = {
+            time.military = true;
+            weather.enabled = false;
+          };
+
+          dashboard = {
+            directories.enabled = false;
+            stats.enable_gpu = true;
+          };
+        };
+
+        theme = {
+          name = "catppuccin_mocha";
+          font.size = "1.1rem";
+        };
+
+        wallpaper.enable = false;
       };
-
-      menus.clock = {
-        time.military = true;
-        weather.enabled = false;
-      };
-
-      menus = {
-        dashboard.directories.enabled = false;
-        dashboard.stats.enable_gpu = true;
-      };
-
-      theme.name = "catppuccin_mocha";
-      theme.font.size = "1.1rem";
-
-      wallpaper.enable = false;
     };
   };
 }

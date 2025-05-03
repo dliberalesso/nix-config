@@ -4,9 +4,7 @@
   ...
 }:
 {
-  imports = [
-    inputs.nixos-wsl.nixosModules.wsl
-  ];
+  imports = [ inputs.nixos-wsl.nixosModules.wsl ];
 
   # Setup WSL
   wsl = {
@@ -18,7 +16,5 @@
   };
 
   # Packages to install
-  environment.systemPackages = with pkgs; [
-    wslu # Utilities for WSL, i.e. wslview
-  ];
+  environment.systemPackages = [ pkgs.wslu ];
 }

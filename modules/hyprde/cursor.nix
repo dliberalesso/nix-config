@@ -3,7 +3,7 @@
   ...
 }:
 {
-  home = {
+  home-manager.users.dli50.home = {
     pointerCursor = {
       gtk.enable = true;
       x11.enable = true;
@@ -28,7 +28,7 @@
         target = ".local/share/icons/adwaita-hyprcursor";
       };
 
-    packages = with pkgs; [ hyprcursor ];
+    packages = [ pkgs.hyprcursor ];
 
     sessionVariables = {
       WLR_NO_HARDWARE_CURSORS = 1;

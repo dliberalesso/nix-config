@@ -5,14 +5,12 @@
 {
   imports = [
     ./espanso
+
+    ./irpf.nix
+    ./spicetify.nix
   ];
 
   home-manager.users.dli50 = {
-    imports = [
-      ./irpf.nix
-      ./spicetify.nix
-    ];
-
     home.packages = with pkgs; [
       wezterm
 

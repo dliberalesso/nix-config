@@ -3,13 +3,12 @@
   ...
 }:
 {
-  environment.systemPackages = with pkgs; [
-    hyperion-ng
-  ];
+  environment.systemPackages = [ pkgs.hyperion-ng ];
 
   systemd.services.hyperion = {
     enable = true;
     wantedBy = [ "multi-user.target" ];
+
     serviceConfig = {
       ExecStart = "${pkgs.hyperion-ng}/bin/hyperiond --service";
       ExecReload = "${pkgs.coreutils}/bin/kill -HUP $MAINPID";

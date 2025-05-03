@@ -8,11 +8,7 @@
   # Logitech UDEV rules
   hardware.logitech.wireless.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    libratbag
-  ];
+  environment.systemPackages = [ pkgs.libratbag ];
 
-  services.ratbagd = {
-    enable = true;
-  };
+  services.ratbagd.enable = true;
 }

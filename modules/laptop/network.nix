@@ -15,6 +15,7 @@
 
     firewall = {
       enable = true;
+
       allowedTCPPorts = [
         # SSH
         22
@@ -24,6 +25,7 @@
         443
         8080
       ];
+
       allowedUDPPorts = [
         #DHCP
         68

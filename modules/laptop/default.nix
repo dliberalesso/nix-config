@@ -18,6 +18,7 @@
   users.users.dli50 = {
     isNormalUser = true;
     description = "Douglas Liberalesso";
+
     extraGroups = [
       "audio"
       "input"

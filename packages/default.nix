@@ -1,6 +1,11 @@
 {
+  inputs,
+  ...
+}:
+{
   imports = [
-    # ./ags
+    inputs.flake-parts.flakeModules.easyOverlay
+
     ./libratbag
   ];
 }

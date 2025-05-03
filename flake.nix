@@ -135,14 +135,11 @@
                 ./modules/hyprde
                 ./modules/laptop
                 ./modules/programs
-                ./modules/scripts
               ];
             };
 
             nixWSL = generateConfig {
-              modules = [
-                ./modules/wsl.nix
-              ];
+              modules = [ ./modules/wsl.nix ];
             };
           };
 
@@ -166,23 +163,25 @@
             };
 
             devShells.default = pkgs.mkShell {
-              nativeBuildInputs = with pkgs; [
-                just
-              ];
+              nativeBuildInputs = [ pkgs.just ];
 
               shellHook = ''
                 ${config.pre-commit.installationScript}
               '';
             };
 
-            pre-commit.check.enable = true;
-            pre-commit.settings.hooks = {
-              treefmt.enable = true;
-              treefmt.package = config.treefmt.build.wrapper;
+            pre-commit = {
+              check.enable = true;
+
+              settings.hooks = {
+                treefmt.enable = true;
+                treefmt.package = config.treefmt.build.wrapper;
+              };
             };
 
             treefmt = {
               inherit (config.flake-root) projectRootFile;
+
               programs = {
                 deadnix.enable = true;
                 prettier.enable = true;

@@ -1,5 +1,5 @@
 {
-  services.hyprsunset = {
+  home-manager.users.dli50.services.hyprsunset = {
     enable = true;
 
     transitions = {
@@ -9,6 +9,7 @@
           [ "identity" ]
         ];
       };
+
       sunset = {
         calendar = "*-*-* 18:00:00";
         requests = [

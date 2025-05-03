@@ -1,35 +1,34 @@
 {
-  config,
   lib,
   modulesPath,
   ...
 }:
 {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/f327437e-b731-4543-aa04-62d1070d9109";
-    fsType = "ext4";
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/f327437e-b731-4543-aa04-62d1070d9109";
+      fsType = "ext4";
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/6441-4E64";
+      fsType = "vfat";
+
+      options = [
+        "fmask=0077"
+        "dmask=0077"
+      ];
+    };
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/6441-4E64";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
+  hardware = {
+    enableAllFirmware = true;
+    cpu.intel.updateMicrocode = true;
   };
 
-  swapDevices = [
-    {
-      device = "/dev/disk/by-uuid/96082f77-471f-459f-8438-b4d2d8fcc96e";
-    }
-  ];
+  swapDevices = [ { device = "/dev/disk/by-uuid/96082f77-471f-459f-8438-b4d2d8fcc96e"; } ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

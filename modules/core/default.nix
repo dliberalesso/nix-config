@@ -3,6 +3,7 @@
     ./bat.nix
     ./catppuccin.nix
     ./cli.nix
+    ./fzf.nix
     ./git.nix
     ./home.nix
     ./nix.nix

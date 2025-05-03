@@ -1,5 +1,5 @@
 {
-  services.hypridle = {
+  home-manager.users.dli50.services.hypridle = {
     enable = true;
 
     settings = {

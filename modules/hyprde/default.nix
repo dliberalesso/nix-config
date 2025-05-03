@@ -5,49 +5,45 @@
 }:
 {
   imports = [
+    ./scripts
+
+    ./cursor.nix
     ./fonts.nix
     ./greetd.nix
+    ./gtk-qt.nix
+    ./hypridle.nix
     ./hyprland.nix
-    ./xdg.nix
+    ./hyprlock.nix
+    ./hyprpanel.nix
+    ./hyprpaper.nix
+    ./hyprsunset.nix
   ];
 
-  home-manager.users.dli50 = {
-    imports = [
-      ./cursor.nix
-      ./gtk-qt.nix
-      ./hypridle.nix
-      ./hyprlock.nix
-      ./hyprpanel.nix
-      ./hyprpaper.nix
-      ./hyprsunset.nix
+  options.hyprde = with lib; {
+    wallpaper = mkOption {
+      type = types.path;
+      default = ../../assets/wallpapers/0052.png;
+    };
+  };
+
+  config.home-manager.users.dli50 = {
+    home.packages = with pkgs; [
+      brightnessctl
+      playerctl
+      wev
+      wl-clipboard
     ];
 
-    options.hyprde = with lib; {
-      wallpaper = mkOption {
-        type = types.path;
-        default = ../../assets/wallpapers/0052.png;
-      };
+    home.sessionVariables.NIXOS_OZONE_WL = "1";
+
+    programs.rofi = {
+      enable = true;
+      package = pkgs.rofi-wayland;
     };
 
-    config = {
-      home.packages = with pkgs; [
-        brightnessctl
-        playerctl
-        wev
-        wl-clipboard
-      ];
-
-      programs = {
-        rofi = {
-          enable = true;
-          package = pkgs.rofi-wayland;
-        };
-      };
-
-      services = {
-        clipse.enable = true;
-        hyprpolkitagent.enable = true;
-      };
+    services = {
+      clipse.enable = true;
+      hyprpolkitagent.enable = true;
     };
   };
 }
