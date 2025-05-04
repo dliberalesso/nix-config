@@ -5,7 +5,7 @@
 let
   catppuccin = {
     enable = true;
-    flavor = "mocha";
+    cache.enable = true;
   };
 in
 {
@@ -16,6 +16,8 @@ in
   home-manager.users.dli50 = {
     imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
-    inherit catppuccin;
+    catppuccin = catppuccin // {
+      mako.enable = false;
+    };
   };
 }
