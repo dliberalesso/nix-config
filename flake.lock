@@ -201,6 +201,26 @@
         "type": "github"
       }
     },
+    "nix-index-database": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1746330942,
+        "narHash": "sha256-ShizFaJCAST23tSrHHtFFGF0fwd72AG+KhPZFFQX/0o=",
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "rev": "137fd2bd726fff343874f85601b51769b48685cc",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
     "nixCats": {
       "locked": {
         "lastModified": 1745981676,
@@ -265,6 +285,7 @@
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
         "hyprpanel": "hyprpanel",
+        "nix-index-database": "nix-index-database",
         "nixCats": "nixCats",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",

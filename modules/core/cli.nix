@@ -1,17 +1,16 @@
 {
-  lib,
+  inputs,
   pkgs,
   ...
 }:
 {
-  programs = {
-    bandwhich.enable = true;
+  imports = [ inputs.nix-index-database.nixosModules.nix-index ];
 
-    # There is a problem with programs.sqlite
-    command-not-found.enable = lib.mkOverride 0 false;
-  };
+  programs.bandwhich.enable = true;
 
   home-manager.users.dli50 = {
+    imports = [ inputs.nix-index-database.hmModules.nix-index ];
+
     home.packages = with pkgs; [
       dust
       grex
@@ -30,6 +29,8 @@
       fastfetch.enable = true;
       fd.enable = true;
       jq.enable = true;
+      nix-index-database.comma.enable = true;
+      nix-index.enable = true;
       ripgrep.enable = true;
       yazi.enable = true;
     };
