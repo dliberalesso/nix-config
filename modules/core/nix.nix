@@ -21,6 +21,7 @@
 
       # Cache
       substituters = [
+        "https://cache.nixos.org"
         "https://cachix.cachix.org"
         "https://nix-community.cachix.org"
         "https://hyprland.cachix.org"
