@@ -11,12 +11,12 @@
       ...
     }:
     {
-      packages.simple-bar = inputs.ags.lib.bundle {
+      packages.mybar = inputs.ags.lib.bundle {
         inherit pkgs;
         src = ./.;
-        name = "simple-bar";
+        name = "mybar";
         entry = "app.ts";
-        gtk4 = false;
+        gtk4 = true;
 
         extraPackages = with inputs'.ags.packages; [
           battery
@@ -28,8 +28,12 @@
         ];
       };
 
-      overlayAttrs = {
-        inherit (config.packages) simple-bar;
+      devShells.mybar = pkgs.mkShell {
+        buildInputs = [
+          inputs'.ags.packages.agsFull
+        ];
       };
+
+      overlayAttrs = { inherit (config.packages) mybar; };
     };
 }
