@@ -16,4 +16,6 @@
 
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
+
+  home-manager.users.dli50.home.packages = [ pkgs.wev ];
 }

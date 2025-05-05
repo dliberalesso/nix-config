@@ -1,5 +1,6 @@
 {
   inputs,
+  pkgs,
   ...
 }:
 {
@@ -11,6 +12,11 @@
 
   home-manager.users.dli50 = {
     imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
+
+    home.packages = with pkgs; [
+      brightnessctl
+      playerctl
+    ];
 
     programs.hyprpanel = {
       enable = true;
@@ -34,10 +40,35 @@
           };
         };
 
-        theme = {
-          name = "catppuccin_mocha";
-          font.size = "1.1rem";
-        };
+        theme =
+          let
+            scaling = 90;
+          in
+          {
+            name = "catppuccin_mocha";
+            font.size = "1.1rem";
+
+            bar.menus = {
+              menu = {
+                battery = { inherit scaling; };
+                bluetooth = { inherit scaling; };
+                clock = { inherit scaling; };
+                dashboard.confirmation_scaling = scaling;
+                dashboard = { inherit scaling; };
+                media = { inherit scaling; };
+                network = { inherit scaling; };
+                notifications = { inherit scaling; };
+                power = { inherit scaling; };
+                volume = { inherit scaling; };
+              };
+
+              popover = { inherit scaling; };
+            };
+
+            notification = { inherit scaling; };
+            osd = { inherit scaling; };
+            tooltip = { inherit scaling; };
+          };
 
         wallpaper.enable = false;
       };

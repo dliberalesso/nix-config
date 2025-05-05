@@ -17,6 +17,7 @@
     ./hyprpanel.nix
     ./hyprpaper.nix
     ./hyprsunset.nix
+    ./rofi.nix
   ];
 
   options.hyprde = with lib; {
@@ -27,19 +28,9 @@
   };
 
   config.home-manager.users.dli50 = {
-    home.packages = with pkgs; [
-      brightnessctl
-      playerctl
-      wev
-      wl-clipboard
-    ];
+    home.packages = [ pkgs.wl-clipboard ];
 
     home.sessionVariables.NIXOS_OZONE_WL = "1";
-
-    programs.rofi = {
-      enable = true;
-      package = pkgs.rofi-wayland;
-    };
 
     services = {
       clipse.enable = true;
