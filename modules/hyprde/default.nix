@@ -23,7 +23,11 @@
   options.hyprde = with lib; {
     wallpaper = mkOption {
       type = types.path;
-      default = ../../assets/wallpapers/0052.png;
+      default = builtins.fetchurl {
+        name = "wallpaper-lofi-urban-nightscape.png";
+        url = "https://github.com/JaKooLit/Wallpaper-Bank/blob/main/wallpapers/Lofi-Urban-Nightscape.png?raw=true";
+        sha256 = "sha256:0mskzjkdxsfcap3rim0qwcx0mikhbirs36xw1p8n18nic88ypwb1";
+      };
     };
   };
 
