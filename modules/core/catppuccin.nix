@@ -10,9 +10,6 @@
   home-manager.users.dli50 = {
     imports = [ inputs.catppuccin.homeModules.catppuccin ];
 
-    catppuccin = {
-      enable = true;
-      mako.enable = false;
-    };
+    catppuccin.enable = true;
   };
 }
