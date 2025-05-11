@@ -6,6 +6,7 @@
     ./fzf.nix
     ./git.nix
     ./home.nix
+    ./nh.nix
     ./nix.nix
     ./nixcats-neovim.nix
     ./shell.nix
