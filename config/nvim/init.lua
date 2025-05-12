@@ -429,7 +429,6 @@ require("lze").load({
         -- markdown = {'vale',},
         -- javascript = { 'eslint' },
         -- typescript = { 'eslint' },
-        go = nixCats("go") and { "golangcilint" } or nil,
       }
 
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -452,7 +451,6 @@ require("lze").load({
           -- NOTE: download some formatters in lspsAndRuntimeDeps
           -- and configure them here
           lua = nixCats("lua") and { "stylua" } or nil,
-          go = nixCats("go") and { "gofmt", "golint" } or nil,
           -- templ = { "templ" },
           -- Conform will run multiple formatters sequentially
           -- python = { "isort", "black" },
@@ -579,12 +577,6 @@ require("lze").load({
       -- NOTE: Install lang specific config
       -- either in here, or in a separate plugin spec as demonstrated for go below.
     end,
-  },
-  {
-    "nvim-dap-go",
-    enabled = nixCats("go") or false,
-    on_plugin = { "nvim-dap" },
-    after = function(plugin) require("dap-go").setup() end,
   },
   {
     -- lazydev makes your lsp way better in your config without needing extra lsp configuration.
@@ -717,12 +709,6 @@ require("lze").load({
     -- also these are regular specs and you can use before and after and all the other normal fields
   },
   {
-    "gopls",
-    enabled = nixCats("go") or false,
-    -- if you don't provide the filetypes it asks lspconfig for them
-    lsp = {},
-  },
-  {
     "nixd",
     enabled = nixCats("nix") or false,
     lsp = {
@@ -737,7 +723,7 @@ require("lze").load({
           nixpkgs = {
             -- in the extras set of your package definition:
             -- nixdExtras.nixpkgs = ''import ${pkgs.path} {}''
-            expr = nixCats.extra("nixdExtras.nixpkgs") or [[import <nixpkgs> {}]],
+            expr = nixCats.extra("nixdExtras.nixpkgs"),
           },
           options = {
             nixos = {

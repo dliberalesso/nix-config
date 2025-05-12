@@ -143,7 +143,17 @@ in
             nix = true;
           };
 
-          extra.nixdExtras.nixpkgs = "import ${pkgs.path} {}";
+          extra.nixdExtras = {
+            nixpkgs = "import ${pkgs.path} {}";
+
+            nixos_options = ''
+              (builtins.getFlake "path:${builtins.toString inputs.self.outPath}").nixosConfigurations.configname.options
+            '';
+
+            home_manager_options = ''
+              (builtins.getFlake "path:${builtins.toString inputs.self.outPath}").homeConfigurations.configname.options
+            '';
+          };
         };
     };
   };
