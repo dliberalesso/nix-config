@@ -23,8 +23,6 @@
 
     gh.enable = true;
 
-    jujutsu.enable = true;
-
     lazygit = {
       enable = true;
 
