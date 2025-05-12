@@ -1,18 +1,6 @@
 {
-  pkgs,
-  ...
-}:
-{
-  home-manager.users.dli50.programs.fzf = rec {
+  home-manager.users.dli50.programs.skim = rec {
     enable = true;
-
-    package = pkgs.fzf.overrideAttrs (oa: {
-      postInstall =
-        oa.postInstall
-        + ''
-          rm -rf $out/share/nvim/
-        '';
-    });
 
     defaultCommand = "fd --type f";
     defaultOptions = [
@@ -28,7 +16,5 @@
     changeDirWidgetOptions = [
       "--preview 'eza --tree --icons | head -200'"
     ];
-
-    historyWidgetOptions = [ ];
   };
 }
