@@ -10,7 +10,7 @@ diff:
 # Rebuild nixos
 rebuild:
   git add *
-  nh os switch .
+  nh os switch . --ask
 
 # Run GC and optmise Nix Store
 clean:
