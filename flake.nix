@@ -54,6 +54,14 @@
       };
     };
 
+    hercules-ci-effects = {
+      url = "github:hercules-ci/hercules-ci-effects";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
+
     hyprpanel = {
       url = "github:Jas-SinghFSU/HyprPanel";
       inputs = {
@@ -65,6 +73,24 @@
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        neovim-src.follows = "neovim-src";
+        git-hooks.follows = "git-hooks";
+        hercules-ci-effects.follows = "hercules-ci-effects";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+
+    neovim-src = {
+      url = "github:neovim/neovim";
+      flake = false;
     };
 
     nix-index-database = {
@@ -165,6 +191,7 @@
 
               overlays = [
                 inputs.hyprpanel.overlay
+                inputs.neovim-nightly-overlay.overlays.default
                 self.overlays.default
               ];
 

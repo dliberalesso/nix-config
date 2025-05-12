@@ -128,7 +128,6 @@ in
               "vim"
             ];
 
-            # neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.neovim;
             inherit neovim-unwrapped;
 
             hosts.node.enable = false;
