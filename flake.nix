@@ -172,7 +172,11 @@
             };
 
             devShells.default = pkgs.mkShell {
-              nativeBuildInputs = [ pkgs.just ];
+              packages = with pkgs; [
+                git
+                just
+                nh
+              ];
 
               shellHook = ''
                 ${config.pre-commit.installationScript}
