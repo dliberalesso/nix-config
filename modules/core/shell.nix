@@ -23,6 +23,8 @@
         '';
       };
 
+      carapace.enable = true;
+
       direnv = {
         enable = true;
         nix-direnv.enable = true;
@@ -38,18 +40,25 @@
           # Nerd Font Symbols
           aws.symbol = "  ";
           buf.symbol = " ";
+          bun.symbol = " ";
           c.symbol = " ";
+          cpp.symbol = " ";
+          cmake.symbol = " ";
           conda.symbol = " ";
           crystal.symbol = " ";
           dart.symbol = " ";
+          deno.symbol = " ";
           directory.read_only = " 󰌾";
           docker_context.symbol = " ";
           elixir.symbol = " ";
           elm.symbol = " ";
           fennel.symbol = " ";
           fossil_branch.symbol = " ";
+          gcloud.symbol = "  ";
           git_branch.symbol = " ";
+          git_commit.tag_symbol = "  ";
           golang.symbol = " ";
+          gradle.symbol = " ";
           guix_shell.symbol = " ";
           haskell.symbol = " ";
           haxe.symbol = " ";
@@ -70,10 +79,11 @@
           perl.symbol = " ";
           php.symbol = " ";
           pijul_channel.symbol = " ";
+          pixi.symbol = "󰏗 ";
           python.symbol = " ";
           rlang.symbol = "󰟔 ";
           ruby.symbol = " ";
-          rust.symbol = " ";
+          rust.symbol = "󱘗 ";
           scala.symbol = " ";
           swift.symbol = " ";
           zig.symbol = " ";
