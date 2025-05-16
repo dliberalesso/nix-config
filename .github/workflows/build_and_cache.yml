@@ -22,6 +22,7 @@ on:
 jobs:
   build_and_cache:
     strategy:
+      max-parallel: 1
       matrix:
         system: [nixWSL, nixavell]
 
@@ -34,13 +35,9 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: "Install Nix"
-        uses: DeterminateSystems/nix-installer-action@v17
-
-      # - name: "Install Nix"
-      #   uses: DeterminateSystems/determinate-nix-action@v3
-      #   with:
-      #     extra-conf:
-      #       lazy-trees = true
+        uses: DeterminateSystems/determinate-nix-action@v3
+        with:
+          extra-conf: lazy-trees = true
 
       - name: "Install Cachix"
         uses: cachix/cachix-action@v16
