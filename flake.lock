@@ -238,9 +238,7 @@
         "hercules-ci-effects": [
           "hercules-ci-effects"
         ],
-        "neovim-src": [
-          "neovim-src"
-        ],
+        "neovim-src": "neovim-src",
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -265,11 +263,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1747070066,
-        "narHash": "sha256-+nw73+vVPejU5zkto1Rl76d0y7T+yy0aLZ5Qv5b66f0=",
+        "lastModified": 1747388749,
+        "narHash": "sha256-ug5xokfr3zS8GD2FeQK7pGvfOxgXKrkY1KXXETe7ZxM=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "69d04ee99fe42ca6999bd66278d0f76820f6760a",
+        "rev": "37cac187875561eed42ee1714e00658b41690eb7",
         "type": "github"
       },
       "original": {
@@ -364,7 +362,6 @@
         "home-manager": "home-manager",
         "hyprpanel": "hyprpanel",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
-        "neovim-src": "neovim-src",
         "nix-index-database": "nix-index-database",
         "nixCats": "nixCats",
         "nixos-wsl": "nixos-wsl",

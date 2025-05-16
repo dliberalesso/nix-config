@@ -81,16 +81,10 @@
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
         flake-parts.follows = "flake-parts";
-        neovim-src.follows = "neovim-src";
         git-hooks.follows = "git-hooks";
         hercules-ci-effects.follows = "hercules-ci-effects";
         treefmt-nix.follows = "treefmt-nix";
       };
-    };
-
-    neovim-src = {
-      url = "github:neovim/neovim";
-      flake = false;
     };
 
     nix-index-database = {
