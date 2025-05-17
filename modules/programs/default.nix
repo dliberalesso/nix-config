@@ -5,6 +5,7 @@
 {
   imports = [
     ./espanso
+    ./wezterm
 
     # ./irpf.nix
     ./spicetify.nix
@@ -12,8 +13,6 @@
 
   home-manager.users.dli50 = {
     home.packages = with pkgs; [
-      wezterm
-
       qalculate-qt
 
       google-chrome
