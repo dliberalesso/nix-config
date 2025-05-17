@@ -101,7 +101,11 @@ in
               nvim-dap-virtual-text
             ];
 
-            lua = [ pkgs.vimPlugins.lazydev-nvim ];
+            lua = with pkgs; [
+              neovimPlugins.wezterm-types
+
+              vimPlugins.lazydev-nvim
+            ];
           };
 
           extraLuaPackages.general = p: [
@@ -123,7 +127,10 @@ in
 
             unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/nix-config/modules/core/nixcats-neovim'";
 
-            aliases = [ "vi" "vim" ];
+            aliases = [
+              "vi"
+              "vim"
+            ];
 
             inherit neovim-unwrapped;
 

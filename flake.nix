@@ -102,6 +102,11 @@
       };
     };
 
+    plugins-wezterm-types = {
+      url = "github:gonstoll/wezterm-types";
+      flake = false;
+    };
+
     spicetify = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";

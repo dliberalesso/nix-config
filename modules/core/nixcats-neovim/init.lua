@@ -158,15 +158,22 @@ require("lze").load({
     on_require = "blink",
     after = function(plugin)
       require("blink.cmp").setup({
-        -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
-        -- See :h blink-cmp-config-keymap for configuring keymaps
         keymap = { preset = "default" },
-        appearance = {
-          nerd_font_variant = "mono",
-        },
+        appearance = { nerd_font_variant = "mono" },
         signature = { enabled = true },
         sources = {
           default = { "lsp", "path", "snippets", "buffer" },
+          per_filetype = {
+            lua = { inherit_defaults = true, "lazydev" },
+          },
+          providers = {
+            lazydev = {
+              name = "LazyDev",
+              module = "lazydev.integrations.blink",
+              -- make lazydev completions top priority (see `:h blink.cmp`)
+              score_offset = 100,
+            },
+          },
         },
       })
     end,
@@ -586,11 +593,13 @@ require("lze").load({
     ft = "lua",
     after = function(_)
       require("lazydev").setup({
+        integrations = { cmp = false },
         library = {
           -- TODO: add luvit-meta
           -- { path = "luvit-meta/library", words = { "vim%.uv" } },
+          { words = { "Catppuccin" }, path = "catppuccin.nvim" },
           { words = { "nixCats" }, path = (nixCats.nixCatsPath or "") .. "/lua" },
-          { path = "catppuccin.nvim", word = { "Catppuccin" } },
+          { mods = { "wezterm" }, path = "wezterm-types" },
         },
       })
     end,

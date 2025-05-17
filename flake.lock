@@ -350,6 +350,22 @@
         "type": "github"
       }
     },
+    "plugins-wezterm-types": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1745147304,
+        "narHash": "sha256-MDzEJY9ughs2rSGAw/WQOqNDeUb3ostFiXOZ5HmkGVM=",
+        "owner": "gonstoll",
+        "repo": "wezterm-types",
+        "rev": "3d59d9ed537ec4b935be3d48e06689ed02adace7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gonstoll",
+        "repo": "wezterm-types",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "ags": "ags",
@@ -366,6 +382,7 @@
         "nixCats": "nixCats",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
+        "plugins-wezterm-types": "plugins-wezterm-types",
         "spicetify": "spicetify",
         "treefmt-nix": "treefmt-nix"
       }
