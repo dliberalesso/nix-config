@@ -1,5 +1,7 @@
 {
   imports = [
+    ./nixcats-neovim
+
     ./bat.nix
     ./catppuccin.nix
     ./cli.nix
@@ -7,7 +9,6 @@
     ./home.nix
     ./nh.nix
     ./nix.nix
-    ./nixcats-neovim.nix
     ./shell.nix
     ./skim.nix
     ./tealdeer.nix

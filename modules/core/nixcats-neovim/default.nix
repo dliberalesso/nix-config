@@ -48,7 +48,7 @@ in
 
       packageNames = [ "nvim" ];
 
-      luaPath = ../../config/nvim;
+      luaPath = ./.;
 
       categoryDefinitions.replace =
         { pkgs, ... }:
@@ -121,19 +121,18 @@ in
             suffix-LD = true;
             wrapRc = false;
 
-            unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/nix-config/config/nvim'";
+            unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/nix-config/modules/core/nixcats-neovim'";
 
-            aliases = [
-              "vi"
-              "vim"
-            ];
+            aliases = [ "vi" "vim" ];
 
             inherit neovim-unwrapped;
 
-            hosts.node.enable = false;
-            hosts.perl.enable = false;
-            hosts.python.enable = false;
-            hosts.ruby.enable = false;
+            hosts = {
+              node.enable = false;
+              perl.enable = false;
+              python.enable = false;
+              ruby.enable = false;
+            };
           };
 
           categories = {
