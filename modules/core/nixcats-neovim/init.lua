@@ -446,46 +446,39 @@ require("lze").load({
   {
     "conform.nvim",
     enabled = nixCats("general") or false,
+
+    beforeAll = function() vim.o.formatexpr = "v:lua.require'conform'.formatexpr()" end,
+
+    cmd = "ConformInfo",
+    event = "BufWritePre",
     keys = {
-      { "<leader>FF", desc = "[F]ormat [F]ile" },
+      {
+        "<leader>FF",
+        function() require("conform").format({ async = true }) end,
+        desc = "[F]ormat [F]ile",
+        mode = { "n", "v" },
+      },
     },
-    -- colorscheme = "",
-    after = function(plugin)
+
+    after = function()
+      ---@module "conform"
       local conform = require("conform")
 
       conform.setup({
+        default_format_opts = {
+          lsp_format = "fallback",
+        },
+        format_on_save = { timeout_ms = 500 },
         formatters_by_ft = {
-          -- NOTE: download some formatters in lspsAndRuntimeDeps
-          -- and configure them here
           lua = nixCats("lua") and { "stylua" } or nil,
-          -- templ = { "templ" },
-          -- Conform will run multiple formatters sequentially
-          -- python = { "isort", "black" },
-          -- Use a sub-list to run only the first available formatter
-          -- javascript = { { "prettierd", "prettier" } },
         },
       })
-
-      vim.keymap.set(
-        { "n", "v" },
-        "<leader>FF",
-        function()
-          conform.format({
-            lsp_fallback = true,
-            async = false,
-            timeout_ms = 1000,
-          })
-        end,
-        { desc = "[F]ormat [F]ile" }
-      )
     end,
   },
   {
     "nvim-dap",
     enabled = nixCats("general") or false,
-    -- cmd = { "" },
-    -- event = "",
-    -- ft = "",
+
     keys = {
       { "<F5>", desc = "Debug: Start/Continue" },
       { "<F1>", desc = "Debug: Step Into" },
@@ -495,12 +488,13 @@ require("lze").load({
       { "<leader>B", desc = "Debug: Set Breakpoint" },
       { "<F7>", desc = "Debug: See last session result." },
     },
-    -- colorscheme = "",
+
     load = function(name)
       vim.cmd.packadd(name)
       vim.cmd.packadd("nvim-dap-ui")
       vim.cmd.packadd("nvim-dap-virtual-text")
     end,
+
     after = function(plugin)
       local dap = require("dap")
       local dapui = require("dapui")
@@ -586,11 +580,12 @@ require("lze").load({
     end,
   },
   {
-    -- lazydev makes your lsp way better in your config without needing extra lsp configuration.
     "lazydev.nvim",
     enabled = nixCats("lua") or false,
+
     cmd = { "LazyDev" },
     ft = "lua",
+
     after = function(_)
       require("lazydev").setup({
         integrations = { cmp = false },
