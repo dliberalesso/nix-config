@@ -33,8 +33,6 @@ in
         entries = lib.mkForce [ ];
       };
 
-      programs.home-manager.enable = true;
-
       systemd.user.startServices = "sd-switch"; # Reload system units on config change
 
       xdg.enable = true;
