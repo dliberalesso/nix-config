@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pkgs,
   ...
@@ -148,17 +149,19 @@ in
             nix = true;
           };
 
-          extra.nixdExtras = {
-            nixpkgs = "import ${pkgs.path} {}";
+          extra.nixdExtras =
+            let
+              inherit (config.networking) hostName;
 
-            nixos_options = ''
-              (builtins.getFlake "path:${builtins.toString inputs.self.outPath}").nixosConfigurations.configname.options
-            '';
+              nixos_options = "(builtins.getFlake path:${builtins.toString inputs.self.outPath}).nixosConfigurations.${hostName}.options";
+            in
+            {
+              inherit nixos_options;
 
-            home_manager_options = ''
-              (builtins.getFlake "path:${builtins.toString inputs.self.outPath}").homeConfigurations.configname.options
-            '';
-          };
+              nixpkgs = "import ${pkgs.path} {}";
+
+              home_manager_options = "${nixos_options}.home-manager.users.type.getSubOptions []";
+            };
         };
     };
   };
