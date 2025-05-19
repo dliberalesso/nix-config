@@ -30,7 +30,4 @@ lint:
 _wezterm:
   #!/usr/bin/env sh
   config_dir="{{justfile_directory()}}/modules/programs/wezterm"
-  for item in "win" "nix"; do
-    cat "$config_dir/${item}_wezterm.lua"
-    echo
-  done > /mnt/c/Users/dli50/.wezterm.lua
+  cp "$config_dir/wezterm.lua" /mnt/c/Users/dli50/.wezterm.lua

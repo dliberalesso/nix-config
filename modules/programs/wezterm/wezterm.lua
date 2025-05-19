@@ -1,3 +1,18 @@
+local wezterm = require("wezterm") --[[@as Wezterm]]
+
+---@class Config
+local config = wezterm.config_builder()
+
+local catppuccin_url = "https://github.com/catppuccin/wezterm"
+local catppuccin_plugin = wezterm.plugin.require(catppuccin_url)
+
+catppuccin_plugin.apply_to_config(config)
+
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+  config.default_domain = "WSL:NixOS"
+  config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+end
+
 config.use_fancy_tab_bar = false
 config.default_cursor_style = "SteadyBar"
 
@@ -47,7 +62,5 @@ config.font_rules = {
     }),
   },
 }
-
-config.color_scheme = "Catppuccin Mocha"
 
 return config
