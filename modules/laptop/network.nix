@@ -1,17 +1,10 @@
 {
   lib,
-  options,
   ...
 }:
 {
   networking = {
     hostName = "nixavell";
-
-    useDHCP = lib.mkDefault true;
-
-    networkmanager.enable = true;
-
-    timeServers = options.networking.timeServers.default ++ [ "pool.ntp.org" ];
 
     firewall = {
       enable = true;
@@ -32,5 +25,9 @@
         546
       ];
     };
+
+    networkmanager.enable = true;
+
+    useDHCP = lib.mkDefault true;
   };
 }
