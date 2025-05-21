@@ -27,16 +27,12 @@
       enable = true;
 
       settings = {
-        git = {
-          paging = {
-            colorArg = "always";
-            pager = "delta --dark --paging=never";
-          };
+        git.paging = {
+          colorArg = "always";
+          pager = "delta --dark --paging=never";
         };
 
-        update = {
-          method = "never";
-        };
+        update.method = "never";
       };
     };
   };

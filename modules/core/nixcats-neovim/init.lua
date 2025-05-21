@@ -275,15 +275,14 @@ require("lze").load({
   {
     "lualine.nvim",
     enabled = nixCats("general") or false,
-    -- cmd = { "" },
+
     event = "DeferredUIEnter",
-    -- ft = "",
-    -- keys = "",
-    -- colorscheme = "",
+
     load = function(name)
       vim.cmd.packadd(name)
       vim.cmd.packadd("lualine-lsp-progress")
     end,
+
     after = function(plugin)
       require("lualine").setup({
         options = {
@@ -322,11 +321,9 @@ require("lze").load({
   {
     "gitsigns.nvim",
     enabled = nixCats("general") or false,
+
     event = "DeferredUIEnter",
-    -- cmd = { "" },
-    -- ft = "",
-    -- keys = "",
-    -- colorscheme = "",
+
     after = function(plugin)
       require("gitsigns").setup({
         -- See `:help gitsigns.txt`
@@ -392,6 +389,7 @@ require("lze").load({
           map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "select git hunk" })
         end,
       })
+
       vim.cmd([[hi GitSignsAdd guifg=#04de21]])
       vim.cmd([[hi GitSignsChange guifg=#83fce6]])
       vim.cmd([[hi GitSignsDelete guifg=#fa2525]])
@@ -400,9 +398,12 @@ require("lze").load({
   {
     "which-key.nvim",
     enabled = nixCats("general") or false,
+
     event = "DeferredUIEnter",
+
     after = function(plugin)
       require("which-key").setup({})
+
       require("which-key").add({
         { "<leader><leader>", group = "buffer commands" },
         { "<leader><leader>_", hidden = true },
@@ -428,7 +429,9 @@ require("lze").load({
   {
     "nvim-lint",
     enabled = nixCats("general") or false,
+
     event = "FileType",
+
     after = function(plugin)
       require("lint").linters_by_ft = {
         -- NOTE: download some linters in lspsAndRuntimeDeps
@@ -461,13 +464,8 @@ require("lze").load({
     },
 
     after = function()
-      ---@module "conform"
-      local conform = require("conform")
-
-      conform.setup({
-        default_format_opts = {
-          lsp_format = "fallback",
-        },
+      require("conform").setup({
+        default_format_opts = { lsp_format = "fallback" },
         format_on_save = { timeout_ms = 500 },
         formatters_by_ft = {
           lua = nixCats("lua") and { "stylua" } or nil,
