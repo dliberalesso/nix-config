@@ -32,6 +32,8 @@
           pager = "delta --dark --paging=never";
         };
 
+        os.editPreset = "nvim-remote";
+
         update.method = "never";
       };
     };

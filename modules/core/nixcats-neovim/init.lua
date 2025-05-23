@@ -743,7 +743,7 @@ require("snacks").setup({
   picker = {},
   bigfile = {},
   image = {},
-  lazygit = {},
+  lazygit = { configure = false },
   terminal = {},
   rename = {},
   notifier = {},
