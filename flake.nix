@@ -8,7 +8,7 @@
       "https://hyprland.cachix.org"
       "https://cachix.cachix.org"
       "https://nix-community.cachix.org"
-      "https://cache.nixos.org/"
+      "https://install.determinate.systems"
     ];
 
     extra-trusted-public-keys = [
@@ -17,7 +17,7 @@
       "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+      "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
     ];
   };
 
@@ -84,6 +84,15 @@
         git-hooks.follows = "git-hooks";
         hercules-ci-effects.follows = "hercules-ci-effects";
         treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+
+    nix = {
+      url = "github:DeterminateSystems/nix-src";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        git-hooks-nix.follows = "git-hooks";
       };
     };
 
@@ -201,7 +210,8 @@
               packages = with pkgs; [
                 git
                 just
-                nh
+                nix-output-monitor
+                nvd
               ];
 
               shellHook = ''

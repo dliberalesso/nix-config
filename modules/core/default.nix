@@ -7,7 +7,6 @@
     ./cli.nix
     ./git.nix
     ./home.nix
-    ./nh.nix
     ./nix.nix
     ./shell.nix
     ./skim.nix
@@ -16,5 +15,8 @@
 
   boot.tmp.cleanOnBoot = true;
 
-  system.stateVersion = "25.05";
+  system = {
+    rebuild.enableNg = true;
+    stateVersion = "25.05";
+  };
 }
