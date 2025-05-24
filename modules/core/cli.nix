@@ -14,8 +14,10 @@
     home.packages = with pkgs; [
       dust
       grex
+      httpie
       hyperfine
       lazysql
+      lnav
       procs
       sd
       tokei
