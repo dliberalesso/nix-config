@@ -13,12 +13,6 @@ in
   nix = {
     package = inputs.nix.packages.${pkgs.system}.nix;
 
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
-    };
-
     # Make nix3 and legacy nix commands consistent:
     # - Add the inputs to the system's legacy channels
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;

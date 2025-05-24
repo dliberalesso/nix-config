@@ -9,28 +9,15 @@ update:
 diff:
   @git diff ':!flake.lock'
 
-# Build NixOS
-build:
-  @git add *
-  @nix build .#nixosConfigurations.$(hostname).config.system.build.toplevel --out-link /tmp/ncfr |& nom
-  @nvd diff /run/current-system /tmp/ncfr
-  @rm /tmp/ncfr
-
 # Rebuild and Switch NixOS
 rebuild:
-  @just build
-  @just confirm-switch
-
-[confirm]
-[private]
-confirm-switch:
-  @nixos-rebuild switch --flake .#$(hostname) --sudo
+  @git add *
+  @nh os switch . --ask
   @if [ "$HOSTNAME" == "nixWSL" ]; then just wezterm; fi
 
 # Run GC and optmise Nix Store
 clean:
-  @sudo nix-env --profile /nix/var/nix/profiles/system --delete-generations old
-  @sudo nix-collect-garbage -d
+  @nh clean all
   @sudo nix-store --optimise
 
 # Verify and repair the Nix Store

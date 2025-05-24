@@ -7,6 +7,7 @@
     ./cli.nix
     ./git.nix
     ./home.nix
+    ./nh.nix
     ./nix.nix
     ./shell.nix
     ./skim.nix

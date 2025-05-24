@@ -18,8 +18,6 @@
       hyperfine
       lazysql
       lnav
-      nix-output-monitor
-      nvd
       procs
       sd
       tokei

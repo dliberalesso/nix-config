@@ -210,8 +210,7 @@
               packages = with pkgs; [
                 git
                 just
-                nix-output-monitor
-                nvd
+                nh
               ];
 
               shellHook = ''
