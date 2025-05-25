@@ -4,8 +4,8 @@
   ...
 }:
 let
-  version = "2025-1.2";
-  hash = "sha256-RlkDioXLcD3wHm9DDLw42QCRT4z0rEwlM0sGMORxk/A=";
+  version = "2025-1.3";
+  hash = "sha256-BWCxnKPvkijVkXfbA1iVbdcgLZqY5SAzASqnzdjXwiw=";
 in
 {
   home-manager.users.dli50.home.packages = [
