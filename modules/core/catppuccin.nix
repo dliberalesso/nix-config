@@ -1,15 +1,13 @@
 {
+  hm,
   inputs,
   ...
 }:
-{
-  imports = [ inputs.catppuccin.nixosModules.catppuccin ];
-
-  catppuccin.enable = true;
-
-  home-manager.users.dli50 = {
-    imports = [ inputs.catppuccin.homeModules.catppuccin ];
+let
+  enableCatppuccin = module: {
+    imports = [ inputs.catppuccin."${module}Modules".catppuccin ];
 
     catppuccin.enable = true;
   };
-}
+in
+(enableCatppuccin "nixos") // hm (enableCatppuccin "home")

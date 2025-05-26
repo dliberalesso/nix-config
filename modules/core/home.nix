@@ -3,10 +3,11 @@
   inputs,
   lib,
   pkgs,
+  user,
   ...
 }:
 let
-  username = "dli50";
+  inherit (user) username;
 in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];

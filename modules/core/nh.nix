@@ -1,5 +1,6 @@
 {
   pkgs,
+  user,
   ...
 }:
 {
@@ -16,6 +17,6 @@
       extraArgs = "--keep 3 --keep-since 8d";
     };
 
-    flake = "/home/dli50/nix-config";
+    flake = "/home/${user.username}/nix-config";
   };
 }

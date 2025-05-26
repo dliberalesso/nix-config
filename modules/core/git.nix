@@ -1,11 +1,16 @@
 {
-  home-manager.users.dli50.programs = {
+  hm,
+  user,
+  ...
+}:
+hm {
+  programs = {
+    gh.enable = true;
+
     git = {
       enable = true;
-      delta.enable = true;
 
-      userName = "Douglas Liberalesso";
-      userEmail = "dliberalesso@gmail.com";
+      delta.enable = true;
 
       extraConfig = {
         init.defaultBranch = "main";
@@ -13,15 +18,16 @@
         url."https://github.com/".insteadOf = "git://github.com/";
       };
 
-      lfs.enable = true;
-
       ignores = [
         ".direnv"
         "result"
       ];
-    };
 
-    gh.enable = true;
+      lfs.enable = true;
+
+      userName = "${user.name}";
+      userEmail = "${user.email}";
+    };
 
     lazygit = {
       enable = true;

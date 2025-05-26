@@ -1,4 +1,8 @@
 {
+  user,
+  ...
+}:
+{
   imports = [
     ./audio.nix
     ./boot.nix
@@ -15,9 +19,9 @@
   services.logind.lidSwitchExternalPower = "ignore";
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.dli50 = {
+  users.users.${user.username} = {
     isNormalUser = true;
-    description = "Douglas Liberalesso";
+    description = "${user.name}";
 
     extraGroups = [
       "audio"

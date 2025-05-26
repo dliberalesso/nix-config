@@ -16,8 +16,5 @@
 
   boot.tmp.cleanOnBoot = true;
 
-  system = {
-    rebuild.enableNg = true;
-    stateVersion = "25.05";
-  };
+  system.rebuild.enableNg = true;
 }

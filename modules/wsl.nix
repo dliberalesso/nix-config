@@ -1,25 +1,26 @@
 {
+  config,
   inputs,
+  lib,
   pkgs,
+  user,
   ...
 }:
 let
-  hostName = "nixWSL";
+  inherit (config.networking) hostName;
+
+  cfg = config.wsl.enable;
 in
 {
   imports = [ inputs.nixos-wsl.nixosModules.wsl ];
 
-  networking = { inherit hostName; };
-
-  # Setup WSL
   wsl = {
-    enable = true;
-    defaultUser = "dli50";
+    defaultUser = user.username;
     startMenuLaunchers = false;
     wslConf.automount.root = "/mnt";
     wslConf.network.hostname = hostName;
   };
 
   # Packages to install
-  environment.systemPackages = [ pkgs.wslu ];
+  environment.systemPackages = lib.mkIf cfg [ pkgs.wslu ];
 }

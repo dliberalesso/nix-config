@@ -1,5 +1,6 @@
 {
   config,
+  hm,
   inputs,
   pkgs,
   ...
@@ -36,133 +37,131 @@ let
     '';
   });
 in
-{
-  home-manager.users.dli50 = {
-    imports = [ inputs.nixCats.homeModule ];
+hm {
+  imports = [ inputs.nixCats.homeModule ];
 
-    home.sessionVariables.EDITOR = "nvim";
+  home.sessionVariables.EDITOR = "nvim";
 
-    nixCats = {
-      enable = true;
+  nixCats = {
+    enable = true;
 
-      addOverlays = [ (utils.standardPluginOverlay inputs) ];
+    addOverlays = [ (utils.standardPluginOverlay inputs) ];
 
-      packageNames = [ "nvim" ];
+    packageNames = [ "nvim" ];
 
-      luaPath = ./.;
+    luaPath = ./.;
 
-      categoryDefinitions.replace =
-        { pkgs, ... }:
-        {
-          lspsAndRuntimeDeps = {
-            general = with pkgs; [
-              marksman
-              prettierd
-              shfmt
-              taplo
-              vscode-langservers-extracted
-              yaml-language-server
-            ];
-
-            lua = with pkgs; [
-              lua-language-server
-              selene
-              stylua
-            ];
-
-            nix = with pkgs; [
-              deadnix
-              nixd
-              nixfmt-rfc-style
-              statix
-            ];
-          };
-
-          startupPlugins.general = with pkgs.vimPlugins; [
-            snacks-nvim
-            vim-sleuth
+    categoryDefinitions.replace =
+      { pkgs, ... }:
+      {
+        lspsAndRuntimeDeps = {
+          general = with pkgs; [
+            marksman
+            prettierd
+            shfmt
+            taplo
+            vscode-langservers-extracted
+            yaml-language-server
           ];
 
-          optionalPlugins = {
-            general = with pkgs.vimPlugins; [
-              catppuccin-nvim
-              mini-nvim
-              nvim-lspconfig
-              vim-startuptime
-              blink-cmp
-              nvim-treesitter.withAllGrammars
-              lualine-nvim
-              lualine-lsp-progress
-              gitsigns-nvim
-              which-key-nvim
-              nvim-lint
-              conform-nvim
-              nvim-dap
-              nvim-dap-ui
-              nvim-dap-virtual-text
-            ];
-
-            lua = with pkgs; [
-              neovimPlugins.wezterm-types
-
-              vimPlugins.lazydev-nvim
-            ];
-          };
-
-          extraLuaPackages.general = p: [
-            p.lze
-            p.lzextras
-            p.jsregexp
+          lua = with pkgs; [
+            lua-language-server
+            selene
+            stylua
           ];
 
-          optionalLuaPreInit.general = [ "vim.loader.enable()" ];
+          nix = with pkgs; [
+            deadnix
+            nixd
+            nixfmt-rfc-style
+            statix
+          ];
         };
 
-      packageDefinitions.replace.nvim =
-        { pkgs, ... }:
-        {
-          settings = {
-            suffix-path = true;
-            suffix-LD = true;
-            wrapRc = false;
+        startupPlugins.general = with pkgs.vimPlugins; [
+          snacks-nvim
+          vim-sleuth
+        ];
 
-            unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/nix-config/modules/core/nixcats-neovim'";
+        optionalPlugins = {
+          general = with pkgs.vimPlugins; [
+            catppuccin-nvim
+            mini-nvim
+            nvim-lspconfig
+            vim-startuptime
+            blink-cmp
+            nvim-treesitter.withAllGrammars
+            lualine-nvim
+            lualine-lsp-progress
+            gitsigns-nvim
+            which-key-nvim
+            nvim-lint
+            conform-nvim
+            nvim-dap
+            nvim-dap-ui
+            nvim-dap-virtual-text
+          ];
 
-            aliases = [
-              "vi"
-              "vim"
-            ];
+          lua = with pkgs; [
+            neovimPlugins.wezterm-types
 
-            inherit neovim-unwrapped;
-
-            hosts = {
-              node.enable = false;
-              perl.enable = false;
-              python.enable = false;
-              ruby.enable = false;
-            };
-          };
-
-          categories = {
-            general = true;
-            lua = true;
-            nix = true;
-          };
-
-          extra.nixdExtras =
-            let
-              inherit (config.networking) hostName;
-
-              nixos_options = "(builtins.getFlake path:${builtins.toString inputs.self.outPath}).nixosConfigurations.${hostName}.options";
-            in
-            {
-              inherit nixos_options;
-
-              nixpkgs = "import ${pkgs.path} {}";
-
-              home_manager_options = "${nixos_options}.home-manager.users.type.getSubOptions []";
-            };
+            vimPlugins.lazydev-nvim
+          ];
         };
-    };
+
+        extraLuaPackages.general = p: [
+          p.lze
+          p.lzextras
+          p.jsregexp
+        ];
+
+        optionalLuaPreInit.general = [ "vim.loader.enable()" ];
+      };
+
+    packageDefinitions.replace.nvim =
+      { pkgs, ... }:
+      {
+        settings = {
+          suffix-path = true;
+          suffix-LD = true;
+          wrapRc = false;
+
+          unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/nix-config/modules/core/nixcats-neovim'";
+
+          aliases = [
+            "vi"
+            "vim"
+          ];
+
+          inherit neovim-unwrapped;
+
+          hosts = {
+            node.enable = false;
+            perl.enable = false;
+            python.enable = false;
+            ruby.enable = false;
+          };
+        };
+
+        categories = {
+          general = true;
+          lua = true;
+          nix = true;
+        };
+
+        extra.nixdExtras =
+          let
+            inherit (config.networking) hostName;
+
+            nixos_options = "(builtins.getFlake path:${builtins.toString inputs.self.outPath}).nixosConfigurations.${hostName}.options";
+          in
+          {
+            inherit nixos_options;
+
+            nixpkgs = "import ${pkgs.path} {}";
+
+            home_manager_options = "${nixos_options}.home-manager.users.type.getSubOptions []";
+          };
+      };
   };
 }

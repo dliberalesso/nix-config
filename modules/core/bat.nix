@@ -1,29 +1,28 @@
 {
+  hm,
   pkgs,
   ...
 }:
-{
-  home-manager.users.dli50 = {
-    programs.bat = {
-      enable = true;
+hm {
+  home.sessionVariables = {
+    BATDIFF_USE_DELTA = "true";
+  };
 
-      config = {
-        color = "always";
-        pager = "less -FR";
-      };
+  programs.bat = {
+    enable = true;
 
-      extraPackages = with pkgs.bat-extras; [
-        batdiff
-        batgrep
-        batman
-        batpipe
-        batwatch
-        prettybat
-      ];
+    config = {
+      color = "always";
+      pager = "less -FR";
     };
 
-    home.sessionVariables = {
-      BATDIFF_USE_DELTA = "true";
-    };
+    extraPackages = with pkgs.bat-extras; [
+      batdiff
+      batgrep
+      batman
+      batpipe
+      batwatch
+      prettybat
+    ];
   };
 }

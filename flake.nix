@@ -130,14 +130,12 @@
   outputs =
     {
       flake-parts,
-      nixpkgs,
       self,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } (
       {
         inputs,
-        withSystem,
         ...
       }:
       {
@@ -146,45 +144,11 @@
           git-hooks.flakeModule
           treefmt-nix.flakeModule
 
+          ./hosts
           ./packages
         ];
 
         systems = [ "x86_64-linux" ];
-
-        flake.nixosConfigurations =
-          let
-            generateConfig =
-              {
-                modules,
-              }:
-              withSystem "x86_64-linux" (
-                {
-                  pkgs,
-                  system,
-                  ...
-                }:
-                nixpkgs.lib.nixosSystem {
-                  inherit system pkgs;
-
-                  modules = [ ./modules/core ] ++ modules;
-
-                  specialArgs = { inherit inputs; };
-                }
-              );
-          in
-          {
-            nixavell = generateConfig {
-              modules = [
-                ./modules/hyprde
-                ./modules/laptop
-                ./modules/programs
-              ];
-            };
-
-            nixWSL = generateConfig {
-              modules = [ ./modules/wsl.nix ];
-            };
-          };
 
         perSystem =
           {

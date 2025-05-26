@@ -4,8 +4,6 @@
 }:
 {
   networking = {
-    hostName = "nixavell";
-
     firewall = {
       enable = true;
 

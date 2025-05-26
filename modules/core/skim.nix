@@ -1,13 +1,15 @@
 {
-  home-manager.users.dli50.programs.skim = rec {
+  hm,
+  ...
+}:
+hm {
+  programs.skim = rec {
     enable = true;
 
     defaultCommand = "fd --type f";
-    defaultOptions = [
-      "--height 50%"
-    ];
+    defaultOptions = [ "--height 50%" ];
 
-    fileWidgetCommand = "${defaultCommand}";
+    fileWidgetCommand = defaultCommand;
     fileWidgetOptions = [
       "--preview 'bat --plain --line-range=:200 {}'"
     ];
