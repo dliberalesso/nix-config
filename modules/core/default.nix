@@ -16,5 +16,9 @@
 
   boot.tmp.cleanOnBoot = true;
 
+  programs = {
+    skim.enable = true;
+  };
+
   system.rebuild.enableNg = true;
 }
