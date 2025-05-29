@@ -1,26 +1,6 @@
 {
   description = "My NixOS & Home-Manager config";
 
-  nixConfig = {
-    extra-substituters = [
-      "https://dliberalesso.cachix.org"
-      "https://catppuccin.cachix.org"
-      "https://hyprland.cachix.org"
-      "https://cachix.cachix.org"
-      "https://nix-community.cachix.org"
-      "https://install.determinate.systems"
-    ];
-
-    extra-trusted-public-keys = [
-      "dliberalesso.cachix.org-1:7qs1S5Qd766dYFU86nVux/wRMZ8UEUbhn3Qxp/TwiOc="
-      "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
-      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
-      "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-      "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
-    ];
-  };
-
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -43,8 +23,6 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-
-    flake-root.url = "github:srid/flake-root";
 
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
@@ -74,6 +52,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    import-tree.url = "github:vic/import-tree";
 
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
@@ -128,83 +108,35 @@
   };
 
   outputs =
-    {
-      flake-parts,
-      self,
-      ...
-    }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } (
-      {
-        inputs,
-        ...
-      }:
-      {
-        imports = with inputs; [
-          flake-root.flakeModule
-          git-hooks.flakeModule
-          treefmt-nix.flakeModule
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        (inputs.import-tree ./flake)
 
-          ./hosts
-          ./packages
-        ];
+        ./hosts
+        ./packages
+      ];
 
-        systems = [ "x86_64-linux" ];
+      systems = [ "x86_64-linux" ];
+    };
 
-        perSystem =
-          {
-            config,
-            pkgs,
-            system,
-            ...
-          }:
-          {
-            _module.args.pkgs = import inputs.nixpkgs {
-              inherit system;
+  nixConfig = {
+    extra-substituters = [
+      "https://install.determinate.systems"
+      "https://nix-community.cachix.org"
+      "https://cachix.cachix.org"
+      "https://hyprland.cachix.org"
+      "https://catppuccin.cachix.org"
+      "https://dliberalesso.cachix.org"
+    ];
 
-              overlays = [
-                inputs.hyprpanel.overlay
-                inputs.neovim-nightly-overlay.overlays.default
-                self.overlays.default
-              ];
-
-              config.allowUnfree = true;
-            };
-
-            devShells.default = pkgs.mkShell {
-              packages = with pkgs; [
-                git
-                just
-                nh
-              ];
-
-              shellHook = ''
-                ${config.pre-commit.installationScript}
-              '';
-            };
-
-            pre-commit = {
-              check.enable = true;
-
-              settings.hooks = {
-                treefmt.enable = true;
-                treefmt.package = config.treefmt.build.wrapper;
-              };
-            };
-
-            treefmt = {
-              inherit (config.flake-root) projectRootFile;
-
-              programs = {
-                deadnix.enable = true;
-                prettier.enable = true;
-                nixfmt.enable = true;
-                shfmt.enable = true;
-                stylua.enable = true;
-                statix.enable = true;
-                taplo.enable = true;
-              };
-            };
-          };
-      }
-    );
+    extra-trusted-public-keys = [
+      "cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM="
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
+      "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+      "catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU="
+      "dliberalesso.cachix.org-1:7qs1S5Qd766dYFU86nVux/wRMZ8UEUbhn3Qxp/TwiOc="
+    ];
+  };
 }
