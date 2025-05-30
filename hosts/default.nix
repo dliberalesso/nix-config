@@ -43,7 +43,7 @@ let
   };
 in
 {
-  systems = [ "x86_64-linux" ];
+  systems = [ "x86_64-linux" ]; # Should be a merge from the values set on hosts
 
   flake.nixosConfigurations = mkMerge (
     map generateConfig [

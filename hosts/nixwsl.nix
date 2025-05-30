@@ -1,11 +1,7 @@
 _: {
   nixwsl = {
     features = {
-      desktop = true;
-      hyprde = true;
-      laptop = true;
-      programs = true;
-      wsl = false;
+      wsl = true;
     };
 
     home = { };
@@ -17,6 +13,8 @@ _: {
     nixos = { };
 
     services = { };
+
+    system = "x86_64-linux";
 
     stateVersion = "25.05";
 
