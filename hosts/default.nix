@@ -43,6 +43,8 @@ let
   };
 in
 {
+  systems = [ "x86_64-linux" ];
+
   flake.nixosConfigurations = mkMerge (
     map generateConfig [
       {

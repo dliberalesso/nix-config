@@ -14,11 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
-
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -28,15 +23,7 @@
       url = "github:cachix/git-hooks.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
-      };
-    };
-
-    hercules-ci-effects = {
-      url = "github:hercules-ci/hercules-ci-effects";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
+        flake-compat.follows = "dedupe-flake-compat";
       };
     };
 
@@ -59,10 +46,10 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
+        flake-compat.follows = "dedupe-flake-compat";
         flake-parts.follows = "flake-parts";
         git-hooks.follows = "git-hooks";
-        hercules-ci-effects.follows = "hercules-ci-effects";
+        hercules-ci-effects.follows = "dedupe-hercules-ci-effects";
         treefmt-nix.follows = "treefmt-nix";
       };
     };
@@ -87,7 +74,7 @@
       url = "github:nix-community/NixOS-WSL";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "flake-compat";
+        flake-compat.follows = "dedupe-flake-compat";
       };
     };
 
@@ -105,20 +92,22 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    dedupe-flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
+
+    dedupe-hercules-ci-effects = {
+      url = "github:hercules-ci/hercules-ci-effects";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
   };
 
-  outputs =
-    inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
-      imports = [
-        (inputs.import-tree ./flake)
-
-        ./hosts
-        ./packages
-      ];
-
-      systems = [ "x86_64-linux" ];
-    };
+  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./flake);
 
   nixConfig = {
     extra-substituters = [
