@@ -121,6 +121,20 @@
         "type": "github"
       }
     },
+    "flake-root": {
+      "locked": {
+        "lastModified": 1723604017,
+        "owner": "srid",
+        "repo": "flake-root",
+        "rev": "b759a56851e10cb13f6b8e5698af7b59c44be26e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "srid",
+        "repo": "flake-root",
+        "type": "github"
+      }
+    },
     "git-hooks": {
       "inputs": {
         "flake-compat": [
@@ -433,6 +447,7 @@
         "dedupe-flake-compat": "dedupe-flake-compat",
         "dedupe-hercules-ci-effects": "dedupe-hercules-ci-effects",
         "flake-parts": "flake-parts",
+        "flake-root": "flake-root",
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
         "hyprpanel": "hyprpanel",

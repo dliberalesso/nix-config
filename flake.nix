@@ -19,6 +19,8 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    flake-root.url = "github:srid/flake-root";
+
     git-hooks = {
       url = "github:cachix/git-hooks.nix";
       inputs = {
