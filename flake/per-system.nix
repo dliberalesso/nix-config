@@ -1,21 +1,9 @@
 {
-  # config,
   inputs,
-  self,
   ...
 }:
-let
-  # inherit (config.forge) overlays;
-
-  overlays = [
-    inputs.hyprpanel.overlay
-    inputs.neovim-nightly-overlay.overlays.default
-    self.overlays.default
-  ];
-in
 {
   imports = with inputs; [
-    flake-parts.flakeModules.easyOverlay
     git-hooks.flakeModule
     treefmt-nix.flakeModule
   ];
@@ -24,16 +12,9 @@ in
     {
       config,
       pkgs,
-      system,
       ...
     }:
     {
-      _module.args.pkgs = import inputs.nixpkgs {
-        inherit overlays system;
-
-        config.allowUnfree = true;
-      };
-
       devShells.default = pkgs.mkShell {
         packages = with pkgs; [
           git

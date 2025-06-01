@@ -3,6 +3,10 @@
   ...
 }:
 {
+  imports = [
+    inputs.flake-parts.flakeModules.easyOverlay
+  ];
+
   perSystem =
     {
       inputs',
