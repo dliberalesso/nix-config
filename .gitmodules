@@ -1,3 +1,6 @@
 [submodule "_unify"]
 	path = _unify
 	url = https://codeberg.org/quasigod/unify.git
+[submodule "_flake-parts-builder"]
+	path = _flake-parts-builder
+	url = https://github.com/tsandrini/flake-parts-builder.git
