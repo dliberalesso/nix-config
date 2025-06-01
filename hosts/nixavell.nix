@@ -1,26 +1,26 @@
-_: {
-  nixavell = {
-    features = {
-      desktop = true;
-      hyprde = true;
-      laptop = true;
-      programs = true;
-    };
+forge: {
+  name = "nixavell";
 
-    home = { };
+  features = with forge.features; [
+    desktop
+    hyprde
+    laptop
+    programs
+  ];
 
-    programs = { };
+  home = [ ];
 
-    neovim = { };
+  programs = [ ];
 
-    nixos = { };
+  neovim = { };
 
-    services = { };
+  nixos = [ ];
 
-    system = "x86_64-linux";
+  services = [ ];
 
-    stateVersion = "25.05";
+  system = "x86_64-linux";
 
-    users = { };
-  };
+  stateVersion = "25.05";
+
+  users = [ ];
 }
