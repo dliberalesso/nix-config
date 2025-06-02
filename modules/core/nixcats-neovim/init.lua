@@ -723,6 +723,13 @@ require("lze").load({
             home_manager = {
               expr = nixCats.extra("nixdExtras.home_manager_options"),
             },
+            -- FIXME: This will probably brake if ther is no $FLAKE_ROOT
+            flake_parts = {
+              expr = "(builtins.getFlake path:" .. os.getenv("FLAKE_ROOT") .. ").debug.options",
+            },
+            flake_parts2 = {
+              expr = "(builtins.getFlake path:" .. os.getenv("FLAKE_ROOT") .. ").currentSystem.options",
+            },
           },
           formatting = {
             command = { "nixfmt" },
