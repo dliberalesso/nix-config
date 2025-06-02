@@ -27,7 +27,7 @@
       url = "github:cachix/git-hooks.nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "dedupe-flake-compat";
+        flake-compat.follows = "";
       };
     };
 
@@ -50,10 +50,10 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "dedupe-flake-compat";
+        flake-compat.follows = "";
         flake-parts.follows = "flake-parts";
         git-hooks.follows = "git-hooks";
-        hercules-ci-effects.follows = "dedupe-hercules-ci-effects";
+        hercules-ci-effects.follows = "";
         treefmt-nix.follows = "treefmt-nix";
       };
     };
@@ -78,7 +78,7 @@
       url = "github:nix-community/NixOS-WSL";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-compat.follows = "dedupe-flake-compat";
+        flake-compat.follows = "";
       };
     };
 
@@ -95,19 +95,6 @@
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    dedupe-flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
-
-    dedupe-hercules-ci-effects = {
-      url = "github:hercules-ci/hercules-ci-effects";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
-      };
     };
   };
 }
