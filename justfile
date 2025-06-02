@@ -9,6 +9,11 @@ update:
 diff:
   @git diff ':!flake.lock'
 
+# Load the flake in a REPL with debug enabled
+debug:
+  @git add *
+  @nix repl .
+
 # Rebuild and Switch NixOS
 rebuild:
   @git add *
