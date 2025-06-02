@@ -1,5 +1,4 @@
 {
-  config,
   hm,
   inputs,
   pkgs,
@@ -149,19 +148,13 @@ hm {
           nix = true;
         };
 
-        extra.nixdExtras =
-          let
-            inherit (config.networking) hostName;
+        extra.nixdExtras = {
+          nixpkgs = ''import "${pkgs.path}" {};'';
 
-            nixos_options = "(builtins.getFlake path:${builtins.toString inputs.self.outPath}).nixosConfigurations.${hostName}.options";
-          in
-          {
-            inherit nixos_options;
+          nixos_options = ''((import "${pkgs.path}" {}).lib.evalModules { modules = (import "${pkgs.path}/nixos/modules/module-list.nix"); check = false; }).options ]]'';
 
-            nixpkgs = "import ${pkgs.path} {}";
-
-            home_manager_options = "${nixos_options}.home-manager.users.type.getSubOptions []";
-          };
+          home_manager_options = ''(let pkgs = import "${pkgs.path}" {}; lib = import "${inputs.home-manager}/modules/lib/stdlib-extended.nix" pkgs.lib; in (lib.evalModules { modules = (import "${inputs.home-manager}/modules/modules.nix") { inherit lib pkgs; check = false; }; })).options'';
+        };
       };
   };
 }
