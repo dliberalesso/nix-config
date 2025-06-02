@@ -723,6 +723,9 @@ require("lze").load({
             home_manager = {
               expr = nixCats.extra("nixdExtras.home_manager_options"),
             },
+            -- flake_parts = {
+            --   expr = "(builtins.getFlake path:" .. os.getenv("FLAKE_ROOT") .. ").currentSystem.options",
+            -- },
           },
           formatting = {
             command = { "nixfmt" },
