@@ -4,10 +4,14 @@
   ...
 }:
 {
-  environment.systemPackages = with pkgs; [
-    nix-output-monitor
-    nvd
-  ];
+  environment = {
+    systemPackages = with pkgs; [
+      nix-output-monitor
+      nvd
+    ];
+
+    variables.NH_NO_CHECKS = 1;
+  };
 
   programs.nh = {
     enable = true;
