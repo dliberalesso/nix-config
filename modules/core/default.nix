@@ -10,6 +10,7 @@
     ./git.nix
     ./home.nix
     ./nh.nix
+    ./nix-index-database.nix
     ./nix.nix
     ./shell.nix
     ./tealdeer.nix
