@@ -81,6 +81,45 @@
         "type": "github"
       }
     },
+    "dedupe-flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1747046372,
+        "narHash": "sha256-CIVLLkVgvHYbgI2UpXvIIBJ12HWgX+fjA8Xf8PUmqCY=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "9100a0f413b0c601e0533d1d94ffd501ce2e7885",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "dedupe-hercules-ci-effects": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1748000383,
+        "narHash": "sha256-EaAJhwfJGBncgIV/0NlJviid2DP93cTMc9h0q6P6xXk=",
+        "owner": "hercules-ci",
+        "repo": "hercules-ci-effects",
+        "rev": "231726642197817d20310b9d39dd4afb9e899489",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "hercules-ci-effects",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
@@ -116,7 +155,9 @@
     },
     "git-hooks": {
       "inputs": {
-        "flake-compat": [],
+        "flake-compat": [
+          "dedupe-flake-compat"
+        ],
         "gitignore": "gitignore",
         "nixpkgs": [
           "nixpkgs"
@@ -214,14 +255,18 @@
     },
     "neovim-nightly-overlay": {
       "inputs": {
-        "flake-compat": [],
+        "flake-compat": [
+          "dedupe-flake-compat"
+        ],
         "flake-parts": [
           "flake-parts"
         ],
         "git-hooks": [
           "git-hooks"
         ],
-        "hercules-ci-effects": [],
+        "hercules-ci-effects": [
+          "dedupe-hercules-ci-effects"
+        ],
         "neovim-src": "neovim-src",
         "nixpkgs": [
           "nixpkgs"
@@ -349,7 +394,9 @@
     },
     "nixos-wsl": {
       "inputs": {
-        "flake-compat": [],
+        "flake-compat": [
+          "dedupe-flake-compat"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -433,6 +480,8 @@
       "inputs": {
         "ags": "ags",
         "catppuccin": "catppuccin",
+        "dedupe-flake-compat": "dedupe-flake-compat",
+        "dedupe-hercules-ci-effects": "dedupe-hercules-ci-effects",
         "flake-parts": "flake-parts",
         "flake-root": "flake-root",
         "git-hooks": "git-hooks",
