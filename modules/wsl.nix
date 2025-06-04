@@ -9,18 +9,25 @@
 let
   inherit (config.networking) hostName;
 
-  cfg = config.wsl.enable;
+  nixos-wsl = inputs.nixos-wsl ? nixosModules;
+
+  enabled = nixos-wsl && config.wsl.enable;
 in
 {
-  imports = [ inputs.nixos-wsl.nixosModules.wsl ];
+  imports = lib.optionals nixos-wsl [
+    inputs.nixos-wsl.nixosModules.wsl
+  ];
 
-  wsl = {
-    defaultUser = user.username;
-    startMenuLaunchers = false;
-    wslConf.automount.root = "/mnt";
-    wslConf.network.hostname = hostName;
+  config = lib.mkIf enabled {
+    environment.systemPackages = [ pkgs.wslu ];
+
+    hardware.graphics.enable = lib.mkForce false;
+
+    wsl = {
+      defaultUser = user.username;
+      startMenuLaunchers = false;
+      wslConf.automount.root = "/mnt";
+      wslConf.network.hostname = hostName;
+    };
   };
-
-  # Packages to install
-  environment.systemPackages = lib.mkIf cfg [ pkgs.wslu ];
 }
