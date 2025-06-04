@@ -62,6 +62,13 @@
       };
     };
 
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-maid.url = "github:viperML/nix-maid";
+
     nix = {
       url = "github:DeterminateSystems/nix-src";
       inputs = {
@@ -69,11 +76,6 @@
         flake-parts.follows = "flake-parts";
         git-hooks-nix.follows = "git-hooks";
       };
-    };
-
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
