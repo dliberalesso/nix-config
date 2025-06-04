@@ -4,6 +4,9 @@
   ...
 }:
 {
+  environment.systemPackages = [
+    pkgs.uutils-coreutils-noprefix
+  ];
 
   programs.bandwhich.enable = true;
 }
@@ -12,14 +15,17 @@
     dust
     grex
     httpie
+    fselect
     hyperfine
     lazysql
     lnav
+    presenterm
     procs
     sd
     tokei
     trash-cli
     wget
+    xh
   ];
 
   programs = {
