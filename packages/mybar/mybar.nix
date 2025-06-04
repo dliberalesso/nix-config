@@ -3,10 +3,6 @@
   ...
 }:
 {
-  imports = [
-    inputs.flake-parts.flakeModules.easyOverlay
-  ];
-
   perSystem =
     {
       inputs',
@@ -42,6 +38,8 @@
         buildInputs = [ inputs'.ags.packages.agsFull ];
       };
 
-      overlayAttrs = { inherit (config.packages) mybar; };
+      nixpkgs.overlays = [
+        (_: _: { inherit (config.packages) mybar; })
+      ];
     };
 }
