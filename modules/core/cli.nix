@@ -28,13 +28,6 @@
 
   programs = {
     bottom.enable = true;
-
-    eza = {
-      enable = true;
-      colors = "auto";
-      icons = "auto";
-    };
-
     fastfetch.enable = true;
     fd.enable = true;
     jq.enable = true;

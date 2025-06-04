@@ -5,6 +5,7 @@
     ./bat.nix
     ./catppuccin.nix
     ./cli.nix
+    ./eza.nix
     ./fzf.nix
     ./git.nix
     ./home.nix
