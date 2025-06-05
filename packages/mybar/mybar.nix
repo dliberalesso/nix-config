@@ -34,7 +34,7 @@
 
         src = builtins.path {
           path = ./.;
-          name = "mywaybar-source";
+          name = "source";
         };
       };
 
