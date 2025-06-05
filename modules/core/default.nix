@@ -14,6 +14,7 @@
     ./nix.nix
     ./shell.nix
     ./tealdeer.nix
+    ./uutils-coreutils.nix
   ];
 
   boot.tmp.cleanOnBoot = true;

@@ -4,10 +4,6 @@
   ...
 }:
 {
-  environment.systemPackages = [
-    pkgs.uutils-coreutils-noprefix
-  ];
-
   programs.bandwhich.enable = true;
 }
 // hm {
