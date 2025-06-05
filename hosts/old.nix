@@ -1,10 +1,11 @@
 {
   inputs,
+  lib,
   withSystem,
   ...
 }:
 let
-  inherit (inputs.nixpkgs.lib) mkMerge nixosSystem;
+  inherit (lib) mkMerge nixosSystem;
 
   generateConfig = config: {
     ${config.networking.hostName} = withSystem "x86_64-linux" (
