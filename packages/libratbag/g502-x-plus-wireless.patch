@@ -23,11 +23,11 @@
 +	} else {
 +		h_led = &profile->leds[led->index];
 +	}
- 
+
  	switch (h_led->mode) {
  	case HIDPP20_LED_ON:
 @@ -689,7 +695,13 @@ hidpp20drv_update_led_8070_8071(struct ratbag_led *led, struct ratbag_profile* p
- 
+
  	if (drv_data->capabilities & HIDPP_CAP_ONBOARD_PROFILES_8100) {
  		h_profile = &drv_data->profiles->profiles[profile->index];
 -		h_led = &(h_profile->leds[led->index]);
@@ -39,20 +39,20 @@
 +			h_led = &(h_profile->leds[led->index]);
 +		}
  	}
- 
+
  	if (!h_led)
 --- a/src/hidpp20.c
 +++ b/src/hidpp20.c
 @@ -1798,10 +1798,6 @@ int hidpp20_adjustable_report_rate_set_report_rate(struct hidpp20_device *device
  #define HIDPP20_HOST_MODE				0x02
- 
+
  #define HIDPP20_ONBOARD_PROFILES_MEMORY_TYPE_G402	0x01
 -#define HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G402	0x01
 -#define HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G303	0x02
 -#define HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G900	0x03
 -#define HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G915	0x04
  #define HIDPP20_ONBOARD_PROFILES_MACRO_TYPE_G402	0x01
- 
+
  #define HIDPP20_USER_PROFILES_G402			0x0000
 @@ -1831,7 +1827,8 @@ union hidpp20_internal_profile {
  		} name;
@@ -83,9 +83,9 @@
  	case 1:
  		profiles->corded = 1;
 @@ -2959,6 +2958,10 @@ hidpp20_onboard_profiles_write_profile(struct hidpp20_device *device,
- 
+
  	memcpy(pdata->profile.name.txt, profile->name, sizeof(profile->name));
- 
+
 +	// This field needs to be zero for leds to work in G502X
 +	// If a non zero value is set, custom animation will be used instead
 +	pdata->profile.custom_animation_g502x = 0x00;
@@ -98,7 +98,7 @@
 @@ -619,6 +619,15 @@ enum hidpp20_color_led_zone_effect {
  #define HIDPP20_DPI_COUNT				5
  #define HIDPP20_LED_COUNT				2
- 
+
 +enum hidpp20_onboard_profiles_profile_type {
 +	HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G402 = 0x01,
 +	HIDPP20_ONBOARD_PROFILES_PROFILE_TYPE_G303 = 0x02,
@@ -118,7 +118,7 @@
 +	uint8_t profile_format_id;
  	struct hidpp20_profile *profiles;
  };
- 
+
 diff --git a/src/libratbag.c b/src/libratbag.c
 index 2248f2f..6d64981 100644
 --- a/src/libratbag.c
@@ -136,7 +136,7 @@ index 2248f2f..6d64981 100644
 @@ -1975,8 +1972,13 @@ ratbag_action_keycode_from_macro(const struct ratbag_button_action *action,
  	if (macro->events[0].type == RATBAG_MACRO_EVENT_NONE)
  		return -EINVAL;
- 
+
 -	if (ratbag_action_macro_num_keys(action) != 1)
 -		return -EINVAL;
 +	int count = ratbag_action_macro_num_keys(action);
@@ -146,7 +146,7 @@ index 2248f2f..6d64981 100644
 +		*modifiers_out = modifiers;
 +		return 1;
 +	}
- 
+
  	for (i = 0; i < MAX_MACRO_EVENTS; i++) {
  		struct ratbag_macro_event event;
 --- a/test/receiver-check.py
