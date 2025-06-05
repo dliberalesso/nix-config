@@ -18,7 +18,6 @@ let
 
         modules = [
           ../modules/core
-          ../modules/wsl.nix
 
           config
 
@@ -55,9 +54,9 @@ in
         networking.hostName = "nixavell";
       }
       {
-        networking.hostName = "nixWSL";
+        imports = [ ../modules/wsl.nix ];
 
-        wsl.enable = true;
+        networking.hostName = "nixWSL";
       }
     ]
   );

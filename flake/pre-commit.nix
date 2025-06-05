@@ -3,14 +3,10 @@
   lib,
   ...
 }:
-let
-  inherit (inputs) git-hooks;
-  inherit (lib) optionals;
-
-  hasGitHooks = git-hooks ? flakeModule;
-in
-{
-  imports = optionals hasGitHooks [ git-hooks.flakeModule ];
+lib.optionalAttrs (inputs.git-hooks ? flakeModule) {
+  imports = [
+    inputs.git-hooks.flakeModule
+  ];
 
   perSystem =
     {
@@ -19,29 +15,26 @@ in
       ...
     }:
     {
-      pre-commit.settings =
-        let
-          hasTreefmt = config ? treefmt;
-          treefmtWrapper = if hasTreefmt then config.treefmt.build.wrapper else pkgs.treefmt;
-        in
-        {
-          excludes = [
-            "^.lock"
-            "^.patch"
-            "package-lock.json"
-            "go.mod"
-            "go.sum"
-            ".gitignore"
-            ".gitmodules"
-            ".hgignore"
-            ".svnignore"
-            "^.age"
-          ];
+      pre-commit.settings = {
+        excludes = [
+          "^.lock"
+          "^.patch"
+          "package-lock.json"
+          "go.mod"
+          "go.sum"
+          "^.gitignore"
+          "^.gitmodules"
+          "^.hgignore"
+          "^.svnignore"
+          "^.age"
+        ];
 
-          hooks = {
-            treefmt.enable = hasTreefmt;
-            treefmt.package = treefmtWrapper;
-
+        hooks =
+          lib.optionalAttrs (config ? treefmt) {
+            treefmt.enable = true;
+            treefmt.package = config.treefmt.build.wrapper;
+          }
+          // {
             commitizen.enable = true;
 
             editorconfig-checker.enable = true;
@@ -60,6 +53,6 @@ in
               pass_filenames = false;
             };
           };
-        };
+      };
     };
 }
