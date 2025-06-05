@@ -1,10 +1,11 @@
 {
   inputs,
+  lib,
   withSystem,
   ...
 }:
 let
-  inherit (inputs.nixpkgs.lib) mkMerge nixosSystem;
+  inherit (lib) mkMerge nixosSystem;
 
   generateConfig = config: {
     ${config.networking.hostName} = withSystem "x86_64-linux" (
@@ -18,7 +19,6 @@ let
 
         modules = [
           ../modules/core
-          ../modules/wsl.nix
 
           config
 
@@ -55,9 +55,9 @@ in
         networking.hostName = "nixavell";
       }
       {
-        networking.hostName = "nixWSL";
+        imports = [ ../modules/wsl.nix ];
 
-        wsl.enable = true;
+        networking.hostName = "nixWSL";
       }
     ]
   );
