@@ -50,7 +50,11 @@ in
           ../modules/hyprde
           ../modules/laptop
           ../modules/programs
+
+          inputs.nixos-facter-modules.nixosModules.facter
         ];
+
+        facter.reportPath = ./nixavell/facter.json;
 
         networking.hostName = "nixavell";
       }
