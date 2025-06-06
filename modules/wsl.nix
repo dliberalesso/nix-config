@@ -6,7 +6,12 @@
   user,
   ...
 }:
-lib.optionalAttrs (inputs.nixos-wsl ? nixosModules) {
+let
+  assertPresent = lib.asserts.assertMsg (
+    inputs.nixos-wsl ? nixosModules
+  ) "inputs.nixos-wsl doesn't provide nixosModules";
+in
+lib.optionalAttrs assertPresent {
   imports = [
     inputs.nixos-wsl.nixosModules.wsl
   ];
