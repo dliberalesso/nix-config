@@ -1,5 +1,3 @@
 .direnv/
-.vscode/
 .pre-commit-config.yaml
-.luarc.json
 result
