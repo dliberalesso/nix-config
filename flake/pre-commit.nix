@@ -17,16 +17,11 @@ lib.optionalAttrs (inputs.git-hooks ? flakeModule) {
     {
       pre-commit.settings = {
         excludes = [
-          "^.lock"
-          "^.patch"
-          "package-lock.json"
-          "go.mod"
-          "go.sum"
+          "^.age"
           "^.gitignore"
           "^.gitmodules"
-          "^.hgignore"
-          "^.svnignore"
-          "^.age"
+          "^.lock"
+          "^.patch"
         ];
 
         hooks =
