@@ -441,7 +441,8 @@
         "nixpkgs": "nixpkgs",
         "plugins-wezterm-types": "plugins-wezterm-types",
         "spicetify": "spicetify",
-        "treefmt-nix": "treefmt-nix"
+        "treefmt-nix": "treefmt-nix",
+        "unify": "unify"
       }
     },
     "spicetify": {
@@ -498,6 +499,31 @@
         "owner": "numtide",
         "repo": "treefmt-nix",
         "type": "github"
+      }
+    },
+    "unify": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1748917966,
+        "ref": "refs/heads/main",
+        "rev": "ae47c971506ee5b58bb35f3326297b97e70d297e",
+        "revCount": 36,
+        "type": "git",
+        "url": "https://codeberg.org/quasigod/unify.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/quasigod/unify.git"
       }
     }
   },
