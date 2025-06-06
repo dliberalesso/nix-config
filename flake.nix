@@ -31,6 +31,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
+        # flake-compat.follows = "dedupe-flake-compat";
       };
     };
 
@@ -55,9 +56,11 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
+        # flake-compat.follows = "dedupe-flake-compat";
         flake-parts.follows = "flake-parts";
         git-hooks.follows = "git-hooks";
         hercules-ci-effects.follows = "";
+        # hercules-ci-effects.follows = "dedupe-hercules-ci-effects";
         treefmt-nix.follows = "treefmt-nix";
       };
     };
@@ -87,6 +90,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
+        # flake-compat.follows = "dedupe-flake-compat";
       };
     };
 
@@ -103,6 +107,15 @@
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    unify = {
+      url = "git+https://codeberg.org/quasigod/unify.git";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        home-manager.follows = "home-manager";
+      };
     };
 
     dedupe-astal = {
