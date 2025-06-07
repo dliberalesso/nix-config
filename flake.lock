@@ -163,10 +163,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749221014,
+        "lastModified": 1749243446,
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "96482a538e6103579d254b139759d0536177370b",
+        "rev": "2d7d65f65b61fdfce23278e59ca266ddd0ef0a36",
         "type": "github"
       },
       "original": {
@@ -274,10 +274,10 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1749158537,
+        "lastModified": 1749233614,
         "owner": "DeterminateSystems",
         "repo": "nix-src",
-        "rev": "76b9be3782964cb9aac30e1095e5db53516213e3",
+        "rev": "0e1df1c0f14198b12640f032156eb3e7531a4f3a",
         "type": "github"
       },
       "original": {
@@ -341,10 +341,10 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1748929857,
+        "lastModified": 1749143949,
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c2a03962b8e24e669fb37b7df10e7c79531ff1a4",
+        "rev": "d3d2d80a2191a73d1e86456a751b83aa13085d7d",
         "type": "github"
       },
       "original": {
