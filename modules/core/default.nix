@@ -19,8 +19,5 @@
 
   boot.tmp.cleanOnBoot = true;
 
-  system = {
-    rebuild.enableNg = true;
-    switch.enableNg = true;
-  };
+  system.rebuild.enableNg = true;
 }
