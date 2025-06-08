@@ -9,6 +9,7 @@
     ./hardware-configuration.nix
     ./hyperion.nix
     ./keyboard.nix
+    ./kernel.nix
     ./locale.nix
     ./mouse.nix
     ./network.nix
