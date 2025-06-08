@@ -11,7 +11,6 @@ hm (
     ...
   }:
   {
-    home.packages = [ pkgs.koji ];
     programs = {
       gh.enable = true;
 
