@@ -8,7 +8,10 @@
 
     ags = {
       url = "github:aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        astal.follows = "dedupe-astal";
+      };
     };
 
     catppuccin = {
@@ -36,6 +39,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         ags.follows = "ags";
+        astal.follows = "dedupe-astal";
       };
     };
 
@@ -96,5 +100,23 @@
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    dedupe-astal = {
+      url = "github:aylur/astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    # dedupe-flake-compat = {
+    #   url = "github:edolstra/flake-compat";
+    #   flake = false;
+    # };
+
+    # dedupe-hercules-ci-effects = {
+    #   url = "github:hercules-ci/hercules-ci-effects";
+    #   inputs = {
+    #     nixpkgs.follows = "nixpkgs";
+    #     flake-parts.follows = "flake-parts";
+    #   };
+    # };
   };
 }
