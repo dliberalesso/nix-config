@@ -15,7 +15,7 @@
     ];
 
     extraModulePackages = [
-      config.boot.kernelPackages.nvidia_x11
+      config.boot.kernelPackages.nvidia_x11_beta
     ];
 
     blacklistedKernelModules = [ "i915" ];
@@ -49,7 +49,7 @@
 
       open = true;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       prime = {
         # Running dGPU only
@@ -65,5 +65,9 @@
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [
+    "nvidia"
+    "modesetting"
+    "fbdev"
+  ];
 }
