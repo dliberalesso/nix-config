@@ -27,8 +27,6 @@ lib.optionalAttrs (inputs.git-hooks ? flakeModule) {
         hooks = {
           treefmt.enable = config ? treefmt;
 
-          commitizen.enable = true;
-
           editorconfig-checker.enable = true;
 
           # General use pre-commit hooks

@@ -17,19 +17,17 @@ lib.optionalAttrs (inputs.flake-root ? flakeModule) {
     }:
     {
       devShells.default = pkgs.mkShell {
-        inputsFrom =
-          lib.optionals (config ? flake-root) [
-            config.flake-root.devShell
-          ]
-          ++ lib.optionals (config ? pre-commit) [
-            config.pre-commit.devShell
-          ];
+        inputsFrom = lib.optionals (config ? flake-root) [
+          config.flake-root.devShell
+        ];
 
         packages = with pkgs; [
           git
           just
           nh
         ];
+
+        shellHook = lib.optionalString (config ? pre-commit) config.pre-commit.installationScript;
       };
     };
 }
