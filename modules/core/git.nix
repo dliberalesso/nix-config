@@ -25,8 +25,8 @@ hm {
 
       lfs.enable = true;
 
-      userName = "${user.name}";
-      userEmail = "${user.email}";
+      userName = user.name;
+      userEmail = user.email;
     };
 
     lazygit = {
