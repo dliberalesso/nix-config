@@ -30,7 +30,6 @@ in
       experimental-features = [
         "nix-command"
         "flakes"
-        "pipe-operators"
       ];
 
       lazy-trees = true;
