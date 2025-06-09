@@ -3,56 +3,30 @@
   user,
   ...
 }:
-hm (
-  {
-    config,
-    lib,
-    pkgs,
-    ...
-  }:
-  {
-    programs = {
-      gh.enable = true;
+hm {
+  programs = {
+    gh.enable = true;
 
-      git = {
-        enable = true;
+    git = {
+      enable = true;
 
-        delta.enable = true;
+      delta.enable = true;
 
-        extraConfig = {
-          init.defaultBranch = "main";
-          push.autoSetupRemote = true;
-          url."https://github.com/".insteadOf = "git://github.com/";
-        };
-
-        ignores = [
-          ".direnv"
-          "result"
-        ];
-
-        lfs.enable = true;
-
-        userName = user.name;
-        userEmail = user.email;
+      extraConfig = {
+        init.defaultBranch = "main";
+        push.autoSetupRemote = true;
+        url."https://github.com/".insteadOf = "git://github.com/";
       };
 
-      lazygit = {
-        enable = true;
+      ignores = [
+        ".direnv"
+        "result"
+      ];
 
-        settings = {
-          git.paging =
-            {
-              colorArg = "always";
-            }
-            // lib.optionalAttrs config.programs.git.delta.enable {
-              pager = "${lib.getExe pkgs.delta} --dark --paging=never";
-            };
+      lfs.enable = true;
 
-          os.editPreset = "nvim-remote";
-
-          update.method = "never";
-        };
-      };
+      userName = user.name;
+      userEmail = user.email;
     };
-  }
-)
+  };
+}

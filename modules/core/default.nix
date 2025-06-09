@@ -9,6 +9,7 @@
     ./fzf.nix
     ./git.nix
     ./home.nix
+    ./lazygit.nix
     ./nh.nix
     ./nix-index-database.nix
     ./nix.nix
