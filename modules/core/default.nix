@@ -1,6 +1,12 @@
 {
+  inputs,
+  ...
+}:
+{
   imports = [
     ./nixcats-neovim
+
+    (inputs.import-tree ./shell)
 
     ./bat.nix
     ./catppuccin.nix
@@ -11,9 +17,7 @@
     ./home.nix
     ./lazygit.nix
     ./nh.nix
-    ./nix-index-database.nix
     ./nix.nix
-    ./shell.nix
     ./tealdeer.nix
     ./uutils-coreutils.nix
   ];

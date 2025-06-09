@@ -29,5 +29,6 @@
     jq.enable = true;
     ripgrep.enable = true;
     yazi.enable = true;
+    zellij.enable = true;
   };
 }
