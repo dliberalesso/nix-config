@@ -3,24 +3,20 @@
   ...
 }:
 {
-  imports = [
-    ./nixcats-neovim
+  imports =
+    [
+      ./nixcats-neovim
 
-    (inputs.import-tree ./shell)
-
-    ./bat.nix
-    ./catppuccin.nix
-    ./cli.nix
-    ./eza.nix
-    ./fzf.nix
-    ./git.nix
-    ./home.nix
-    ./lazygit.nix
-    ./nh.nix
-    ./nix.nix
-    ./tealdeer.nix
-    ./uutils-coreutils.nix
-  ];
+      ./catppuccin.nix
+      ./home.nix
+      ./nh.nix
+      ./nix.nix
+    ]
+    ++ map inputs.import-tree [
+      ./cli
+      ./shell
+      ./vcs
+    ];
 
   boot.tmp.cleanOnBoot = true;
 
