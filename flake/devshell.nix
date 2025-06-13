@@ -12,6 +12,7 @@ lib.optionalAttrs (inputs.flake-root ? flakeModule) {
   perSystem =
     {
       config,
+      inputs',
       pkgs,
       ...
     }:
@@ -21,11 +22,15 @@ lib.optionalAttrs (inputs.flake-root ? flakeModule) {
           config.flake-root.devShell
         ];
 
-        packages = with pkgs; [
-          git
-          just
-          nh
-        ];
+        packages = builtins.attrValues {
+          inherit (inputs'.nix.packages) nix;
+
+          inherit (pkgs)
+            git
+            just
+            nh
+            ;
+        };
 
         shellHook = lib.optionalString (config ? pre-commit) config.pre-commit.installationScript;
       };
