@@ -8,6 +8,7 @@
     ++ map inputs.import-tree [
       # ../hosts
       ../packages
+      ../scripts
     ];
 
   # WARN: Keep this to help debugging in the REPL
