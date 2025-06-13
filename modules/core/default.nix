@@ -10,6 +10,7 @@
       ./catppuccin.nix
       ./git.nix
       ./home.nix
+      ./jujutsu.nix
       ./nh.nix
       ./nix.nix
     ]
