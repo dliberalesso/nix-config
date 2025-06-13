@@ -23,10 +23,13 @@ lib.optionalAttrs (inputs.flake-root ? flakeModule) {
         ];
 
         packages = builtins.attrValues {
+          inherit (config.packages) lazymoji;
+
           inherit (inputs'.nix.packages) nix;
 
           inherit (pkgs)
             git
+            jujutsu
             just
             nh
             ;
