@@ -3,6 +3,87 @@
   user,
   ...
 }:
+let
+  aliases = {
+    pre-commit = [
+      "util"
+      "exec"
+      "--"
+      "bash"
+      "-c"
+      # bash
+      ''
+        set -euo pipefail
+        EMPTY=$(jj log --no-graph -r @ -T 'empty')
+        if [ "$EMPTY" = "false" ]; then
+          jj new
+        fi
+        FROM=$(jj log --no-graph -r "fork_point(trunk() | @)" -T "commit_id")
+        TO=$(jj log --no-graph -r "@" -T "commit_id")
+        pre-commit run --from="$FROM" --to="$TO" "$@"
+      ''
+    ];
+
+    tug = [
+      "bookmark"
+      "move"
+      "--from"
+      "closest_bookmark(@)"
+      "--to"
+      "closest_pushable(@)"
+    ];
+
+    l = [
+      "log"
+      "-r"
+      "all()"
+    ];
+
+    ll = [
+      "log"
+      "-r"
+      "all()"
+      "-T"
+      "builtin_log_detailed"
+    ];
+
+    xl = [
+      "log"
+      "-T"
+      "builtin_log_detailed"
+    ];
+
+    open = [
+      "log"
+      "-r"
+      "open()"
+    ];
+
+    stack = [
+      "log"
+      "-r"
+      "stack()"
+    ];
+
+    s = [ "stack" ];
+
+    evolve = [
+      "rebase"
+      "--skip-empty"
+      "-d"
+      "main"
+    ];
+
+    yank = [
+      "rebase"
+      "--skip-emptied"
+      "-s"
+      "all:roots(mutable() & mine())"
+      "-d"
+      "trunk()"
+    ];
+  };
+in
 hm (
   {
     pkgs,
@@ -17,14 +98,19 @@ hm (
       enable = true;
 
       settings = {
+        inherit aliases;
+
         core = {
           fsmonitor = "watchman";
           watchman.register-snapshot-trigger = true;
         };
 
-        snapshot.max-new-file-size = "15M";
-
-        user = { inherit (user) email name; };
+        git = {
+          private-commits = "description(glob:'wip:*') | description(glob:'private:*')";
+          auto-local-bookmark = true;
+          fetch = [ "origin" ];
+          write-change-id-header = true;
+        };
 
         ui = {
           default-command = "l";
@@ -34,14 +120,9 @@ hm (
           show-cryptographic-signatures = true;
         };
 
-        git = {
-          private-commits = "description(glob:'wip:*') | description(glob:'private:*')";
-          auto-local-bookmark = true;
-          fetch = [
-            "origin"
-          ];
-          write-change-id-header = true;
-        };
+        user = { inherit (user) email name; };
+
+        snapshot.max-new-file-size = "15M";
       };
     };
   }
