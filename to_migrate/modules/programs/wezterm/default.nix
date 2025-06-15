@@ -15,7 +15,7 @@
           inherit (config.lib.file) mkOutOfStoreSymlink;
           inherit (config.home) homeDirectory;
 
-          configPath = "${homeDirectory}/nix-config/modules/programs/wezterm/wezterm.lua";
+          configPath = "${homeDirectory}/nix-config/to_migrate/modules/programs/wezterm/wezterm.lua";
         in
         {
           "wezterm/plugin/catppuccin".source = wezterm;

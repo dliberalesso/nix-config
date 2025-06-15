@@ -3,13 +3,15 @@
   ...
 }:
 {
-  imports =
-    [ ../hosts/old.nix ]
-    ++ map inputs.import-tree [
+  imports = [
+    ../to_migrate/hosts/old.nix
+
+    (inputs.import-tree [
       # ../hosts
       ../packages
       ../scripts
-    ];
+    ])
+  ];
 
   # WARN: Keep this to help debugging in the REPL
   debug = false;
