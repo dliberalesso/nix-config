@@ -63,6 +63,16 @@ hm {
             yaml-language-server
           ];
 
+          go = with pkgs; [
+            gopls
+            delve
+            golint
+            golangci-lint
+            gotools
+            go-tools
+            go
+          ];
+
           lua = with pkgs; [
             lua-language-server
             selene
@@ -89,6 +99,7 @@ hm {
             nvim-lspconfig
             vim-startuptime
             blink-cmp
+            nvim-treesitter-textobjects
             nvim-treesitter.withAllGrammars
             lualine-nvim
             lualine-lsp-progress
@@ -123,7 +134,7 @@ hm {
         settings = {
           suffix-path = true;
           suffix-LD = true;
-          wrapRc = false;
+          wrapRc = true;
 
           unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/nix-config/modules/core/nixcats-neovim'";
 
@@ -144,6 +155,7 @@ hm {
 
         categories = {
           general = true;
+          go = true;
           lua = true;
           nix = true;
         };

@@ -4,7 +4,7 @@
 }:
 {
   imports =
-    [ ../hosts/old.nix ]
+    [ ../_to_migrate/hosts/old.nix ]
     ++ map inputs.import-tree [
       # ../hosts
       ../packages
