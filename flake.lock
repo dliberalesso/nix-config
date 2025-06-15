@@ -1,6 +1,25 @@
 {
   "nodes": {
-    "ags": {
+    "catppuccin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1749223974,
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "3a42cd79c647360ee8742659e42aeec0947dd3b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
+    "dedupe-ags": {
       "inputs": {
         "astal": [
           "dedupe-astal"
@@ -19,25 +38,6 @@
       "original": {
         "owner": "aylur",
         "repo": "ags",
-        "type": "github"
-      }
-    },
-    "catppuccin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1749223974,
-        "owner": "catppuccin",
-        "repo": "nix",
-        "rev": "3a42cd79c647360ee8742659e42aeec0947dd3b4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "nix",
         "type": "github"
       }
     },
@@ -157,7 +157,7 @@
     "hyprpanel": {
       "inputs": {
         "ags": [
-          "ags"
+          "dedupe-ags"
         ],
         "astal": [
           "dedupe-astal"
@@ -412,8 +412,8 @@
     },
     "root": {
       "inputs": {
-        "ags": "ags",
         "catppuccin": "catppuccin",
+        "dedupe-ags": "dedupe-ags",
         "dedupe-astal": "dedupe-astal",
         "flake-parts": "flake-parts",
         "flake-root": "flake-root",
