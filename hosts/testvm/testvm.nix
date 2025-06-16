@@ -4,7 +4,7 @@
   ...
 }:
 let
-  hostName = "testVM";
+  hostName = "testvm";
 
   args = import ../_args.nix hostName;
 in
