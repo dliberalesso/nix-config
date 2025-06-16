@@ -1,4 +1,7 @@
-_:
+{
+  config,
+  ...
+}:
 let
   hostName = "nixwsl";
 
@@ -7,9 +10,9 @@ in
 {
   imports = [ args ];
 
-  unify.hosts.nixos.${hostName}.nixos = {
-    imports = [
-      ../../old_modules/wsl.nix
-    ];
+  unify.hosts.nixos.${hostName} = {
+    modules = builtins.attrValues {
+      inherit (config.unify.modules) wsl;
+    };
   };
 }

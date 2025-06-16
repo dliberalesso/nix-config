@@ -1,4 +1,7 @@
-_:
+{
+  inputs,
+  ...
+}:
 let
   hostName = "nixavell";
 
@@ -7,20 +10,15 @@ in
 {
   imports = [ args ];
 
-  unify.hosts.nixos.${hostName}.nixos =
-    {
-      inputs,
-      ...
-    }:
-    {
-      imports = [
-        ../../old_modules/hyprde
-        ../../old_modules/laptop
-        ../../old_modules/programs
+  unify.hosts.nixos.${hostName}.nixos = {
+    imports = [
+      ../../old_modules/hyprde
+      ../../old_modules/laptop
+      ../../old_modules/programs
 
-        inputs.nixos-facter-modules.nixosModules.facter
-      ];
+      inputs.nixos-facter-modules.nixosModules.facter
+    ];
 
-      facter.reportPath = ./facter.json;
-    };
+    facter.reportPath = ./facter.json;
+  };
 }

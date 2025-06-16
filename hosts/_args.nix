@@ -22,10 +22,6 @@ hostName:
         };
       };
 
-      nixos = {
-        imports = [
-          ../old_modules/core
-        ];
-      };
+      users.${user.username} = { };
     };
 }

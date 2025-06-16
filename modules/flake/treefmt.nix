@@ -11,6 +11,7 @@ lib.optionalAttrs (inputs.treefmt-nix ? flakeModule) {
   perSystem =
     {
       config,
+      lib,
       ...
     }:
     {

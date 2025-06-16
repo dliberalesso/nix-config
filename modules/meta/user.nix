@@ -3,18 +3,16 @@
   ...
 }:
 let
-  user = lib.mkOption {
-    type = lib.types.attrsOf lib.types.str;
+  inherit (lib) mkOption types;
 
-    default = {
-      email = "dliberalesso@gmail.com";
-      name = "Douglas Liberalesso";
-      username = "dli50";
-    };
-  };
+  email = "dliberalesso@gmail.com";
+  name = "Douglas Liberalesso";
+  username = "dli50";
 in
 {
-  options = { inherit user; };
+  unify.options.user = mkOption {
+    type = types.attrsOf types.str;
 
-  config.unify.options = { inherit user; };
+    default = { inherit email name username; };
+  };
 }

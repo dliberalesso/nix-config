@@ -1,12 +1,11 @@
 {
   perSystem =
     {
-      config,
       pkgs,
       ...
     }:
-    {
-      packages.lazymoji = pkgs.writeShellApplication {
+    let
+      lazymoji = pkgs.writeShellApplication {
         name = "lazymoji";
 
         runtimeInputs = builtins.attrValues {
@@ -169,11 +168,13 @@
             echo "''${MESSAGE}"  > "$(git rev-parse --git-dir)/LAZYGIT_PENDING_COMMIT"
           fi
         '';
-
       };
-
+    in
+    {
       nixpkgs.overlays = [
-        (_: _: { inherit (config.packages) lazymoji; })
+        (_: _: { inherit lazymoji; })
       ];
+
+      packages = { inherit lazymoji; };
     };
 }
