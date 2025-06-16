@@ -7,10 +7,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749223974,
+        "lastModified": 1750013871,
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "3a42cd79c647360ee8742659e42aeec0947dd3b4",
+        "rev": "fe78fa558d6603481c03eb03a946eadb970d1801",
         "type": "github"
       },
       "original": {
@@ -48,10 +48,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749827284,
+        "lastModified": 1750020774,
         "owner": "aylur",
         "repo": "astal",
-        "rev": "4e455bb6e7f256742849322d31427b9defc95c16",
+        "rev": "ca3190d077d09b9597e7de471a8e388a08f112e9",
         "type": "github"
       },
       "original": {
@@ -142,10 +142,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749944797,
+        "lastModified": 1750033262,
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c5f345153397f62170c18ded1ae1f0875201d49a",
+        "rev": "66523b0efe93ce5b0ba96dcddcda15d36673c1f0",
         "type": "github"
       },
       "original": {
@@ -167,10 +167,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749935973,
+        "lastModified": 1750028451,
         "owner": "Jas-SinghFSU",
         "repo": "HyprPanel",
-        "rev": "daf45665c4de82403aab40a02c2a3656737314a0",
+        "rev": "e03666ab5d239e99b65a0df9cf33c6f47e145e4e",
         "type": "github"
       },
       "original": {
@@ -255,10 +255,10 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1749853830,
+        "lastModified": 1750085371,
         "owner": "DeterminateSystems",
         "repo": "nix-src",
-        "rev": "49a059d4269fc0f8c0b9b3deea44e1484a11f18d",
+        "rev": "d41480dc458adbd0b4df78fc4fa52ab28ae530c1",
         "type": "github"
       },
       "original": {
