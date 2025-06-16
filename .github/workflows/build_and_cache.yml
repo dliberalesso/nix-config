@@ -64,7 +64,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        system: [testVM, nixWSL, nixavell]
+        system: [testVM, nixwsl, nixavell]
 
     name: ${{ matrix.system }}
     runs-on: ubuntu-latest
