@@ -21,7 +21,7 @@ on:
 
 jobs:
   packages_devshells:
-    name: "Packages & devShells"
+    name: "Packages, devShells & apps"
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -62,7 +62,7 @@ jobs:
   nixosConfigurations:
     needs: packages_devshells
     strategy:
-      max-parallel: 1
+      max-parallel: 2
       matrix:
         system: [testvm, nixwsl, nixavell]
 
