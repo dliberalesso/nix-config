@@ -1,5 +1,5 @@
 {
-  perSystem = {
+  unify.hosts.nixos.nixavell.nixos = {
     nixpkgs.overlays = [
       (_: prev: {
         libratbag = prev.libratbag.overrideAttrs (_: {

@@ -4,13 +4,7 @@
 }:
 {
   imports = [
-    ../to_migrate/hosts/old.nix
-
-    (inputs.import-tree [
-      # ../hosts
-      ../packages
-      ../scripts
-    ])
+    inputs.unify.flakeModule
   ];
 
   # WARN: Keep this to help debugging in the REPL
