@@ -1,4 +1,4 @@
-name: "Update"
+name: "Update flake.lock"
 
 on:
   schedule:
@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: "Install Nix ❄️"
+      - name: "Install Nix"
         uses: DeterminateSystems/determinate-nix-action@v3
         with:
           extra-conf: lazy-trees = true
@@ -27,13 +27,11 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           nix-options: --accept-flake-config
-          branch: update
-          git-author-name: Douglas Liberalesso
-          git-author-email: dliberalesso@users.noreply.github.com
-          git-committer-name: Douglas Liberalesso
-          git-committer-email: dliberalesso@users.noreply.github.com
+          branch: "build/update-flake-lock"
+          commit-msg: "⬆️ build: Update flake.lock"
           pr-assignees: dliberalesso
-          pr-labels: dependencies, nix
+          pr-labels: build, dependencies, nix
+          pr-title: "⬆️ build: Update flake.lock"
 
       - name: Enable Pull Request Automerge
         if: (steps.nix-update.outputs.pull-request-operation == 'created' || steps.nix-update.outputs.pull-request-operation == 'updated') && (github.event_name == 'workflow_dispatch' || github.event.schedule == '0 7 * * 0')
