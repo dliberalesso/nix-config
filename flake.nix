@@ -1,18 +1,17 @@
 {
   description = "NixForge: My NixOS config";
 
-  outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./flake);
+  outputs =
+    inputs:
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
+      inputs.import-tree [
+        ./hosts
+        ./modules
+      ]
+    );
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    ags = {
-      url = "github:aylur/ags";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        astal.follows = "dedupe-astal";
-      };
-    };
 
     catppuccin = {
       url = "github:catppuccin/nix";
@@ -31,6 +30,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
+        # flake-compat.follows = "dedupe-flake-compat";
       };
     };
 
@@ -38,7 +38,7 @@
       url = "github:Jas-SinghFSU/HyprPanel";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        ags.follows = "ags";
+        ags.follows = "dedupe-ags";
         astal.follows = "dedupe-astal";
       };
     };
@@ -55,12 +55,21 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
+        # flake-compat.follows = "dedupe-flake-compat";
         flake-parts.follows = "flake-parts";
         git-hooks.follows = "git-hooks";
         hercules-ci-effects.follows = "";
+        # hercules-ci-effects.follows = "dedupe-hercules-ci-effects";
         treefmt-nix.follows = "treefmt-nix";
       };
     };
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-maid.url = "github:viperML/nix-maid";
 
     nix = {
       url = "github:DeterminateSystems/nix-src";
@@ -71,18 +80,16 @@
       };
     };
 
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
+
+    nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "";
+        # flake-compat.follows = "dedupe-flake-compat";
       };
     };
 
@@ -99,6 +106,23 @@
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    unify = {
+      url = "git+https://codeberg.org/quasigod/unify.git";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        home-manager.follows = "home-manager";
+      };
+    };
+
+    dedupe-ags = {
+      url = "github:aylur/ags";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        astal.follows = "dedupe-astal";
+      };
     };
 
     dedupe-astal = {

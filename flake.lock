@@ -1,6 +1,25 @@
 {
   "nodes": {
-    "ags": {
+    "catppuccin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1749223974,
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "3a42cd79c647360ee8742659e42aeec0947dd3b4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
+    "dedupe-ags": {
       "inputs": {
         "astal": [
           "dedupe-astal"
@@ -19,25 +38,6 @@
       "original": {
         "owner": "aylur",
         "repo": "ags",
-        "type": "github"
-      }
-    },
-    "catppuccin": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1749223974,
-        "owner": "catppuccin",
-        "repo": "nix",
-        "rev": "3a42cd79c647360ee8742659e42aeec0947dd3b4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "catppuccin",
-        "repo": "nix",
         "type": "github"
       }
     },
@@ -157,7 +157,7 @@
     "hyprpanel": {
       "inputs": {
         "ags": [
-          "ags"
+          "dedupe-ags"
         ],
         "astal": [
           "dedupe-astal"
@@ -286,6 +286,20 @@
         "type": "github"
       }
     },
+    "nix-maid": {
+      "locked": {
+        "lastModified": 1749569414,
+        "owner": "viperML",
+        "repo": "nix-maid",
+        "rev": "5f5c84256dfba42ac7786fd3ef17849ac0c7b788",
+        "type": "github"
+      },
+      "original": {
+        "owner": "viperML",
+        "repo": "nix-maid",
+        "type": "github"
+      }
+    },
     "nixCats": {
       "locked": {
         "lastModified": 1749615682,
@@ -297,6 +311,20 @@
       "original": {
         "owner": "BirdeeHub",
         "repo": "nixCats-nvim",
+        "type": "github"
+      }
+    },
+    "nixos-facter-modules": {
+      "locked": {
+        "lastModified": 1743671943,
+        "owner": "nix-community",
+        "repo": "nixos-facter-modules",
+        "rev": "58ad9691670d293a15221d4a78818e0088d2e086",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixos-facter-modules",
         "type": "github"
       }
     },
@@ -384,8 +412,8 @@
     },
     "root": {
       "inputs": {
-        "ags": "ags",
         "catppuccin": "catppuccin",
+        "dedupe-ags": "dedupe-ags",
         "dedupe-astal": "dedupe-astal",
         "flake-parts": "flake-parts",
         "flake-root": "flake-root",
@@ -396,12 +424,15 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix": "nix",
         "nix-index-database": "nix-index-database",
+        "nix-maid": "nix-maid",
         "nixCats": "nixCats",
+        "nixos-facter-modules": "nixos-facter-modules",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "plugins-wezterm-types": "plugins-wezterm-types",
         "spicetify": "spicetify",
-        "treefmt-nix": "treefmt-nix"
+        "treefmt-nix": "treefmt-nix",
+        "unify": "unify"
       }
     },
     "spicetify": {
@@ -456,6 +487,31 @@
         "owner": "numtide",
         "repo": "treefmt-nix",
         "type": "github"
+      }
+    },
+    "unify": {
+      "inputs": {
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "home-manager": [
+          "home-manager"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1748917966,
+        "ref": "refs/heads/main",
+        "rev": "ae47c971506ee5b58bb35f3326297b97e70d297e",
+        "revCount": 36,
+        "type": "git",
+        "url": "https://codeberg.org/quasigod/unify.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://codeberg.org/quasigod/unify.git"
       }
     }
   },
