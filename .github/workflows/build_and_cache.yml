@@ -56,12 +56,15 @@ jobs:
 
       - name: "Building devShells"
         run: nix-fast-build --skip-cached --no-nom --flake ".#devShells"
+
+      - name: "Building apps"
+        run: nix-fast-build --skip-cached --no-nom --flake ".#apps"
   nixosConfigurations:
     needs: packages_devshells
     strategy:
       max-parallel: 1
       matrix:
-        system: [nixWSL, nixavell]
+        system: [testVM, nixWSL, nixavell]
 
     name: ${{ matrix.system }}
     runs-on: ubuntu-latest
