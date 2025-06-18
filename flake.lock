@@ -286,20 +286,6 @@
         "type": "github"
       }
     },
-    "nix-maid": {
-      "locked": {
-        "lastModified": 1749569414,
-        "owner": "viperML",
-        "repo": "nix-maid",
-        "rev": "5f5c84256dfba42ac7786fd3ef17849ac0c7b788",
-        "type": "github"
-      },
-      "original": {
-        "owner": "viperML",
-        "repo": "nix-maid",
-        "type": "github"
-      }
-    },
     "nixCats": {
       "locked": {
         "lastModified": 1749615682,
@@ -424,7 +410,6 @@
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix": "nix",
         "nix-index-database": "nix-index-database",
-        "nix-maid": "nix-maid",
         "nixCats": "nixCats",
         "nixos-facter-modules": "nixos-facter-modules",
         "nixos-wsl": "nixos-wsl",
