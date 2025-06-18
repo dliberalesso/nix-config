@@ -1,95 +1,53 @@
-let
-  aliases = {
-    pre-commit = [
-      "util"
-      "exec"
-      "--"
-      "bash"
-      "-c"
-      # bash
-      ''
-        set -euo pipefail
-        EMPTY=$(jj log --no-graph -r @ -T 'empty')
-        if [ "$EMPTY" = "false" ]; then
-          jj new
-        fi
-        FROM=$(jj log --no-graph -r "fork_point(trunk() | @)" -T "commit_id")
-        TO=$(jj log --no-graph -r "@" -T "commit_id")
-        pre-commit run --from="$FROM" --to="$TO" "$@"
-      ''
-    ];
-
-    tug = [
-      "bookmark"
-      "move"
-      "--from"
-      "closest_bookmark(@)"
-      "--to"
-      "closest_pushable(@)"
-    ];
-
-    l = [
-      "log"
-      "-r"
-      "all()"
-    ];
-
-    ll = [
-      "log"
-      "-r"
-      "all()"
-      "-T"
-      "builtin_log_detailed"
-    ];
-
-    xl = [
-      "log"
-      "-T"
-      "builtin_log_detailed"
-    ];
-
-    open = [
-      "log"
-      "-r"
-      "open()"
-    ];
-
-    stack = [
-      "log"
-      "-r"
-      "stack()"
-    ];
-
-    s = [ "stack" ];
-
-    evolve = [
-      "rebase"
-      "--skip-empty"
-      "-d"
-      "main"
-    ];
-
-    yank = [
-      "rebase"
-      "--skip-emptied"
-      "-s"
-      "all:roots(mutable() & mine())"
-      "-d"
-      "trunk()"
-    ];
-  };
-in
 {
   unify.home =
     {
       hostConfig,
+      lib,
       pkgs,
       ...
     }:
-    {
-      home.packages = builtins.attrValues {
-        inherit (pkgs) jjui lazymoji;
+    let
+      jj-pre-commit = pkgs.writeShellApplication {
+        name = "jj-pre-commit";
+
+        text = ''
+          set -euo pipefail
+
+          if [ "$(jj log --no-graph -r @ -T 'empty')" = "false" ]; then
+            jj new
+          fi
+
+          FROM=$(jj log --no-graph -r "fork_point(trunk() | @)" -T "commit_id")
+
+          TO=$(jj log --no-graph -r "@" -T "commit_id")
+
+          pre-commit run --from="$FROM" --to="$TO" "$@"
+        '';
       };
+
+      jj-lazymoji =
+        name: command:
+        pkgs.writeShellApplication {
+          name = "jj-lazymoji-${name}";
+
+          runtimeInputs = [ pkgs.lazymoji ];
+
+          text = ''
+            set -euo pipefail
+
+            jj ${command} -m "$(lazymoji)"
+          '';
+        };
+
+      utilExecFor = script: [
+        "util"
+        "exec"
+        "--"
+        "${lib.getExe script}"
+      ];
+    in
+    {
+      home.packages = [ pkgs.jjui ];
 
       programs.jujutsu = {
         enable = true;
@@ -99,7 +57,24 @@ in
         });
 
         settings = {
-          inherit aliases;
+          aliases = {
+            cm = utilExecFor (jj-lazymoji "cm" "commit");
+
+            dm = utilExecFor (jj-lazymoji "dm" "describe");
+
+            "dm-" = utilExecFor (jj-lazymoji "dmm" "describe -r @-");
+
+            pre-commit = utilExecFor jj-pre-commit;
+
+            tug = [
+              "bookmark"
+              "move"
+              "--from"
+              "closest_bookmark(@)"
+              "--to"
+              "closest_pushable(@)"
+            ];
+          };
 
           core = {
             fsmonitor = "watchman";
@@ -113,7 +88,14 @@ in
             write-change-id-header = true;
           };
 
+          revset-aliases = {
+            "closest_bookmark(to)" = "heads(::to & bookmarks())";
+            "closest_pushable(to)" =
+              "heads(::to & mutable() & ~description(exact:\"\") & (~empty() | merges()))";
+          };
+
           ui = {
+            default-command = "log";
             diff-editor = ":builtin";
             graph.style = "square";
             pager = ":builtin";
