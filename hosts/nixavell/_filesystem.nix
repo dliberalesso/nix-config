@@ -1,5 +1,4 @@
 {
-  lib,
   modulesPath,
   ...
 }:
@@ -23,12 +22,5 @@
     };
   };
 
-  hardware = {
-    enableAllFirmware = true;
-    cpu.intel.updateMicrocode = true;
-  };
-
   swapDevices = [ { device = "/dev/disk/by-uuid/96082f77-471f-459f-8438-b4d2d8fcc96e"; } ];
-
-  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

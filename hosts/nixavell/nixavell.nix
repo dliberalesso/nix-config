@@ -1,7 +1,5 @@
 {
   config,
-  inputs,
-  lib,
   ...
 }:
 let
@@ -9,27 +7,10 @@ let
 
   args = import ../_args.nix hostName;
 
-  assertPresent = lib.asserts.assertMsg (
-    inputs.nixos-facter-modules ? nixosModules
-  ) "inputs.nixos-facter-modules doesn't provide nixosModules";
-
-  facterConfig = lib.optionalAttrs assertPresent {
-    unify.hosts.nixos.${hostName}.nixos = {
-      imports = [
-        inputs.nixos-facter-modules.nixosModules.facter
-      ];
-
-      facter.reportPath = ./facter.json;
-    };
-  };
-
   inherit (config) unify;
 in
 {
-  imports = [
-    args
-    facterConfig
-  ];
+  imports = [ args ];
 
   unify.hosts.nixos.${hostName} =
     {
@@ -38,22 +19,36 @@ in
     }:
     {
       modules = builtins.attrValues {
-        inherit (unify.modules) gui;
+        inherit (unify.modules)
+          facter
+          gui
+          irpf
+          laptop
+          ;
       };
 
       nixos = {
         imports = [
           ../../old_modules/hyprde
-          ../../old_modules/laptop
+
+          ./_filesystem.nix
         ];
+
+        # Don't forget to set a password with ‘passwd’.
+        users.users.${config.user.username} = {
+          isNormalUser = true;
+          description = config.user.name;
+
+          extraGroups = [
+            "audio"
+            "input"
+            "networkmanager"
+            "video"
+            "wheel"
+          ];
+        };
       };
 
-      users.${config.user.username} = {
-        modules =
-          config.modules
-          ++ builtins.attrValues {
-            inherit (unify.modules) irpf;
-          };
-      };
+      users.${config.user.username} = { inherit (config) modules; };
     };
 }
