@@ -1,5 +1,5 @@
 {
-  home-manager.users.dli50 =
+  unify.modules.gui.home =
     {
       config,
       ...
@@ -15,7 +15,7 @@
           inherit (config.lib.file) mkOutOfStoreSymlink;
           inherit (config.home) homeDirectory;
 
-          configPath = "${homeDirectory}/nix-config/old_modules/programs/wezterm/wezterm.lua";
+          configPath = "${homeDirectory}/nix-config/modules/programs/wezterm.lua";
         in
         {
           "wezterm/plugin/catppuccin".source = wezterm;

@@ -1,13 +1,13 @@
 {
   autoPatchelfHook,
   capDacOverrideWrapperDir,
-  espanso,
+  espanso-wayland,
   patchelfUnstable, # have to use patchelfUnstable to support --rename-dynamic-symbols
   stdenv,
 }:
 let
-  inherit (espanso) version;
-  pname = "${espanso.pname}-capdacoverride";
+  inherit (espanso-wayland) version;
+  pname = "${espanso-wayland.pname}-capdacoverride";
 
   wrapperLibName = "wrapper-lib.so";
 
@@ -38,7 +38,7 @@ let
     '';
   };
 in
-espanso.overrideAttrs (previousAttrs: {
+espanso-wayland.overrideAttrs (previousAttrs: {
   inherit pname;
 
   buildInputs = previousAttrs.buildInputs ++ [ wrapperLib ];
