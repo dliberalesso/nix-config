@@ -3,41 +3,37 @@
   ...
 }:
 let
+  inherit (config.unify) modules;
+
   hostName = "nixavell";
-
-  args = import ../_args.nix hostName;
-
-  inherit (config) unify;
 in
 {
-  imports = [ args ];
-
   unify.hosts.nixos.${hostName} =
     {
       config,
       ...
     }:
+    let
+      inherit (config.user) name username;
+    in
     {
       modules = builtins.attrValues {
-        inherit (unify.modules)
+        inherit (modules)
           facter
           gui
+          hyprde
           irpf
           laptop
           ;
       };
 
       nixos = {
-        imports = [
-          ../../old_modules/hyprde
-
-          ./_filesystem.nix
-        ];
+        imports = [ ./_filesystem.nix ];
 
         # Don't forget to set a password with ‘passwd’.
-        users.users.${config.user.username} = {
+        users.users.${username} = {
           isNormalUser = true;
-          description = config.user.name;
+          description = name;
 
           extraGroups = [
             "audio"
@@ -49,6 +45,6 @@ in
         };
       };
 
-      users.${config.user.username} = { inherit (config) modules; };
+      users.${username} = { inherit (config) modules; };
     };
 }

@@ -5,47 +5,49 @@
 }:
 let
   hostName = "testvm";
-
-  args = import ../_args.nix hostName;
 in
 {
-  imports = [ args ];
-
-  unify.hosts.nixos.${hostName}.nixos =
+  unify.hosts.nixos.${hostName} =
     {
-      hostConfig,
+      config,
       ...
     }:
+    let
+      inherit (config.user) username;
+    in
     {
+      nixos = {
+        imports = map (p: "${inputs.nixpkgs}/nixos/modules${p}.nix") [
+          "/profiles/minimal"
+          "/virtualisation/qemu-vm"
+        ];
 
-      imports = map (p: "${inputs.nixpkgs}/nixos/modules${p}.nix") [
-        "/profiles/minimal"
-        "/virtualisation/qemu-vm"
-      ];
+        security.sudo.wheelNeedsPassword = false;
 
-      security.sudo.wheelNeedsPassword = false;
+        services.getty = {
+          autologinUser = username;
 
-      services.getty = {
-        autologinUser = hostConfig.user.username;
+          helpLine = ''
+            If you are connect via serial console:
+            Type Ctrl-a c to switch to the qemu console
+            and `quit` to stop the VM.
+          '';
+        };
 
-        helpLine = ''
-          If you are connect via serial console:
-          Type Ctrl-a c to switch to the qemu console
-          and `quit` to stop the VM.
-        '';
+        users.users.${username} = {
+          isNormalUser = true;
+          extraGroups = [ "wheel" ];
+          initialHashedPassword = "";
+        };
+
+        virtualisation = {
+          cores = 2;
+          graphics = false;
+          memorySize = 2048;
+        };
       };
 
-      users.users.${hostConfig.user.username} = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" ];
-        initialHashedPassword = "";
-      };
-
-      virtualisation = {
-        cores = 2;
-        graphics = false;
-        memorySize = 2048;
-      };
+      users.${username} = { };
     };
 
   perSystem.apps.${hostName} = {
