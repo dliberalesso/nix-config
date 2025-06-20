@@ -3,12 +3,19 @@
   ...
 }:
 let
+  inherit (config.unify.modules) wsl;
+
   hostName = "nixwsl";
 in
 {
-  unify.hosts.nixos.${hostName} = {
-    modules = builtins.attrValues {
-      inherit (config.unify.modules) wsl;
+  unify.hosts.nixos.${hostName} =
+    {
+      config,
+      ...
+    }:
+    {
+      modules = [ wsl ];
+
+      users.${config.user.username} = { };
     };
-  };
 }

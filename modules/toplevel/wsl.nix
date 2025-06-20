@@ -11,7 +11,6 @@ in
 lib.optionalAttrs assertPresent {
   unify.modules.wsl.nixos =
     {
-      config,
       hostConfig,
       lib,
       pkgs,
@@ -31,7 +30,7 @@ lib.optionalAttrs assertPresent {
         defaultUser = hostConfig.user.username;
         startMenuLaunchers = false;
         wslConf.automount.root = "/mnt";
-        wslConf.network.hostname = config.networking.hostName;
+        wslConf.network.hostname = hostConfig.name;
       };
     };
 }
