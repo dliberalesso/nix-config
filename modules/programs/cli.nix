@@ -8,6 +8,7 @@
     fastfetch.enable = true;
     fd.enable = true;
     jq.enable = true;
+    ripgrep-all.enable = true;
     ripgrep.enable = true;
     yazi.enable = true;
     zellij.enable = true;
