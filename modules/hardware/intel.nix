@@ -6,8 +6,5 @@
 
       cpu.intel.updateMicrocode = true;
     };
-
-    # enableAllFirmware depends on this
-    nixpkgs.config.allowUnfree = true;
   };
 }
