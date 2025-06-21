@@ -3,6 +3,12 @@
   ...
 }:
 {
+  unify.nixos = {
+    nixpkgs.overlays = [
+      inputs.neovim-nightly-overlay.overlays.default
+    ];
+  };
+
   unify.home =
     {
       pkgs,

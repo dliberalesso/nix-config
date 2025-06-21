@@ -4,14 +4,11 @@
 }:
 {
   unify.nixos = withSystem "x86_64-linux" (
-    {
-      pkgs,
-      system,
-      ...
-    }:
+    { system, ... }:
+    { lib, ... }:
     {
       nixpkgs = {
-        inherit pkgs;
+        config.allowUnfreePredicate = pkg: lib.warn "Allowing unfree package: ${lib.getName pkg}" true;
 
         hostPlatform = { inherit system; };
       };
