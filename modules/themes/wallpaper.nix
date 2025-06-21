@@ -15,21 +15,4 @@ in
       sha256 = "sha256:0mskzjkdxsfcap3rim0qwcx0mikhbirs36xw1p8n18nic88ypwb1";
     };
   };
-
-  unify.modules.hyprde.nixos =
-    {
-      hostConfig,
-      lib,
-      ...
-    }:
-    let
-      inherit (lib) mkOption types;
-    in
-    {
-      options.hyprde.wallpaper = mkOption {
-        type = types.path;
-
-        default = hostConfig.wallpaper;
-      };
-    };
 }
