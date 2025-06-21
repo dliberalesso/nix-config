@@ -1,6 +1,7 @@
 {
   inputs,
   self,
+  withSystem,
   ...
 }:
 let
@@ -21,6 +22,16 @@ in
           "/profiles/minimal"
           "/virtualisation/qemu-vm"
         ];
+
+        nixpkgs = withSystem "x86_64-linux" (
+          {
+            system,
+            ...
+          }:
+          {
+            hostPlatform = { inherit system; };
+          }
+        );
 
         security.sudo.wheelNeedsPassword = false;
 

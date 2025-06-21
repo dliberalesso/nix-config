@@ -1,15 +1,16 @@
 {
   inputs,
+  moduleWithSystem,
   ...
 }:
 {
-  unify.home =
+  perSystem =
     {
-      pkgs,
+      inputs',
       ...
     }:
     let
-      inherit (inputs.nixCats) utils;
+      inherit (inputs'.neovim-nightly-overlay.packages) neovim;
 
       excludedRtpPlugins = [
         # "ftplugin.vim"
@@ -32,13 +33,30 @@
       ];
 
       postInstallCommands = map (target: "rm -f $out/share/nvim/runtime/${target}") excludedRtpPlugins;
-
-      neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oa: {
+    in
+    {
+      packages.neovim-unwrapped = neovim.overrideAttrs (oa: {
         postInstall = ''
           ${oa.postInstall or ""}
           ${builtins.concatStringsSep "\n" postInstallCommands}
         '';
       });
+    };
+
+  unify.nixos = moduleWithSystem (
+    { config }:
+    {
+      nixpkgs.overlays = [
+        (_: _: {
+          inherit (config.packages) neovim-unwrapped;
+        })
+      ];
+    }
+  );
+
+  unify.home =
+    let
+      inherit (inputs.nixCats) utils;
     in
     {
       imports = [ inputs.nixCats.homeModule ];
@@ -152,8 +170,6 @@
                 "vi"
                 "vim"
               ];
-
-              inherit neovim-unwrapped;
 
               hosts = {
                 node.enable = false;

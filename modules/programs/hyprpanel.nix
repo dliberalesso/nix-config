@@ -3,6 +3,12 @@
   ...
 }:
 {
+  unify.modules.hyprde.nixos = {
+    nixpkgs.overlays = [
+      inputs.hyprpanel.overlay
+    ];
+  };
+
   unify.modules.hyprde.home =
     {
       pkgs,

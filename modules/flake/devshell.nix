@@ -12,7 +12,6 @@ lib.optionalAttrs (inputs.flake-root ? flakeModule) {
   perSystem =
     {
       config,
-      inputs',
       lib,
       pkgs,
       ...
@@ -24,13 +23,13 @@ lib.optionalAttrs (inputs.flake-root ? flakeModule) {
         ];
 
         packages = builtins.attrValues {
-          inherit (inputs'.nix.packages) nix;
+          inherit (config.packages) lazymoji;
 
           inherit (pkgs)
             git
             just
-            lazymoji
             nh
+            nix
             ;
         };
 

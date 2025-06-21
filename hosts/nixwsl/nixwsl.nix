@@ -1,5 +1,6 @@
 {
   config,
+  withSystem,
   ...
 }:
 let
@@ -15,6 +16,16 @@ in
     }:
     {
       modules = [ wsl ];
+
+      nixos.nixpkgs = withSystem "x86_64-linux" (
+        {
+          system,
+          ...
+        }:
+        {
+          hostPlatform = { inherit system; };
+        }
+      );
 
       users.${config.user.username} = { };
     };

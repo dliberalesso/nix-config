@@ -1,4 +1,33 @@
 {
+  moduleWithSystem,
+  ...
+}:
+{
+  perSystem =
+    {
+      pkgs,
+      ...
+    }:
+    {
+      packages.fzf = pkgs.fzf.overrideAttrs (oa: {
+        postInstall = ''
+          ${oa.postInstall or ""}
+          rm -rf $out/share/nvim/
+        '';
+      });
+    };
+
+  unify.nixos = moduleWithSystem (
+    { config }:
+    {
+      nixpkgs.overlays = [
+        (_: _: {
+          inherit (config.packages) fzf;
+        })
+      ];
+    }
+  );
+
   unify.home =
     {
       lib,
@@ -9,20 +38,14 @@
       bat = lib.getExe pkgs.bat;
       eza = lib.getExe pkgs.eza;
       fd = lib.getExe pkgs.fd;
+
+      defaultCommand = "${fd} --type f";
     in
     {
-      programs.fzf = rec {
+      programs.fzf = {
         enable = true;
 
-        package = pkgs.fzf.overrideAttrs (oa: {
-          postInstall =
-            oa.postInstall
-            + ''
-              rm -rf $out/share/nvim/
-            '';
-        });
-
-        defaultCommand = "${fd} --type f";
+        inherit defaultCommand;
         defaultOptions = [ "--height 50%" ];
 
         fileWidgetCommand = defaultCommand;
@@ -30,7 +53,7 @@
           "--preview '${bat} --plain --line-range=:200 {}'"
         ];
 
-        changeDirWidgetCommand = "fd --type d";
+        changeDirWidgetCommand = "${fd} --type d";
         changeDirWidgetOptions = [
           "--preview '${eza} --tree --icons | head -200'"
         ];
