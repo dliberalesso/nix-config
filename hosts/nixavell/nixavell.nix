@@ -14,7 +14,7 @@ in
       ...
     }:
     let
-      inherit (config.user) name username;
+      inherit (config.user) username;
     in
     {
       modules = builtins.attrValues {
@@ -32,15 +32,11 @@ in
 
         # Don't forget to set a password with ‘passwd’.
         users.users.${username} = {
-          isNormalUser = true;
-          description = name;
-
           extraGroups = [
             "audio"
             "input"
             "networkmanager"
             "video"
-            "wheel"
           ];
         };
       };
