@@ -2,6 +2,8 @@
   unify.modules.hyprde.home =
     {
       hostConfig,
+      lib,
+      pkgs,
       ...
     }:
     {
@@ -78,6 +80,12 @@
             zindex = 10;
           };
         };
+      };
+
+      wayland.windowManager.hyprland = {
+        settings.exec-once = [
+          "${lib.getExe pkgs.uwsm} app -- hyprlock"
+        ];
       };
     };
 }
