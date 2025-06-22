@@ -7,10 +7,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749223974,
+        "lastModified": 1750153510,
         "owner": "catppuccin",
         "repo": "nix",
-        "rev": "3a42cd79c647360ee8742659e42aeec0947dd3b4",
+        "rev": "4e95eaf8a351956d75cc400318579967ca2b6d0f",
         "type": "github"
       },
       "original": {
@@ -48,10 +48,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749827284,
+        "lastModified": 1750576321,
         "owner": "aylur",
         "repo": "astal",
-        "rev": "4e455bb6e7f256742849322d31427b9defc95c16",
+        "rev": "07d7f994871424f4321671050f97e2b3a4540af7",
         "type": "github"
       },
       "original": {
@@ -142,10 +142,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749944797,
+        "lastModified": 1750304462,
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "c5f345153397f62170c18ded1ae1f0875201d49a",
+        "rev": "863842639722dd12ae9e37ca83bcb61a63b36f6c",
         "type": "github"
       },
       "original": {
@@ -167,10 +167,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749935973,
+        "lastModified": 1750486389,
         "owner": "Jas-SinghFSU",
         "repo": "HyprPanel",
-        "rev": "daf45665c4de82403aab40a02c2a3656737314a0",
+        "rev": "0c2bcb773cdd55d385e68d59c8d43a066c029895",
         "type": "github"
       },
       "original": {
@@ -181,10 +181,10 @@
     },
     "import-tree": {
       "locked": {
-        "lastModified": 1749958812,
+        "lastModified": 1750551828,
         "owner": "vic",
         "repo": "import-tree",
-        "rev": "6fcfa909614de6dd6c712db8229b8c0261791e39",
+        "rev": "39623fae9e2d67511f4bdfc249ca6beccebbd810",
         "type": "github"
       },
       "original": {
@@ -212,10 +212,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749968275,
+        "lastModified": 1750497580,
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "e2f2d0bf44d32dba49004ae974a9e93812d3b11b",
+        "rev": "39763127ad62f962411336d9c7db62efc9f6ec67",
         "type": "github"
       },
       "original": {
@@ -227,11 +227,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1749937343,
-        "narHash": "sha256-UWQpnJ46TMdnB4TUFuYZ3qhZaIttXYuGuWnn+MdpRQU=",
+        "lastModified": 1750433527,
+        "narHash": "sha256-p39wAp30YEmn9uKGxht08pvJG4SIofEFNzpzWdFyeKA=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "0d658660c29e920e74c4dade3819d80dccad0dde",
+        "rev": "d0aedd36dfe0ac4ed45ea93f471379c77f0c7905",
         "type": "github"
       },
       "original": {
@@ -255,10 +255,10 @@
         "nixpkgs-regression": "nixpkgs-regression"
       },
       "locked": {
-        "lastModified": 1749853830,
+        "lastModified": 1750352474,
         "owner": "DeterminateSystems",
         "repo": "nix-src",
-        "rev": "49a059d4269fc0f8c0b9b3deea44e1484a11f18d",
+        "rev": "1d5e161755dc269e30190f7a607b907b07ea2f63",
         "type": "github"
       },
       "original": {
@@ -274,10 +274,10 @@
         ]
       },
       "locked": {
-        "lastModified": 1749960154,
+        "lastModified": 1750565152,
         "owner": "nix-community",
         "repo": "nix-index-database",
-        "rev": "424a40050cdc5f494ec45e46462d288f08c64475",
+        "rev": "78cd697acc2e492b4e92822a4913ffad279c20e6",
         "type": "github"
       },
       "original": {
@@ -288,10 +288,10 @@
     },
     "nixCats": {
       "locked": {
-        "lastModified": 1749615682,
+        "lastModified": 1750385661,
         "owner": "BirdeeHub",
         "repo": "nixCats-nvim",
-        "rev": "c0148957e961100bff3fd213b8a4bc5f669f3028",
+        "rev": "04379fef2fbd4c9d8f4c9a6203cef135ab0b1acd",
         "type": "github"
       },
       "original": {
@@ -302,10 +302,10 @@
     },
     "nixos-facter-modules": {
       "locked": {
-        "lastModified": 1743671943,
+        "lastModified": 1750412875,
         "owner": "nix-community",
         "repo": "nixos-facter-modules",
-        "rev": "58ad9691670d293a15221d4a78818e0088d2e086",
+        "rev": "14df13c84552a7d1f33c1cd18336128fbc43f920",
         "type": "github"
       },
       "original": {
@@ -336,10 +336,10 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1749794982,
+        "lastModified": 1750365781,
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "ee930f9755f58096ac6e8ca94a1887e0534e2d81",
+        "rev": "08f22084e6085d19bcfb4be30d1ca76ecb96fe54",
         "type": "github"
       },
       "original": {
@@ -384,10 +384,10 @@
     "plugins-wezterm-types": {
       "flake": false,
       "locked": {
-        "lastModified": 1749119885,
+        "lastModified": 1750319838,
         "owner": "gonstoll",
         "repo": "wezterm-types",
-        "rev": "c3f19654c0cf6d1c8df7e2b2439ae3e62be9be6a",
+        "rev": "bba4eacfdce545a9d5c29c69d20bbb9c90189224",
         "type": "github"
       },
       "original": {
@@ -428,10 +428,10 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1749961984,
+        "lastModified": 1750567035,
         "owner": "Gerg-L",
         "repo": "spicetify-nix",
-        "rev": "c9f12a733e8edcf8d408ccd178c1a11e753ffa08",
+        "rev": "e32285f5d1dfc184b039a813644e226c3914e7d7",
         "type": "github"
       },
       "original": {
