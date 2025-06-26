@@ -23,7 +23,7 @@ in
           facter
           gui
           hyprde
-          irpf
+          # irpf
           laptop
           ;
       };
