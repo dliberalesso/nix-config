@@ -1,7 +1,9 @@
 {
   autoPatchelfHook,
   capDacOverrideWrapperDir,
+  copyDesktopItems,
   espanso-wayland,
+  makeDesktopItem,
   patchelfUnstable, # have to use patchelfUnstable to support --rename-dynamic-symbols
   stdenv,
 }:
@@ -44,8 +46,19 @@ espanso-wayland.overrideAttrs (previousAttrs: {
   buildInputs = previousAttrs.buildInputs ++ [ wrapperLib ];
 
   nativeBuildInputs = previousAttrs.nativeBuildInputs ++ [
+    copyDesktopItems
     autoPatchelfHook
     patchelfUnstable
+  ];
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = "espanso";
+      exec = "espanso daemon";
+      desktopName = "Espanso";
+      comment = "Cross-platform Text Expander written in Rust";
+      categories = [ "Office" ];
+    })
   ];
 
   postInstall =

@@ -25,6 +25,7 @@ in
           hyprde
           # irpf
           laptop
+          work
           ;
       };
 

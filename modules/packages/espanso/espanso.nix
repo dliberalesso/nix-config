@@ -1,5 +1,5 @@
 {
-  unify.modules.gui.nixos =
+  unify.modules.work.nixos =
     {
       config,
       lib,
@@ -12,13 +12,7 @@
       };
     in
     {
-      environment.systemPackages = [
-        espanso
-
-        (pkgs.writeShellScriptBin "start-espanso" ''
-          ${lib.getExe pkgs.uwsm} app -- ${lib.getExe espanso} daemon
-        '')
-      ];
+      environment.systemPackages = [ espanso ];
 
       security.wrappers."espanso-wayland" = {
         source = lib.getExe espanso;
