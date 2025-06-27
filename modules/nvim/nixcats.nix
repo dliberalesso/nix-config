@@ -164,7 +164,7 @@
               suffix-LD = true;
               wrapRc = false;
 
-              unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/nix-config/modules/nvim'";
+              unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/projects/nix-config/modules/nvim'";
 
               aliases = [
                 "vi"
