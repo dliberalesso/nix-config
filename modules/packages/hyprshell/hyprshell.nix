@@ -1,0 +1,40 @@
+{
+  inputs,
+  ...
+}:
+{
+  perSystem =
+    {
+      inputs',
+      pkgs,
+      ...
+    }:
+    {
+      packages.hyprshell = inputs.ags.lib.bundle {
+        inherit pkgs;
+
+        name = "hyprshell";
+        entry = "app.ts";
+
+        extraPackages = with inputs'.ags.packages; [
+          battery
+          hyprland
+          mpris
+          network
+          tray
+          wireplumber
+        ];
+
+        gtk4 = true;
+
+        src = builtins.path {
+          path = ./.;
+          name = "source";
+        };
+      };
+
+      devShells.hyprshell = pkgs.mkShell {
+        buildInputs = [ inputs'.ags.packages.agsFull ];
+      };
+    };
+}

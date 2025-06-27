@@ -13,6 +13,14 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    ags = {
+      url = "github:aylur/ags";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        astal.follows = "dedupe-astal";
+      };
+    };
+
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,7 +46,7 @@
       url = "github:Jas-SinghFSU/HyprPanel";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        ags.follows = "dedupe-ags";
+        ags.follows = "ags";
         astal.follows = "dedupe-astal";
       };
     };
@@ -112,14 +120,6 @@
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
         home-manager.follows = "home-manager";
-      };
-    };
-
-    dedupe-ags = {
-      url = "github:aylur/ags";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        astal.follows = "dedupe-astal";
       };
     };
 
