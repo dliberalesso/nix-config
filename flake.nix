@@ -34,15 +34,6 @@
       };
     };
 
-    hyprpanel = {
-      url = "github:Jas-SinghFSU/HyprPanel";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        ags.follows = "dedupe-ags";
-        astal.follows = "dedupe-astal";
-      };
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -113,19 +104,6 @@
         flake-parts.follows = "flake-parts";
         home-manager.follows = "home-manager";
       };
-    };
-
-    dedupe-ags = {
-      url = "github:aylur/ags";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        astal.follows = "dedupe-astal";
-      };
-    };
-
-    dedupe-astal = {
-      url = "github:aylur/astal";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # dedupe-flake-compat = {
