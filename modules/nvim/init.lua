@@ -152,6 +152,11 @@ require("lze").load({
     end,
   },
   {
+    "hunk.nvim",
+    cmd = { "DiffEditor" },
+    after = function(plugin) require("hunk").setup() end,
+  },
+  {
     "blink.cmp",
     enabled = nixCats("general") or false,
     event = "DeferredUIEnter",
