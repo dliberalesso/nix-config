@@ -125,39 +125,50 @@
               "heads(::to & mutable() & ~description(exact:\"\") & (~empty() | merges()))";
           };
 
-          merge-tools.delta = {
-            diff-expected-exit-codes = [
-              0
-              1
-            ];
+          merge-tools = {
+            delta = {
+              diff-expected-exit-codes = [
+                0
+                1
+              ];
+              program = lib.getExe pkgs.delta;
+              merge-args = [
+                "--diff-so-fancy"
+                "--file-transformation"
+                "s:tmp/jj-diff.*/(left|right)::"
+                "$left"
+                "$right"
+              ];
+            };
 
-            program = lib.getExe pkgs.delta;
-
-            merge-args = [
-              "--diff-so-fancy"
-              "--file-transformation"
-              "s:tmp/jj-diff.*/(left|right)::"
-              "$left"
-              "$right"
-            ];
+            diffconflicts = {
+              program = "nvim";
+              merge-args = [
+                "-c"
+                "let g:jj_diffconflicts_marker_length=$marker_length"
+                "-c"
+                "JJDiffConflicts!"
+                "$output"
+                "$base"
+                "$left"
+                "$right"
+              ];
+              merge-tool-edits-conflict-markers = true;
+            };
           };
 
           ui = {
             default-command = "log";
-
             diff-editor = [
               "nvim"
               "-c"
               "DiffEditor $left $right $output"
             ];
-
             diff-formatter = "delta";
             diff-tool = "delta";
-
             graph.style = "square";
-
+            merge-editor = "diffconflicts";
             pager = "delta";
-
             show-cryptographic-signatures = true;
           };
 
