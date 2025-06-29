@@ -6,12 +6,10 @@
 {
   perSystem =
     {
-      inputs',
+      pkgs,
       ...
     }:
     let
-      inherit (inputs'.neovim-nightly-overlay.packages) neovim;
-
       excludedRtpPlugins = [
         # "ftplugin.vim"
         "indent.vim"
@@ -35,7 +33,7 @@
       postInstallCommands = map (target: "rm -f $out/share/nvim/runtime/${target}") excludedRtpPlugins;
     in
     {
-      packages.neovim-unwrapped = neovim.overrideAttrs (oa: {
+      packages.neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oa: {
         postInstall = ''
           ${oa.postInstall or ""}
           ${builtins.concatStringsSep "\n" postInstallCommands}
