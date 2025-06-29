@@ -42,6 +42,20 @@
       ...
     }:
     let
+      jj-lazymoji =
+        name: command:
+        pkgs.writeShellApplication {
+          name = "jj-lazymoji-${name}";
+
+          runtimeInputs = [ pkgs.lazymoji ];
+
+          text = ''
+            set -euo pipefail
+
+            jj ${command} -m "$(lazymoji)"
+          '';
+        };
+
       jj-pre-commit = pkgs.writeShellApplication {
         name = "jj-pre-commit";
 
@@ -59,20 +73,6 @@
           pre-commit run --from="$FROM" --to="$TO" "$@"
         '';
       };
-
-      jj-lazymoji =
-        name: command:
-        pkgs.writeShellApplication {
-          name = "jj-lazymoji-${name}";
-
-          runtimeInputs = [ pkgs.lazymoji ];
-
-          text = ''
-            set -euo pipefail
-
-            jj ${command} -m "$(lazymoji)"
-          '';
-        };
 
       utilExecFor = script: [
         "util"
@@ -125,11 +125,38 @@
               "heads(::to & mutable() & ~description(exact:\"\") & (~empty() | merges()))";
           };
 
+          merge-tools.delta = {
+            diff-expected-exit-codes = [
+              0
+              1
+            ];
+
+            program = lib.getExe pkgs.delta;
+
+            merge-args = [
+              "--diff-so-fancy"
+              "--file-transformation"
+              "s:tmp/jj-diff.*/(left|right)::"
+              "$left"
+              "$right"
+            ];
+          };
+
           ui = {
             default-command = "log";
-            diff-editor = ":builtin";
+
+            diff-editor = [
+              "nvim"
+              "-c"
+              "DiffEditor $left $right $output"
+            ];
+
+            diff-formatter = "delta";
+            diff-tool = "delta";
             graph.style = "square";
-            pager = ":builtin";
+
+            pager = "delta";
+
             show-cryptographic-signatures = true;
           };
 
