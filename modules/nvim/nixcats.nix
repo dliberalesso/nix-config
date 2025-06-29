@@ -119,6 +119,7 @@
               general = with pkgs.vimPlugins; [
                 catppuccin-nvim
                 hunk-nvim
+                pkgs.neovimPlugins.jj-diffconflicts
                 mini-nvim
                 nvim-lspconfig
                 vim-startuptime

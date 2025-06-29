@@ -157,6 +157,11 @@ require("lze").load({
     after = function(plugin) require("hunk").setup() end,
   },
   {
+    "jj-diffconflicts",
+    cmd = { "JJDiffConflicts" },
+    -- after = function(plugin) require("jj-diffconflicts").setup() end,
+  },
+  {
     "blink.cmp",
     enabled = nixCats("general") or false,
     event = "DeferredUIEnter",

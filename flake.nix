@@ -66,6 +66,11 @@
       };
     };
 
+    plugins-jj-diffconflicts = {
+      url = "github:rafikdraoui/jj-diffconflicts";
+      flake = false;
+    };
+
     plugins-wezterm-types = {
       url = "github:gonstoll/wezterm-types";
       flake = false;
