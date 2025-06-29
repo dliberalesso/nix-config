@@ -153,6 +153,7 @@
 
             diff-formatter = "delta";
             diff-tool = "delta";
+
             graph.style = "square";
 
             pager = "delta";
