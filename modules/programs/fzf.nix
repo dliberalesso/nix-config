@@ -42,29 +42,21 @@
       defaultCommand = "${fd} --type f";
     in
     {
-      programs = {
-        fish.plugins = [
-          {
-            inherit (pkgs.fishPlugins.fzf-fish) name src;
-          }
+      programs.fzf = {
+        enable = true;
+
+        inherit defaultCommand;
+        defaultOptions = [ "--height 50%" ];
+
+        fileWidgetCommand = defaultCommand;
+        fileWidgetOptions = [
+          "--preview '${bat} --plain --line-range=:200 {}'"
         ];
 
-        fzf = {
-          enable = true;
-
-          inherit defaultCommand;
-          defaultOptions = [ "--height 50%" ];
-
-          fileWidgetCommand = defaultCommand;
-          fileWidgetOptions = [
-            "--preview '${bat} --plain --line-range=:200 {}'"
-          ];
-
-          changeDirWidgetCommand = "${fd} --type d";
-          changeDirWidgetOptions = [
-            "--preview '${eza} --tree --icons | head -200'"
-          ];
-        };
+        changeDirWidgetCommand = "${fd} --type d";
+        changeDirWidgetOptions = [
+          "--preview '${eza} --tree --icons | head -200'"
+        ];
       };
     };
 }
