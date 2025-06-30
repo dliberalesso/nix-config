@@ -118,8 +118,10 @@
             optionalPlugins = {
               general = with pkgs.vimPlugins; [
                 catppuccin-nvim
+                nui-nvim
                 hunk-nvim
                 pkgs.neovimPlugins.jj-diffconflicts
+                vim-jjdescription
                 mini-nvim
                 nvim-lspconfig
                 vim-startuptime
@@ -148,7 +150,6 @@
               p.jsregexp
               p.lze
               p.lzextras
-              p.nui-nvim
             ];
 
             optionalLuaPreInit.general = [ "vim.loader.enable()" ];

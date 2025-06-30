@@ -152,6 +152,10 @@ require("lze").load({
     end,
   },
   {
+    "nui.nvim",
+    on_require = "nui",
+  },
+  {
     "hunk.nvim",
     cmd = { "DiffEditor" },
     after = function(plugin) require("hunk").setup() end,
@@ -159,7 +163,10 @@ require("lze").load({
   {
     "jj-diffconflicts",
     cmd = { "JJDiffConflicts" },
-    -- after = function(plugin) require("jj-diffconflicts").setup() end,
+  },
+  {
+    "vim-jjdescription",
+    ft = "jjdescription",
   },
   {
     "blink.cmp",
