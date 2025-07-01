@@ -50,8 +50,6 @@
           runtimeInputs = [ pkgs.lazymoji ];
 
           text = ''
-            set -euo pipefail
-
             jj ${command} -m "$(lazymoji)"
           '';
         };
@@ -60,8 +58,6 @@
         name = "jj-pre-commit";
 
         text = ''
-          set -euo pipefail
-
           if [ "$(jj log --no-graph -r @ -T 'empty')" = "false" ]; then
             jj new
           fi
