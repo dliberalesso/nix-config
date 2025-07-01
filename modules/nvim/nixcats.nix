@@ -164,7 +164,7 @@
             settings = {
               suffix-path = true;
               suffix-LD = true;
-              wrapRc = false;
+              wrapRc = "UNWRAP_NVIM";
 
               unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/projects/nix-config/modules/nvim'";
 
