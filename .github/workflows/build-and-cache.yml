@@ -20,8 +20,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  packages_devshells:
-    name: "Packages, devShells & apps"
+  build-cache:
+    name: "Build & Cache"
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -44,50 +44,5 @@ jobs:
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
           extraPullNames: cachix, nix-community
 
-      - name: "Setting up packages..."
-        run: |
-          nix profile add nixpkgs#nix-fast-build # parallel nix builder
-
-      - name: "Running checks"
-        run: nix-fast-build --no-nom
-
-      - name: "Building packages"
-        run: nix-fast-build --skip-cached --no-nom --flake ".#packages"
-
-      - name: "Building devShells"
-        run: nix-fast-build --skip-cached --no-nom --flake ".#devShells"
-
-      - name: "Building apps"
-        run: nix-fast-build --skip-cached --no-nom --flake ".#apps"
-  nixosConfigurations:
-    needs: packages_devshells
-    strategy:
-      max-parallel: 2
-      matrix:
-        system: [testvm, nixwsl, nixavell]
-
-    name: ${{ matrix.system }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: "Install Nix"
-        uses: DeterminateSystems/determinate-nix-action@v3
-        with:
-          extra-conf: |
-            lazy-trees = true
-            extra-substituters = https://nix-community.cachix.org https://cachix.cachix.org https://catppuccin.cachix.org https://hyprland.cachix.org https://install.determinate.systems
-            extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc= cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM=
-
-      - name: "Install Cachix"
-        uses: cachix/cachix-action@v16
-        with:
-          name: dliberalesso
-          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
-          extraPullNames: cachix, nix-community
-
-      - name: "Build NixOS"
-        run: nix build .#nixosConfigurations.${{ matrix.system }}.config.system.build.toplevel -v -L
+      - name: "Build all flake outputs with omnix"
+        run: nix run .#omnix-ci
