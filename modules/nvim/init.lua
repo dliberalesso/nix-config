@@ -766,6 +766,11 @@ require("lze").load({
       },
     },
   },
+  {
+    "taplo",
+    enabled = nixCats("general") or false,
+    lsp = {},
+  },
 })
 
 require("snacks").setup({
