@@ -1,9 +1,15 @@
 {
-  unify =
-    let
-      NH_NO_CHECKS = 1;
+  unify.nixos =
+    {
+      hostConfig,
+      ...
+    }:
+    {
+      environment.variables = {
+        NH_NO_CHECKS = 1;
+      };
 
-      configFor = flakePath: {
+      programs = {
         enable = true;
 
         clean = {
@@ -11,34 +17,7 @@
           extraArgs = "--keep 3 --keep-since 8d";
         };
 
-        flake = flakePath;
+        flake = "/home/${hostConfig.user.username}/projects/nix-config";
       };
-    in
-    {
-      home =
-        {
-          config,
-          ...
-        }:
-        {
-          home.sessionVariables = { inherit NH_NO_CHECKS; };
-
-          programs = {
-            nh = configFor "${config.home.homeDirectory}/nix-config";
-          };
-        };
-
-      nixos =
-        {
-          hostConfig,
-          ...
-        }:
-        {
-          environment.variables = { inherit NH_NO_CHECKS; };
-
-          programs = {
-            nh = configFor "/home/${hostConfig.user.username}/nix-config";
-          };
-        };
     };
 }
