@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   ...
 }:
@@ -10,9 +11,17 @@ let
   username = "dli50";
 in
 {
-  unify.options.user = mkOption {
+  options.user = mkOption {
     type = types.attrsOf types.str;
 
     default = { inherit email name username; };
+  };
+
+  config.unify.options.user = mkOption {
+    type = types.attrsOf types.str;
+
+    internal = true;
+
+    default = config.user;
   };
 }
