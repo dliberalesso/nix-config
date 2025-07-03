@@ -44,5 +44,11 @@ lib.optionalAttrs (inputs.git-hooks ? flakeModule) {
           };
         };
       };
+
+      make-shells.default = {
+        inputsFrom = [
+          config.pre-commit.devShell
+        ];
+      };
     };
 }

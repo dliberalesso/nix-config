@@ -15,6 +15,12 @@ lib.optionalAttrs (inputs.treefmt-nix ? flakeModule) {
       ...
     }:
     {
+      make-shells.default = {
+        inputsFrom = [
+          config.treefmt.build.devShell
+        ];
+      };
+
       treefmt =
         lib.optionalAttrs (config ? flake-root) {
           inherit (config.flake-root) projectRootFile;
