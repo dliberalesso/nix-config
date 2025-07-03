@@ -53,6 +53,10 @@
   );
 
   unify.home =
+    {
+      hostConfig,
+      ...
+    }:
     let
       inherit (inputs.nixCats) utils;
     in
@@ -166,7 +170,7 @@
               suffix-LD = true;
               wrapRc = "UNWRAP_NVIM";
 
-              unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/projects/nix-config/modules/nvim'";
+              unwrappedCfgPath = "${hostConfig.flakePath}/modules/nvim";
 
               aliases = [
                 "vi"

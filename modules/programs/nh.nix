@@ -9,7 +9,7 @@
         NH_NO_CHECKS = 1;
       };
 
-      programs = {
+      programs.nh = {
         enable = true;
 
         clean = {
@@ -17,7 +17,7 @@
           extraArgs = "--keep 3 --keep-since 8d";
         };
 
-        flake = "/home/${hostConfig.user.username}/projects/nix-config";
+        flake = hostConfig.flakePath;
       };
     };
 }

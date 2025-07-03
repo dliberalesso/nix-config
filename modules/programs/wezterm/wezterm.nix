@@ -16,6 +16,7 @@
   unify.modules.gui.home =
     {
       config,
+      hostConfig,
       ...
     }:
     {
@@ -27,9 +28,9 @@
         let
           inherit (config.catppuccin.sources) wezterm;
           inherit (config.lib.file) mkOutOfStoreSymlink;
-          inherit (config.home) homeDirectory;
+          inherit (hostConfig) flakePath;
 
-          configPath = "${homeDirectory}/projects/nix-config/modules/programs/wezterm/wezterm.lua";
+          configPath = "${flakePath}/modules/programs/wezterm/wezterm.lua";
         in
         {
           "wezterm/plugin/catppuccin".source = wezterm;
