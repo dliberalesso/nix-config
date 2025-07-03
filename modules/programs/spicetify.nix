@@ -1,14 +1,8 @@
 {
   inputs,
-  lib,
   ...
 }:
-let
-  assertPresent = lib.asserts.assertMsg (
-    inputs.spicetify ? legacyPackages
-  ) "inputs.spicetify doesn't provide legacyPackages";
-in
-lib.optionalAttrs assertPresent {
+{
   unify.modules.gui.home =
     {
       pkgs,

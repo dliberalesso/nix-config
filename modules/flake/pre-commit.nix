@@ -1,9 +1,8 @@
 {
   inputs,
-  lib,
   ...
 }:
-lib.optionalAttrs (inputs.git-hooks ? flakeModule) {
+{
   imports = [
     inputs.git-hooks.flakeModule
   ];
