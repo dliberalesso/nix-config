@@ -1,9 +1,8 @@
 {
   inputs,
-  lib,
   ...
 }:
-lib.optionalAttrs (inputs.git-hooks ? flakeModule) {
+{
   imports = [
     inputs.git-hooks.flakeModule
   ];
@@ -43,6 +42,12 @@ lib.optionalAttrs (inputs.git-hooks ? flakeModule) {
             pass_filenames = false;
           };
         };
+      };
+
+      make-shells.default = {
+        inputsFrom = [
+          config.pre-commit.devShell
+        ];
       };
     };
 }

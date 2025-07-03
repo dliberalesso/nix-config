@@ -1,14 +1,8 @@
 {
   inputs,
-  lib,
   ...
 }:
-let
-  assertPresent = lib.asserts.assertMsg (
-    inputs.nixos-wsl ? nixosModules
-  ) "inputs.nixos-wsl doesn't provide nixosModules";
-in
-lib.optionalAttrs assertPresent {
+{
   unify.modules.wsl.nixos =
     {
       hostConfig,

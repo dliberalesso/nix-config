@@ -1,9 +1,8 @@
 {
   inputs,
-  lib,
   ...
 }:
-lib.optionalAttrs (inputs.treefmt-nix ? flakeModule) {
+{
   imports = [
     inputs.treefmt-nix.flakeModule
   ];
@@ -11,48 +10,52 @@ lib.optionalAttrs (inputs.treefmt-nix ? flakeModule) {
   perSystem =
     {
       config,
-      lib,
       ...
     }:
     {
-      treefmt =
-        lib.optionalAttrs (config ? flake-root) {
-          inherit (config.flake-root) projectRootFile;
-        }
-        // {
-          flakeCheck = !(config ? pre-commit);
+      make-shells.default = {
+        inputsFrom = [
+          config.treefmt.build.devShell
+        ];
+      };
 
-          settings.global.excludes = [
-            "*.age" # Age encrypted files
-          ];
+      treefmt = {
+        inherit (config.flake-root) projectRootFile;
 
-          programs = {
-            actionlint.enable = true;
+        # Pre-commit already does this
+        flakeCheck = false;
 
-            deadnix.enable = true;
-            nixfmt.enable = true;
-            statix.enable = true;
+        settings.global.excludes = [
+          "*.age" # Age encrypted files
+        ];
 
-            prettier = {
-              enable = true;
-              settings.editorconfig = true;
-            };
+        programs = {
+          actionlint.enable = true;
 
-            shellcheck.enable = true;
-            shfmt.enable = true;
+          deadnix.enable = true;
+          nixfmt.enable = true;
+          statix.enable = true;
 
-            stylua = {
-              enable = true;
-              settings = {
-                indent_type = "Spaces";
-                indent_width = 2;
-                call_parentheses = "Always";
-                collapse_simple_statement = "Always";
-              };
-            };
-
-            taplo.enable = true;
+          prettier = {
+            enable = true;
+            settings.editorconfig = true;
           };
+
+          shellcheck.enable = true;
+          shfmt.enable = true;
+
+          stylua = {
+            enable = true;
+            settings = {
+              indent_type = "Spaces";
+              indent_width = 2;
+              call_parentheses = "Always";
+              collapse_simple_statement = "Always";
+            };
+          };
+
+          taplo.enable = true;
         };
+      };
     };
 }
