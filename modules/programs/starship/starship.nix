@@ -74,6 +74,10 @@
 
             custom.vcs = {
               command = "all";
+              detect_folders = [
+                ".git"
+                ".jj"
+              ];
               format = "($output )";
               ignore_timeout = true;
               require_repo = true;
