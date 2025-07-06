@@ -24,7 +24,7 @@ rebuild:
 
 # Run GC and optmise Nix Store
 clean:
-  @nh clean all
+  @nh clean all --nogcroots
   @sudo nix-store --optimise
 
 # Verify and repair the Nix Store
