@@ -70,6 +70,16 @@
         '';
       };
 
+      jj-squash-and-pre-commit = pkgs.writeShellApplication {
+        name = "jj-squash-and-pre-commit";
+
+        text = ''
+          jj squash
+
+          ${lib.getExe jj-pre-commit}
+        '';
+      };
+
       utilExecFor = script: [
         "util"
         "exec"
@@ -92,6 +102,8 @@
             "dm-" = utilExecFor (jj-lazymoji "dmm" "describe -r @-");
 
             pre-commit = utilExecFor jj-pre-commit;
+
+            sq = utilExecFor jj-squash-and-pre-commit;
 
             tug = [
               "bookmark"
