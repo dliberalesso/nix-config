@@ -7,18 +7,16 @@ update:
 
 # Diff flake.lock
 diff:
-  @git diff ':!flake.lock'
+  @jj diff 'flake.lock'
 
 # Load the flake in a REPL with debug enabled
 debug:
-  @git add *
   @sd "debug = false" "debug = true" ./modules/flake/default.nix
   @nix repl .
   @sd "debug = true" "debug = false" ./modules/flake/default.nix
 
 # Rebuild and Switch NixOS
 rebuild:
-  @git add *
   @nh os switch . --ask
   @if [ "$HOSTNAME" == "nixWSL" ]; then just wezterm; fi
 
