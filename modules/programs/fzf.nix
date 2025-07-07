@@ -1,16 +1,23 @@
 {
-  unify.nixos.nixpkgs.overlays = [
-    (_: prev: {
-      fzf = prev.fzf.overrideAttrs (oa: {
-        postInstall = ''
-          ${oa.postInstall or ""}
-          rm -rf $out/share/nvim/
-        '';
-      });
-    })
-  ];
+  moduleWithSystem,
+  ...
+}:
+{
+  perSystem.wrapper-manager.fzf =
+    {
+      pkgs,
+      ...
+    }:
+    {
+      basePackage = pkgs.fzf;
 
-  unify.home =
+      postBuild = ''
+        rm -rf $out/share/{nvim,vim-plugins}
+      '';
+    };
+
+  unify.home = moduleWithSystem (
+    { config }:
     {
       lib,
       pkgs,
@@ -27,6 +34,8 @@
       programs.fzf = {
         enable = true;
 
+        package = config.wrapper-manager.fzf;
+
         inherit defaultCommand;
         defaultOptions = [ "--height 50%" ];
 
@@ -40,5 +49,6 @@
           "--preview '${eza} --tree --icons | head -200'"
         ];
       };
-    };
+    }
+  );
 }

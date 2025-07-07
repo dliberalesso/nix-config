@@ -1,21 +1,21 @@
 {
-  unify.nixos.nixpkgs.overlays = [
-    (_: prev: {
-      jujutsu = prev.jujutsu.overrideAttrs (oa: {
-        nativeBuildInputs = (oa.nativeBuildInputs or [ ]) ++ [
-          prev.makeBinaryWrapper
-        ];
+  moduleWithSystem,
+  ...
+}:
+{
+  perSystem.wrapper-manager.jujutsu =
+    {
+      pkgs,
+      ...
+    }:
+    {
+      basePackage = pkgs.jujutsu;
 
-        postFixup = ''
-          ${oa.postFixup or ""}
-          wrapProgram $out/bin/jj \
-            --prefix PATH : ${prev.lib.makeBinPath [ prev.watchman ]}
-        '';
-      });
-    })
-  ];
+      pathAdd = [ pkgs.watchman ];
+    };
 
-  unify.home =
+  unify.home = moduleWithSystem (
+    { config }:
     {
       hostConfig,
       lib,
@@ -69,10 +69,10 @@
       ];
     in
     {
-      home.packages = [ pkgs.jjui ];
-
       programs.jujutsu = {
         enable = true;
+
+        package = config.wrapper-manager.jujutsu;
 
         settings = {
           aliases = {
@@ -166,5 +166,6 @@
           snapshot.max-new-file-size = "15M";
         };
       };
-    };
+    }
+  );
 }
