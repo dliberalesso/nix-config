@@ -1,38 +1,19 @@
 {
-  moduleWithSystem,
-  ...
-}:
-{
-  perSystem =
-    {
-      lib,
-      pkgs,
-      ...
-    }:
-    {
-      packages.jujutsu = pkgs.jujutsu.overrideAttrs (oa: {
+  unify.nixos.nixpkgs.overlays = [
+    (_: prev: {
+      jujutsu = prev.jujutsu.overrideAttrs (oa: {
         nativeBuildInputs = (oa.nativeBuildInputs or [ ]) ++ [
-          pkgs.makeBinaryWrapper
+          prev.makeBinaryWrapper
         ];
 
         postFixup = ''
           ${oa.postFixup or ""}
           wrapProgram $out/bin/jj \
-            --prefix PATH : ${lib.makeBinPath [ pkgs.watchman ]}
+            --prefix PATH : ${prev.lib.makeBinPath [ prev.watchman ]}
         '';
       });
-    };
-
-  unify.nixos = moduleWithSystem (
-    { config }:
-    {
-      nixpkgs.overlays = [
-        (_: _: {
-          inherit (config.packages) jujutsu;
-        })
-      ];
-    }
-  );
+    })
+  ];
 
   unify.home =
     {

@@ -1,32 +1,14 @@
 {
-  moduleWithSystem,
-  ...
-}:
-{
-  perSystem =
-    {
-      pkgs,
-      ...
-    }:
-    {
-      packages.fzf = pkgs.fzf.overrideAttrs (oa: {
+  unify.nixos.nixpkgs.overlays = [
+    (_: prev: {
+      fzf = prev.fzf.overrideAttrs (oa: {
         postInstall = ''
           ${oa.postInstall or ""}
           rm -rf $out/share/nvim/
         '';
       });
-    };
-
-  unify.nixos = moduleWithSystem (
-    { config }:
-    {
-      nixpkgs.overlays = [
-        (_: _: {
-          inherit (config.packages) fzf;
-        })
-      ];
-    }
-  );
+    })
+  ];
 
   unify.home =
     {

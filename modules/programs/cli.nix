@@ -9,6 +9,8 @@
     fd.enable = true;
     jq.enable = true;
     ripgrep.enable = true;
+    ripgrep-all.enable = true;
     zellij.enable = true;
+    yazi.enable = true;
   };
 }

@@ -1,56 +1,44 @@
 {
   inputs,
-  moduleWithSystem,
   ...
 }:
 {
-  perSystem =
-    {
-      pkgs,
-      ...
-    }:
-    let
-      excludedRtpPlugins = [
-        # "ftplugin.vim"
-        "indent.vim"
-        "menu.vim"
-        "mswin.vim"
-        "plugin/gzip.vim"
-        "plugin/matchit.vim"
-        "plugin/matchparen.vim"
-        "plugin/netrwPlugin.vim"
-        "plugin/osc52.lua"
-        "plugin/rplugin.vim"
-        "plugin/rplugin.vim.orig"
-        "plugin/spellfile.vim"
-        "plugin/tohtml.vim"
-        "plugin/tohtml.lua"
-        "plugin/tutor.vim"
-        "plugin/tarPlugin.vim"
-        "plugin/zipPlugin.vim"
-      ];
+  unify.nixos.nixpkgs.overlays = [
+    (
+      _: prev:
+      let
+        excludedRtpPlugins = [
+          # "ftplugin.vim"
+          "indent.vim"
+          "menu.vim"
+          "mswin.vim"
+          "plugin/gzip.vim"
+          "plugin/matchit.vim"
+          "plugin/matchparen.vim"
+          "plugin/netrwPlugin.vim"
+          "plugin/osc52.lua"
+          "plugin/rplugin.vim"
+          "plugin/rplugin.vim.orig"
+          "plugin/spellfile.vim"
+          "plugin/tohtml.vim"
+          "plugin/tohtml.lua"
+          "plugin/tutor.vim"
+          "plugin/tarPlugin.vim"
+          "plugin/zipPlugin.vim"
+        ];
 
-      postInstallCommands = map (target: "rm -f $out/share/nvim/runtime/${target}") excludedRtpPlugins;
-    in
-    {
-      packages.neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oa: {
-        postInstall = ''
-          ${oa.postInstall or ""}
-          ${builtins.concatStringsSep "\n" postInstallCommands}
-        '';
-      });
-    };
-
-  unify.nixos = moduleWithSystem (
-    { config }:
-    {
-      nixpkgs.overlays = [
-        (_: _: {
-          inherit (config.packages) neovim-unwrapped;
-        })
-      ];
-    }
-  );
+        postInstallCommands = map (target: "rm -f $out/share/nvim/runtime/${target}") excludedRtpPlugins;
+      in
+      {
+        neovim-unwrapped = prev.neovim-unwrapped.overrideAttrs (oa: {
+          postInstall = ''
+            ${oa.postInstall or ""}
+            ${builtins.concatStringsSep "\n" postInstallCommands}
+          '';
+        });
+      }
+    )
+  ];
 
   unify.home =
     {

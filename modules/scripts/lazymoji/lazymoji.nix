@@ -1,33 +1,15 @@
 {
-  moduleWithSystem,
-  ...
-}:
-{
-  perSystem =
-    {
-      pkgs,
-      ...
-    }:
-    {
-      packages.lazymoji = pkgs.writeShellApplication {
+  unify.nixos.nixpkgs.overlays = [
+    (_: prev: {
+      lazymoji = prev.writeShellApplication {
         name = "lazymoji";
 
         runtimeInputs = builtins.attrValues {
-          inherit (pkgs) git gum;
+          inherit (prev) git gum;
         };
 
         text = builtins.readFile ./lazymoji.sh;
       };
-    };
-
-  unify.nixos = moduleWithSystem (
-    { config }:
-    {
-      nixpkgs.overlays = [
-        (_: _: {
-          inherit (config.packages) lazymoji;
-        })
-      ];
-    }
-  );
+    })
+  ];
 }

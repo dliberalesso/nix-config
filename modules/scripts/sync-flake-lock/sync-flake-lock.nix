@@ -20,23 +20,10 @@
       };
     };
 
-  unify.nixos = moduleWithSystem (
+  unify.home = moduleWithSystem (
     { config }:
     {
-      nixpkgs.overlays = [
-        (_: _: {
-          inherit (config.packages) sync-flake-lock;
-        })
-      ];
+      home.packages = [ config.packages.sync-flake-lock ];
     }
   );
-
-  unify.home =
-    {
-      pkgs,
-      ...
-    }:
-    {
-      home.packages = [ pkgs.sync-flake-lock ];
-    };
 }
