@@ -1,18 +1,79 @@
 {
   perSystem =
     {
-      pkgs,
+      config,
       ...
     }:
     {
-      overlayAttrs = {
-        fzf = pkgs.fzf.overrideAttrs (oa: {
-          postInstall = ''
-            ${oa.postInstall or ""}
-            rm -rf $out/share/{nvim,vim-plugins}
-          '';
-        });
-      };
+      overlayAttrs.fzf = config.wrappers.fzf.wrapped;
+
+      packages.fzf = config.wrappers.fzf.wrapped;
+
+      wrappers.fzf =
+        {
+          lib,
+          perSystem,
+          pkgs,
+          ...
+        }:
+        let
+          inherit (lib)
+            getExe
+            importJSON
+            mapAttrsToList
+            pipe
+            ;
+
+          # TODO: Colorscheme // catppuccin mocha mauve.
+          scheme = {
+            "bg+" = "surface0";
+            bg = "base";
+            spinner = "rosewater";
+            hl = "mauve";
+            fg = "text";
+            header = "mauve";
+            info = "mauve";
+            pointer = "mauve";
+            marker = "mauve";
+            "fg+" = "text";
+            prompt = "mauve";
+            "hl+" = "mauve";
+          };
+
+          inherit (perSystem.inputs'.catppuccin.packages) palette;
+
+          renderedColors = pipe palette [
+            (s: (importJSON "${s}/palette.json").mocha.colors)
+            (p: builtins.mapAttrs (_: c: p.${c}.hex) scheme)
+            (c: mapAttrsToList (n: v: "${n}:${v}") c)
+            (l: builtins.concatStringsSep "," l)
+          ];
+
+          env = {
+            FZF_ALT_C_COMMAND.value = "${getExe pkgs.fd} --type d";
+            FZF_ALT_C_OPTS.value = "--preview '${getExe pkgs.eza} --tree --icons | head -200'";
+            FZF_CTRL_T_COMMAND.value = "${getExe pkgs.fd} --type f";
+            FZF_CTRL_T_OPTS.value = "--preview '${getExe pkgs.bat} --plain --line-range=:200 {}'";
+            FZF_DEFAULT_COMMAND.value = "${getExe pkgs.fd} --type f";
+            FZF_DEFAULT_OPTS.value = "--height 50% --color ${renderedColors}";
+          };
+        in
+        {
+          basePackage = pkgs.fzf.overrideAttrs (oa: {
+            postInstall = ''
+              ${oa.postInstall or ""}
+              rm -rf $out/share/{nvim,vim-plugins}
+            '';
+          });
+
+          inherit env;
+
+          overrideAttrs = oa: {
+            passthru = oa.passthru // {
+              inherit env;
+            };
+          };
+        };
     };
 
   unify.home =
@@ -21,29 +82,13 @@
       pkgs,
       ...
     }:
-    let
-      bat = lib.getExe pkgs.bat;
-      eza = lib.getExe pkgs.eza;
-      fd = lib.getExe pkgs.fd;
-
-      defaultCommand = "${fd} --type f";
-    in
     {
-      programs.fzf = {
-        enable = true;
+      home.packages = [ pkgs.fzf ];
 
-        inherit defaultCommand;
-        defaultOptions = [ "--height 50%" ];
+      home.sessionVariables = builtins.mapAttrs (_: v: v.value) pkgs.fzf.passthru.env;
 
-        fileWidgetCommand = defaultCommand;
-        fileWidgetOptions = [
-          "--preview '${bat} --plain --line-range=:200 {}'"
-        ];
-
-        changeDirWidgetCommand = "${fd} --type d";
-        changeDirWidgetOptions = [
-          "--preview '${eza} --tree --icons | head -200'"
-        ];
-      };
+      programs.fish.interactiveShellInit = lib.mkOrder 200 ''
+        ${lib.getExe pkgs.fzf} --fish | source
+      '';
     };
 }
