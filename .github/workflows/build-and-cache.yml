@@ -34,6 +34,7 @@ jobs:
         with:
           extra-conf: |
             lazy-trees = true
+            experimental-features = pipe-operators
             extra-substituters = https://nix-community.cachix.org https://cachix.cachix.org https://catppuccin.cachix.org https://hyprland.cachix.org https://install.determinate.systems
             extra-trusted-public-keys = nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc= cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM=
 
@@ -43,6 +44,9 @@ jobs:
           name: dliberalesso
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
           extraPullNames: cachix, nix-community
+
+      - name: "Prefetching inputs"
+        run: nix flake prefetch-inputs
 
       - name: "Build all flake outputs with omnix"
         run: nix run .#omnix-ci
