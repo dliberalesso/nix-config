@@ -12,7 +12,7 @@ diff:
 # Load the flake in a REPL with debug enabled
 debug:
   @sd "debug = false" "debug = true" ./modules/flake/default.nix
-  @nix repl .
+  @nix repl
   @sd "debug = true" "debug = false" ./modules/flake/default.nix
 
 # Rebuild and Switch NixOS
