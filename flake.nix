@@ -99,5 +99,7 @@
         home-manager.follows = "home-manager";
       };
     };
+
+    wrapper-manager.url = "github:viperML/wrapper-manager";
   };
 }

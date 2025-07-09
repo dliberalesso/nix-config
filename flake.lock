@@ -349,7 +349,8 @@
         "plugins-wezterm-types": "plugins-wezterm-types",
         "spicetify": "spicetify",
         "treefmt-nix": "treefmt-nix",
-        "unify": "unify"
+        "unify": "unify",
+        "wrapper-manager": "wrapper-manager"
       }
     },
     "spicetify": {
@@ -432,6 +433,21 @@
       "original": {
         "type": "git",
         "url": "https://codeberg.org/quasigod/unify.git"
+      }
+    },
+    "wrapper-manager": {
+      "locked": {
+        "lastModified": 1751998186,
+        "narHash": "sha256-np2RxS8tRz/jGfUSYKxzg7cCi4dS8PL8gutLZfPMbIY=",
+        "owner": "viperML",
+        "repo": "wrapper-manager",
+        "rev": "8ad2484b485acad0632cb0af15b5eb704e3c1d0a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "viperML",
+        "repo": "wrapper-manager",
+        "type": "github"
       }
     }
   },
