@@ -1,14 +1,19 @@
 {
-  unify.nixos.nixpkgs.overlays = [
-    (_: prev: {
-      fzf = prev.fzf.overrideAttrs (oa: {
-        postInstall = ''
-          ${oa.postInstall or ""}
-          rm -rf $out/share/nvim/
-        '';
-      });
-    })
-  ];
+  perSystem =
+    {
+      pkgs,
+      ...
+    }:
+    {
+      overlayAttrs = {
+        fzf = pkgs.fzf.overrideAttrs (oa: {
+          postInstall = ''
+            ${oa.postInstall or ""}
+            rm -rf $out/share/{nvim,vim-plugins}
+          '';
+        });
+      };
+    };
 
   unify.home =
     {

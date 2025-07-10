@@ -1,15 +1,22 @@
 {
-  unify.nixos.nixpkgs.overlays = [
-    (_: prev: {
-      lazymoji = prev.writeShellApplication {
-        name = "lazymoji";
+  perSystem =
+    {
+      pkgs,
+      ...
+    }:
+    {
+      make-shells.default.packages = [ pkgs.lazymoji ];
 
-        runtimeInputs = builtins.attrValues {
-          inherit (prev) git gum;
+      overlayAttrs = {
+        lazymoji = pkgs.writeShellApplication {
+          name = "lazymoji";
+
+          runtimeInputs = builtins.attrValues {
+            inherit (pkgs) git gum;
+          };
+
+          text = builtins.readFile ./lazymoji.sh;
         };
-
-        text = builtins.readFile ./lazymoji.sh;
       };
-    })
-  ];
+    };
 }

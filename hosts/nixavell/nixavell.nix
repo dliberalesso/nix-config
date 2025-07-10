@@ -1,6 +1,5 @@
 {
   config,
-  withSystem,
   ...
 }:
 let
@@ -32,15 +31,7 @@ in
       nixos = {
         imports = [ ./_filesystem.nix ];
 
-        nixpkgs = withSystem "x86_64-linux" (
-          {
-            system,
-            ...
-          }:
-          {
-            hostPlatform = { inherit system; };
-          }
-        );
+        nixpkgs.hostPlatform.system = "x86_64-linux";
 
         # Don't forget to set a password with ‘passwd’.
         users.users.${username} = {

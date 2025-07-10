@@ -1,19 +1,24 @@
 {
-  unify.nixos.nixpkgs.overlays = [
-    (_: prev: {
-      jujutsu = prev.jujutsu.overrideAttrs (oa: {
-        nativeBuildInputs = (oa.nativeBuildInputs or [ ]) ++ [
-          prev.makeBinaryWrapper
-        ];
+  perSystem =
+    {
+      pkgs,
+      ...
+    }:
+    {
+      overlayAttrs = {
+        jujutsu = pkgs.jujutsu.overrideAttrs (oa: {
+          nativeBuildInputs = (oa.nativeBuildInputs or [ ]) ++ [
+            pkgs.makeBinaryWrapper
+          ];
 
-        postFixup = ''
-          ${oa.postFixup or ""}
-          wrapProgram $out/bin/jj \
-            --prefix PATH : ${prev.lib.makeBinPath [ prev.watchman ]}
-        '';
-      });
-    })
-  ];
+          postFixup = ''
+            ${oa.postFixup or ""}
+            wrapProgram $out/bin/jj \
+              --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.watchman ]}
+          '';
+        });
+      };
+    };
 
   unify.home =
     {
