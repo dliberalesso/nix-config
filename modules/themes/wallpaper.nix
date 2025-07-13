@@ -6,7 +6,7 @@ let
   inherit (lib) mkOption types;
 in
 {
-  unify.options.wallpaper = mkOption {
+  options.theme.wallpaper = mkOption {
     type = types.path;
 
     default = builtins.fetchurl {

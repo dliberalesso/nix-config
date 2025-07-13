@@ -1,7 +1,10 @@
 {
+  config,
+  ...
+}:
+{
   unify.modules.hyprde.home =
     {
-      hostConfig,
       lib,
       pkgs,
       ...
@@ -23,7 +26,7 @@
           };
 
           background = {
-            path = "${hostConfig.wallpaper}";
+            path = "${config.theme.wallpaper}";
             blur_passes = 3;
             blur_size = 8;
           };

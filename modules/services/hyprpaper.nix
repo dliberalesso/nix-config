@@ -1,25 +1,24 @@
 {
-  unify.modules.hyprde.home =
-    {
-      hostConfig,
-      ...
-    }:
-    let
-      inherit (hostConfig) wallpaper;
-    in
-    {
-      services.hyprpaper = {
-        enable = true;
+  config,
+  ...
+}:
+let
+  inherit (config.theme) wallpaper;
+in
+{
+  unify.modules.hyprde.home = {
+    services.hyprpaper = {
+      enable = true;
 
-        settings = {
-          ipc = "off";
+      settings = {
+        ipc = "off";
 
-          preload = [ "${wallpaper}" ];
+        preload = [ "${wallpaper}" ];
 
-          splash = false;
+        splash = false;
 
-          wallpaper = [ " , ${wallpaper}" ];
-        };
+        wallpaper = [ " , ${wallpaper}" ];
       };
     };
+  };
 }
