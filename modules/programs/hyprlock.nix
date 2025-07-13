@@ -1,9 +1,10 @@
 {
-  config,
+  moduleWithSystem,
   ...
 }:
 {
-  unify.modules.hyprde.home =
+  unify.modules.hyprde.home = moduleWithSystem (
+    { config }:
     {
       lib,
       pkgs,
@@ -90,5 +91,6 @@
           "${lib.getExe pkgs.uwsm} app -- hyprlock"
         ];
       };
-    };
+    }
+  );
 }
