@@ -15,4 +15,8 @@ in
       sha256 = "sha256:0mskzjkdxsfcap3rim0qwcx0mikhbirs36xw1p8n18nic88ypwb1";
     };
   };
+
+  # https://unsplash.com/photos/ZqLeQDjY6fY
+  # by Tom Gainor
+  config.theme.wallpaper = ./wallpaper.jpg;
 }
