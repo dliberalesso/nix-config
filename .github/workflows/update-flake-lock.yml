@@ -16,12 +16,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: "Install Nix"
+      - name: "Making Room for Nix to Thrive 🌱"
+        uses: wimpysworld/nothing-but-nix@main
+
+      - name: "Installing Nix"
         uses: DeterminateSystems/determinate-nix-action@v3
         with:
           extra-conf: lazy-trees = true
 
-      - name: "Update flake.lock"
+      - name: "Updating flake.lock"
         uses: DeterminateSystems/update-flake-lock@v26
         id: nix-update
         with:
@@ -37,7 +40,7 @@ jobs:
           pr-labels: build, dependencies, nix
           pr-title: "⬆️ build: Update flake.lock"
 
-      - name: Enable Pull Request Automerge
+      - name: Checking if Pull Request should Automerge
         if: (steps.nix-update.outputs.pull-request-operation == 'created' || steps.nix-update.outputs.pull-request-operation == 'updated') && (github.event_name == 'workflow_dispatch' || github.event.schedule == '0 7 * * 0')
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
