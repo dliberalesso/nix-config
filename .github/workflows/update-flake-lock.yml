@@ -25,7 +25,7 @@ jobs:
           extra-conf: lazy-trees = true
 
       - name: "Updating flake.lock"
-        uses: DeterminateSystems/update-flake-lock@v26
+        uses: DeterminateSystems/update-flake-lock@v27
         id: nix-update
         with:
           token: ${{ secrets.PAT }}
