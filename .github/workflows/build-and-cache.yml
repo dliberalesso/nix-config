@@ -31,6 +31,8 @@ jobs:
 
       - name: "Making Room for Nix to Thrive 🌱"
         uses: wimpysworld/nothing-but-nix@main
+        with:
+          hatchet-protocol: "carve"
 
       - name: "Installing Nix"
         uses: DeterminateSystems/determinate-nix-action@v3
