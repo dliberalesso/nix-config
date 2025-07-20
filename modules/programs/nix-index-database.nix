@@ -3,12 +3,12 @@
   ...
 }:
 let
-  inherit (inputs.nix-index-database) hmModules nixosModules;
+  inherit (inputs.nix-index-database) homeModules nixosModules;
 in
 {
   unify.home = {
     imports = [
-      hmModules.nix-index
+      homeModules.nix-index
     ];
 
     programs = {
