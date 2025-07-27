@@ -22,13 +22,12 @@
           ];
 
           git = {
-            paging =
-              {
-                colorArg = "always";
-              }
-              // lib.optionalAttrs config.programs.git.delta.enable {
-                pager = "${lib.getExe pkgs.delta} --dark --paging=never";
-              };
+            paging = {
+              colorArg = "always";
+            }
+            // lib.optionalAttrs config.programs.git.delta.enable {
+              pager = "${lib.getExe pkgs.delta} --dark --paging=never";
+            };
 
             parseEmoji = true;
           };
