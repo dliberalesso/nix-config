@@ -35,7 +35,8 @@
         # - Add the inputs to the system's legacy channels
         nixPath = [
           "nixpkgs-overlays=${nixpkgs-overlays}"
-        ] ++ (lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry);
+        ]
+        ++ (lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry);
 
         # - Add each flake input as a registry
         registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
