@@ -20,6 +20,7 @@
             just
             nh
             nix
+            npins
             ;
         };
       };

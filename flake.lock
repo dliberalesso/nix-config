@@ -298,6 +298,22 @@
         "type": "github"
       }
     },
+    "npins": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752068592,
+        "narHash": "sha256-D6dYAMk9eYpBriE07s8Q7M3WBT7uM9pz3RKIoNk+h7I=",
+        "owner": "andir",
+        "repo": "npins",
+        "rev": "afa9fe50cb0bff9ba7e9f7796892f71722b2180d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "andir",
+        "repo": "npins",
+        "type": "github"
+      }
+    },
     "plugins-jj-diffconflicts": {
       "flake": false,
       "locked": {
@@ -345,6 +361,7 @@
         "nixos-facter-modules": "nixos-facter-modules",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
+        "npins": "npins",
         "plugins-jj-diffconflicts": "plugins-jj-diffconflicts",
         "plugins-wezterm-types": "plugins-wezterm-types",
         "spicetify": "spicetify",
