@@ -1,4 +1,21 @@
 {
-  "pins": {},
+  "pins": {
+    "gemini-cli": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "google-gemini",
+        "repo": "gemini-cli"
+      },
+      "pre_releases": true,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.1.15",
+      "revision": "ed1483b06f630775bf75baedda8d475dac46dc0d",
+      "url": "https://api.github.com/repos/google-gemini/gemini-cli/tarball/refs/tags/v0.1.15",
+      "hash": "sha256-J9pDSMsSh7FVPD61FFV2Aes3G/Vj1j5ULn9dOr+sglQ="
+    }
+  },
   "version": 6
 }
