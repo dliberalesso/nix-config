@@ -11,12 +11,12 @@
 
         theme = {
           package = lib.mkForce pkgs.gnome-themes-extra;
-          name = "Adwaita-dark";
+          name = lib.mkForce "Adwaita-dark";
         };
 
         iconTheme = {
-          package = pkgs.adwaita-icon-theme;
-          name = "Adwaita";
+          package = lib.mkForce pkgs.adwaita-icon-theme;
+          name = lib.mkForce "Adwaita";
         };
       };
     };
