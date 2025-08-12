@@ -14,7 +14,7 @@ jobs:
       contents: read
       id-token: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: "Making Room for Nix to Thrive 🌱"
         uses: wimpysworld/nothing-but-nix@main
