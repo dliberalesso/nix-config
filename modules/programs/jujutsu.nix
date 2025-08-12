@@ -101,8 +101,8 @@
             ];
           };
 
-          core = {
-            fsmonitor = "watchman";
+          fsmonitor = {
+            backend = "watchman";
             watchman.register-snapshot-trigger = true;
           };
 
