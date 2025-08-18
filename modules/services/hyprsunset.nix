@@ -2,24 +2,20 @@
   unify.modules.hyprde.home = {
     services.hyprsunset = {
       enable = true;
+      extraArgs = [ "--identity" ];
 
-      transitions = {
-        sunrise = {
-          calendar = "*-*-* 06:00:00";
-          requests = [
-            [ "identity" ]
-          ];
-        };
-
-        sunset = {
-          calendar = "*-*-* 18:00:00";
-          requests = [
-            [
-              "temperature"
-              "5000"
-            ]
-          ];
-        };
+      settings = {
+        profile = [
+          {
+            time = "06:00";
+            temperature = 6500;
+            identity = true;
+          }
+          {
+            time = "18:00";
+            temperature = 5000;
+          }
+        ];
       };
     };
   };
