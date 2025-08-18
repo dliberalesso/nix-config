@@ -16,7 +16,7 @@
           };
 
           default_session.command = ''
-            ${pkgs.greetd.tuigreet}/bin/tuigreet \
+            ${lib.getExe pkgs.tuigreet} \
             --time \
             --remember \
             --asterisks \
