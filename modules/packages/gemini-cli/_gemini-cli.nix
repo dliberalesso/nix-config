@@ -22,7 +22,7 @@ buildNpmPackage (finalAttrs: {
     })
   ];
 
-  npmDepsHash = "sha256-5pFnxZFhVNxYLPJClYq+pe4wAX5623Y3hFj8lIq00+E=";
+  npmDepsHash = "sha256-Gh8OAkt+akbKcXINMO6r8LFgNklhiQ5GAf43H/7ReKI=";
 
   preConfigure = ''
     mkdir -p packages/generated
