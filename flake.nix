@@ -71,11 +71,6 @@
       };
     };
 
-    npins = {
-      url = "github:andir/npins";
-      flake = false;
-    };
-
     plugins-jj-diffconflicts = {
       url = "github:rafikdraoui/jj-diffconflicts";
       flake = false;
