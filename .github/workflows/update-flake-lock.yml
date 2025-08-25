@@ -26,9 +26,6 @@ jobs:
         with:
           extra-conf: lazy-trees = true
 
-      - name: "Updating npins"
-        run: nix run .#npins-update
-
       - name: "Updating flake.lock"
         uses: DeterminateSystems/update-flake-lock@v27
         id: nix-update
