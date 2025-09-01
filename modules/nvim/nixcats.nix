@@ -131,6 +131,7 @@
                 nvim-dap
                 nvim-dap-ui
                 nvim-dap-virtual-text
+                render-markdown-nvim
               ];
 
               lua = with pkgs; [

@@ -198,6 +198,7 @@ require("lze").load({
   {
     "nvim-treesitter",
     enabled = nixCats("general") or false,
+    dep_of = "render-markdown.nvim",
     -- cmd = { "" },
     event = "DeferredUIEnter",
     -- ft = "",
@@ -272,6 +273,7 @@ require("lze").load({
   {
     "mini.nvim",
     enabled = nixCats("general") or false,
+    dep_of = "render-markdown.nvim",
     event = "DeferredUIEnter",
     after = function(plugin)
       require("mini.ai").setup()
@@ -483,6 +485,22 @@ require("lze").load({
         format_on_save = { timeout_ms = 500 },
         formatters_by_ft = {
           lua = nixCats("lua") and { "stylua" } or nil,
+        },
+      })
+    end,
+  },
+  {
+    "render-markdown.nvim",
+    enabled = nixCats("general") or false,
+
+    cmd = "RenderMarkdown",
+    ft = "markdown",
+
+    after = function()
+      require("render-markdown").setup({
+        completions = {
+          blink = { enabled = true },
+          lsp = { enabled = true },
         },
       })
     end,
