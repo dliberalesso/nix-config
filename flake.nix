@@ -45,6 +45,15 @@
       inputs.flake-compat.follows = "";
     };
 
+    nix-ai-tools = {
+      url = "github:numtide/nix-ai-tools";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        blueprint.inputs.systems.follows = "systems";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -83,8 +92,13 @@
 
     spicetify = {
       url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        systems.follows = "systems";
+      };
     };
+
+    systems.url = "github:nix-systems/default";
 
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";

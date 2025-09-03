@@ -1,5 +1,29 @@
 {
   "nodes": {
+    "blueprint": {
+      "inputs": {
+        "nixpkgs": [
+          "nix-ai-tools",
+          "nixpkgs"
+        ],
+        "systems": [
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1755332143,
+        "narHash": "sha256-jaiZPA5ND7HPJ4U/bzp+BKGOYR14+rIe9tC6XA4jBHU=",
+        "owner": "numtide",
+        "repo": "blueprint",
+        "rev": "3c8bf84e28df2be19cc6623cb3ceeb6fc0839b91",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "blueprint",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": [
@@ -179,6 +203,30 @@
         "type": "github"
       }
     },
+    "nix-ai-tools": {
+      "inputs": {
+        "blueprint": "blueprint",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1756867454,
+        "narHash": "sha256-1Cm3DppVfK/K6LWoO7c30HBITLlwDceiyWAqdguyb3E=",
+        "owner": "numtide",
+        "repo": "nix-ai-tools",
+        "rev": "caec847f66ec5fc3c3459167c1b6cb9284ffc2cb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "nix-ai-tools",
+        "type": "github"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -340,6 +388,7 @@
         "import-tree": "import-tree",
         "make-shell": "make-shell",
         "nix": "nix",
+        "nix-ai-tools": "nix-ai-tools",
         "nix-index-database": "nix-index-database",
         "nixCats": "nixCats",
         "nixos-facter-modules": "nixos-facter-modules",
@@ -348,6 +397,7 @@
         "plugins-jj-diffconflicts": "plugins-jj-diffconflicts",
         "plugins-wezterm-types": "plugins-wezterm-types",
         "spicetify": "spicetify",
+        "systems": "systems",
         "treefmt-nix": "treefmt-nix",
         "unify": "unify"
       }
@@ -357,7 +407,9 @@
         "nixpkgs": [
           "nixpkgs"
         ],
-        "systems": "systems"
+        "systems": [
+          "systems"
+        ]
       },
       "locked": {
         "lastModified": 1756614537,
