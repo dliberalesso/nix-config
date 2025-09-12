@@ -19,6 +19,7 @@
           trash-cli
           wget
           xh
+          zip
           ;
       };
     };
