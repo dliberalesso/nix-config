@@ -1,21 +1,22 @@
-diff --git a/packages/core/src/tools/ripGrep.ts b/packages/core/src/tools/ripGrep.ts
-index 4bb386d5..9038c44a 100644
 --- a/packages/core/src/tools/ripGrep.ts
 +++ b/packages/core/src/tools/ripGrep.ts
-@@ -8,7 +8,7 @@ import fs from 'node:fs';
+@@ -8,42 +8,27 @@
  import path from 'node:path';
  import { EOL } from 'node:os';
  import { spawn } from 'node:child_process';
 -import { downloadRipGrep } from '@joshua.litt/get-ripgrep';
-+
  import type { ToolInvocation, ToolResult } from './tools.js';
  import { BaseDeclarativeTool, BaseToolInvocation, Kind } from './tools.js';
  import { SchemaValidator } from '../utils/schemaValidator.js';
-@@ -20,20 +20,11 @@ import { Storage } from '../config/storage.js';
+ import { makeRelative, shortenPath } from '../utils/paths.js';
+ import { getErrorMessage, isNodeError } from '../utils/errors.js';
+ import type { Config } from '../config/config.js';
+-import { fileExists } from '../utils/fileUtils.js';
+-import { Storage } from '../config/storage.js';
 
  const DEFAULT_TOTAL_MAX_MATCHES = 20000;
 
--function getRgPath() {
+-function getRgPath(): string {
 -  return path.join(Storage.getGlobalBinDir(), 'rg');
 -}
 -
@@ -34,81 +35,29 @@ index 4bb386d5..9038c44a 100644
  }
 
  /**
-@@ -44,12 +35,10 @@ export interface RipGrepToolParams {
-    * The regular expression pattern to search for in file contents
-    */
-   pattern: string;
--
-   /**
-    * The directory to search in (optional, defaults to current directory relative to root)
-    */
-   path?: string;
--
-   /**
-    * File pattern to include in the search (e.g. "*.js", "*.{ts,tsx}")
-    */
-@@ -107,11 +96,11 @@ class GrepToolInvocation extends BaseToolInvocation<
-       }
-     } catch (error: unknown) {
-       if (isNodeError(error) && error.code !== 'ENOENT') {
--        throw new Error(`Path does not exist: ${targetPath}`);
-+        throw new Error(
-+          `Failed to access path stats for ${targetPath}: ${error}`,
-+        );
-       }
--      throw new Error(
--        `Failed to access path stats for ${targetPath}: ${error}`,
--      );
-+      throw new Error(`Path does not exist: ${targetPath}`);
-     }
+  * Ensures `rg` is downloaded, or throws.
+  */
+ export async function ensureRgPath(): Promise<string> {
+-  if (await canUseRipgrep()) {
+-    return getRgPath();
+-  }
+-  throw new Error('Cannot use ripgrep.');
++  return 'rg';
+ }
 
-     return targetPath;
-@@ -198,11 +187,9 @@ class GrepToolInvocation extends BaseToolInvocation<
-       const matchTerm = matchCount === 1 ? 'match' : 'matches';
-
-       let llmContent = `Found ${matchCount} ${matchTerm} for pattern "${this.params.pattern}" ${searchLocationDescription}${this.params.include ? ` (filter: "${this.params.include}")` : ''}`;
--
-       if (wasTruncated) {
-         llmContent += ` (results limited to ${totalMaxMatches} matches for performance)`;
-       }
--
-       llmContent += `:\n---\n`;
-
-       for (const filePath in matchesByFile) {
-@@ -238,7 +225,6 @@ class GrepToolInvocation extends BaseToolInvocation<
-     if (!output) return results;
-
-     const lines = output.split(EOL);
--
-     for (const line of lines) {
-       if (!line.trim()) continue;
-
-@@ -260,7 +246,6 @@ class GrepToolInvocation extends BaseToolInvocation<
-       if (!isNaN(lineNumber)) {
-         const absoluteFilePath = path.resolve(basePath, filePathRaw);
-         const relativeFilePath = path.relative(basePath, absoluteFilePath);
--
-         results.push({
-           filePath: relativeFilePath || path.basename(absoluteFilePath),
-           lineNumber,
-@@ -311,7 +296,7 @@ class GrepToolInvocation extends BaseToolInvocation<
+ /**
+@@ -320,9 +305,8 @@
+     rgArgs.push(absolutePath);
 
      try {
+-      const rgPath = await ensureRgPath();
        const output = await new Promise<string>((resolve, reject) => {
--        const child = spawn(getRgPath(), rgArgs, {
+-        const child = spawn(rgPath, rgArgs, {
 +        const child = spawn('rg', rgArgs, {
            windowsHide: true,
          });
 
-@@ -323,7 +308,6 @@ class GrepToolInvocation extends BaseToolInvocation<
-             child.kill();
-           }
-         };
--
-         options.signal.addEventListener('abort', cleanup, { once: true });
-
-         child.stdout.on('data', (chunk) => stdoutChunks.push(chunk));
-@@ -333,7 +317,7 @@ class GrepToolInvocation extends BaseToolInvocation<
+@@ -344,7 +328,7 @@
            options.signal.removeEventListener('abort', cleanup);
            reject(
              new Error(
@@ -117,48 +66,3 @@ index 4bb386d5..9038c44a 100644
              ),
            );
          });
-@@ -369,9 +353,11 @@ class GrepToolInvocation extends BaseToolInvocation<
-    */
-   getDescription(): string {
-     let description = `'${this.params.pattern}'`;
-+
-     if (this.params.include) {
-       description += ` in ${this.params.include}`;
-     }
-+
-     if (this.params.path) {
-       const resolvedPath = path.resolve(
-         this.config.getTargetDir(),
-@@ -397,6 +383,7 @@ class GrepToolInvocation extends BaseToolInvocation<
-         description += ` across all workspace directories`;
-       }
-     }
-+
-     return description;
-   }
- }
-@@ -420,7 +407,7 @@ export class RipGrepTool extends BaseDeclarativeTool<
-         properties: {
-           pattern: {
-             description:
--              "The regular expression (regex) pattern to search for within file contents (e.g., 'function\\s+myFunction', 'import\\s+\\{.*\\}\\s+from\\s+.*').",
-+              "The regular expression (regex) pattern to search for within file contents (e.g., 'function\s+myFunction', 'import\s+\{.*\}\s+from\s+.*').",
-             type: 'string',
-           },
-           path: {
-@@ -471,11 +458,11 @@ export class RipGrepTool extends BaseDeclarativeTool<
-       }
-     } catch (error: unknown) {
-       if (isNodeError(error) && error.code !== 'ENOENT') {
--        throw new Error(`Path does not exist: ${targetPath}`);
-+        throw new Error(
-+          `Failed to access path stats for ${targetPath}: ${error}`,
-+        );
-       }
--      throw new Error(
--        `Failed to access path stats for ${targetPath}: ${error}`,
--      );
-+      throw new Error(`Path does not exist: ${targetPath}`);
-     }
-
-     return targetPath;

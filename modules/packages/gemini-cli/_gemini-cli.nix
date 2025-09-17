@@ -11,21 +11,20 @@
 
 buildNpmPackage (finalAttrs: {
   pname = "gemini-cli";
-  version = "0.5.0-preview-2";
+  version = "0.6.0-preview.2";
 
   src = fetchFromGitHub {
     owner = "google-gemini";
     repo = "gemini-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-oA/FTJyalFtelXMajvHCNrfiMV1jg+CurGIXByYXYUA=";
+    hash = "sha256-BvIAqIDlt3JA70Hl9MWyU3l2F+eo9MDvxBE8VKS5oEU=";
   };
 
   patches = [
     ./fix-ripgrep.patch
-    ./fix-imports.patch
   ];
 
-  npmDepsHash = "sha256-ggOJTubhsljvLg3wNWSIttzqHC6EePazTvXimOkAjRY=";
+  npmDepsHash = "sha256-yRQMu0Cw/ICRMpychcPUAcGqgAZjjQ2vjYJKqoocjjQ=";
 
   nativeBuildInputs = [
     pkg-config
@@ -41,6 +40,10 @@ buildNpmPackage (finalAttrs: {
     git init
     mkdir -p packages/generated
     echo "export const GIT_COMMIT_INFO = { commitHash: '${finalAttrs.src.rev}' };" > packages/generated/git-commit.ts
+  '';
+
+  postPatch = ''
+    cp ${./npm-shrinkwrap.json} ./package-lock.json
   '';
 
   installPhase = ''
