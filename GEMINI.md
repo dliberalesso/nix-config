@@ -42,13 +42,6 @@ Use `just` for common tasks:
 1.  Add the new dependency to the `inputs` in `flake.nix`.
 2.  Run `just update` or `nix flake update` to update `flake.lock`.
 
-### 3.4. Commit Messages
-
-- **Tooling:** All commits should be created using `jj` (Jujutsu).
-- **Convention:** We follow the `lazymoji` convention, which is a scope-less version of Conventional Commits with an emoji prefix.
-- **Implementation:** The `lazymoji.sh` script, integrated with `jj` via aliases (`cm`, `dm`), is the standard way to create commit messages. This interactive script ensures all commits adhere to the format: `EMOJI TYPE: Summary`.
-- **Example:** `✨ feat: Add new user authentication feature`
-
 ## 4. AI Collaboration Guidelines
 
 - **Infrastructure as Code (IaC):** Any change to a `.nix` file can alter the system configuration. Review all changes carefully.

@@ -1,9 +1,0 @@
---- a/packages/core/src/tools/ripGrep.ts
-+++ b/packages/core/src/tools/ripGrep.ts
-@@ -15,8 +15,6 @@
- import { getErrorMessage, isNodeError } from '../utils/errors.js';
- import type { Config } from '../config/config.js';
--import { fileExists } from '../utils/fileUtils.js';
--import { Storage } from '../config/storage.js';
-
- const DEFAULT_TOTAL_MAX_MATCHES = 20000;
