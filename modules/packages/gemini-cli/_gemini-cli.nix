@@ -1,50 +1,33 @@
 {
-  lib,
   buildNpmPackage,
   fetchFromGitHub,
-  nix-update-script,
-  ripgrep,
-  pkg-config,
+  lib,
   libsecret,
-  git,
+  pkg-config,
+  ripgrep,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "gemini-cli";
-  version = "0.6.0-preview.2";
+  version = "0.6.0-preview.4";
 
   src = fetchFromGitHub {
     owner = "google-gemini";
     repo = "gemini-cli";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BvIAqIDlt3JA70Hl9MWyU3l2F+eo9MDvxBE8VKS5oEU=";
+    hash = "sha256-HTFvCAH3IWhBLQBi9K/nUXUwyihellgylwPF8fCoyI8=";
   };
 
-  patches = [
-    ./fix-ripgrep.patch
-  ];
-
-  npmDepsHash = "sha256-yRQMu0Cw/ICRMpychcPUAcGqgAZjjQ2vjYJKqoocjjQ=";
+  npmDepsHash = "sha256-GJbKwbkhyZOmSCMCX0ZagDwNSGz/uLNcw7tk9ehb05w=";
 
   nativeBuildInputs = [
     pkg-config
-    git
   ];
 
   buildInputs = [
     ripgrep
     libsecret
   ];
-
-  preConfigure = ''
-    git init
-    mkdir -p packages/generated
-    echo "export const GIT_COMMIT_INFO = { commitHash: '${finalAttrs.src.rev}' };" > packages/generated/git-commit.ts
-  '';
-
-  postPatch = ''
-    cp ${./npm-shrinkwrap.json} ./package-lock.json
-  '';
 
   installPhase = ''
     runHook preInstall
@@ -66,8 +49,6 @@ buildNpmPackage (finalAttrs: {
 
     runHook postInstall
   '';
-
-  passthru.updateScript = nix-update-script { };
 
   meta = {
     description = "AI agent that brings the power of Gemini directly into your terminal";
