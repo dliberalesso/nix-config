@@ -23,8 +23,12 @@
         enable = true;
         defaultUser = hostConfig.user.username;
         startMenuLaunchers = false;
-        wslConf.automount.root = "/mnt";
-        wslConf.network.hostname = hostConfig.name;
+
+        wslConf = {
+          automount.root = "/mnt";
+          interop.appendWindowsPath = false;
+          network.hostname = hostConfig.name;
+        };
       };
     };
 }
