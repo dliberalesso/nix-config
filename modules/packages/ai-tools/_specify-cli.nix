@@ -1,23 +1,15 @@
 {
-  fetchFromGitHub,
   lib,
   python3Packages,
+  src,
 }:
-let
-  version = "0.0.53";
-in
 python3Packages.buildPythonApplication {
   pname = "specify-cli";
-  inherit version;
+  inherit (src) version;
 
   pyproject = true;
 
-  src = fetchFromGitHub {
-    owner = "github";
-    repo = "spec-kit";
-    rev = "v${version}";
-    sha256 = "sha256-jlaPE8HDAlmD+InMTLlAZZR0n5Dvfb026NapGDzXLRE=";
-  };
+  inherit src;
 
   nativeBuildInputs = with python3Packages; [
     hatchling

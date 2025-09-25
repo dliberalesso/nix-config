@@ -111,6 +111,8 @@
       buildTime = true;
     };
 
+    ## Neovim plugins
+
     plugins-jj-diffconflicts = {
       url = "github:rafikdraoui/jj-diffconflicts";
       flake = false;
