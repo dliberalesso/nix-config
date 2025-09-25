@@ -2,11 +2,10 @@
   unify.nixos =
     let
       allowed-users = [ "@wheel" ];
-      trusted-users = allowed-users;
     in
     {
       nix.settings = {
-        inherit allowed-users trusted-users;
+        inherit allowed-users;
 
         always-allow-substitutes = true;
 
@@ -15,12 +14,9 @@
         experimental-features = [
           "flakes"
           "nix-command"
-          "pipe-operators"
         ];
 
-        lazy-trees = true;
-
-        substituters = [
+        trusted-substituters = [
           "https://dliberalesso.cachix.org"
           "https://nix-community.cachix.org"
           "https://cachix.cachix.org"
@@ -31,6 +27,8 @@
           "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
           "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="
         ];
+
+        trusted-users = allowed-users;
       };
     };
 }

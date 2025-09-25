@@ -11,11 +11,24 @@
     );
 
   inputs = {
+
+    # Eval-time inputs
+
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    determinate = {
+      url = "github:DeterminateSystems/determinate";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nix.follows = "nix-src";
+        determinate-nixd-aarch64-darwin.follows = "";
+        determinate-nixd-aarch64-linux.follows = "";
+      };
     };
 
     flake-parts = {
@@ -50,7 +63,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix = {
+    nix-src = {
       url = "github:DeterminateSystems/nix-src";
       inputs = {
         nixpkgs.follows = "nixpkgs";
@@ -71,16 +84,6 @@
       };
     };
 
-    plugins-jj-diffconflicts = {
-      url = "github:rafikdraoui/jj-diffconflicts";
-      flake = false;
-    };
-
-    plugins-wezterm-types = {
-      url = "github:gonstoll/wezterm-types";
-      flake = false;
-    };
-
     spicetify = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -98,6 +101,20 @@
         flake-parts.follows = "flake-parts";
         home-manager.follows = "home-manager";
       };
+    };
+
+    # Build-time inputs
+
+    plugins-jj-diffconflicts = {
+      url = "github:rafikdraoui/jj-diffconflicts";
+      flake = false;
+      buildTime = true;
+    };
+
+    plugins-wezterm-types = {
+      url = "github:gonstoll/wezterm-types";
+      flake = false;
+      buildTime = true;
     };
   };
 }
