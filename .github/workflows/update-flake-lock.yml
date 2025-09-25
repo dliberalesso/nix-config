@@ -24,7 +24,13 @@ jobs:
       - name: "Installing Nix"
         uses: DeterminateSystems/determinate-nix-action@v3
         with:
-          extra-conf: lazy-trees = true
+          extra-conf: |
+            always-allow-substitutes = true
+            eval-cores = 0
+            lazy-trees = true
+            experimental-features = build-time-fetch-tree flakes nix-command parallel-eval pipe-operators
+            extra-substituters = https://dliberalesso.cachix.org https://nix-community.cachix.org https://cachix.cachix.org https://catppuccin.cachix.org https://hyprland.cachix.org https://install.determinate.systems
+            extra-trusted-public-keys = dliberalesso.cachix.org-1:7qs1S5Qd766dYFU86nVux/wRMZ8UEUbhn3Qxp/TwiOc= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc= cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM=
 
       - name: "Updating flake.lock"
         uses: DeterminateSystems/update-flake-lock@v27
