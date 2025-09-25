@@ -1,23 +1,19 @@
 {
   buildNpmPackage,
-  fetchFromGitHub,
   lib,
   pnpm,
+  src,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "nanocoder";
-  version = "1.11.3";
+  version = lib.strings.removePrefix "v" src.version;
 
-  src = fetchFromGitHub {
-    owner = "Nano-Collective";
-    repo = finalAttrs.pname;
-    rev = "v${finalAttrs.version}";
-    sha256 = "sha256-fSboZwmBKqyriMy4iEAWquzrVTI9sUiQpxqGvRfquEY=";
-    postFetch = ''
-      rm -f $out/pnpm-workspace.yaml
-    '';
-  };
+  inherit src;
+
+  postUnpack = ''
+    rm -f $out/pnpm-workspace.yaml
+  '';
 
   npmConfigHook = pnpm.configHook;
   npmDeps = finalAttrs.pnpmDeps;
