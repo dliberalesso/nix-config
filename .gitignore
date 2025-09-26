@@ -1,3 +1,4 @@
+.crush/logs
 .direnv/
 .pre-commit-config.yaml
 *.qcow2
