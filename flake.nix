@@ -95,6 +95,12 @@
 
     # Build-time inputs
 
+    npins = {
+      url = "github:andir/npins";
+      flake = false;
+      buildTime = true;
+    };
+
     plugins-jj-diffconflicts = {
       url = "github:rafikdraoui/jj-diffconflicts";
       flake = false;
