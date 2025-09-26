@@ -1,5 +1,21 @@
 {
   "pins": {
+    "crush": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "charmbracelet",
+        "repo": "crush"
+      },
+      "pre_releases": true,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.10.0",
+      "revision": "12b6f147c875b52145ce655673e353d4f12358f3",
+      "url": "https://api.github.com/repos/charmbracelet/crush/tarball/refs/tags/v0.10.0",
+      "hash": "sha256-VvjXY0x4gbnzLD2Ud88v9jCoU4sVlI2toCp42em/8vY="
+    },
     "gemini-cli": {
       "type": "GitRelease",
       "repository": {

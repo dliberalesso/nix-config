@@ -9,9 +9,20 @@
       ...
     }:
     {
-      packages = { inherit (pkgs) gemini-cli nanocoder specify-cli; };
+      packages = {
+        inherit (pkgs)
+          crush
+          gemini-cli
+          nanocoder
+          specify-cli
+          ;
+      };
 
       overlayAttrs = {
+        crush = pkgs.callPackage ./_crush.nix {
+          src = pins.crush { inherit pkgs; };
+        };
+
         gemini-cli = pkgs.callPackage ./_gemini-cli.nix {
           src = pins.gemini-cli { inherit pkgs; };
         };
@@ -33,6 +44,7 @@
     }:
     {
       home.packages = with pkgs; [
+        crush
         gemini-cli
         nanocoder
         specify-cli
