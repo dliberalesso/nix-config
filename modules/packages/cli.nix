@@ -8,6 +8,7 @@
       home.packages = builtins.attrValues {
         inherit (pkgs)
           dust
+          gitmoji-cli
           grex
           fselect
           hyperfine
@@ -17,6 +18,7 @@
           sd
           tokei
           trash-cli
+          unzip
           wget
           xh
           zip
