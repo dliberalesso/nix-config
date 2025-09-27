@@ -48,6 +48,22 @@
       "url": "https://api.github.com/repos/Nano-Collective/nanocoder/tarball/refs/tags/v1.11.3",
       "hash": "sha256-ES9EpMP0qNVeQjmFMvtzjVwpMeHmmulKeV9Secpx9Sg="
     },
+    "opencode": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "sst",
+        "repo": "opencode"
+      },
+      "pre_releases": true,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "submodules": false,
+      "version": "v0.12.1",
+      "revision": "c450549d0fb6c317816c8cc5cead121838122ce3",
+      "url": "https://api.github.com/repos/sst/opencode/tarball/refs/tags/v0.12.1",
+      "hash": "sha256-ZpxHLZIc9bBzPJyvDHMjuaTEzZsHwafoBihKxe8Pr3U="
+    },
     "specify-cli": {
       "type": "GitRelease",
       "repository": {
