@@ -27,10 +27,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.7.0-preview.1",
-      "revision": "b9e046de3423dc249fa1c1edec6318fc9fbf3870",
-      "url": "https://api.github.com/repos/google-gemini/gemini-cli/tarball/refs/tags/v0.7.0-preview.1",
-      "hash": "sha256-3LHmeFukJnFdR0BM0PJf1daU12+4swkt3XVYuTjUfV0="
+      "version": "v0.8.0-nightly.20250927.19400ba8",
+      "revision": "69433e8690cb87d936c8d98c50bf3cb7e10cfccb",
+      "url": "https://api.github.com/repos/google-gemini/gemini-cli/tarball/refs/tags/v0.8.0-nightly.20250927.19400ba8",
+      "hash": "sha256-7tUhgylUycROo8pE7tucKLxA6io1wPcqJmqZ9RzOEZo="
     },
     "nanocoder": {
       "type": "GitRelease",
