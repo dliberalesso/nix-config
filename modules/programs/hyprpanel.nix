@@ -49,8 +49,6 @@
           };
 
           theme = {
-            inherit name;
-
             bar.menus = {
               menu = {
                 battery = { inherit scaling; };
