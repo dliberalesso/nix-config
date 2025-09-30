@@ -22,7 +22,7 @@
           inherit src;
 
           node_modules = oa.node_modules.overrideAttrs {
-            outputHash = "sha256-YOTuzwo0ZjqVswW3bUu3pFJcmfl0X0Se8Z5jKg8/rQs=";
+            outputHash = "sha256-ZIwhqdwlUO61ZXDwgjvKTJAB312pJG8bfbIHJcjdX1w=";
           };
 
           meta = oa.meta // {
