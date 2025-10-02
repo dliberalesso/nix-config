@@ -23,6 +23,7 @@ in
           gui
           hyprde
           # irpf
+          podman
           laptop
           work
           ;
