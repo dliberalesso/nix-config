@@ -1,8 +1,42 @@
 {
   "nodes": {
+    "cachix": {
+      "inputs": {
+        "devenv": [
+          "nix-proxy-flake",
+          "devenv"
+        ],
+        "flake-compat": [
+          "nix-proxy-flake",
+          "flake-compat"
+        ],
+        "git-hooks": [
+          "nix-proxy-flake",
+          "git-hooks"
+        ],
+        "nixpkgs": [
+          "nix-proxy-flake",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1756385612,
+        "narHash": "sha256-+NU5MMhuPHHRyvZZWNFG7zt+leRSPsJu1MwhOUzkPUk=",
+        "owner": "cachix",
+        "repo": "cachix",
+        "rev": "dc24688cd67518c3711d511fa369c0f5a131063a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "cachix",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": [
+          "nix-proxy-flake",
           "nixpkgs"
         ]
       },
@@ -20,10 +54,68 @@
         "type": "github"
       }
     },
+    "devenv": {
+      "inputs": {
+        "cachix": [
+          "nix-proxy-flake",
+          "cachix"
+        ],
+        "flake-compat": [
+          "nix-proxy-flake",
+          "flake-compat"
+        ],
+        "flake-parts": [
+          "nix-proxy-flake",
+          "flake-parts"
+        ],
+        "git-hooks": [
+          "nix-proxy-flake",
+          "git-hooks"
+        ],
+        "nix": [
+          "nix-proxy-flake",
+          "nix-src"
+        ],
+        "nixpkgs": [
+          "nix-proxy-flake",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1759708398,
+        "narHash": "sha256-3p3nZy2xC0iJckGubQyIPKnwmuZ7tDlgIHH0ssJYg+o=",
+        "owner": "cachix",
+        "repo": "devenv",
+        "rev": "f6351d5ca43b5d8de07744574b49ebb98750eb9e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "devenv",
+        "type": "github"
+      }
+    },
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1747046372,
+        "narHash": "sha256-CIVLLkVgvHYbgI2UpXvIIBJ12HWgX+fjA8Xf8PUmqCY=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "9100a0f413b0c601e0533d1d94ffd501ce2e7885",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "flake-parts": {
       "inputs": {
         "nixpkgs-lib": [
-          "nixpkgs"
+          "nix-proxy-flake",
+          "nixpkgs-lib"
         ]
       },
       "locked": {
@@ -57,9 +149,16 @@
     },
     "git-hooks": {
       "inputs": {
-        "flake-compat": [],
-        "gitignore": "gitignore",
+        "flake-compat": [
+          "nix-proxy-flake",
+          "flake-compat"
+        ],
+        "gitignore": [
+          "nix-proxy-flake",
+          "gitignore"
+        ],
         "nixpkgs": [
+          "nix-proxy-flake",
           "nixpkgs"
         ]
       },
@@ -80,7 +179,7 @@
     "gitignore": {
       "inputs": {
         "nixpkgs": [
-          "git-hooks",
+          "nix-proxy-flake",
           "nixpkgs"
         ]
       },
@@ -101,6 +200,7 @@
     "home-manager": {
       "inputs": {
         "nixpkgs": [
+          "nix-proxy-flake",
           "nixpkgs"
         ]
       },
@@ -135,7 +235,10 @@
     },
     "make-shell": {
       "inputs": {
-        "flake-compat": []
+        "flake-compat": [
+          "nix-proxy-flake",
+          "flake-compat"
+        ]
       },
       "locked": {
         "lastModified": 1733933815,
@@ -154,6 +257,7 @@
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
+          "nix-proxy-flake",
           "nixpkgs"
         ]
       },
@@ -171,15 +275,46 @@
         "type": "github"
       }
     },
+    "nix-proxy-flake": {
+      "inputs": {
+        "cachix": "cachix",
+        "devenv": "devenv",
+        "flake-compat": "flake-compat",
+        "flake-parts": "flake-parts",
+        "flake-root": "flake-root",
+        "git-hooks": "git-hooks",
+        "gitignore": "gitignore",
+        "nix-src": "nix-src",
+        "nixpkgs": "nixpkgs",
+        "nixpkgs-lib": "nixpkgs-lib",
+        "treefmt-nix": "treefmt-nix"
+      },
+      "locked": {
+        "lastModified": 1759756328,
+        "narHash": "sha256-ZevLoBal6mBTwPlKipZ6VdDxVjkEW1QXRIQ0RaehsBw=",
+        "owner": "dliberalesso",
+        "repo": "nix-proxy-flake",
+        "rev": "9567655be9590085814d2c3a2d4e2131ba634db7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "dliberalesso",
+        "repo": "nix-proxy-flake",
+        "type": "github"
+      }
+    },
     "nix-src": {
       "inputs": {
         "flake-parts": [
+          "nix-proxy-flake",
           "flake-parts"
         ],
         "git-hooks-nix": [
+          "nix-proxy-flake",
           "git-hooks"
         ],
         "nixpkgs": [
+          "nix-proxy-flake",
           "nixpkgs"
         ],
         "nixpkgs-23-11": "nixpkgs-23-11",
@@ -231,8 +366,12 @@
     },
     "nixos-wsl": {
       "inputs": {
-        "flake-compat": [],
+        "flake-compat": [
+          "nix-proxy-flake",
+          "flake-compat"
+        ],
         "nixpkgs": [
+          "nix-proxy-flake",
           "nixpkgs"
         ]
       },
@@ -279,6 +418,24 @@
         "owner": "NixOS",
         "repo": "nixpkgs",
         "rev": "a62e6edd6d5e1fa0329b8653c801147986f8d446",
+        "type": "github"
+      }
+    },
+    "nixpkgs-lib": {
+      "locked": {
+        "dir": "lib",
+        "lastModified": 1759381078,
+        "narHash": "sha256-gTrEEp5gEspIcCOx9PD8kMaF1iEmfBcTbO0Jag2QhQs=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "7df7ff7d8e00218376575f0acdcc5d66741351ee",
+        "type": "github"
+      },
+      "original": {
+        "dir": "lib",
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
         "type": "github"
       }
     },
@@ -352,29 +509,49 @@
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
-        "flake-parts": "flake-parts",
-        "flake-root": "flake-root",
-        "git-hooks": "git-hooks",
+        "flake-parts": [
+          "nix-proxy-flake",
+          "flake-parts"
+        ],
+        "flake-root": [
+          "nix-proxy-flake",
+          "flake-root"
+        ],
+        "git-hooks": [
+          "nix-proxy-flake",
+          "git-hooks"
+        ],
         "home-manager": "home-manager",
         "import-tree": "import-tree",
         "make-shell": "make-shell",
         "nix-index-database": "nix-index-database",
-        "nix-src": "nix-src",
+        "nix-proxy-flake": "nix-proxy-flake",
+        "nix-src": [
+          "nix-proxy-flake",
+          "nix-src"
+        ],
         "nixCats": "nixCats",
         "nixos-facter-modules": "nixos-facter-modules",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": [
+          "nix-proxy-flake",
+          "nixpkgs"
+        ],
         "npins": "npins",
         "plugins-jj-diffconflicts": "plugins-jj-diffconflicts",
         "plugins-wezterm-types": "plugins-wezterm-types",
         "spicetify": "spicetify",
-        "treefmt-nix": "treefmt-nix",
+        "treefmt-nix": [
+          "nix-proxy-flake",
+          "treefmt-nix"
+        ],
         "unify": "unify"
       }
     },
     "spicetify": {
       "inputs": {
         "nixpkgs": [
+          "nix-proxy-flake",
           "nixpkgs"
         ],
         "systems": "systems"
@@ -411,6 +588,7 @@
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
+          "nix-proxy-flake",
           "nixpkgs"
         ]
       },
@@ -431,12 +609,14 @@
     "unify": {
       "inputs": {
         "flake-parts": [
+          "nix-proxy-flake",
           "flake-parts"
         ],
         "home-manager": [
           "home-manager"
         ],
         "nixpkgs": [
+          "nix-proxy-flake",
           "nixpkgs"
         ]
       },
