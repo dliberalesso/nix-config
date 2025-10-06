@@ -7,6 +7,8 @@
     {
       home.packages = builtins.attrValues {
         inherit (pkgs)
+          cachix
+          devenv
           dust
           gitmoji-cli
           grex
