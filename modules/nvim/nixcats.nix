@@ -178,6 +178,7 @@
 
             categories = {
               general = true;
+              elixir = true;
               go = true;
               lua = true;
               nix = true;

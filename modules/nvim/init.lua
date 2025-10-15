@@ -789,6 +789,11 @@ require("lze").load({
     enabled = nixCats("general") or false,
     lsp = {},
   },
+  {
+    "elixirls",
+    enabled = nixCats("elixir") or false,
+    lsp = { cmd = { "elixir-ls" } },
+  },
 })
 
 require("snacks").setup({
