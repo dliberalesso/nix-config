@@ -11,10 +11,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.8.1",
-      "revision": "a1cc5ac2b3b7101528bb8ec4e1eede4f08e88d0e",
-      "url": "https://api.github.com/repos/google-gemini/gemini-cli/tarball/refs/tags/v0.8.1",
-      "hash": "sha256-NuOlBFN1IVwXAfGQt6sIV0plOuVHS1hHKTFYMA5L1Ps="
+      "version": "v0.9.0",
+      "revision": "5e9f60c7ebbfb8494337334b79b30facb0465662",
+      "url": "https://api.github.com/repos/google-gemini/gemini-cli/tarball/refs/tags/v0.9.0",
+      "hash": "sha256-QvcC/QzotP1OhcOyZoNK5FkZwVKm4ZNfU5s3B9UKhc0="
     },
     "nanocoder": {
       "type": "GitRelease",
@@ -27,26 +27,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v1.13.0",
-      "revision": "764ee5f65876d70694967367ea066bf937d759b8",
-      "url": "https://api.github.com/repos/Nano-Collective/nanocoder/tarball/refs/tags/v1.13.0",
-      "hash": "sha256-Kf6+o/l9jlIVdd6IsvRBsHAo4wo1+prHqaKut8glqAU="
-    },
-    "opencode": {
-      "type": "GitRelease",
-      "repository": {
-        "type": "GitHub",
-        "owner": "sst",
-        "repo": "opencode"
-      },
-      "pre_releases": false,
-      "version_upper_bound": null,
-      "release_prefix": null,
-      "submodules": false,
-      "version": "v0.14.6",
-      "revision": "22a6849ff8f34ef9d3fab55a295fcfbb766f9d5a",
-      "url": "https://api.github.com/repos/sst/opencode/tarball/refs/tags/v0.14.6",
-      "hash": "sha256-L1B5N3nTYe65CFpVWshhZEpEC1zhHYkJ1WMGcVtS9Ec="
+      "version": "v1.13.7",
+      "revision": "12c0777bf41def47cc7e5fa7d84057bf8dd59cd4",
+      "url": "https://api.github.com/repos/Nano-Collective/nanocoder/tarball/refs/tags/v1.13.7",
+      "hash": "sha256-DJYc2Rp53KnTgDYiJoGfKRrwRa74fue8N2sMFh6ro7Q="
     },
     "specify-cli": {
       "type": "GitRelease",
@@ -59,11 +43,11 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.0.58",
-      "revision": "89f4b0b38a42996376c0f083d47281a4c9196761",
-      "url": "https://api.github.com/repos/github/spec-kit/tarball/refs/tags/v0.0.58",
-      "hash": "sha256-DwJX2T5I1WvXDhuDXk+upOim/Dlj7xW672SBQA2eFXA="
+      "version": "v0.0.69",
+      "revision": "3b000fce4de8ff8dbed8d2bff32d9eecabd8f908",
+      "url": "https://api.github.com/repos/github/spec-kit/tarball/refs/tags/v0.0.69",
+      "hash": "sha256-X27TAgpQmgOeJG4cxpcL0BqYDxiT9OdZeMZSgRsyJUA="
     }
   },
-  "version": 6
+  "version": 7
 }

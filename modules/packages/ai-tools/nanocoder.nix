@@ -28,7 +28,7 @@
           pnpmDeps = pkgs.pnpm.fetchDeps {
             inherit (finalAttrs) pname version src;
             fetcherVersion = 2;
-            hash = "sha256-k/G00UZd5S69aSX+Rvv4S2uTQfIPAxHg4sUejXcVOMo=";
+            hash = "sha256-kjN9yvvmDu5xRg+n229aqwGVH52+vSJ2Wd9Q37tD4wc=";
           };
 
           dontNpmPrune = true; # hangs forever on both Linux/darwin
