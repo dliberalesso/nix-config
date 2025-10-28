@@ -27,10 +27,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v1.13.7",
-      "revision": "12c0777bf41def47cc7e5fa7d84057bf8dd59cd4",
-      "url": "https://api.github.com/repos/Nano-Collective/nanocoder/tarball/refs/tags/v1.13.7",
-      "hash": "sha256-DJYc2Rp53KnTgDYiJoGfKRrwRa74fue8N2sMFh6ro7Q="
+      "version": "v1.14.0",
+      "revision": "6c30cf7f70358b64d924716b32f679f2157bb610",
+      "url": "https://api.github.com/repos/Nano-Collective/nanocoder/tarball/refs/tags/v1.14.0",
+      "hash": "sha256-LwJaGfgA/6vFOuCszZ+wlOSznGg+nq2EGB0DAvvDlpw="
     },
     "specify-cli": {
       "type": "GitRelease",
