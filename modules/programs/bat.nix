@@ -20,7 +20,10 @@
         extraPackages = builtins.attrValues {
           inherit (pkgs.bat-extras)
             batdiff
-            batgrep
+
+            # FIXME: https://github.com/NixOS/nixpkgs/issues/454391
+            # batgrep
+
             batman
             batpipe
             batwatch
