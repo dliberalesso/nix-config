@@ -11,10 +11,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.9.0",
-      "revision": "5e9f60c7ebbfb8494337334b79b30facb0465662",
-      "url": "https://api.github.com/repos/google-gemini/gemini-cli/tarball/refs/tags/v0.9.0",
-      "hash": "sha256-QvcC/QzotP1OhcOyZoNK5FkZwVKm4ZNfU5s3B9UKhc0="
+      "version": "v0.11.0",
+      "revision": "92f5355d81709834201cb0aa3214608017c328ae",
+      "url": "https://api.github.com/repos/google-gemini/gemini-cli/tarball/refs/tags/v0.11.0",
+      "hash": "sha256-26GShdU1wO8k8sOeOYoGWHRkh1DUyT2dbTXxSpIYg4Y="
     },
     "nanocoder": {
       "type": "GitRelease",
