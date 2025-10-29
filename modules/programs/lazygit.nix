@@ -25,7 +25,7 @@
             paging = {
               colorArg = "always";
             }
-            // lib.optionalAttrs config.programs.git.delta.enable {
+            // lib.optionalAttrs config.programs.delta.enableGitIntegration {
               pager = "${lib.getExe pkgs.delta} --dark --paging=never";
             };
 

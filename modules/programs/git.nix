@@ -6,18 +6,18 @@
     }:
     {
       programs = {
+        delta = {
+          enable = true;
+
+          enableGitIntegration = true;
+        };
+
         gh.enable = true;
+
+        gh-dash.enable = true;
 
         git = {
           enable = true;
-
-          delta.enable = true;
-
-          extraConfig = {
-            init.defaultBranch = "main";
-            push.autoSetupRemote = true;
-            url."https://github.com/".insteadOf = "git://github.com/";
-          };
 
           ignores = [
             ".direnv"
@@ -26,8 +26,13 @@
 
           lfs.enable = true;
 
-          userName = hostConfig.user.name;
-          userEmail = hostConfig.user.email;
+          settings = {
+            init.defaultBranch = "main";
+            push.autoSetupRemote = true;
+            url."https://github.com/".insteadOf = "git://github.com/";
+
+            user = { inherit (hostConfig.user) email name; };
+          };
         };
       };
     };
