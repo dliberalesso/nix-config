@@ -59,11 +59,6 @@
       };
     };
 
-    spicetify = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nix-proxy-flake/nixpkgs";
-    };
-
     treefmt-nix.follows = "nix-proxy-flake/treefmt-nix";
 
     unify = {
