@@ -11,10 +11,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v0.11.3",
-      "revision": "e5161610ff649256b13448166582e4eca340be0c",
-      "url": "https://api.github.com/repos/google-gemini/gemini-cli/tarball/refs/tags/v0.11.3",
-      "hash": "sha256-43ohCUqdM0quxwoN3s/3vOq4IRc+sck+BkAfqMEDq8g="
+      "version": "v0.13.0",
+      "revision": "72e48451c6adb0a7c8faea7a25ec8fddd46db11d",
+      "url": "https://api.github.com/repos/google-gemini/gemini-cli/tarball/refs/tags/v0.13.0",
+      "hash": "sha256-Y6RIFF65uzgeOKU03wibEeLtUub1iG52tljM+rHDZbg="
     },
     "nanocoder": {
       "type": "GitRelease",
@@ -27,10 +27,10 @@
       "version_upper_bound": null,
       "release_prefix": null,
       "submodules": false,
-      "version": "v1.14.2",
-      "revision": "c26f602c2a5a6800d6f0f90635db39ae75621246",
-      "url": "https://api.github.com/repos/Nano-Collective/nanocoder/tarball/refs/tags/v1.14.2",
-      "hash": "sha256-w4aoLZE/ei/boabYI+DXe9DgPI+DYxplY7dRwMP2lFY="
+      "version": "v1.16.2",
+      "revision": "2e03dfca4167d847633b0eab015b00d46e6f8aff",
+      "url": "https://api.github.com/repos/Nano-Collective/nanocoder/tarball/refs/tags/v1.16.2",
+      "hash": "sha256-kUwRWqivJTCefUFLLBQmeyMkVNLzk1Q/h7wHgR2Jm5s="
     },
     "specify-cli": {
       "type": "GitRelease",

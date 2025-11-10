@@ -30,7 +30,7 @@
             fetcherVersion = 2;
 
             # hash = lib.fakeHash;
-            hash = "sha256-IE/rqMyTSWqOHCCGJejzO1ozR9EjtdcmnweFqxRS7ks=";
+            hash = "sha256-YsvhjOpvnqYn8n5TSdutOUXjepgcvWmXsk04o8A46Io=";
           };
 
           dontNpmPrune = true; # hangs forever on both Linux/darwin

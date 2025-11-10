@@ -13,7 +13,7 @@
       gemini-cli-src = pins.gemini-cli { inherit pkgs; };
 
       # npmDepsHash = lib.fakeHash;
-      npmDepsHash = "sha256-wqzsHBFXo5NhsFHOErxVVG9Y08daEQs6YdRZHFeOq98=";
+      npmDepsHash = "sha256-6YhbPj+gbSi/OvyH+dFxkTD4qVj+/7TiMQuP7f1aZYE=";
 
       src = gemini-cli-src // {
         rev = gemini-cli-src.revision;
