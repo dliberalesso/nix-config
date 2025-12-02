@@ -30,10 +30,15 @@
             fetcherVersion = 2;
 
             # hash = lib.fakeHash;
-            hash = "sha256-YsvhjOpvnqYn8n5TSdutOUXjepgcvWmXsk04o8A46Io=";
+            hash = "sha256-9Upw2NT6R3vvGlss5oSZcAIBYTZTySYQF93vsnqn9JU=";
           };
 
           dontNpmPrune = true; # hangs forever on both Linux/darwin
+
+          postInstall = ''
+            # Remove broken symlink to missing vscode plugin
+            rm -f $out/lib/node_modules/@nanocollective/nanocoder/node_modules/.pnpm/node_modules/nanocoder-vscode
+          '';
 
           meta = {
             description = "A local-first CLI coding agent that supports various AI providers and features an advanced tool system.";
