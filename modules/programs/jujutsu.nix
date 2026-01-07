@@ -108,9 +108,14 @@
 
           git = {
             private-commits = "description(glob:'wip:*') | description(glob:'private:*')";
-            auto-local-bookmark = true;
             fetch = [ "origin" ];
             write-change-id-header = true;
+          };
+
+          remotes = {
+            origin = {
+              auto-track-bookmarks = "glob:*";
+            };
           };
 
           revset-aliases = {
