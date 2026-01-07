@@ -13,7 +13,7 @@
       gemini-cli-src = pins.gemini-cli { inherit pkgs; };
 
       # npmDepsHash = lib.fakeHash;
-      npmDepsHash = "sha256-v4n5SMbW0TspE4agy+/Ym01hCPkf6len0Xl/uK2DsFc=";
+      npmDepsHash = "sha256-gPmH/Ym6+UxbpH8CEuDmdZtbR6HqWPjMchs1zlDELDU=";
 
       src = gemini-cli-src // {
         rev = gemini-cli-src.revision;
@@ -33,6 +33,11 @@
             name = "${oa.pname}-${version}-npm-deps";
             hash = npmDepsHash;
           };
+
+          postInstall = ''
+            # Remove broken symlink to missing CONTRIBUTING.md
+            rm -f $out/share/gemini-cli/node_modules/@google/gemini-cli-core/dist/docs/CONTRIBUTING.md
+          '';
         });
       };
     };
