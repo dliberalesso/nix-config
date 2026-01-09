@@ -22,12 +22,11 @@
           ];
 
           git = {
-            paging = {
-              colorArg = "always";
-            }
-            // lib.optionalAttrs config.programs.delta.enableGitIntegration {
-              pager = "${lib.getExe pkgs.delta} --dark --paging=never";
-            };
+            pagers = [
+              (lib.optionalAttrs config.programs.delta.enableGitIntegration {
+                pager = "${lib.getExe pkgs.delta} --dark --paging=never";
+              })
+            ];
 
             parseEmoji = true;
           };
