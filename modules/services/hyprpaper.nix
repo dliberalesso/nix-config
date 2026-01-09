@@ -13,13 +13,16 @@
         enable = true;
 
         settings = {
-          ipc = "off";
-
-          preload = [ "${wallpaper}" ];
+          ipc = false;
 
           splash = false;
 
-          wallpaper = [ " , ${wallpaper}" ];
+          wallpaper = [
+            {
+              monitor = "";
+              path = "${wallpaper}";
+            }
+          ];
         };
       };
     }
