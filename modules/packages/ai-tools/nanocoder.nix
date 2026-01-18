@@ -22,12 +22,16 @@
 
           inherit src;
 
-          npmConfigHook = pkgs.pnpm.configHook;
+          nativeBuildInputs = [
+            pkgs.pnpm
+          ];
+
+          npmConfigHook = pkgs.pnpmConfigHook;
           npmDeps = finalAttrs.pnpmDeps;
 
-          pnpmDeps = pkgs.pnpm.fetchDeps {
+          pnpmDeps = pkgs.fetchPnpmDeps {
             inherit (finalAttrs) pname version src;
-            fetcherVersion = 2;
+            fetcherVersion = 3;
 
             # hash = lib.fakeHash;
             hash = "sha256-UcYYY9BsOunaTW/xmr/OsY/qnr6F4zzKmjiCVLGwZM4=";
