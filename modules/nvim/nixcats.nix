@@ -99,7 +99,7 @@
               nix = with pkgs; [
                 deadnix
                 nixd
-                nixfmt-rfc-style
+                nixfmt
                 statix
               ];
             };
