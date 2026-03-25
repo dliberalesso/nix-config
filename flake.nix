@@ -35,6 +35,16 @@
 
     import-tree.url = "github:vic/import-tree";
 
+    llm-agents = {
+      url = "github:numtide/llm-agents.nix";
+      inputs = {
+        nixpkgs.follows = "nix-proxy-flake/nixpkgs";
+        flake-parts.follows = "nix-proxy-flake/flake-parts";
+        bun2nix.inputs.import-tree.follows = "import-tree";
+        treefmt-nix.follows = "nix-proxy-flake/treefmt-nix";
+      };
+    };
+
     make-shell = {
       url = "github:nicknovitski/make-shell";
       inputs.flake-compat.follows = "nix-proxy-flake/flake-compat";
@@ -71,12 +81,6 @@
     };
 
     # Build-time inputs
-
-    npins = {
-      url = "github:andir/npins";
-      flake = false;
-      buildTime = true;
-    };
 
     ## Neovim plugins
 

@@ -1,5 +1,66 @@
 {
   "nodes": {
+    "blueprint": {
+      "inputs": {
+        "nixpkgs": [
+          "llm-agents",
+          "nixpkgs"
+        ],
+        "systems": [
+          "llm-agents",
+          "systems"
+        ]
+      },
+      "locked": {
+        "lastModified": 1771437256,
+        "narHash": "sha256-bLqwib+rtyBRRVBWhMuBXPCL/OThfokA+j6+uH7jDGU=",
+        "owner": "numtide",
+        "repo": "blueprint",
+        "rev": "06ee7190dc2620ea98af9eb225aa9627b68b0e33",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "blueprint",
+        "type": "github"
+      }
+    },
+    "bun2nix": {
+      "inputs": {
+        "flake-parts": [
+          "llm-agents",
+          "flake-parts"
+        ],
+        "import-tree": [
+          "import-tree"
+        ],
+        "nixpkgs": [
+          "llm-agents",
+          "nixpkgs"
+        ],
+        "systems": [
+          "llm-agents",
+          "systems"
+        ],
+        "treefmt-nix": [
+          "llm-agents",
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770895533,
+        "narHash": "sha256-v3QaK9ugy9bN9RXDnjw0i2OifKmz2NnKM82agtqm/UY=",
+        "owner": "nix-community",
+        "repo": "bun2nix",
+        "rev": "c843f477b15f51151f8c6bcc886954699440a6e1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "bun2nix",
+        "type": "github"
+      }
+    },
     "catppuccin": {
       "inputs": {
         "nixpkgs": [
@@ -156,6 +217,38 @@
       "original": {
         "owner": "vic",
         "repo": "import-tree",
+        "type": "github"
+      }
+    },
+    "llm-agents": {
+      "inputs": {
+        "blueprint": "blueprint",
+        "bun2nix": "bun2nix",
+        "flake-parts": [
+          "nix-proxy-flake",
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nix-proxy-flake",
+          "nixpkgs"
+        ],
+        "systems": "systems",
+        "treefmt-nix": [
+          "nix-proxy-flake",
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1774451242,
+        "narHash": "sha256-P4H6/DKVglU2fsKYquJdTbjQeUDrJq6hfbvmd3bdTD4=",
+        "owner": "numtide",
+        "repo": "llm-agents.nix",
+        "rev": "56fd69cf8cb8b62864cc2f9b64775990ac5a1bd5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "llm-agents.nix",
         "type": "github"
       }
     },
@@ -379,23 +472,6 @@
         "type": "github"
       }
     },
-    "npins": {
-      "buildTime": true,
-      "flake": false,
-      "locked": {
-        "lastModified": 1774132141,
-        "narHash": "sha256-HqfftzCWvcXZ/NY3yegWsaWYAH761/p4fU2IJvrvPro=",
-        "owner": "andir",
-        "repo": "npins",
-        "rev": "c77829b17a45f48bc252297244f0920b61c406a2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "andir",
-        "repo": "npins",
-        "type": "github"
-      }
-    },
     "plugins-jj-diffconflicts": {
       "buildTime": true,
       "flake": false,
@@ -447,6 +523,7 @@
         ],
         "home-manager": "home-manager",
         "import-tree": "import-tree",
+        "llm-agents": "llm-agents",
         "make-shell": "make-shell",
         "nix-index-database": "nix-index-database",
         "nix-proxy-flake": "nix-proxy-flake",
@@ -461,7 +538,6 @@
           "nix-proxy-flake",
           "nixpkgs"
         ],
-        "npins": "npins",
         "plugins-jj-diffconflicts": "plugins-jj-diffconflicts",
         "plugins-wezterm-types": "plugins-wezterm-types",
         "treefmt-nix": [
@@ -469,6 +545,21 @@
           "treefmt-nix"
         ],
         "unify": "unify"
+      }
+    },
+    "systems": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
       }
     },
     "treefmt-nix": {
