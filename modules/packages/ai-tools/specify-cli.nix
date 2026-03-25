@@ -31,8 +31,13 @@
           ];
 
           dependencies = with python3Packages; [
+            click
             httpx-socks
+            json5
+            packaging
+            pathspec
             platformdirs
+            pyyaml
             readchar
             rich
             truststore
