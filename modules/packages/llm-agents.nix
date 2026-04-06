@@ -7,8 +7,12 @@
     {
       overlayAttrs = {
         inherit (inputs'.llm-agents.packages)
+          cli-proxy-api
           gemini-cli
+          gitagent
+          hermes-agent
           opencode
+          pi
           ;
       };
     };
@@ -22,6 +26,7 @@
       home.packages = with pkgs; [
         gemini-cli
         opencode
+        pi
       ];
     };
 }
