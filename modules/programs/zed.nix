@@ -1,4 +1,8 @@
 {
+  inputs,
+  ...
+}:
+{
   unify.home =
     {
       lib,
@@ -12,19 +16,61 @@
         installRemoteServer = true;
 
         extensions = [
-          "catppuccin-icons"
           "nix"
         ];
 
         userSettings = {
           auto_update = false;
 
-          hour_format = "hour24";
+          buffer_font_family = "Monaspace Neon";
+          buffer_font_size = 15;
+
+          languages = {
+            Nix.language_servers = [
+              "!nil"
+              "nixd"
+            ];
+          };
 
           load_direnv = "shell_hook";
 
           lsp = {
-            nix.binary.path_lookup = true;
+            nixd = {
+              binary.path = lib.getExe pkgs.nixd;
+
+              settings = {
+                formatting.command = [
+                  (lib.getExe pkgs.nixfmt)
+                ];
+
+                nixpkgs.expr = ''
+                  import "${pkgs.path}" {};
+                '';
+
+                options = {
+                  nixos.expr = ''
+                    ((import "${pkgs.path}" {}).lib.evalModules {
+                      modules = (import "${pkgs.path}/nixos/modules/module-list.nix");
+                      check = false; }
+                    ).options
+                  '';
+
+                  home-manager.expr = ''
+                    (let
+                      pkgs = import "${pkgs.path}" {};
+                      lib = import "${inputs.home-manager}/modules/lib/stdlib-extended.nix" pkgs.lib;
+                    in (
+                      lib.evalModules {
+                        modules = (import "${inputs.home-manager}/modules/modules.nix") {
+                          inherit lib pkgs;
+                          check = false;
+                        };
+                      })
+                    ).options
+                  '';
+                };
+              };
+            };
           };
 
           node = {
@@ -32,10 +78,9 @@
             npm_path = lib.getExe' pkgs.nodejs "npm";
           };
 
-          theme = {
-            mode = "dark";
-            dark = "Catppuccin Mocha";
-          };
+          terminal.font_family = "Monaspace Neon";
+
+          theme.mode = "dark";
 
           vim_mode = true;
         };
