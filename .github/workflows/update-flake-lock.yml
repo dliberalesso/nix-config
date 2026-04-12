@@ -22,15 +22,17 @@ jobs:
           hatchet-protocol: "carve"
 
       - name: "Installing Nix"
-        uses: DeterminateSystems/determinate-nix-action@v3
+        uses: cachix/install-nix-action@v31
         with:
-          extra-conf: |
+          extra_nix_config: |
             always-allow-substitutes = true
-            eval-cores = 0
-            lazy-trees = true
-            experimental-features = build-time-fetch-tree flakes nix-command parallel-eval pipe-operators
-            extra-substituters = https://dliberalesso.cachix.org https://nix-community.cachix.org https://cachix.cachix.org https://catppuccin.cachix.org https://hyprland.cachix.org https://install.determinate.systems https://cache.numtide.com
-            extra-trusted-public-keys = dliberalesso.cachix.org-1:7qs1S5Qd766dYFU86nVux/wRMZ8UEUbhn3Qxp/TwiOc= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc= cache.flakehub.com-3:hJuILl5sVK4iKm86JzgdXW12Y2Hwd5G07qKtHTOcDCM= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
+            builders-use-substitutes = true
+            experimental-features = flakes nix-command
+            extra-substituters = https://dliberalesso.cachix.org https://nix-community.cachix.org https://cachix.cachix.org https://catppuccin.cachix.org https://hyprland.cachix.org https://cache.numtide.com
+            extra-trusted-public-keys = dliberalesso.cachix.org-1:7qs1S5Qd766dYFU86nVux/wRMZ8UEUbhn3Qxp/TwiOc= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
+            keep-env-derivations = true
+            keep-outputs = true
+          github_access_token: ${{ secrets.PAT }}
 
       - name: "Updating flake.lock"
         uses: DeterminateSystems/update-flake-lock@v28
@@ -39,14 +41,14 @@ jobs:
           token: ${{ secrets.PAT }}
           nix-options: --accept-flake-config
           branch: "build/update-flake-lock"
-          commit-msg: "⬆️ build: Update flake.lock"
+          commit-msg: "⬆️ build: update flake.lock"
           git-author-name: Douglas Liberalesso
           git-author-email: dliberalesso@users.noreply.github.com
           git-committer-name: Douglas Liberalesso
           git-committer-email: dliberalesso@users.noreply.github.com
           pr-assignees: dliberalesso
           pr-labels: build, dependencies, nix
-          pr-title: "⬆️ build: Update flake.lock"
+          pr-title: "⬆️ build: update flake.lock"
 
       - name: Checking if Pull Request should Automerge
         if: (steps.nix-update.outputs.pull-request-operation == 'created' || steps.nix-update.outputs.pull-request-operation == 'updated') && (github.event_name == 'workflow_dispatch' || github.event.schedule == '0 7 * * 0')

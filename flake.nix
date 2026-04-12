@@ -13,13 +13,22 @@
   inputs = {
     nix-proxy-flake.url = "github:dliberalesso/nix-proxy-flake";
 
-    # Eval-time inputs
-
     nixpkgs.follows = "nix-proxy-flake/nixpkgs";
+
+    bun2nix = {
+      url = "github:nix-community/bun2nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        import-tree.follows = "import-tree";
+        systems.follows = "systems";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
 
     catppuccin = {
       url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nix-proxy-flake/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     flake-parts.follows = "nix-proxy-flake/flake-parts";
@@ -30,7 +39,7 @@
 
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nix-proxy-flake/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     import-tree.url = "github:vic/import-tree";
@@ -38,10 +47,11 @@
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs = {
-        nixpkgs.follows = "nix-proxy-flake/nixpkgs";
-        flake-parts.follows = "nix-proxy-flake/flake-parts";
-        bun2nix.inputs.import-tree.follows = "import-tree";
-        treefmt-nix.follows = "nix-proxy-flake/treefmt-nix";
+        nixpkgs.follows = "nixpkgs";
+        bun2nix.follows = "bun2nix";
+        flake-parts.follows = "flake-parts";
+        systems.follows = "systems";
+        treefmt-nix.follows = "treefmt-nix";
       };
     };
 
@@ -55,8 +65,6 @@
       inputs.nixpkgs.follows = "nix-proxy-flake/nixpkgs";
     };
 
-    nix-src.follows = "nix-proxy-flake/nix-src";
-
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
     nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
@@ -69,6 +77,8 @@
       };
     };
 
+    systems.url = "github:nix-systems/default";
+
     treefmt-nix.follows = "nix-proxy-flake/treefmt-nix";
 
     unify = {
@@ -80,20 +90,16 @@
       };
     };
 
-    # Build-time inputs
-
-    ## Neovim plugins
+    # Neovim plugins
 
     plugins-jj-diffconflicts = {
       url = "github:rafikdraoui/jj-diffconflicts";
       flake = false;
-      buildTime = true;
     };
 
     plugins-wezterm-types = {
       url = "github:gonstoll/wezterm-types";
       flake = false;
-      buildTime = true;
     };
   };
 }

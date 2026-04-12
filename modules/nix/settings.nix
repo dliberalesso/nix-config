@@ -11,6 +11,8 @@
 
         auto-optimise-store = true;
 
+        builders-use-substitutes = true;
+
         experimental-features = [
           "flakes"
           "nix-command"
