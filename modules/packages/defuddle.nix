@@ -12,17 +12,19 @@
       packages = {
         defuddle = pkgs.buildNpmPackage (finalAttrs: {
           pname = "defuddle";
-          version = "0.15.0";
+          version = "0.16.0";
 
           src = pkgs.fetchFromGitHub {
             owner = "kepano";
             repo = "defuddle";
             tag = finalAttrs.version;
-            hash = "sha256-E0aSRJEr/bPBvxIMo6YWn5qmguDpajKf+XvfsEagcfI=";
+
+            # hash = lib.fakeHash;
+            hash = "sha256-hRIeiXv7X1d7ICZCWDkswCrxFhnAkbM5wN3OWo8NmBY=";
           };
 
           # npmDepsHash = lib.fakeHash;
-          npmDepsHash = "sha256-TdA7wP5C0tvb6//ojLb6lwsRiVFIASTjYArxYDNYTjY=";
+          npmDepsHash = "sha256-vC0NnvQ/xhhZ584iD71m9cW11IzVMPnVrSIZ9Ax2sfY=";
 
           meta = {
             description = "Extract clean html, markdown and metadata from web pages";
