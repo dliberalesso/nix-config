@@ -18,7 +18,7 @@ debug:
 # Rebuild and Switch NixOS
 rebuild:
   @nh os switch . --ask
-  @if [ "$HOSTNAME" == "nixWSL" ]; then just wezterm; fi
+  @if [ "$HOSTNAME" == "nixwsl" ]; then just wezterm; fi
 
 # Run GC and optmise Nix Store
 clean:
