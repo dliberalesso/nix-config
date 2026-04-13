@@ -25,7 +25,7 @@ config.freetype_load_target = "HorizontalLcd" -- https://wezfurlong.org/wezterm/
 local hbf = { "calt", "liga", "dlig", "ss01", "ss02", "ss03", "ss04", "ss05", "ss06", "ss07", "ss08" }
 
 config.font = wezterm.font({ -- Normal text
-  family = "Monaspace Neon",
+  family = "Monaspace Neon NF",
   harfbuzz_features = hbf,
   stretch = "UltraCondensed", -- This doesn't seem to do anything
 })
@@ -35,7 +35,7 @@ config.font_rules = {
     intensity = "Normal",
     italic = true,
     font = wezterm.font({
-      family = "Monaspace Xenon", -- courier-like
+      family = "Monaspace Xenon NF", -- courier-like
       style = "Italic",
       harfbuzz_features = hbf,
     }),
@@ -45,7 +45,7 @@ config.font_rules = {
     intensity = "Bold",
     italic = false,
     font = wezterm.font({
-      family = "Monaspace Krypton",
+      family = "Monaspace Krypton NF",
       weight = "Bold",
       harfbuzz_features = hbf,
     }),
@@ -55,7 +55,7 @@ config.font_rules = {
     intensity = "Bold",
     italic = true,
     font = wezterm.font({
-      family = "Monaspace Xenon",
+      family = "Monaspace Xenon NF",
       style = "Italic",
       weight = "Bold",
       harfbuzz_features = hbf,

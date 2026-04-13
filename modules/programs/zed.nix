@@ -22,7 +22,7 @@
         userSettings = {
           auto_update = false;
 
-          buffer_font_family = "Monaspace Neon";
+          buffer_font_family = "Monaspace Neon NF";
           buffer_font_size = 15;
 
           languages = {
@@ -78,7 +78,7 @@
             npm_path = lib.getExe' pkgs.nodejs "npm";
           };
 
-          terminal.font_family = "Monaspace Neon";
+          terminal.font_family = "Monaspace Neon NF";
 
           theme.mode = "dark";
 
