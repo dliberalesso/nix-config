@@ -1,5 +1,5 @@
-.crush/logs
 .direnv/
+.vscode/
 .pre-commit-config.yaml
 *.qcow2
 result

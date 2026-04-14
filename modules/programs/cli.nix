@@ -1,6 +1,7 @@
 {
   unify.nixos.programs = {
     bandwhich.enable = true;
+    nix-ld.enable = true;
   };
 
   unify.home.programs = {
