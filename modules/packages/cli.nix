@@ -11,10 +11,12 @@
           devenv
           dust
           gitmoji-cli
+          glow
           grex
           fselect
           hyperfine
           lnav
+          ouch
           presenterm
           procs
           sd
