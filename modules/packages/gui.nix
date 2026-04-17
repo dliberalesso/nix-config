@@ -7,6 +7,7 @@
     {
       home.packages = builtins.attrValues {
         inherit (pkgs)
+          antigravity
           google-chrome
           obsidian
           prismlauncher
