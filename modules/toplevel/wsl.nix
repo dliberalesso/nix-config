@@ -7,15 +7,12 @@
     {
       hostConfig,
       lib,
-      pkgs,
       ...
     }:
     {
       imports = [
         inputs.nixos-wsl.nixosModules.wsl
       ];
-
-      environment.systemPackages = [ pkgs.wslu ];
 
       hardware.graphics.enable = lib.mkForce false;
 
