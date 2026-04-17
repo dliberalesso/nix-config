@@ -12,6 +12,5 @@
     ripgrep.enable = true;
     ripgrep-all.enable = true;
     zellij.enable = true;
-    yazi.enable = true;
   };
 }
