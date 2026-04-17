@@ -94,7 +94,7 @@ unify.hosts.nixos.${hostName} = {
 - **Encoding**: UTF-8
 - **Final newline**: Required
 - **Trailing whitespace**: Trimmed
-- **Nix**: Use nixfmt, deadnix, statix
+- **Commit Messages**: Follow Conventional Commits and Gitmoji, but **NEVER** include a scope (e.g., use `feat: message` instead of `feat(scope): message`).
 - **Lua**: stylua (2 spaces, always call parentheses, collapse simple statements)
 - **Other**: prettier with editorconfig, actionlint for workflows
 - **Shell**: shellcheck and shfmt
