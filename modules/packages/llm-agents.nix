@@ -8,10 +8,13 @@
       overlayAttrs = {
         inherit (inputs'.llm-agents.packages)
           agentsview
+          claude-code
           claw-code
           cli-proxy-api
+          codex
           gemini-cli
           gitagent
+          gitnexus
           openspec
           pi
           ;
@@ -26,10 +29,13 @@
     {
       home.packages = with pkgs; [
         agentsview
+        claude-code
         claw-code
         cli-proxy-api
+        codex
         gemini-cli
         gitagent
+        gitnexus
         openspec
         pi
       ];
