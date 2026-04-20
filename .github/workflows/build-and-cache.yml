@@ -20,12 +20,74 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-cache:
-    name: "Build & Cache"
+  setup-matrix:
+    name: "Setup Matrix"
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
+    outputs:
+      targets: ${{ steps.set-targets.outputs.targets }}
+      has_targets: ${{ steps.set-targets.outputs.has_targets }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "Installing Nix"
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            always-allow-substitutes = true
+            builders-use-substitutes = true
+            experimental-features = flakes nix-command
+            extra-substituters = https://dliberalesso.cachix.org https://nix-community.cachix.org https://cachix.cachix.org https://catppuccin.cachix.org https://hyprland.cachix.org https://cache.numtide.com
+            extra-trusted-public-keys = dliberalesso.cachix.org-1:7qs1S5Qd766dYFU86nVux/wRMZ8UEUbhn3Qxp/TwiOc= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
+            keep-env-derivations = true
+            keep-outputs = true
+          github_access_token: ${{ secrets.PAT }}
+
+      - name: "Generate targets matrix"
+        id: set-targets
+        run: |
+          TARGETS=$(nix eval .#packages.x86_64-linux --apply builtins.attrNames --json | jq -c 'map("packages.x86_64-linux.\(.)")')
+
+          UNCACHED_TARGETS="[]"
+          for TARGET in $(echo "$TARGETS" | jq -r '.[]'); do
+            STORE_PATH=$(nix eval --raw ".#${TARGET}.outPath" 2>/dev/null || echo "")
+            if [ -z "$STORE_PATH" ]; then
+              UNCACHED_TARGETS=$(echo "$UNCACHED_TARGETS" | jq -c --arg t "$TARGET" '. + [$t]')
+              continue
+            fi
+
+            HASH=$(basename "$STORE_PATH" | cut -d'-' -f1)
+            HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" "https://dliberalesso.cachix.org/$HASH.narinfo")
+
+            if [ "$HTTP_STATUS" -ne 200 ]; then
+              UNCACHED_TARGETS=$(echo "$UNCACHED_TARGETS" | jq -c --arg t "$TARGET" '. + [$t]')
+            fi
+          done
+
+          if [ "$UNCACHED_TARGETS" = "[]" ]; then
+            echo "All targets are cached! Skipping matrix."
+            echo "targets=[\"dummy\"]" >> "$GITHUB_OUTPUT"
+            echo "has_targets=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Found uncached targets: $UNCACHED_TARGETS"
+            echo "targets=$UNCACHED_TARGETS" >> "$GITHUB_OUTPUT"
+            echo "has_targets=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  build-targets:
+    name: "Build Targets"
+    needs: setup-matrix
+    if: always() && needs.setup-matrix.outputs.has_targets == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        target: ${{ fromJSON(needs.setup-matrix.outputs.targets) }}
     steps:
       - uses: actions/checkout@v6
 
@@ -47,6 +109,11 @@ jobs:
             keep-outputs = true
           github_access_token: ${{ secrets.PAT }}
 
+      - name: "Cache Nix"
+        uses: nix-community/cache-nix-action@v7
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', 'flake.lock') }}
+
       - name: "Installing Cachix"
         uses: cachix/cachix-action@v17
         with:
@@ -54,8 +121,148 @@ jobs:
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
           extraPullNames: cachix, nix-community
 
-      - name: "Installing Omnix"
-        run: nix profile add nixpkgs#omnix
+      - name: "Build Target"
+        run: nix build .#${{ matrix.target }} --accept-flake-config
 
-      - name: "Building all flake outputs with omnix"
-        run: om ci
+  check:
+    name: "Check Flake"
+    needs: [setup-matrix, build-targets]
+    if: always() && needs.setup-matrix.result == 'success' && (needs.build-targets.result == 'success' || needs.build-targets.result == 'skipped')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    outputs:
+      hosts: ${{ steps.set-hosts.outputs.hosts }}
+      has_hosts: ${{ steps.set-hosts.outputs.has_hosts }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "Making Room for Nix to Thrive 🌱"
+        uses: wimpysworld/nothing-but-nix@main
+        with:
+          hatchet-protocol: "carve"
+
+      - name: "Installing Nix"
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            always-allow-substitutes = true
+            builders-use-substitutes = true
+            experimental-features = flakes nix-command
+            extra-substituters = https://dliberalesso.cachix.org https://nix-community.cachix.org https://cachix.cachix.org https://catppuccin.cachix.org https://hyprland.cachix.org https://cache.numtide.com
+            extra-trusted-public-keys = dliberalesso.cachix.org-1:7qs1S5Qd766dYFU86nVux/wRMZ8UEUbhn3Qxp/TwiOc= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
+            keep-env-derivations = true
+            keep-outputs = true
+          github_access_token: ${{ secrets.PAT }}
+
+      - name: "Cache Nix"
+        uses: nix-community/cache-nix-action@v7
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', 'flake.lock') }}
+
+      - name: "Installing Cachix"
+        uses: cachix/cachix-action@v17
+        with:
+          name: dliberalesso
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          extraPullNames: cachix, nix-community
+
+      - name: "Check"
+        run: nix flake check --accept-flake-config
+
+      - name: "Generate host targets"
+        id: set-hosts
+        run: |
+          HOSTS='["testvm", "nixwsl", "nixavell"]'
+          UNCACHED_HOSTS="[]"
+          for HOST in $(echo "$HOSTS" | jq -r '.[]'); do
+            TARGET="nixosConfigurations.${HOST}.config.system.build.toplevel"
+            STORE_PATH=$(nix eval --raw ".#${TARGET}.outPath" 2>/dev/null || echo "")
+            if [ -z "$STORE_PATH" ]; then
+              UNCACHED_HOSTS=$(echo "$UNCACHED_HOSTS" | jq -c --arg h "$HOST" '. + [$h]')
+              continue
+            fi
+
+            HASH=$(basename "$STORE_PATH" | cut -d'-' -f1)
+            HTTP_STATUS=$(curl -o /dev/null -s -w "%{http_code}\n" "https://dliberalesso.cachix.org/$HASH.narinfo")
+
+            if [ "$HTTP_STATUS" -ne 200 ]; then
+              UNCACHED_HOSTS=$(echo "$UNCACHED_HOSTS" | jq -c --arg h "$HOST" '. + [$h]')
+            fi
+          done
+
+          if [ "$UNCACHED_HOSTS" = "[]" ]; then
+            echo "All hosts are cached! Skipping matrix."
+            echo "hosts=[\"dummy\"]" >> "$GITHUB_OUTPUT"
+            echo "has_hosts=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Found uncached hosts: $UNCACHED_HOSTS"
+            echo "hosts=$UNCACHED_HOSTS" >> "$GITHUB_OUTPUT"
+            echo "has_hosts=true" >> "$GITHUB_OUTPUT"
+          fi
+
+  build-hosts:
+    name: "Build Hosts"
+    needs: check
+    if: always() && needs.check.outputs.has_hosts == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        host: ${{ fromJSON(needs.check.outputs.hosts) }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: "Making Room for Nix to Thrive 🌱"
+        uses: wimpysworld/nothing-but-nix@main
+        with:
+          hatchet-protocol: "carve"
+
+      - name: "Installing Nix"
+        uses: cachix/install-nix-action@v31
+        with:
+          extra_nix_config: |
+            always-allow-substitutes = true
+            builders-use-substitutes = true
+            experimental-features = flakes nix-command
+            extra-substituters = https://dliberalesso.cachix.org https://nix-community.cachix.org https://cachix.cachix.org https://catppuccin.cachix.org https://hyprland.cachix.org https://cache.numtide.com
+            extra-trusted-public-keys = dliberalesso.cachix.org-1:7qs1S5Qd766dYFU86nVux/wRMZ8UEUbhn3Qxp/TwiOc= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM= catppuccin.cachix.org-1:noG/4HkbhJb+lUAdKrph6LaozJvAeEEZj4N732IysmU= hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc= niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g=
+            keep-env-derivations = true
+            keep-outputs = true
+          github_access_token: ${{ secrets.PAT }}
+
+      - name: "Cache Nix"
+        uses: nix-community/cache-nix-action@v7
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', 'flake.lock') }}
+
+      - name: "Installing Cachix"
+        uses: cachix/cachix-action@v17
+        with:
+          name: dliberalesso
+          authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+          extraPullNames: cachix, nix-community
+
+      - name: "Build Host"
+        run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel --accept-flake-config
+
+  status:
+    name: "Status"
+    if: always()
+    needs:
+      - setup-matrix
+      - build-targets
+      - check
+      - build-hosts
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check matrix status"
+        if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
+        run: exit 1
+      - name: "Success"
+        run: exit 0

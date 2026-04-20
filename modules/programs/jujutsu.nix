@@ -4,20 +4,23 @@
       pkgs,
       ...
     }:
-    {
-      overlayAttrs = {
-        jujutsu = pkgs.jujutsu.overrideAttrs (oa: {
-          nativeBuildInputs = (oa.nativeBuildInputs or [ ]) ++ [
-            pkgs.makeBinaryWrapper
-          ];
+    let
+      jujutsu = pkgs.jujutsu.overrideAttrs (oa: {
+        nativeBuildInputs = (oa.nativeBuildInputs or [ ]) ++ [
+          pkgs.makeBinaryWrapper
+        ];
 
-          postFixup = ''
-            ${oa.postFixup or ""}
-            wrapProgram $out/bin/jj \
-              --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.watchman ]}
-          '';
-        });
-      };
+        postFixup = ''
+          ${oa.postFixup or ""}
+          wrapProgram $out/bin/jj \
+            --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.watchman ]}
+        '';
+      });
+    in
+    {
+      overlayAttrs = { inherit jujutsu; };
+
+      packages = { inherit jujutsu; };
     };
 
   unify.home =

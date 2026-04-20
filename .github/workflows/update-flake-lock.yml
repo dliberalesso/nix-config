@@ -16,11 +16,6 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - name: "Making Room for Nix to Thrive 🌱"
-        uses: wimpysworld/nothing-but-nix@main
-        with:
-          hatchet-protocol: "carve"
-
       - name: "Installing Nix"
         uses: cachix/install-nix-action@v31
         with:

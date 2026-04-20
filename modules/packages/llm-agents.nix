@@ -4,8 +4,8 @@
       inputs',
       ...
     }:
-    {
-      overlayAttrs = {
+    let
+      llm-agents-packages = {
         inherit (inputs'.llm-agents.packages)
           agentsview
           cli-proxy-api
@@ -17,6 +17,11 @@
           pi
           ;
       };
+    in
+    {
+      overlayAttrs = llm-agents-packages;
+
+      packages = llm-agents-packages;
     };
 
   unify.home =
@@ -36,16 +41,4 @@
         pi
       ];
     };
-
-  unify.nixos = {
-    nix.settings = {
-      extra-substituters = [
-        "https://cache.numtide.com"
-      ];
-
-      extra-trusted-public-keys = [
-        "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
-      ];
-    };
-  };
 }
