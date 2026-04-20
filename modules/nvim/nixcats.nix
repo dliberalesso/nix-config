@@ -30,16 +30,18 @@
       ];
 
       postInstallCommands = map (target: "rm -f $out/share/nvim/runtime/${target}") excludedRtpPlugins;
+
+      neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oa: {
+        postInstall = ''
+          ${oa.postInstall or ""}
+          ${builtins.concatStringsSep "\n" postInstallCommands}
+        '';
+      });
     in
     {
-      overlayAttrs = {
-        neovim-unwrapped = pkgs.neovim-unwrapped.overrideAttrs (oa: {
-          postInstall = ''
-            ${oa.postInstall or ""}
-            ${builtins.concatStringsSep "\n" postInstallCommands}
-          '';
-        });
-      };
+      overlayAttrs = { inherit neovim-unwrapped; };
+
+      packages = { inherit neovim-unwrapped; };
     };
 
   unify.home =

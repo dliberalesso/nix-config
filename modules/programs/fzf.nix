@@ -4,15 +4,18 @@
       pkgs,
       ...
     }:
+    let
+      fzf = pkgs.fzf.overrideAttrs (oa: {
+        postInstall = ''
+          ${oa.postInstall or ""}
+          rm -rf $out/share/{nvim,vim-plugins}
+        '';
+      });
+    in
     {
-      overlayAttrs = {
-        fzf = pkgs.fzf.overrideAttrs (oa: {
-          postInstall = ''
-            ${oa.postInstall or ""}
-            rm -rf $out/share/{nvim,vim-plugins}
-          '';
-        });
-      };
+      overlayAttrs = { inherit fzf; };
+
+      packages = { inherit fzf; };
     };
 
   unify.home =
