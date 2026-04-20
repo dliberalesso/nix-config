@@ -33,6 +33,7 @@
 - `modules/services/` - System services
 - `modules/system/` - Core system (boot, audio, network, locale, kernel)
 - `modules/theme/` - Catppuccin theming (GTK, Qt, cursor, wallpaper)
+- `modules/toplevel/` - Top-level system and user abstract configurations
 
 ### Hosts
 
@@ -86,6 +87,7 @@ unify.hosts.nixos.${hostName} = {
 - **Theme**: Catppuccin
 - **Containers**: Podman
 - **Formatting**: treefmt with multiple formatters
+- **AI/LLM**: Numtide llm-agents integration
 
 ## Code Style Guidelines
 
