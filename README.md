@@ -19,6 +19,7 @@ A modular, reproducible NixOS configuration managing multiple systems with share
 - 🐳 **Podman** containerization
 - 🔧 **Automated formatting** with treefmt (nixfmt, prettier, stylua, etc.)
 - ✅ **CI/CD** with GitHub Actions for builds and caching
+- 🤖 **LLM Agents** integration via llm-agents.nix
 
 ## 🖥️ Hosts
 
@@ -74,7 +75,8 @@ just clean    # Garbage collect and optimize
 │   ├── scripts/    # Custom scripts
 │   ├── services/   # System services
 │   ├── system/     # Core system settings
-│   └── theme/      # Catppuccin theming
+│   ├── theme/      # Catppuccin theming
+│   └── toplevel/   # Top-level abstract configurations
 ├── flake.nix       # Flake definition
 └── justfile        # Task runner commands
 ```
