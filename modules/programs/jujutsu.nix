@@ -1,28 +1,4 @@
 {
-  perSystem =
-    {
-      pkgs,
-      ...
-    }:
-    let
-      jujutsu = pkgs.jujutsu.overrideAttrs (oa: {
-        nativeBuildInputs = (oa.nativeBuildInputs or [ ]) ++ [
-          pkgs.makeBinaryWrapper
-        ];
-
-        postFixup = ''
-          ${oa.postFixup or ""}
-          wrapProgram $out/bin/jj \
-            --prefix PATH : ${pkgs.lib.makeBinPath [ pkgs.watchman ]}
-        '';
-      });
-    in
-    {
-      overlayAttrs = { inherit jujutsu; };
-
-      packages = { inherit jujutsu; };
-    };
-
   unify.home =
     {
       hostConfig,
@@ -77,7 +53,10 @@
       ];
     in
     {
-      home.packages = [ pkgs.jjui ];
+      home.packages = with pkgs; [
+        jjui
+        watchman
+      ];
 
       programs.jujutsu = {
         enable = true;
@@ -133,9 +112,8 @@
                 0
                 1
               ];
-              program = lib.getExe pkgs.delta;
-              merge-args = [
-                "--diff-so-fancy"
+              program = "delta";
+              diff-args = [
                 "--file-transformation"
                 "s:tmp/jj-diff.*/(left|right)::"
                 "$left"
@@ -167,7 +145,6 @@
               "DiffEditor $left $right $output"
             ];
             diff-formatter = "delta";
-            diff-tool = "delta";
             graph.style = "square";
             merge-editor = "diffconflicts";
             pager = "delta";
