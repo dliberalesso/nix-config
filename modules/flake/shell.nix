@@ -14,14 +14,12 @@
     }:
     {
       make-shells.default = {
-        packages = builtins.attrValues {
-          inherit (pkgs)
-            git
-            just
-            nh
-            nix
-            ;
-        };
+        packages = with pkgs; [
+          git
+          just
+          nh
+          nix
+        ];
       };
     };
 }
