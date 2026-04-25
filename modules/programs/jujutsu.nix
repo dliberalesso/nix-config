@@ -91,19 +91,8 @@
           git = {
             private-commits = "description(glob:'wip:*') | description(glob:'private:*')";
             fetch = [ "origin" ];
+            sign-on-push = true;
             write-change-id-header = true;
-          };
-
-          remotes = {
-            origin = {
-              auto-track-bookmarks = "glob:*";
-            };
-          };
-
-          revset-aliases = {
-            "closest_bookmark(to)" = "heads(::to & bookmarks())";
-            "closest_pushable(to)" =
-              "heads(::to & mutable() & ~description(exact:\"\") & (~empty() | merges()))";
           };
 
           merge-tools = {
@@ -137,6 +126,26 @@
             };
           };
 
+          remotes = {
+            origin = {
+              auto-track-bookmarks = "glob:*";
+            };
+          };
+
+          revset-aliases = {
+            "closest_bookmark(to)" = "heads(::to & bookmarks())";
+            "closest_pushable(to)" =
+              "heads(::to & mutable() & ~description(exact:\"\") & (~empty() | merges()))";
+          };
+
+          signing = {
+            behavior = "keep";
+            backend = "gpg";
+            key = "EABBB5191B42D726";
+          };
+
+          snapshot.max-new-file-size = "15M";
+
           ui = {
             default-command = "log";
             diff-editor = [
@@ -152,8 +161,6 @@
           };
 
           user = { inherit (hostConfig.user) email name; };
-
-          snapshot.max-new-file-size = "15M";
         };
       };
     };

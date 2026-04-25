@@ -39,6 +39,12 @@
 
             user = { inherit (hostConfig.user) email name; };
           };
+
+          signing = {
+            format = "openpgp";
+            key = "EABBB5191B42D726";
+            signByDefault = true;
+          };
         };
       };
     };
