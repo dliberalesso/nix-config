@@ -11,7 +11,6 @@
           cli-proxy-api
           codex
           gemini-cli
-          gitagent
           gitnexus
           openspec
           pi
@@ -35,7 +34,6 @@
         cli-proxy-api
         codex
         gemini-cli
-        gitagent
         gitnexus
         openspec
         pi
