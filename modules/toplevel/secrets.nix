@@ -20,7 +20,5 @@
           enableSSHSupport = true;
         };
       };
-
-      services.passSecretService.enable = true;
     };
 }
