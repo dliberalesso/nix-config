@@ -161,10 +161,6 @@ require("lze").load({
     after = function(plugin) require("hunk").setup() end,
   },
   {
-    "jj-diffconflicts",
-    cmd = { "JJDiffConflicts" },
-  },
-  {
     "vim-jjdescription",
     ft = "jjdescription",
   },
@@ -610,12 +606,6 @@ require("lze").load({
     end,
   },
   {
-    "nvim-dap-go",
-    enabled = nixCats("go") or false,
-    on_plugin = { "nvim-dap" },
-    after = function(plugin) require("dap-go").setup() end,
-  },
-  {
     "lazydev.nvim",
     enabled = nixCats("lua") or false,
 
@@ -744,14 +734,6 @@ require("lze").load({
     -- also these are regular specs and you can use before and after and all the other normal fields
   },
   {
-    "gopls",
-    enabled = nixCats("go") or false,
-    -- if you don't provide the filetypes it asks lspconfig for them using the function we set above
-    lsp = {
-      -- filetypes = { "go", "gomod", "gowork", "gotmpl" },
-    },
-  },
-  {
     "nixd",
     enabled = nixCats("nix") or false,
     lsp = {
@@ -788,11 +770,6 @@ require("lze").load({
     "taplo",
     enabled = nixCats("general") or false,
     lsp = {},
-  },
-  {
-    "elixirls",
-    enabled = nixCats("elixir") or false,
-    lsp = { cmd = { "elixir-ls" } },
   },
 })
 

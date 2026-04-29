@@ -82,16 +82,6 @@
                 yaml-language-server
               ];
 
-              go = with pkgs; [
-                gopls
-                delve
-                golint
-                golangci-lint
-                gotools
-                go-tools
-                go
-              ];
-
               lua = with pkgs; [
                 lua-language-server
                 selene
@@ -116,7 +106,6 @@
                 catppuccin-nvim
                 nui-nvim
                 hunk-nvim
-                pkgs.neovimPlugins.jj-diffconflicts
                 vim-jjdescription
                 mini-nvim
                 nvim-lspconfig
@@ -180,8 +169,6 @@
 
             categories = {
               general = true;
-              elixir = true;
-              go = true;
               lua = true;
               nix = true;
             };

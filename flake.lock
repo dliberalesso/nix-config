@@ -403,22 +403,6 @@
         "type": "github"
       }
     },
-    "plugins-jj-diffconflicts": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1774204449,
-        "narHash": "sha256-CDLOo07tGOg/7Sowb1d39k9Nq/RW50axGj8L1D3Be70=",
-        "owner": "rafikdraoui",
-        "repo": "jj-diffconflicts",
-        "rev": "58163ae8fe7646179dfd7741206dd9a2b4cdadc0",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rafikdraoui",
-        "repo": "jj-diffconflicts",
-        "type": "github"
-      }
-    },
     "plugins-wezterm-types": {
       "flake": false,
       "locked": {
@@ -464,7 +448,6 @@
           "nix-proxy-flake",
           "nixpkgs"
         ],
-        "plugins-jj-diffconflicts": "plugins-jj-diffconflicts",
         "plugins-wezterm-types": "plugins-wezterm-types",
         "systems": "systems",
         "treefmt-nix": [

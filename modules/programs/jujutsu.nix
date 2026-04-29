@@ -109,21 +109,6 @@
                 "$right"
               ];
             };
-
-            diffconflicts = {
-              program = "nvim";
-              merge-args = [
-                "-c"
-                "let g:jj_diffconflicts_marker_length=$marker_length"
-                "-c"
-                "JJDiffConflicts!"
-                "$output"
-                "$base"
-                "$left"
-                "$right"
-              ];
-              merge-tool-edits-conflict-markers = true;
-            };
           };
 
           remotes = {
@@ -148,14 +133,8 @@
 
           ui = {
             default-command = "log";
-            diff-editor = [
-              "nvim"
-              "-c"
-              "DiffEditor $left $right $output"
-            ];
             diff-formatter = "delta";
             graph.style = "square";
-            merge-editor = "diffconflicts";
             pager = "delta";
             show-cryptographic-signatures = true;
           };
