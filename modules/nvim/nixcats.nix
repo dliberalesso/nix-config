@@ -82,16 +82,6 @@
                 yaml-language-server
               ];
 
-              go = with pkgs; [
-                gopls
-                delve
-                golint
-                golangci-lint
-                gotools
-                go-tools
-                go
-              ];
-
               lua = with pkgs; [
                 lua-language-server
                 selene
@@ -180,8 +170,6 @@
 
             categories = {
               general = true;
-              elixir = true;
-              go = true;
               lua = true;
               nix = true;
             };
