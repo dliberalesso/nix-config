@@ -14,6 +14,7 @@
           gitnexus
           openspec
           pi
+          skills
           ;
       };
     in
@@ -37,6 +38,7 @@
         gitnexus
         openspec
         pi
+        skills
       ];
     };
 }
