@@ -141,10 +141,13 @@ require("lze").load({
     after = function()
       require("catppuccin").setup({
         integrations = {
-          blink_cmp = true,
+          blink_cmp = {
+            style = "bordered",
+          },
+          dap = true,
+          diffview = true,
           snacks = {
             enabled = false,
-            indent_scope_color = "lavender",
           },
           which_key = true,
         },
@@ -303,7 +306,7 @@ require("lze").load({
       require("lualine").setup({
         options = {
           icons_enabled = true,
-          theme = "catppuccin",
+          theme = "catppuccin-nvim",
           component_separators = "|",
           section_separators = "",
         },
