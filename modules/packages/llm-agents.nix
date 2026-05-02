@@ -18,7 +18,9 @@
           openspec
           pi
           rtk
+          sidecar
           skills
+          td
           ;
       };
     in
@@ -53,7 +55,9 @@
         openspec
         pi
         rtk
+        sidecar
         skills
+        td
       ];
 
       programs.npm.enable = true;
