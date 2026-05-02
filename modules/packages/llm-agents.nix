@@ -13,6 +13,7 @@
           gitnexus
           gno
           mcporter
+          nono
           openspec
           pi
           skills
@@ -38,6 +39,7 @@
         gitnexus
         gno
         mcporter
+        nono
         openspec
         pi
         skills
