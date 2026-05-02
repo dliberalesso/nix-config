@@ -31,6 +31,8 @@
     }:
     {
       home.packages = with pkgs; [
+        nodejs
+
         agentsview
         cli-proxy-api
         codex
@@ -40,5 +42,7 @@
         pi
         skills
       ];
+
+      programs.npm.enable = true;
     };
 }
