@@ -14,6 +14,7 @@
           gitnexus
           mcporter
           nono
+          opencode
           openspec
           pi
           skills
@@ -47,6 +48,7 @@
         gitnexus
         mcporter
         nono
+        opencode
         openspec
         pi
         skills
