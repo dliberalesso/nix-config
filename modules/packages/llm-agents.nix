@@ -18,6 +18,7 @@
           openspec
           pi
           qmd
+          rtk
           skills
           ;
       };
@@ -46,6 +47,7 @@
         openspec
         pi
         qmd
+        rtk
         skills
       ];
     };
