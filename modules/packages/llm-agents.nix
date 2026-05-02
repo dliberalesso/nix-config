@@ -19,7 +19,9 @@
           pi
           qmd
           rtk
+          sidecar
           skills
+          td
           ;
       };
     in
@@ -48,7 +50,9 @@
         pi
         qmd
         rtk
+        sidecar
         skills
+        td
       ];
     };
 }
