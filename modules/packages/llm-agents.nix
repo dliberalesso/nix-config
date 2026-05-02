@@ -17,6 +17,7 @@
           opencode
           openspec
           pi
+          qmd
           skills
           ;
       };
@@ -44,6 +45,7 @@
         opencode
         openspec
         pi
+        qmd
         skills
       ];
     };
