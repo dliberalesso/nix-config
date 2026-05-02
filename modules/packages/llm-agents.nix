@@ -11,6 +11,7 @@
           cli-proxy-api
           gemini-cli
           gitnexus
+          gno
           openspec
           pi
           skills
@@ -34,6 +35,7 @@
         cli-proxy-api
         gemini-cli
         gitnexus
+        gno
         openspec
         pi
         skills
