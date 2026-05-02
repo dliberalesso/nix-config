@@ -9,7 +9,6 @@
         inherit (inputs'.llm-agents.packages)
           agentsview
           cli-proxy-api
-          codex
           gemini-cli
           gitnexus
           openspec
@@ -33,7 +32,6 @@
       home.packages = with pkgs; [
         agentsview
         cli-proxy-api
-        codex
         gemini-cli
         gitnexus
         openspec
