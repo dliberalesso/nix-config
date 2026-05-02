@@ -12,6 +12,7 @@
           codex
           gemini-cli
           gitnexus
+          mcporter
           openspec
           pi
           skills
@@ -43,6 +44,7 @@
         codex
         gemini-cli
         gitnexus
+        mcporter
         openspec
         pi
         skills
