@@ -12,6 +12,7 @@
           gemini-cli
           gitnexus
           gno
+          mcporter
           openspec
           pi
           skills
@@ -36,6 +37,7 @@
         gemini-cli
         gitnexus
         gno
+        mcporter
         openspec
         pi
         skills
