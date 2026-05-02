@@ -14,6 +14,7 @@
           gno
           mcporter
           nono
+          opencode
           openspec
           pi
           skills
@@ -40,6 +41,7 @@
         gno
         mcporter
         nono
+        opencode
         openspec
         pi
         skills
