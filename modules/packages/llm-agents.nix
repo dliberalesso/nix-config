@@ -17,6 +17,7 @@
           opencode
           openspec
           pi
+          rtk
           skills
           ;
       };
@@ -51,6 +52,7 @@
         opencode
         openspec
         pi
+        rtk
         skills
       ];
 
