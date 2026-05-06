@@ -81,8 +81,6 @@
           terminal.font_family = "Monaspace Neon NF";
 
           theme.mode = "dark";
-
-          vim_mode = true;
         };
       };
     };
