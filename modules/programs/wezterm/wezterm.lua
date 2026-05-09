@@ -63,4 +63,9 @@ config.font_rules = {
   },
 }
 
+config.keys = {
+  -- Disable Alt+Enter for toggling fullscreen
+  { key = "Enter", mods = "ALT", action = wezterm.action.DisableDefaultAssignment },
+}
+
 return config
