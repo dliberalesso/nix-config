@@ -25,6 +25,7 @@
           unzip
           wget
           xh
+          yq-go
           zip
           ;
       };
