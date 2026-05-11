@@ -22,7 +22,7 @@ in
           facter
           gui
           hyprde
-          # irpf
+          irpf
           podman
           laptop
           work
