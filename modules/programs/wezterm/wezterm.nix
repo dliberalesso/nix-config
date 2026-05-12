@@ -1,18 +1,4 @@
 {
-  unify.modules.hyprde.home =
-    {
-      lib,
-      pkgs,
-      ...
-    }:
-    {
-      wayland.windowManager.hyprland = {
-        settings = {
-          "$terminal" = "${lib.getExe pkgs.wezterm}";
-        };
-      };
-    };
-
   unify.modules.gui.home =
     {
       config,

@@ -21,10 +21,10 @@ in
         inherit (modules)
           facter
           gui
-          hyprde
           irpf
-          podman
           laptop
+          podman
+          niride
           work
           ;
       };
