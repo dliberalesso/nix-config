@@ -22,7 +22,7 @@ if [ "$NUM_MONITORS_ACTIVE" -ge 2 ] && hyprctl monitors | cut --delimiter ' ' --
   exit
 fi
 
-INTERNAL_MONITOR_WITH_RES="eDP-1,1920x1080@144,2560x0,1"
+INTERNAL_MONITOR_WITH_RES="eDP-1,1920x1080@144,2560x0,1.25"
 EXTERNAL_MONITOR_WITH_RES="HDMI-A-1,2560x1080@60,0x0,1"
 
 # For dynamically toggling which monitor is active later via a keybind

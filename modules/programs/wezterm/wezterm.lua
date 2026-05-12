@@ -11,6 +11,9 @@ catppuccin_plugin.apply_to_config(config)
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   config.default_domain = "WSL:NixOS"
   config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+else
+  -- config.front_end = "WebGpu"
+  config.prefer_egl = true
 end
 
 config.use_fancy_tab_bar = false

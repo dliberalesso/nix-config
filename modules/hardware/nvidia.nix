@@ -8,32 +8,19 @@
     {
       # Kernel settings for Nvidia
       boot = {
-        kernelModules = [
-          "nvidia"
-          "nvidiafb"
-          "nvidia_drm"
-          "nvidia_uvm"
-          "nvidia_modeset"
-        ];
+        blacklistedKernelModules = [ "nouveau" ];
 
         extraModulePackages = [
-          config.boot.kernelPackages.nvidia_x11_beta
+          config.boot.kernelPackages.nvidiaPackages.beta
         ];
 
-        blacklistedKernelModules = [ "i915" ];
+        initrd.kernelModules = [
+          "dm_mod"
+        ];
 
         kernelParams = [
           "nvidia_drm.modeset=1"
           "nvidia_drm.fbdev=1"
-          "module_blacklist=i915"
-        ];
-
-        initrd.kernelModules = [
-          "nvidia"
-          "nvidiafb"
-          "nvidia_drm"
-          "nvidia_uvm"
-          "nvidia_modeset"
         ];
       };
 
@@ -41,36 +28,45 @@
         # Enable OpenGL
         graphics = {
           enable = true;
-          extraPackages = [ pkgs.nvidia-vaapi-driver ];
+
+          extraPackages = with pkgs; [
+            nvidia-vaapi-driver
+          ];
         };
 
         nvidia = {
-          modesetting.enable = true;
-
-          powerManagement.enable = true;
-
-          open = true;
-          nvidiaSettings = true;
           package = config.boot.kernelPackages.nvidiaPackages.beta;
 
+          modesetting.enable = true;
+
+          nvidiaSettings = true;
+
+          open = true;
+
+          powerManagement = {
+            enable = true;
+            finegrained = true;
+          };
+
           prime = {
-            # Running dGPU only
-            # Disable sync and offload
             sync.enable = false;
-            offload.enable = false;
+
+            offload = {
+              enable = true;
+              enableOffloadCmd = true;
+            };
 
             # Make sure to use the correct Bus ID values
-            intelBusId = "PCI:0:2:0";
-            nvidiaBusId = "PCI:1:0:0";
+            intelBusId = "PCI:0@0:2:0";
+            nvidiaBusId = "PCI:1@0:0:0";
           };
         };
       };
 
       # Load nvidia driver for Xorg and Wayland
       services.xserver.videoDrivers = [
-        "nvidia"
         "modesetting"
-        "fbdev"
+        "nvidia"
       ];
     };
 }
