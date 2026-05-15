@@ -31,16 +31,13 @@
   };
 
   inputs = {
-    nix-proxy-flake.url = "github:dliberalesso/nix-proxy-flake";
-
-    nixpkgs.follows = "nix-proxy-flake/nixpkgs";
+    nixpkgs.follows = "llm-agents/nixpkgs";
 
     bun2nix = {
       url = "github:nix-community/bun2nix";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-parts.follows = "flake-parts";
-        import-tree.follows = "import-tree";
         systems.follows = "systems";
         treefmt-nix.follows = "treefmt-nix";
       };
@@ -51,11 +48,31 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-parts.follows = "nix-proxy-flake/flake-parts";
+    flake-compat = {
+      url = "github:edolstra/flake-compat";
+      flake = false;
+    };
 
-    flake-root.follows = "nix-proxy-flake/flake-root";
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
 
-    git-hooks.follows = "nix-proxy-flake/git-hooks";
+    flake-root.url = "github:srid/flake-root";
+
+    git-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        gitignore.follows = "gitignore";
+      };
+    };
+
+    gitignore = {
+      url = "github:hercules-ci/gitignore.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -67,7 +84,6 @@
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
         bun2nix.follows = "bun2nix";
         flake-parts.follows = "flake-parts";
         systems.follows = "systems";
@@ -77,12 +93,12 @@
 
     make-shell = {
       url = "github:nicknovitski/make-shell";
-      inputs.flake-compat.follows = "nix-proxy-flake/flake-compat";
+      inputs.flake-compat.follows = "flake-compat";
     };
 
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nix-proxy-flake/nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
@@ -92,20 +108,23 @@
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs = {
-        nixpkgs.follows = "nix-proxy-flake/nixpkgs";
-        flake-compat.follows = "nix-proxy-flake/flake-compat";
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
       };
     };
 
     systems.url = "github:nix-systems/default";
 
-    treefmt-nix.follows = "nix-proxy-flake/treefmt-nix";
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     unify = {
       url = "git+https://codeberg.org/quasigod/unify.git";
       inputs = {
-        nixpkgs.follows = "nix-proxy-flake/nixpkgs";
-        flake-parts.follows = "nix-proxy-flake/flake-parts";
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
         home-manager.follows = "home-manager";
       };
     };
