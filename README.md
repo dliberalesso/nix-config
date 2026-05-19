@@ -11,7 +11,7 @@ A modular, reproducible NixOS configuration managing multiple systems with share
 ## ✨ Features
 
 - 🎨 **Catppuccin theme** system-wide (GTK, Qt, terminal, editors)
-- 🪟 **Hyprland** Wayland compositor with custom panel and lock screen
+- 🪟 **Niri-based desktop session** today, with desktop/session wiring evolving toward narrower reusable modules
 - 📝 **Neovim** configured via nixCats with LSP, treesitter, and custom plugins
 - 🐚 **Modern CLI** - Fish shell with bat, eza, fzf, zoxide, atuin, direnv
 - 🔄 **Version control** - Git + Jujutsu (jj) integration
@@ -23,7 +23,7 @@ A modular, reproducible NixOS configuration managing multiple systems with share
 
 ## 🖥️ Hosts
 
-- **nixavell** - Main laptop with full Hyprland desktop environment
+- **nixavell** - Main laptop with the current Niri-based desktop environment
 - **nixwsl** - Minimal WSL2 development environment
 - **testvm** - Testing virtual machine
 
@@ -31,7 +31,7 @@ A modular, reproducible NixOS configuration managing multiple systems with share
 
 - **OS**: NixOS with flakes
 - **Framework**: [unify](https://codeberg.org/quasigod/unify.git)
-- **Desktop**: Hyprland, hyprlock, hyprpanel, rofi
+- **Desktop**: Niri-based session today; shared GUI layer plus desktop/session modules
 - **Shell**: Fish with modern tools
 - **Editor**: Neovim (nixCats)
 - **VCS**: Git + Jujutsu
@@ -54,35 +54,38 @@ just clean    # Garbage collect and optimize
 
 ### Adding a New Host
 
-1. Create `hosts/newhostname/newhostname.nix`
-2. Define configuration using `unify.hosts.nixos.newhostname`
-3. Add hardware/filesystem specifics
-4. Rebuild with `just rebuild`
+1. Read `.rpiv/guidance/hosts/architecture.md`
+2. Create `hosts/newhostname/newhostname.nix`
+3. Register the host with `unify.hosts.nixos.<hostname>` and select reusable modules
+4. Add hardware/filesystem specifics in the host directory
+5. Rebuild with `just rebuild`
 
 ### Project Structure
 
 ```
 .
-├── hosts/          # Host-specific configurations
-├── modules/
-│   ├── flake/      # Top-level flake config
-│   ├── hardware/   # Hardware settings
-│   ├── meta/       # User info, hostname
-│   ├── nix/        # Nix daemon settings
-│   ├── nvim/       # Neovim configuration
-│   ├── packages/   # Custom packages
-│   ├── programs/   # Application configs
-│   ├── scripts/    # Custom scripts
-│   ├── services/   # System services
-│   ├── system/     # Core system settings
-│   ├── theme/      # Catppuccin theming
-│   └── toplevel/   # Top-level abstract configurations
+├── .rpiv/guidance/ # Canonical architecture/workflow guidance
+├── hosts/          # Concrete machine definitions
+├── modules/        # Reusable capabilities, packages, programs, and profiles
+│   ├── flake/      # flake-parts tooling
+│   ├── hardware/   # Hardware-oriented reusable settings
+│   ├── meta/       # Shared user/host/flake metadata
+│   ├── nix/        # Nix daemon and registry settings
+│   ├── nvim/       # Neovim + nixCats layer
+│   ├── packages/   # Custom packages and package install sets
+│   ├── programs/   # Program/application configuration modules
+│   ├── scripts/    # Custom script packages
+│   ├── services/   # Reusable system service fragments
+│   ├── system/     # Core OS/platform capabilities
+│   ├── theme/      # Shared visual/theme configuration
+│   └── toplevel/   # Global baselines and high-level profiles
 ├── flake.nix       # Flake definition
 └── justfile        # Task runner commands
 ```
 
 ## 📖 Documentation
 
+- [.rpiv/guidance/architecture.md](./.rpiv/guidance/architecture.md) - Canonical entrypoint for architecture/workflow docs; subfolder guides mirror the project structure
 - [AGENTS.md](./AGENTS.md) - Development guidelines for AI assistants
 - [justfile](./justfile) - All available commands
 
