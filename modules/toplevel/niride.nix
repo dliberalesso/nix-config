@@ -109,7 +109,12 @@
       };
     in
     {
-      home.packages = [ niri-lid-handler ];
+      home.packages = [
+        niri-lid-handler
+        pkgs.xwayland-satellite
+      ];
+
+      home.sessionVariables._JAVA_AWT_WM_NONREPARENTING = "1";
 
       systemd.user.services.niri-lid-handler = {
         Unit = {
