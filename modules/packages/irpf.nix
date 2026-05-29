@@ -29,6 +29,10 @@
 
           wrapProgram $out/bin/irpf \
             --suffix PATH : $out/libexec/irpf-browser-compat
+
+          if ! grep -q "^cd \"$out/share/irpf\"" $out/bin/irpf; then
+            sed -i '/^exec /i cd "'"$out"'/share/irpf"' $out/bin/irpf
+          fi
         '';
       });
     in
