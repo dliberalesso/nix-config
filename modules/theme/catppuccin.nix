@@ -7,7 +7,11 @@ let
     ${module} = {
       imports = [ inputs.catppuccin."${module}Modules".catppuccin ];
 
-      catppuccin.enable = true;
+      catppuccin = {
+        enable = true;
+
+        autoEnable = true;
+      };
     };
   };
 in
