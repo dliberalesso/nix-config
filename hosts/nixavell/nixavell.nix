@@ -21,7 +21,7 @@ in
         inherit (modules)
           facter
           gui
-          irpf
+          # irpf
           laptop
           podman
           niride
