@@ -10,6 +10,7 @@
       llm-agents-packages = {
         inherit (llm-agents)
           agentsview
+          antigravity-cli
           cli-proxy-api
           codex
           gemini-cli
@@ -24,18 +25,6 @@
           skills
           td
           ;
-
-        antigravity-cli = llm-agents.antigravity.overrideAttrs (_oa: {
-          pname = "antigravity-cli";
-
-          installPhase = ''
-            runHook preInstall
-
-            install -Dm755 antigravity $out/bin/agy
-
-            runHook postInstall
-          '';
-        });
       };
     in
     {
