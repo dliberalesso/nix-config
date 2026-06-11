@@ -13,7 +13,6 @@
           antigravity-cli
           cli-proxy-api
           codex
-          gemini-cli
           gitnexus
           mcporter
           nono
@@ -51,7 +50,6 @@
         antigravity-cli
         cli-proxy-api
         codex
-        gemini-cli
         gitnexus
         mcporter
         nono
