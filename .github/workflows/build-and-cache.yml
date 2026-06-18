@@ -30,7 +30,7 @@ jobs:
       targets: ${{ steps.set-targets.outputs.targets }}
       has_targets: ${{ steps.set-targets.outputs.has_targets }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: "Installing Nix"
         uses: cachix/install-nix-action@v31
@@ -58,7 +58,7 @@ jobs:
       matrix:
         target: ${{ fromJSON(needs.setup-matrix.outputs.targets) }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: "Making Room for Nix to Thrive 🌱"
         uses: wimpysworld/nothing-but-nix@main
@@ -101,7 +101,7 @@ jobs:
       hosts: ${{ steps.set-hosts.outputs.hosts }}
       has_hosts: ${{ steps.set-hosts.outputs.has_hosts }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: "Making Room for Nix to Thrive 🌱"
         uses: wimpysworld/nothing-but-nix@main
@@ -150,7 +150,7 @@ jobs:
       matrix:
         host: ${{ fromJSON(needs.check.outputs.hosts) }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: "Making Room for Nix to Thrive 🌱"
         uses: wimpysworld/nothing-but-nix@main
