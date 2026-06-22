@@ -8,18 +8,18 @@
     let
       bmad-method = pkgs.buildNpmPackage (finalAttrs: {
         pname = "bmad-method";
-        version = "6.7.1";
+        version = "6.9.0";
 
         src = pkgs.fetchFromGitHub {
           owner = "bmad-code-org";
           repo = "BMAD-METHOD";
           tag = "v${finalAttrs.version}";
           # hash = lib.fakeHash;
-          hash = "sha256-U1qBhz/qqUQ9edt1mLDfo8QHPNrAk9q6AVy3zC5FuSs=";
+          hash = "sha256-K0kTv+fiRO2pBIvspNwfE8ovAmULCSMjgjBjVHYpbIs=";
         };
 
         # npmDepsHash = lib.fakeHash;
-        npmDepsHash = "sha256-wW5rpoRNOufzg2d/Tqzh7gGgZKR4Hucz47dSkJlIwgE=";
+        npmDepsHash = "sha256-djTw5Cnq6FCc0wRLEvs8QQM+FljBSSokNJEZ+e3BtTE=";
 
         dontNpmBuild = true;
         npmPrune = false;
