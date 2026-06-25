@@ -24,6 +24,8 @@
 
         antigravity-cli
         codex
+        herdr
+        hunk
         mcporter
         pi
         rtk
