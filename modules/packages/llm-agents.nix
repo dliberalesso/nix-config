@@ -22,20 +22,14 @@
 
         nodejs
 
-        agentsview
         antigravity-cli
-        cli-proxy-api
         codex
-        gitnexus
         mcporter
         nono
-        opencode
         openspec
         pi
         rtk
-        sidecar
         skills
-        td
       ];
 
       programs.npm.enable = true;
