@@ -4,32 +4,8 @@
       inputs',
       ...
     }:
-    let
-      llm-agents = inputs'.llm-agents.packages;
-
-      llm-agents-packages = {
-        inherit (llm-agents)
-          agentsview
-          antigravity-cli
-          cli-proxy-api
-          codex
-          gitnexus
-          mcporter
-          nono
-          opencode
-          openspec
-          pi
-          rtk
-          sidecar
-          skills
-          td
-          ;
-      };
-    in
     {
-      overlayAttrs = llm-agents-packages;
-
-      packages = llm-agents-packages;
+      overlayAttrs = inputs'.llm-agents.packages;
     };
 
   unify.home =
