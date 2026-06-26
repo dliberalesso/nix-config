@@ -1,38 +1,39 @@
 {
-  perSystem =
-    {
-      inputs',
-      ...
-    }:
-    {
-      overlayAttrs = inputs'.llm-agents.packages;
-    };
-
+  inputs,
+  ...
+}:
+{
   unify.home =
     {
       pkgs,
       ...
     }:
+    let
+      system = pkgs.stdenv.hostPlatform.system;
+      llmAgentPackages = inputs.llm-agents.packages.${system};
+    in
     {
-      home.packages = with pkgs; [
-        (python3.withPackages (ps: [
-          ps.huggingface-hub
-          ps.unsloth
-        ]))
+      home.packages =
+        (with pkgs; [
+          (python3.withPackages (ps: [
+            ps.huggingface-hub
+            ps.unsloth
+          ]))
 
-        nodejs
-
-        antigravity-cli
-        codex
-        herdr
-        hunk
-        mcporter
-        nono
-        openspec
-        pi
-        rtk
-        skills
-      ];
+          nodejs
+        ])
+        ++ (with llmAgentPackages; [
+          antigravity-cli
+          codex
+          herdr
+          hunk
+          mcporter
+          nono
+          openspec
+          pi
+          rtk
+          skills
+        ]);
 
       programs.npm.enable = true;
     };
