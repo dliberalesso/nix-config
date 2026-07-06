@@ -7,7 +7,8 @@
     }:
     {
       boot = {
-        kernelPackages = pkgs.linuxPackages_zen;
+        # TODO: Re-evaluate zen kernel with newer NVIDIA open driver versions
+        kernelPackages = pkgs.linuxPackages;
 
         kernelModules = [
           "kvm-intel"
