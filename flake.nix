@@ -65,13 +65,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
-        gitignore.follows = "gitignore";
       };
-    };
-
-    gitignore = {
-      url = "github:hercules-ci/gitignore.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
