@@ -15,11 +15,6 @@
     {
       home.packages =
         (with pkgs; [
-          (python3.withPackages (ps: [
-            ps.huggingface-hub
-            ps.unsloth
-          ]))
-
           nodejs
         ])
         ++ (with llmAgentPackages; [
