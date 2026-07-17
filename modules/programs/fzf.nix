@@ -38,15 +38,21 @@
         inherit defaultCommand;
         defaultOptions = [ "--height 50%" ];
 
-        fileWidgetCommand = defaultCommand;
-        fileWidgetOptions = [
-          "--preview '${bat} --plain --line-range=:200 {}'"
-        ];
+        fileWidget = {
+          command = defaultCommand;
+          options = [
+            "--preview '${bat} --plain --line-range=:200 {}'"
+          ];
+        };
 
-        changeDirWidgetCommand = "${fd} --type d";
-        changeDirWidgetOptions = [
-          "--preview '${eza} --tree --icons | head -200'"
-        ];
+        changeDirWidget = {
+          command = "${fd} --type d";
+          options = [
+            "--preview '${eza} --tree --icons | head -200'"
+          ];
+        };
+
+        historyWidget.command = "";
       };
     };
 }
