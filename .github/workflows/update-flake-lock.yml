@@ -26,7 +26,7 @@ jobs:
           github_access_token: ${{ secrets.PAT }}
 
       - name: "Updating flake.lock"
-        uses: DeterminateSystems/update-flake-lock@v28
+        uses: DeterminateSystems/update-flake-lock@v29
         id: nix-update
         with:
           token: ${{ secrets.PAT }}
