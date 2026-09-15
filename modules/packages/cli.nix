@@ -8,6 +8,7 @@
       home.packages = builtins.attrValues {
         inherit (pkgs)
           cachix
+          chess-tui
           devenv
           dust
           gitmoji-cli
