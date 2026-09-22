@@ -34,7 +34,7 @@
 - Neovim/nixCats changes: see `.rpiv/guidance/modules/nvim/architecture.md`
 - Flake tooling changes: see `.rpiv/guidance/modules/flake/architecture.md`
 - Adding flake inputs: for eval-time inputs, follow `nix-proxy-flake/nixpkgs` where applicable; for build-time only inputs, use `buildTime = true;` and `flake = false;`
-- Theme scheme plumbing: check `.rpiv/guidance/architecture.md` first because `modules/theme/scheme.nix` currently references a missing `base16` input
+- Theme scheme plumbing: theme scheme options are defined in `modules/theme/scheme.nix` providing Catppuccin color definitions
 
 ## Key Technologies
 
