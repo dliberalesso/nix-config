@@ -2,13 +2,13 @@
 
 ## Responsibility
 
-`modules/` is the reusable configuration layer. It defines global defaults, opt-in capability modules, package exports, editor/program config, and top-level profiles that hosts compose.
+`modules/` is the reusable configuration layer. It defines global defaults, opt-in capability modules, package exports, editor/program configs, and top-level profiles that hosts compose.
 
 ## Dependencies
 
-- **`unify`**: Main architecture boundary for `unify.nixos`, `unify.home`, and `unify.modules.*`
-- **`flake-parts`**: Provides `perSystem`, overlays, dev-shell, and flake-module composition
-- **Home Manager / NixOS modules**: The two execution targets this tree writes into
+- **`unify`**: Main architectural boundary for `unify.nixos`, `unify.home`, and `unify.modules.*`
+- **`flake-parts`**: Provides `perSystem`, overlays, dev shells, and flake-module composition
+- **Home Manager / NixOS modules**: The primary configuration targets
 
 ## Consumers
 
@@ -17,10 +17,10 @@
 
 ## Module Structure
 
-- `flake/, meta/, nix/` — flake infrastructure and global metadata/daemon settings
+- `flake/, meta/, nix/` — flake infrastructure, global metadata, and daemon settings
 - `system/, hardware/, services/` — reusable machine/system capabilities such as `laptop` and `podman`
-- `packages/, programs/, nvim/` — package exports plus user-facing application/editor config
-- `theme/` — shared visual system; currently also carries a known `base16` input issue
+- `packages/, programs/, nvim/` — custom package exports plus user application and editor config
+- `theme/` — shared Catppuccin visual scheme and wallpaper configuration
 - `toplevel/` — high-level profiles and cross-layer bundles such as `wsl` and transitional `niride`
 - `scripts/` — packaged helper commands exposed through flake outputs or user environments
 
@@ -28,11 +28,11 @@
 
 ```nix
 {
-  unify.nixos = { ... }: {
+  unify.nixos = { hostConfig, ... }: {
     networking.hostName = hostConfig.name;
   };
 
-  unify.home = { ... }: {
+  unify.home = { hostConfig, ... }: {
     home.username = hostConfig.user.username;
   };
 
@@ -61,9 +61,9 @@
 
 ## Architectural Boundaries
 
-- **NO host-specific machine details here**: disks, one-off hardware facts, and VM convenience config stay under `hosts/`
-- **NO treat `laptop` as a host alias**: it is a hardware-oriented reusable profile, even if `nixavell` is the only current consumer
-- **KNOWN ISSUE**: `modules/theme/scheme.nix` references `inputs.base16.lib`, but `flake.nix` does not currently declare `base16`; fix the input before extending that path
+- **NO host-specific machine details here**: disks, one-off hardware facts, and VM convenience configs stay under `hosts/`
+- **NO treating `laptop` as a host alias**: it is a hardware-oriented reusable profile, even if `nixavell` is the primary current consumer
+- **KEEP `gui.nix` DE-INDEPENDENT**: generic GUI apps stay in `modules/programs/gui.nix` and `modules/packages/gui.nix`; desktop-environment specifics live in dedicated desktop bundles
 
 <important if="you are adding a new reusable module to this layer">
 ## Adding a New Reusable Module

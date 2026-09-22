@@ -8,7 +8,7 @@ This is a personal Nix flake for building NixOS machines, Home Manager environme
 flake.nix
 ├── hosts/      # concrete machines
 └── modules/    # reusable capabilities and global defaults
-    ├── flake/  # flake-parts tooling
+    ├── flake/  # flake-parts tooling (devshell, treefmt, pre-commit)
     ├── system/ hardware/ services/
     ├── packages/ programs/ nvim/
     ├── theme/
@@ -19,17 +19,20 @@ Flow: `flake.nix` imports `hosts/` and `modules/` → `modules/` defines global 
 
 # Commands
 
-| Command        | Purpose                               |
-| -------------- | ------------------------------------- |
-| `just fmt`     | Format the repo                       |
-| `just lint`    | Run `nix flake check`                 |
-| `just rebuild` | Rebuild and switch the current system |
-| `just update`  | Update flake inputs                   |
-| `just debug`   | Open the Nix REPL with debug enabled  |
+| Command | Repo-wide                                     | Path-scoped                           | Purpose                                                    |
+| ------- | --------------------------------------------- | ------------------------------------- | ---------------------------------------------------------- |
+| Format  | `just fmt` (`nix fmt`)                        | `treefmt <path>...` (within devshell) | Format code using treefmt (nixfmt, prettier, stylua, etc.) |
+| Lint    | `just lint` (`nix flake check`)               | N/A                                   | Run flake checks                                           |
+| Rebuild | `just rebuild` (`nh os switch . --ask`)       | N/A                                   | Rebuild and switch NixOS configuration                     |
+| Update  | `just update` (`nix flake update`)            | `nix flake update <input>`            | Update flake inputs                                        |
+| Diff    | `just diff` (`jj diff 'flake.lock'`)          | N/A                                   | Show changes to flake.lock                                 |
+| Clean   | `just clean` (`nh clean all --nogcroots`)     | N/A                                   | Garbage collect and optimize Nix store                     |
+| Repair  | `just repair` (`sudo nix-store --verify ...`) | N/A                                   | Verify and repair Nix store integrity                      |
+| Debug   | `just debug`                                  | N/A                                   | Open Nix REPL with debug flag enabled                      |
 
 # Business Context
 
-This repository is the source of truth for the author’s machine, user, package, and editor configuration. It is optimized for reusable capability modules, not for publishing a generic distribution.
+This repository is the source of truth for the author’s machine, user, package, and editor configuration. It is optimized for reusable capability modules rather than a generic distribution.
 
 <important if="you are trying to understand how a concrete machine is assembled">
 Start with `.rpiv/guidance/hosts/architecture.md`, then follow the selected reusable modules into `.rpiv/guidance/modules/architecture.md` and the relevant sublayer guides.
@@ -37,12 +40,4 @@ Start with `.rpiv/guidance/hosts/architecture.md`, then follow the selected reus
 
 <important if="you are adding or changing reusable configuration logic">
 Choose the narrowest reusable layer first: `.rpiv/guidance/modules/system/architecture.md`, `.rpiv/guidance/modules/programs/architecture.md`, `.rpiv/guidance/modules/packages/architecture.md`, `.rpiv/guidance/modules/toplevel/architecture.md`, or `.rpiv/guidance/modules/nvim/architecture.md`. Keep host-only facts out of reusable modules.
-</important>
-
-<important if="you are working on desktop-session changes">
-Treat `gui` as the stable desktop-agnostic layer for shared graphical apps, fonts, and theme. Treat `niride` as a transitional Niri bundle; compositor/session-specific work should move toward narrower modules so `niride` and a future `hyprde` can coexist (see `.rpiv/guidance/modules/toplevel/architecture.md`).
-</important>
-
-<important if="you are touching theme scheme plumbing">
-Check the known architecture issue first: `modules/theme/scheme.nix` references `inputs.base16.lib`, but `flake.nix` does not currently declare `base16`. Fix the missing input before extending that path.
 </important>

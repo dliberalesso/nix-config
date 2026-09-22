@@ -2,29 +2,29 @@
 
 ## Responsibility
 
-`modules/system/` provides low-level OS/platform behavior: boot, kernel, audio, locale, networking, virtualization, and user XDG directories. It is reusable system policy, not host definition.
+`modules/system/` provides low-level OS and platform behavior: bootloader, kernel, audio, locale, networking, virtualization, graphics, and user XDG directories. It represents reusable system policy rather than host-specific hardware details.
 
 ## Dependencies
 
-- **NixOS module system**: Primary target for most files in this directory
-- **Home Manager**: Used only for user XDG directory policy
+- **NixOS module system**: Primary target for system configuration files
+- **Home Manager**: Used for user XDG directory configuration
 - **`hostConfig` and `lib`**: Used for host-derived usernames and override-friendly defaults
 
 ## Consumers
 
-- **`laptop` profile**: Consumes most hardware-oriented system fragments from this directory
+- **`laptop` profile**: Consumes physical hardware-oriented system modules from this directory
 - **`podman` profile**: Consumes container runtime support
-- **All users**: Receive `unify.home` XDG directory config
+- **All users**: Receive `unify.home` XDG directory configuration
 
 ## Module Structure
 
-- `boot.nix, kernel.nix` — bootloader, tmp cleanup, kernel family/modules/initrd
-- `audio.nix, graphics.nix` — runtime multimedia and graphics support
-- `locale.nix, network.nix` — machine defaults that still allow host-level override
-- `virtualization.nix` — `podman`-scoped container support
-- `xdg.nix` — Home Manager XDG user directory policy
+- `boot.nix, kernel.nix` — systemd-boot, kernel family/modules, and initrd
+- `audio.nix, graphics.nix` — PipeWire multimedia and OpenGL/graphics acceleration
+- `locale.nix, network.nix` — system locale and networking defaults with host override support
+- `virtualization.nix` — `podman`-scoped rootless container support
+- `xdg.nix` — Home Manager user XDG directory policy
 
-## Hardware-Oriented Profile, Not Host Alias
+## Hardware-Oriented Profile (`laptop`)
 
 ```nix
 {
@@ -35,7 +35,7 @@
 }
 ```
 
-## Kernel Package Coupling (Use `config.boot.kernelPackages`)
+## Kernel Package Coupling (`config.boot.kernelPackages`)
 
 ```nix
 {
@@ -53,8 +53,8 @@
 
 ## Architectural Boundaries
 
-- **NO machine-local disk or generated hardware files here**: those stay under `hosts/`
-- **TREAT `laptop` AS HARDWARE-SHAPED**: group reusable physical-machine concerns here even if only `nixavell` uses them today
+- **NO machine-local disks or generated hardware files here**: those belong strictly under `hosts/`
+- **TREAT `laptop` AS HARDWARE-SHAPED**: group reusable physical-machine concerns here even if `nixavell` is the primary current consumer
 
 <important if="you are adding a new system capability to this layer">
 ## Adding a New System Capability
