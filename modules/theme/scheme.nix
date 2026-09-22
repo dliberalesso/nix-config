@@ -1,18 +1,8 @@
-{
-  inputs,
-  ...
-}:
-{
+_: {
   perSystem =
-    {
-      lib,
-      pkgs,
-      ...
-    }:
+    { lib, ... }:
     let
       inherit (lib) mkOption types;
-
-      inherit (pkgs.callPackage inputs.base16.lib { }) mkSchemeAttrs;
     in
     {
       options.theme = {
@@ -31,7 +21,7 @@
           internal = true;
           readOnly = true;
 
-          default = mkSchemeAttrs {
+          default = {
             slug = "catppuccin-mocha";
             scheme = "Catppuccin Mocha";
             author = "https://github.com/catppuccin/catppuccin";
