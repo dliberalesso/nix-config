@@ -2,25 +2,25 @@
 
 ## Responsibility
 
-`modules/toplevel/` defines cross-cutting base policy plus high-level profiles. It is where global user/home defaults live and where larger environment bundles such as `wsl` and the current Niri desktop bundle are assembled.
+`modules/toplevel/` defines cross-cutting base policy and high-level environment profiles. It establishes global user/home defaults and integrates composite environments such as `wsl` and desktop session bundles.
 
 ## Dependencies
 
 - **`unify`**: Exposes global `unify.nixos` / `unify.home` and named `unify.modules.*` bundles
-- **Home Manager bridge**: Base home policy and NixOS↔Home Manager integration meet here
+- **Home Manager bridge**: Connects base home environment and NixOS↔Home Manager integration
 - **`nixos-wsl`**: Imported inside the `wsl` profile module
 
 ## Consumers
 
-- **All hosts**: Consume the global base fragments defined here
-- **Selected hosts**: Opt into named bundles like `wsl` or `niride`
+- **All hosts**: Consume the global user and home baseline defined here
+- **Selected hosts**: Opt into composite bundles like `wsl` or `niride`
 
 ## Module Structure
 
-- `home.nix, user.nix` — global Home Manager and user-account baseline
-- `secrets.nix` — cross-cutting secret/GPG tooling
-- `wsl.nix` — platform-specific WSL bundle
-- `niride.nix` — current Niri desktop/session bundle, marked transitional
+- `home.nix, user.nix` — global Home Manager baseline and user-account defaults
+- `secrets.nix` — cross-cutting secret and key management hooks
+- `wsl.nix` — platform-specific WSL2 profile bundle
+- `niride.nix` — current Niri desktop/session bundle (marked transitional)
 
 ## Global Baseline + Bridge
 
@@ -45,27 +45,26 @@
 
 ```nix
 {
-  unify.modules.desktop.nixos = { pkgs, ... }: {
-    programs.someCompositor.enable = true;
+  unify.modules.niride.nixos = { pkgs, ... }: {
+    programs.niri.enable = true;
     security.polkit.enable = true;
   };
 
-  unify.modules.desktop.home = { pkgs, ... }: {
-    home.packages = [ pkgs.some-user-tool ];
-    systemd.user.services.desktop-helper.Service.ExecStart = "...";
+  unify.modules.niride.home = { pkgs, ... }: {
+    home.packages = [ pkgs.xwayland-satellite ];
+    services.polkit-gnome.enable = true;
   };
 }
 ```
 
 ## Architectural Boundaries
 
-- **NO generic GUI app/theme ownership here**: shared graphical apps, fonts, and theme belong under the stable `gui` layer; keep compositor/session-specific wiring in desktop bundles
-- **TREAT `niride` AS TRANSITIONAL**: it is the current Niri integration point, but future work should move toward narrower modules so `niride` and a future `hyprde` can coexist
+- **NO generic GUI app ownership here**: shared desktop applications belong in `gui` (e.g. `modules/programs/gui.nix` and `modules/packages/gui.nix`); keep compositor/session-specific wiring in dedicated desktop modules
+- **TREAT `niride` AS TRANSITIONAL**: future architecture will support multiple DEs (e.g. `hyprde`) via dedicated DE modules and a shared `common` foundation
 
 <important if="you are changing desktop-session architecture in this layer">
 ## Desktop Session Guidance
-1. Put compositor/session-specific services, portals, greeters, and user session helpers in a desktop bundle here
-2. Keep shared GUI apps/fonts/theme in `unify.modules.gui.*` instead of `niride`
-3. Prefer new narrow modules over making `niride` broader
-4. Design changes so a future `hyprde` can reuse shared GUI layers without inheriting Niri-specific wiring
+1. Put compositor/session-specific services, portals, greeters, and lid handlers in the desktop bundle here
+2. Keep DE-independent GUI apps/fonts in `unify.modules.gui.*` rather than `niride`
+3. Design desktop modules so future additions (such as `hyprde`) can reuse shared foundations without inheriting Niri-specific services
 </important>

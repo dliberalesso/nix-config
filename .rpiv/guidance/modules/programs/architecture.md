@@ -2,27 +2,27 @@
 
 ## Responsibility
 
-`modules/programs/` configures user-facing programs. Most files are Home Manager modules; a smaller set also touch NixOS for shells, system-level helpers, or external module imports.
+`modules/programs/` configures user-facing applications and CLI utilities. Most files are Home Manager modules, with paired NixOS modules where shells, system-level helpers, or external modules are required.
 
 ## Dependencies
 
-- **Home Manager program modules**: Primary API surface for program configuration
-- **`unify`**: Separates global program config from GUI-scoped or system-scoped config
-- **`hostConfig`**: Supplies user identity and repository path for editable configs
+- **Home Manager program modules**: Primary API surface for user-space program configuration
+- **`unify`**: Distributes program config across global (`unify.home`), system (`unify.nixos`), and GUI (`unify.modules.gui.home`) scopes
+- **`hostConfig`**: Supplies user identity and repository path for out-of-store editable symlinks
 
 ## Consumers
 
 - **All user profiles**: Receive global `unify.home` program modules
-- **GUI hosts**: Also consume `unify.modules.gui.home` program modules such as WezTerm
+- **GUI hosts**: Also consume `unify.modules.gui.home` program modules such as WezTerm and Zed
 
 ## Module Structure
 
-- `*.nix` — one program/tool per file (`git`, `fish`, `jujutsu`, `yazi`, `zed`, ...)
-- `cli.nix, gui.nix` — small aggregate toggles for trivial programs
-- `starship/, wezterm/` — program dirs that carry helper assets beside the Nix module
-- `nix-index-database.nix` — external module import bridged into Home/NixOS
+- `*.nix` — one program per file (`git`, `fish`, `jujutsu`, `yazi`, `zed`, `bat`, `eza`, ...)
+- `cli.nix, gui.nix` — aggregate toggles for simple CLI and GUI apps
+- `starship/, wezterm/` — program directories that carry helper scripts or Lua assets beside the Nix module
+- `nix-index-database.nix` — external flake module integrated into Home/NixOS
 
-## Home vs NixOS Program Boundary
+## Home vs NixOS Dual-Scope Configuration
 
 ```nix
 {
@@ -31,34 +31,36 @@
   unify.nixos = { pkgs, ... }: {
     programs.fish.enable = true;
     environment.shells = [ pkgs.fish ];
+    users.defaultUserShell = pkgs.fish;
   };
 }
 ```
 
-## Editable Configs Live Beside the Module
+## GUI-Scoped Out-of-Store Symlink (`mkOutOfStoreSymlink`)
 
 ```nix
 {
   unify.modules.gui.home = { config, hostConfig, ... }:
   let
     inherit (config.lib.file) mkOutOfStoreSymlink;
-    path = "${hostConfig.flakePath}/modules/programs/my-app/config.lua";
+    path = "${hostConfig.flakePath}/modules/programs/wezterm/wezterm.lua";
   in {
-    xdg.configFile."my-app/config.lua".source = mkOutOfStoreSymlink path;
+    programs.wezterm.enable = true;
+    xdg.configFile."wezterm/wezterm.lua".source = mkOutOfStoreSymlink path;
   };
 }
 ```
 
 ## Architectural Boundaries
 
-- **NO hardcoded repo paths or identity**: use `hostConfig.flakePath` and `hostConfig.user.*`
-- **NO GUI-only config in global `unify.home`**: gate desktop-only apps under `unify.modules.gui.home`
+- **NO hardcoded repository paths or user names**: use `hostConfig.flakePath` and `hostConfig.user.*`
+- **NO GUI-only apps in global `unify.home`**: gate desktop-only applications under `unify.modules.gui.home`
+- **KEEP `gui.nix` DESKTOP-AGNOSTIC**: `modules/programs/gui.nix` houses general desktop apps; compositor/DE-specific modules belong in dedicated desktop modules
 
 <important if="you are adding a new program module to this layer">
 ## Adding a New Program Module
-1. Create `modules/programs/<program>.nix`
-2. Use plain `unify.home.programs.<name>` for simple toggles, or a lambda `unify.home = { pkgs, ... }: { ... };` when you need arguments
-3. Add a NixOS half only when the program needs shell registration, services, or system-wide options
-4. If the program has editable upstream config, create a subdirectory and link it with `mkOutOfStoreSymlink`
-5. Put GUI-only programs behind `unify.modules.gui.home`
+1. For trivial CLI tools, add `unify.home.programs.<name>.enable = true;` to `cli.nix`
+2. For dedicated tools, create `modules/programs/<program>.nix`
+3. Add a NixOS block only when shell registration, system packages, or daemon options are needed
+4. For GUI tools, scope under `unify.modules.gui.home` and link live configs with `mkOutOfStoreSymlink`
 </important>

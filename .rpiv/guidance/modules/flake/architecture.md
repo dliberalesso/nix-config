@@ -7,7 +7,7 @@
 ## Dependencies
 
 - **`flake-parts`**: The module model used by every file in this directory
-- **`make-shell`, `treefmt-nix`, `git-hooks.nix`, `flake-root`**: Each file adapts one flake integration
+- **`make-shell`, `treefmt-nix`, `git-hooks.nix`, `flake-root`**: Flake tooling adapters
 
 ## Consumers
 
