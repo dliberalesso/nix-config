@@ -2,12 +2,12 @@
 
 ## Responsibility
 
-`modules/packages/` provisions software. It either installs existing packages into Home/NixOS profiles or defines custom packages that are exported as flake packages and overlays.
+`modules/packages/` provisions software. It either installs existing packages into Home/NixOS profiles or defines custom packages exported through flake packages and overlays.
 
 ## Dependencies
 
 - **`perSystem` / overlays**: Custom packages are exposed through `packages` and `overlayAttrs`
-- **Nixpkgs builders**: `buildNpmPackage`, `stdenvNoCC`, `callPackage`, and `overrideAttrs` shape implementation here
+- **Nixpkgs builders**: `stdenvNoCC`, `callPackage`, `writeShellApplication`, and `overrideAttrs`
 - **`unify`**: Chooses whether packages are global, GUI-scoped, work-scoped, or system-only
 
 ## Consumers
@@ -18,17 +18,22 @@
 ## Module Structure
 
 - `cli.nix, gui.nix, fonts.nix` — package aggregators for common install sets
-- `*.nix` — single custom package modules exposed through flake outputs and/or installs
+- `*.nix` — single custom package modules exposed through flake outputs and installs
 - `<pkg>/<pkg>.nix` — public wrapper module for a complex package
 - `<pkg>/_*.nix` — private derivation details
-- `espanso/` — special case where packaging and NixOS capability wrapper are both required
+- `espanso/` — packaging combined with privileged NixOS capability wrappers
 
 ## Export Then Consume Through `pkgs`
 
 ```nix
 {
   perSystem = { pkgs, ... }:
-  let my-tool = pkgs.buildNpmPackage { /* ... */ }; in {
+  let
+    my-tool = pkgs.writeShellApplication {
+      name = "my-tool";
+      text = ''echo "hello"'';
+    };
+  in {
     overlayAttrs = { inherit my-tool; };
     packages = { inherit my-tool; };
   };
@@ -43,14 +48,19 @@
 
 ```nix
 # modules/packages/example/example.nix
-let example = pkgs.callPackage ./_example.nix { }; in {
-  packages = { inherit example; };
+{
+  perSystem = { pkgs, ... }:
+  let example = pkgs.callPackage ./_example.nix { }; in {
+    overlayAttrs = { inherit example; };
+    packages = { inherit example; };
+  };
 }
 
 # modules/packages/example/_example.nix
+{ lib, stdenvNoCC }:
 stdenvNoCC.mkDerivation {
   pname = "example";
-  installPhase = ''makeWrapper ...'';
+  version = "1.0.0";
 }
 ```
 
