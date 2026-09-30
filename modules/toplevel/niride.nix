@@ -20,9 +20,9 @@
         dms-shell = {
           enable = true;
 
-          enableCalendarEvents = false;
-          enableDynamicTheming = false;
-          enableVPN = false;
+          excludePackages = with pkgs; [
+            matugen
+          ];
         };
 
         niri.enable = true;
