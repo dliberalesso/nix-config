@@ -31,15 +31,15 @@
     in
     {
       nix = {
+        # - Add each flake input as a registry
+        registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+
         # Make nix3 and legacy nix commands consistent:
         # - Add the inputs to the system's legacy channels
-        nixPath = [
+        settings.nix-path = [
           "nixpkgs-overlays=${nixpkgs-overlays}"
         ]
         ++ (lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry);
-
-        # - Add each flake input as a registry
-        registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
       };
     };
 }
