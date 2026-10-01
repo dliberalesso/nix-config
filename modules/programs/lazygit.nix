@@ -22,9 +22,9 @@
           ];
 
           git = {
-            pagers = [
+            diffRenderers = [
               (lib.optionalAttrs config.programs.delta.enableGitIntegration {
-                pager = "${lib.getExe pkgs.delta} --dark --paging=never";
+                command = "${lib.getExe pkgs.delta} --dark --paging=never";
               })
             ];
 
