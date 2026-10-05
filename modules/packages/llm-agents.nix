@@ -22,11 +22,9 @@
           codex
           herdr
           hunk
-          mcporter
           nono
           openspec
           pi
-          rtk
           skills
         ]);
 
