@@ -12,7 +12,6 @@
           prismlauncher
           qalculate-qt
           spotify
-          vesktop # Discord
           ;
       };
 
