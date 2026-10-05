@@ -18,7 +18,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     hash = "sha256-R6XTJ5PrlPYfreMdd6dlhe1pq0YgkEOYUDJAxJHDE1s=";
   };
 
-  passthru.updateScript = writeScript "update-irpf" ''
+  passthru.updateScript = writeScript "update-pjeoffice-pro" ''
     #!/usr/bin/env nix-shell
     #!nix-shell -i bash -p curl common-updater-scripts
 
