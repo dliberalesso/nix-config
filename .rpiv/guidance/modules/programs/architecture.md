@@ -17,7 +17,7 @@
 
 ## Module Structure
 
-- `*.nix` — one program per file (`git`, `fish`, `jujutsu`, `yazi`, `zed`, `bat`, `eza`, ...)
+- `*.nix` — one program per file (`git`, `zsh`, `jujutsu`, `yazi`, `zed`, `bat`, `eza`, ...)
 - `cli.nix, gui.nix` — aggregate toggles for simple CLI and GUI apps
 - `starship/, wezterm/` — program directories that carry helper scripts or Lua assets beside the Nix module
 - `nix-index-database.nix` — external flake module integrated into Home/NixOS
@@ -26,15 +26,23 @@
 
 ```nix
 {
-  unify.home.programs.fish.enable = true;
+  unify.home = { config, ... }: {
+    home.shell.enableZshIntegration = true;
+
+    programs.zsh = {
+      enable = true;
+      dotDir = "${config.xdg.configHome}/zsh";
+    };
+  };
 
   unify.nixos = { pkgs, ... }: {
-    programs.fish.enable = true;
-    environment.shells = [ pkgs.fish ];
-    users.defaultUserShell = pkgs.fish;
+    programs.zsh.enable = true;
+    users.defaultUserShell = pkgs.zsh;
   };
 }
 ```
+
+Normal-user startup files are managed under `${config.xdg.configHome}/zsh` with `~/.zshenv` exporting `ZDOTDIR`. Root shell selection is system-only through `users.defaultUserShell = pkgs.zsh;` with no Home Manager profile or shared root/user `ZDOTDIR`.
 
 ## GUI-Scoped Out-of-Store Symlink (`mkOutOfStoreSymlink`)
 
