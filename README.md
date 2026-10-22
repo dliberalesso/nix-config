@@ -13,7 +13,7 @@ A modular, reproducible NixOS configuration managing multiple systems with share
 - 🎨 **Catppuccin theme** system-wide (GTK, Qt, terminal, editors)
 - 🪟 **Niri-based desktop session** today, with desktop/session wiring evolving toward narrower reusable modules
 - 📝 **Neovim** configured via nixCats with LSP, treesitter, and custom plugins
-- 🐚 **Modern CLI** - Fish shell with bat, eza, fzf, zoxide, atuin, direnv
+- 🐚 **Modern CLI** - Zsh with bat, eza, fzf, zoxide, atuin, direnv
 - 🔄 **Version control** - Git + Jujutsu (jj) integration
 - 🎵 **Customized Spotify** via Spicetify
 - 🐳 **Podman** containerization
@@ -32,7 +32,7 @@ A modular, reproducible NixOS configuration managing multiple systems with share
 - **OS**: NixOS with flakes
 - **Framework**: [unify](https://codeberg.org/quasigod/unify.git)
 - **Desktop**: Niri-based session today; shared GUI layer plus desktop/session modules
-- **Shell**: Fish with modern tools
+- **Shell**: Zsh with modern tools
 - **Editor**: Neovim (nixCats)
 - **VCS**: Git + Jujutsu
 - **Theme**: Catppuccin
