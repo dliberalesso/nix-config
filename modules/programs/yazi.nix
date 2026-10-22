@@ -7,6 +7,9 @@
     {
       programs.yazi = {
         enable = true;
+        enableZshIntegration = true;
+
+        shellWrapperName = "y";
 
         initLua = /* lua */ ''
           require("git"):setup {

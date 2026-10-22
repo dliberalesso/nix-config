@@ -58,6 +58,7 @@
     {
       programs.starship = {
         enable = true;
+        enableZshIntegration = true;
 
         settings = lib.mkMerge [
           (lib.importTOML preset)

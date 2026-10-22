@@ -42,7 +42,7 @@
 - **System Builder**: nh (Nix Helper)
 - **Task Runner**: just
 - **VCS**: Git + Jujutsu (jj)
-- **Shell**: Fish with modern CLI tools (eza, bat, fzf, zoxide, atuin)
+- **Shell**: Zsh with modern CLI tools (eza, bat, fzf, zoxide, atuin)
 - **Editor**: Neovim via nixCats
 - **Desktop**: Niri-based desktop session today via `niride`; future direction may support both `niride` and `hyprde`
 - **Theme**: Catppuccin

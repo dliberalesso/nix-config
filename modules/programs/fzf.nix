@@ -34,6 +34,7 @@
     {
       programs.fzf = {
         enable = true;
+        enableZshIntegration = true;
 
         inherit defaultCommand;
         defaultOptions = [ "--height 50%" ];
@@ -52,7 +53,9 @@
           ];
         };
 
-        historyWidget.command = "";
+        historyWidget = {
+          command = "";
+        };
       };
     };
 }

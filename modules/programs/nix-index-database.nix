@@ -13,7 +13,11 @@ in
 
     programs = {
       nix-index-database.comma.enable = true;
-      nix-index.enable = true;
+
+      nix-index = {
+        enable = true;
+        enableZshIntegration = true;
+      };
     };
   };
 
@@ -21,5 +25,7 @@ in
     imports = [
       nixosModules.nix-index
     ];
+
+    programs.nix-index.enableZshIntegration = true;
   };
 }
