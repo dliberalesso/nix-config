@@ -27,6 +27,7 @@
     }:
     {
       home.packages = with pkgs; [
+        llm-agents.bb-app
         llm-agents.chatgpt
         llm-agents.opencode2-desktop
       ];
