@@ -1,30 +1,20 @@
 {
-  inputs,
-  ...
-}:
-{
   unify.home =
     {
       pkgs,
       ...
     }:
-    let
-      system = pkgs.stdenv.hostPlatform.system;
-      llmAgentPackages = inputs.llm-agents.packages.${system};
-    in
     {
-      home.packages =
-        (with pkgs; [
-          nodejs
-        ])
-        ++ (with llmAgentPackages; [
-          antigravity-cli
-          codex
-          herdr
-          hunk
-          pi
-          skills
-        ]);
+      home.packages = with pkgs; [
+        nodejs
+
+        llm-agents.antigravity-cli
+        llm-agents.codex
+        llm-agents.herdr
+        llm-agents.hunk
+        llm-agents.pi
+        llm-agents.skills
+      ];
 
       programs.npm.enable = true;
     };

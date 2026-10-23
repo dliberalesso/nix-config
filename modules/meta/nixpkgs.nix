@@ -9,6 +9,7 @@ let
 
     overlays = [
       self.overlays.default
+      inputs.llm-agents.overlays.shared-nixpkgs
     ];
   };
 in
