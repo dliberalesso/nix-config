@@ -23,6 +23,7 @@
           sd
           tokei
           trash-cli
+          tuios
           unzip
           wget
           xh
