@@ -301,15 +301,15 @@
     "plugins-wezterm-types": {
       "flake": false,
       "locked": {
-        "lastModified": 1750319838,
-        "narHash": "sha256-Pa0luCHxYTRlpMeUaZS9jkhqcpHupBNE3yD8oJKiYLU=",
-        "owner": "gonstoll",
+        "lastModified": 1792021575,
+        "narHash": "sha256-PCD6Jdrp9YigbO6Of+HxsypSXr3sAY9j6E3cXgz0+JQ=",
+        "owner": "DrKJeff16",
         "repo": "wezterm-types",
-        "rev": "bba4eacfdce545a9d5c29c69d20bbb9c90189224",
+        "rev": "39511289aa040a7746a9e2d551b35ef330f15c77",
         "type": "github"
       },
       "original": {
-        "owner": "gonstoll",
+        "owner": "DrKJeff16",
         "repo": "wezterm-types",
         "type": "github"
       }
