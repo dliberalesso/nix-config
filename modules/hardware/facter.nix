@@ -1,8 +1,4 @@
 {
-  inputs,
-  ...
-}:
-{
   unify.modules.facter.nixos =
     {
       config,
@@ -12,10 +8,12 @@
       inherit (config.networking) hostName;
     in
     {
-      imports = [
-        inputs.nixos-facter-modules.nixosModules.facter
-      ];
+      # nixos-facter-modules is deprecated
+      # the modules have been upstreamed to nixpkgs
+      hardware.facter = {
+        enable = true;
 
-      facter.reportPath = ../../hosts/${hostName}/facter.json;
+        reportPath = ../../hosts/${hostName}/facter.json;
+      };
     };
 }

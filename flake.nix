@@ -97,8 +97,6 @@
 
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
-    nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
-
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
       inputs = {
