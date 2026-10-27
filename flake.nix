@@ -129,7 +129,7 @@
     };
 
     plugins-wezterm-types = {
-      url = "github:gonstoll/wezterm-types";
+      url = "github:DrKJeff16/wezterm-types";
       flake = false;
     };
   };
