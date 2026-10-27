@@ -73,7 +73,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    import-tree.url = "github:vic/import-tree";
+    import-tree.url = "github:denful/import-tree";
 
     llm-agents = {
       url = "github:numtide/llm-agents.nix";
@@ -112,6 +112,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # TODO: migrate to `github:denful/dendrix`
     unify = {
       url = "git+https://codeberg.org/quasigod/unify.git";
       inputs = {
