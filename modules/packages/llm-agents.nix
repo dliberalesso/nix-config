@@ -13,6 +13,9 @@
         llm-agents.herdr
         llm-agents.hunk
         llm-agents.opencode2
+        (writeShellScriptBin "opencode" ''
+          exec ${llm-agents.opencode2}/bin/opencode2 "$@"
+        '')
         llm-agents.pi
         llm-agents.skills
       ];
@@ -27,7 +30,7 @@
     }:
     {
       home.packages = with pkgs; [
-        llm-agents.bb-app
+        bb-app
         llm-agents.chatgpt
         llm-agents.opencode2-desktop
       ];
