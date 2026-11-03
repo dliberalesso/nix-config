@@ -2,73 +2,77 @@
 
 ## Responsibility
 
-`modules/programs/` configures user-facing applications and CLI utilities. Most files are Home Manager modules, with paired NixOS modules where shells, system-level helpers, or external modules are required.
+`modules/programs/` configures user applications, CLI tools, and development utilities. It binds Home Manager program configurations to system shells and desktop environments.
 
 ## Dependencies
 
-- **Home Manager program modules**: Primary API surface for user-space program configuration
-- **`unify`**: Distributes program config across global (`unify.home`), system (`unify.nixos`), and GUI (`unify.modules.gui.home`) scopes
-- **`hostConfig`**: Supplies user identity and repository path for out-of-store editable symlinks
+- **Home Manager `programs.*`**: Primary API for application settings and dotfile generation
+- **`unify`**: Module targeting across global (`unify.home`), system (`unify.nixos`), and GUI scopes
+- **`hostConfig`**: Supplies host paths (`flakePath`) and user identity for live-editable config links
 
 ## Consumers
 
-- **All user profiles**: Receive global `unify.home` program modules
-- **GUI hosts**: Also consume `unify.modules.gui.home` program modules such as WezTerm and Zed
+- **All hosts & users**: Inherit global CLI utilities (`git`, `zsh`, `bat`, `eza`, `fzf`)
+- **GUI hosts**: Receive graphical applications and editors under `unify.modules.gui.home`
 
 ## Module Structure
 
-- `*.nix` — one program per file (`git`, `zsh`, `jujutsu`, `yazi`, `zed`, `bat`, `eza`, ...)
-- `cli.nix, gui.nix` — aggregate toggles for simple CLI and GUI apps
-- `starship/, wezterm/` — program directories that carry helper scripts or Lua assets beside the Nix module
-- `nix-index-database.nix` — external flake module integrated into Home/NixOS
+- `*.nix` — single-program configurations (`git.nix`, `zsh.nix`, `atuin.nix`, `yazi.nix`)
+- `cli.nix, gui.nix` — bulk toggles for simple CLI utilities and desktop apps
+- `wezterm/` — program module with companion external script (`wezterm.lua`)
+- `nix-index-database.nix` — third-party flake module integration
 
 ## Home vs NixOS Dual-Scope Configuration
 
 ```nix
 {
-  unify.home = { config, ... }: {
-    home.shell.enableZshIntegration = true;
-
-    programs.zsh = {
-      enable = true;
-      dotDir = "${config.xdg.configHome}/zsh";
+  unify.home =
+    { config, ... }:
+    {
+      programs.zsh = {
+        enable = true;
+        dotDir = "${config.xdg.configHome}/zsh";
+      };
     };
-  };
 
-  unify.nixos = { pkgs, ... }: {
-    programs.zsh.enable = true;
-    users.defaultUserShell = pkgs.zsh;
-  };
+  unify.nixos =
+    { pkgs, ... }:
+    {
+      programs.zsh.enable = true;
+      users.defaultUserShell = pkgs.zsh;
+    };
 }
 ```
 
-Normal-user startup files are managed under `${config.xdg.configHome}/zsh` with `~/.zshenv` exporting `ZDOTDIR`. Root shell selection is system-only through `users.defaultUserShell = pkgs.zsh;` with no Home Manager profile or shared root/user `ZDOTDIR`.
-
-## GUI-Scoped Out-of-Store Symlink (`mkOutOfStoreSymlink`)
+## Out-of-Store Symlink for Rapid Iteration (`mkOutOfStoreSymlink`)
 
 ```nix
 {
-  unify.modules.gui.home = { config, hostConfig, ... }:
-  let
-    inherit (config.lib.file) mkOutOfStoreSymlink;
-    path = "${hostConfig.flakePath}/modules/programs/wezterm/wezterm.lua";
-  in {
-    programs.wezterm.enable = true;
-    xdg.configFile."wezterm/wezterm.lua".source = mkOutOfStoreSymlink path;
-  };
+  unify.modules.gui.home =
+    { config, hostConfig, ... }:
+    let
+      inherit (config.lib.file) mkOutOfStoreSymlink;
+      luaConfig = "${hostConfig.flakePath}/modules/programs/wezterm/wezterm.lua";
+    in
+    {
+      programs.wezterm.enable = true;
+      xdg.configFile."wezterm/wezterm.lua".source = mkOutOfStoreSymlink luaConfig;
+    };
 }
 ```
 
 ## Architectural Boundaries
 
-- **NO hardcoded repository paths or user names**: use `hostConfig.flakePath` and `hostConfig.user.*`
-- **NO GUI-only apps in global `unify.home`**: gate desktop-only applications under `unify.modules.gui.home`
-- **KEEP `gui.nix` DESKTOP-AGNOSTIC**: `modules/programs/gui.nix` houses general desktop apps; compositor/DE-specific modules belong in dedicated desktop modules
+- **NO hardcoded paths or usernames**: always use `hostConfig.flakePath` and `hostConfig.user.*`
+- **NO GUI tools in global `unify.home`**: scope graphical programs to `unify.modules.gui.home` (note: `zed.nix` currently resides in global `unify.home` as a legacy anomaly; new GUI applications must follow the `gui.home` convention)
+- **KEEP `gui.nix` DESKTOP-AGNOSTIC**: compositor/window manager bindings belong in dedicated desktop session bundles
 
 <important if="you are adding a new program module to this layer">
-## Adding a New Program Module
-1. For trivial CLI tools, add `unify.home.programs.<name>.enable = true;` to `cli.nix`
+## Adding a Program Module
+1. For trivial CLI tools, enable them in `modules/programs/cli.nix`
 2. For dedicated tools, create `modules/programs/<program>.nix`
-3. Add a NixOS block only when shell registration, system packages, or daemon options are needed
-4. For GUI tools, scope under `unify.modules.gui.home` and link live configs with `mkOutOfStoreSymlink`
+3. For companion native configs (e.g. `wezterm/`), create `modules/programs/<program>/` containing `<program>.nix` and the native file; wire live edits via `mkOutOfStoreSymlink "${hostConfig.flakePath}/..."`
+4. Add a NixOS section only if default shell registration or system daemon integration is required
+5. Scope desktop applications under `unify.modules.gui.home`
+6. Format with `just fmt` and evaluate/validate with `just lint`
 </important>

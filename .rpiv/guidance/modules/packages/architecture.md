@@ -2,78 +2,81 @@
 
 ## Responsibility
 
-`modules/packages/` provisions software. It either installs existing packages into Home/NixOS profiles or defines custom packages exported through flake packages and overlays.
+`modules/packages/` provisions software: it gathers existing packages into declarative install sets, wraps complex applications, and compiles custom derivations exported through flake outputs and overlays.
 
 ## Dependencies
 
-- **`perSystem` / overlays**: Custom packages are exposed through `packages` and `overlayAttrs`
-- **Nixpkgs builders**: `stdenvNoCC`, `callPackage`, `writeShellApplication`, and `overrideAttrs`
-- **`unify`**: Chooses whether packages are global, GUI-scoped, work-scoped, or system-only
+- **`flake-parts` (`perSystem`)**: Derivation export boundary for `packages` and `overlayAttrs`
+- **Nixpkgs builders**: `stdenvNoCC`, `callPackage`, `writeShellApplication`, `overrideAttrs`
+- **`unify`**: Scope assignment across global (`unify.home`), system (`unify.nixos`), or named profiles
 
 ## Consumers
 
-- **Other modules**: Install exported packages as `pkgs.<name>` after overlay wiring
-- **Hosts**: Indirectly consume profile-scoped package modules such as `gui`, `work`, and `irpf`
+- **All configuration modules**: Access custom packages through `pkgs.<name>` via `overlayAttrs`
+- **Hosts**: Select profile packages (e.g. `unify.modules.gui.home`, `unify.modules.wsl.home`)
 
 ## Module Structure
 
-- `cli.nix, gui.nix, fonts.nix` — package aggregators for common install sets
-- `*.nix` — single custom package modules exposed through flake outputs and installs
-- `<pkg>/<pkg>.nix` — public wrapper module for a complex package
-- `<pkg>/_*.nix` — private derivation details
-- `espanso/` — packaging combined with privileged NixOS capability wrappers
+- `cli.nix, gui.nix, fonts.nix` — declarative package collections for common roles
+- `*.nix` — standalone custom packages and wrapper definitions
+- `<pkg>/<pkg>.nix` — public flake module exposing a package
+- `<pkg>/_<pkg>.nix` — private derivation implementation (excluded from auto-import)
+- `espanso/` — custom derivation with privileged Linux capability wrapper
 
-## Export Then Consume Through `pkgs`
+## Dual Package Export (`packages` + `overlayAttrs`)
 
 ```nix
 {
-  perSystem = { pkgs, ... }:
-  let
-    my-tool = pkgs.writeShellApplication {
-      name = "my-tool";
-      text = ''echo "hello"'';
+  perSystem =
+    { pkgs, ... }:
+    let
+      my-tool = pkgs.writeShellApplication {
+        name = "my-tool";
+        text = ''echo "hello"'';
+      };
+    in
+    {
+      overlayAttrs = { inherit my-tool; }; # exposes tool to pkgs.my-tool everywhere
+      packages = { inherit my-tool; }; # exposes tool to `nix run .#my-tool`
     };
-  in {
-    overlayAttrs = { inherit my-tool; };
-    packages = { inherit my-tool; };
-  };
 
-  unify.home = { pkgs, ... }: {
-    home.packages = [ pkgs.my-tool ];
-  };
+  unify.home =
+    { pkgs, ... }:
+    {
+      home.packages = [ pkgs.my-tool ];
+    };
 }
 ```
 
-## Public Wrapper + Private Derivation Split
+## Public Flake Module + Private Derivation Split
 
 ```nix
-# modules/packages/example/example.nix
+# modules/packages/pjeoffice-pro/pjeoffice-pro.nix (auto-discovered)
 {
-  perSystem = { pkgs, ... }:
-  let example = pkgs.callPackage ./_example.nix { }; in {
-    overlayAttrs = { inherit example; };
-    packages = { inherit example; };
-  };
-}
-
-# modules/packages/example/_example.nix
-{ lib, stdenvNoCC }:
-stdenvNoCC.mkDerivation {
-  pname = "example";
-  version = "1.0.0";
+  perSystem =
+    { pkgs, ... }:
+    let
+      pjeoffice-pro = pkgs.callPackage ./_pjeoffice-pro.nix { };
+    in
+    {
+      overlayAttrs = { inherit pjeoffice-pro; };
+      packages = { inherit pjeoffice-pro; };
+    };
 }
 ```
 
 ## Architectural Boundaries
 
-- **NO direct use of a custom package before overlay export**: if later code expects `pkgs.<name>`, export it via `overlayAttrs`
-- **KEEP privileged runtime concerns in NixOS modules**: the `espanso` capability wrapper belongs in the public NixOS module, not only inside the derivation
+- **REUSABLE PACKAGES EXPORT DUAL OUTPUTS**: standalone `perSystem` derivations must export through BOTH `packages` and `overlayAttrs` so they are accessible everywhere as `pkgs.<name>`
+- **SYSTEM-DEPENDENT PACKAGES STAY IN NIXOS MODULES**: derivations requiring system-evaluated configuration (e.g. `espanso` requiring `config.security.wrapperDir`) are instantiated directly inside the NixOS module via `callPackage`, not exported through `perSystem`
+- **PRIVILEGED CAPABILITIES IN NIXOS MODULES**: Linux capability grants and wrappers belong in `security.wrappers` inside the public NixOS module, never inside the raw derivation
+- **DISTRIBUTED BUNDLE AUGMENTATION IS ALLOWED**: package modules may contribute directly to named bundles (e.g. `unify.modules.wsl.home` or `gui.home`) to keep packaging self-contained
 
 <important if="you are adding a new custom package to this layer">
-## Adding a New Custom Package
-1. Use a flat file for simple packages; use `<name>/<name>.nix` + `_<name>.nix` for complex ones
-2. Build in `perSystem`
-3. Export through both `packages` and `overlayAttrs`
-4. Install via `pkgs.<name>` from `unify.home`, `unify.nixos`, or `unify.modules.<profile>.*`
-5. If Linux capabilities or wrappers are required, keep that system policy in the NixOS module layer beside the package
+## Adding a Custom Package
+1. Use a flat file `<pkg>.nix` for simple packages; use `<pkg>/<pkg>.nix` + `_<pkg>.nix` for complex ones
+2. Build reusable derivations in `perSystem` using standard builders (npm, go, stdenvNoCC)
+3. For reusable packages, export to both `packages.<name>` and `overlayAttrs.<name>`; for system-dependent wrappers (e.g. `espanso` needing `config.security.wrapperDir`), instantiate directly inside the NixOS module via `callPackage`
+4. Install via `unify.home = { pkgs, ... }: { home.packages = [ pkgs.<name> ]; };` or into a profile bundle
+5. Run `just fmt` and build with `nix build .#<name>`
 </important>
