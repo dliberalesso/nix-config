@@ -124,11 +124,6 @@
 
     # Neovim plugins
 
-    plugins-jj-diffconflicts = {
-      url = "github:rafikdraoui/jj-diffconflicts";
-      flake = false;
-    };
-
     plugins-wezterm-types = {
       url = "github:DrKJeff16/wezterm-types";
       flake = false;

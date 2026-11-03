@@ -105,8 +105,6 @@
                 catppuccin-nvim
                 nui-nvim
                 hunk-nvim
-                pkgs.neovimPlugins.jj-diffconflicts
-                vim-jjdescription
                 mini-nvim
                 nvim-lspconfig
                 vim-startuptime

@@ -1,7 +1,6 @@
 {
   unify.home =
     {
-      hostConfig,
       lib,
       pkgs,
       ...
@@ -16,7 +15,6 @@
           [
             "aws"
             "buf"
-            "bun"
             "conda"
             "crystal"
             "dart"
@@ -26,11 +24,6 @@
             "fennel"
             "fossil_branch"
             "gcloud"
-            "git_branch"
-            "git_commit"
-            "git_state"
-            "git_metrics"
-            "git_status"
             "gradle"
             "guix_shell"
             "haskell"
@@ -69,25 +62,13 @@
               "$hostname"
               "$localip"
               "$directory"
-              "\${custom.vcs}"
+              "$git_branch"
+              "$git_commit"
+              "$git_state"
+              "$git_metrics"
+              "$git_status"
               "$all"
             ];
-
-            custom.vcs = {
-              command = "all";
-              detect_folders = [
-                ".git"
-                ".jj"
-              ];
-              format = "($output )";
-              ignore_timeout = true;
-              require_repo = true;
-              shell = [
-                "${hostConfig.flakePath}/modules/programs/starship/custom-vcs.sh"
-              ];
-              use_stdin = false;
-              when = true;
-            };
 
             nix_shell.format = "via [$symbol($name)]($style) ";
           }

@@ -39,14 +39,6 @@
               desc = "run lazygit";
             }
             {
-              on = [
-                "g"
-                "j"
-              ];
-              run = "plugin jjui";
-              desc = "run jjui";
-            }
-            {
               on = "T";
               run = "plugin toggle-pane max-preview";
               desc = "Maximize or restore the preview pane";
@@ -57,7 +49,6 @@
 
         plugins = {
           inherit (pkgs.yaziPlugins)
-            jjui
             lazygit
             git
             ouch

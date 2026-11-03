@@ -6,7 +6,7 @@
 - Lint/check: `just lint` (runs nix flake check)
 - Rebuild system: `just rebuild` (rebuilds and switches NixOS with nh)
 - Update dependencies: `just update` (updates flake inputs)
-- Diff lock file: `just diff` (shows changes to flake.lock using jj)
+- Diff lock file: `just diff` (shows changes to flake.lock using git)
 - Clean store: `just clean` (garbage collect and optimize with nh)
 - Repair store: `just repair` (verify and repair Nix store integrity)
 - Debug in REPL: `just debug` (opens nix repl with debug flag enabled)
@@ -39,15 +39,15 @@
 ## Key Technologies
 
 - **Package Manager**: Nix with flakes
-- **System Builder**: nh (Nix Helper)
+- **System Builder**: `nh` (Nix Helper)
 - **Task Runner**: just
-- **VCS**: Git + Jujutsu (jj)
+- **VCS**: Git + Gitmoji + Conventional Commits (without scope)
 - **Shell**: Zsh with modern CLI tools (eza, bat, fzf, zoxide, atuin)
 - **Editor**: Neovim via nixCats
 - **Desktop**: Niri-based desktop session today via `niride`; future direction may support both `niride` and `hyprde`
 - **Theme**: Catppuccin
 - **Containers**: Podman
-- **Formatting**: treefmt with multiple formatters
+- **Formatting**: Treefmt with multiple formatters
 - **AI/LLM**: Numtide llm-agents integration
 
 ## Code Style Guidelines

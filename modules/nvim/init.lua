@@ -164,14 +164,6 @@ require("lze").load({
     after = function(plugin) require("hunk").setup() end,
   },
   {
-    "jj-diffconflicts",
-    cmd = { "JJDiffConflicts" },
-  },
-  {
-    "vim-jjdescription",
-    ft = "jjdescription",
-  },
-  {
     "blink.cmp",
     enabled = nixCats("general") or false,
     event = "DeferredUIEnter",

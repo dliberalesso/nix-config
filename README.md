@@ -10,22 +10,21 @@ A modular, reproducible NixOS configuration managing multiple systems with share
 
 ## ✨ Features
 
-- 🎨 **Catppuccin theme** system-wide (GTK, Qt, terminal, editors)
-- 🪟 **Niri-based desktop session** today, with desktop/session wiring evolving toward narrower reusable modules
-- 📝 **Neovim** configured via nixCats with LSP, treesitter, and custom plugins
-- 🐚 **Modern CLI** - Zsh with bat, eza, fzf, zoxide, atuin, direnv
-- 🔄 **Version control** - Git + Jujutsu (jj) integration
-- 🎵 **Customized Spotify** via Spicetify
-- 🐳 **Podman** containerization
-- 🔧 **Automated formatting** with treefmt (nixfmt, prettier, stylua, etc.)
-- ✅ **CI/CD** with GitHub Actions for builds and caching
-- 🤖 **LLM Agents** integration via llm-agents.nix
+- 🎨 **Catppuccin theme**: System-wide (GTK, Qt, terminal, editors)
+- 🪟 **Niri-based desktop session**: Today, with desktop/session wiring evolving toward narrower reusable modules
+- 📝 **Neovim**: Configured via nixCats with LSP, treesitter, and custom plugins
+- 🐚 **Modern CLI**: Zsh with bat, eza, fzf, zoxide, atuin, direnv
+- 🔄 **Version control**: Git + Gitmoji + Conventional Commits (without scope)
+- 🐳 **Podman** Containerization
+- 🔧 **Automated formatting** With treefmt (nixfmt, prettier, stylua, etc.)
+- ✅ **CI/CD** With GitHub Actions for builds and caching
+- 🤖 **LLM Agents** Integration via llm-agents.nix
 
 ## 🖥️ Hosts
 
-- **nixavell** - Main laptop with the current Niri-based desktop environment
-- **nixwsl** - Minimal WSL2 development environment
-- **testvm** - Testing virtual machine
+- **nixavell**: Main laptop with the current Niri-based desktop environment
+- **nixwsl**: Minimal WSL2 development environment
+- **testvm**: Testing virtual machine
 
 ## 🛠️ Tech Stack
 
@@ -34,9 +33,7 @@ A modular, reproducible NixOS configuration managing multiple systems with share
 - **Desktop**: Niri-based session today; shared GUI layer plus desktop/session modules
 - **Shell**: Zsh with modern tools
 - **Editor**: Neovim (nixCats)
-- **VCS**: Git + Jujutsu
-- **Theme**: Catppuccin
-- **Build**: nh (Nix Helper), just
+- **Build**: `nh` (Nix Helper), just
 
 ## 🚀 Quick Start
 

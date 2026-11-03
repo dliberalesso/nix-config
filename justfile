@@ -7,7 +7,7 @@ update:
 
 # Diff flake.lock
 diff:
-  @jj diff 'flake.lock'
+  @git diff 'flake.lock'
 
 # Load the flake in a REPL with debug enabled
 debug:

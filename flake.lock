@@ -282,22 +282,6 @@
         "type": "github"
       }
     },
-    "plugins-jj-diffconflicts": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1779191173,
-        "narHash": "sha256-MjacjGlBRwActBBGeBZDHz8jz5J3Mt6KoDsf8WKgUDA=",
-        "owner": "rafikdraoui",
-        "repo": "jj-diffconflicts",
-        "rev": "a2aa9a247b56d2c1a6f6be81bcf41c5450cc82ff",
-        "type": "github"
-      },
-      "original": {
-        "owner": "rafikdraoui",
-        "repo": "jj-diffconflicts",
-        "type": "github"
-      }
-    },
     "plugins-wezterm-types": {
       "flake": false,
       "locked": {
@@ -333,7 +317,6 @@
           "llm-agents",
           "nixpkgs"
         ],
-        "plugins-jj-diffconflicts": "plugins-jj-diffconflicts",
         "plugins-wezterm-types": "plugins-wezterm-types",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix",
