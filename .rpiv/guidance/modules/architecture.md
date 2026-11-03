@@ -2,74 +2,83 @@
 
 ## Responsibility
 
-`modules/` is the reusable configuration layer. It defines global defaults, opt-in capability modules, package exports, editor/program configs, and top-level profiles that hosts compose.
+`modules/` is the reusable configuration layer. It defines global defaults, opt-in capability bundles, package exports, editor/program setups, and top-level environment profiles composed by hosts.
 
 ## Dependencies
 
-- **`unify`**: Main architectural boundary for `unify.nixos`, `unify.home`, and `unify.modules.*`
-- **`flake-parts`**: Provides `perSystem`, overlays, dev shells, and flake-module composition
-- **Home Manager / NixOS modules**: The primary configuration targets
+- **`unify`**: Core framework for global baselines (`unify.nixos`, `unify.home`) and opt-in bundles (`unify.modules.<profile>.*`)
+- **`flake-parts`**: Composition engine providing `perSystem`, package overlays, and devshells
+- **Home Manager / NixOS**: Target modules for userland and system services
 
 ## Consumers
 
-- **`hosts/`**: Selects named `config.unify.modules.*` capabilities from this tree
-- **`flake.nix`**: Auto-imports this tree through `import-tree`
+- **`hosts/`**: Composes named `config.unify.modules.*` capabilities into concrete systems
+- **`flake.nix`**: Discovers all non-underscored Nix files recursively via `import-tree`
 
 ## Module Structure
 
-- `flake/, meta/, nix/` — flake infrastructure, global metadata, and daemon settings
-- `system/, hardware/, services/` — reusable machine/system capabilities such as `laptop` and `podman`
-- `packages/, programs/, nvim/` — custom package exports plus user application and editor config
-- `theme/` — shared Catppuccin visual scheme and wallpaper configuration
-- `toplevel/` — high-level profiles and cross-layer bundles such as `wsl` and transitional `niride`
-- `scripts/` — packaged helper commands exposed through flake outputs or user environments
+- `flake/, meta/, nix/` — flake infrastructure, shared metadata, and daemon defaults
+- `system/, hardware/, services/` — reusable machine/hardware capabilities (`laptop`, `facter`, `podman`)
+- `packages/, programs/, nvim/` — package derivations, user tools, and editor configuration
+- `theme/` — Catppuccin color scheme, GTK/Qt styling, and visual tokens
+- `toplevel/` — high-level profiles (`wsl`, `niride`) and cross-cutting account baselines
+- `scripts/` — packaged standalone shell helpers (e.g. `lazymoji`)
 
 ## Global vs Opt-In Module Boundary
 
 ```nix
 {
+  # Global: unconditionally applies to all hosts
   unify.nixos = { hostConfig, ... }: {
     networking.hostName = hostConfig.name;
   };
 
-  unify.home = { hostConfig, ... }: {
-    home.username = hostConfig.user.username;
-  };
-
+  # Opt-in capability: applies only when selected by host
   unify.modules.gui.home = { pkgs, ... }: {
-    home.packages = [ pkgs.firefox ];
+    home.packages = [ pkgs.google-chrome ];
   };
 }
 ```
 
-## Shared Metadata Through `hostConfig`
+## Shared Metadata Reflection (`hostConfig`)
 
 ```nix
 {
   config,
   lib,
   ...
-}: {
-  options.user = lib.mkOption { /* ... */ };
+}:
+let
+  inherit (lib) mkOption types;
+  name = "Douglas Liberalesso";
+  username = "dli50";
+in
+{
+  options.user = mkOption {
+    type = types.attrsOf types.str;
+    default = { inherit name username; };
+  };
 
-  config.unify.options.user = lib.mkOption {
+  # Expose global option as hostConfig down to all unify modules
+  config.unify.options.user = mkOption {
+    type = types.attrsOf types.str;
     internal = true;
-    default = config.user; # exposed to hostConfig.user downstream
+    default = config.user;
   };
 }
 ```
 
 ## Architectural Boundaries
 
-- **NO host-specific machine details here**: disks, one-off hardware facts, and VM convenience configs stay under `hosts/`
-- **NO treating `laptop` as a host alias**: it is a hardware-oriented reusable profile, even if `nixavell` is the primary current consumer
-- **KEEP `gui.nix` DE-INDEPENDENT**: generic GUI apps stay in `modules/programs/gui.nix` and `modules/packages/gui.nix`; desktop-environment specifics live in dedicated desktop bundles
+- **NO host-specific machine details here**: disks, partition layouts, and facter dumps stay in `hosts/`
+- **TREAT profiles as capabilities, not host aliases**: `laptop` is a hardware capability, not an alias for `nixavell`
+- **KEEP `gui.nix` DESKTOP-AGNOSTIC**: desktop applications live in `gui`; compositor specifics live in session profiles
 
 <important if="you are adding a new reusable module to this layer">
 ## Adding a New Reusable Module
-1. Pick the narrowest concern directory (`system/`, `programs/`, `packages/`, `toplevel/`, etc.)
-2. Decide whether it is global (`unify.nixos` / `unify.home`) or opt-in (`unify.modules.<name>.*`)
-3. Use `hostConfig` for shared host/user metadata instead of hardcoding values
-4. If it exports a package, wire both `packages` and `overlayAttrs`
-5. Select the new module from a host only after the module itself is reusable
+1. Choose the narrowest concern directory (`system/`, `programs/`, `packages/`, etc.)
+2. Choose activation scope: global (`unify.nixos`/`unify.home`) or opt-in (`unify.modules.<name>.*`)
+3. Access shared identity via `hostConfig.user` rather than hardcoding usernames
+4. When exporting packages, export both `packages.<name>` and `overlayAttrs.<name>` in `perSystem`
+5. Test against a host by selecting the new capability in `hosts/<host>/<host>.nix`
 </important>

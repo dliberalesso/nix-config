@@ -27,6 +27,7 @@
 ## Common Patterns
 
 - Defining a host: see `.rpiv/guidance/hosts/architecture.md`
+- Reusable module framework: see `.rpiv/guidance/modules/architecture.md`
 - Adding/changing program modules: see `.rpiv/guidance/modules/programs/architecture.md`
 - Reusable system/platform changes: see `.rpiv/guidance/modules/system/architecture.md`
 - Package/export changes: see `.rpiv/guidance/modules/packages/architecture.md`
@@ -75,7 +76,9 @@
 - WSL-specific: Note that `just rebuild` copies wezterm config to Windows
 - User info is centralized in `modules/meta/user.nix`
 - Split large program configs into subdirectories (e.g., `modules/programs/<program>/`)
-- Secrets are currently handled in `modules/toplevel/secrets.nix`; keep any broader refactor aligned with `.rpiv/guidance/modules/toplevel/architecture.md`
+- Package derivations: Reusable custom packages in `modules/packages/` export to both `packages.<name>` and `overlayAttrs.<name>` in `perSystem`; system-dependent wrappers (such as Espanso requiring `config.security.wrapperDir`) are instantiated directly inside the NixOS module via `callPackage`
+- Distributed bundles: Packages and programs may augment named bundles (e.g., `unify.modules.wsl.home` or `gui.home`) directly to keep definitions cohesive
+- Secrets are currently handled in `modules/toplevel/secrets.nix`; the Wayland check (`config.programs.hyprland.enable`) is a transitional stub anticipating a desktop-session refactor; keep broader changes aligned with `.rpiv/guidance/modules/toplevel/architecture.md`
 - For debugging: Toggle `debug = true` in `modules/flake/default.nix` and use REPL
 
 ## Special Notes

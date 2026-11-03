@@ -82,7 +82,15 @@ just clean    # Garbage collect and optimize
 
 ## 📖 Documentation
 
-- [.rpiv/guidance/architecture.md](./.rpiv/guidance/architecture.md) - Canonical entrypoint for architecture/workflow docs; subfolder guides mirror the project structure
+- [.rpiv/guidance/architecture.md](./.rpiv/guidance/architecture.md) - Canonical entrypoint for architecture and workflow guidance
+  - [`hosts/`](./.rpiv/guidance/hosts/architecture.md) - Machine declarations and host registration
+  - [`modules/`](./.rpiv/guidance/modules/architecture.md) - Reusable module composition and defaults
+  - [`modules/flake/`](./.rpiv/guidance/modules/flake/architecture.md) - Flake tooling, devshells, and formatters
+  - [`modules/nvim/`](./.rpiv/guidance/modules/nvim/architecture.md) - Neovim + nixCats configuration
+  - [`modules/packages/`](./.rpiv/guidance/modules/packages/architecture.md) - Derivations, build shims, and overlays
+  - [`modules/programs/`](./.rpiv/guidance/modules/programs/architecture.md) - CLI/GUI user application configurations
+  - [`modules/system/`](./.rpiv/guidance/modules/system/architecture.md) - Core OS and platform capabilities
+  - [`modules/toplevel/`](./.rpiv/guidance/modules/toplevel/architecture.md) - Base profiles, secrets, and desktop sessions
 - [AGENTS.md](./AGENTS.md) - Development guidelines for AI assistants
 - [justfile](./justfile) - All available commands
 
