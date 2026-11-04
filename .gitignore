@@ -1,7 +1,11 @@
-.antigravitycli/
 .direnv/
-.vscode/
+
+.rpiv/*
+!.rpiv/guidance/
+
 .pre-commit-config.yaml
+
 *.qcow2
+
 result
 result-man
