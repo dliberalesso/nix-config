@@ -18,6 +18,10 @@
         skills
       ];
 
+      home.sessionVariables = {
+        PI_CLIPBOARD_OSC52 = 1;
+      };
+
       programs.npm.enable = true;
     };
 
