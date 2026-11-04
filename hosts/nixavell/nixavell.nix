@@ -3,7 +3,7 @@
   ...
 }:
 let
-  inherit (config.unify) modules;
+  unifyModules = config.unify.modules;
 
   hostName = "nixavell";
 in
@@ -17,17 +17,15 @@ in
       inherit (config.user) username;
     in
     {
-      modules = builtins.attrValues {
-        inherit (modules)
-          facter
-          gui
-          # irpf
-          laptop
-          podman
-          niride
-          work
-          ;
-      };
+      modules = with unifyModules; [
+        facter
+        gui
+        # irpf
+        laptop
+        podman
+        niride
+        work
+      ];
 
       nixos = {
         imports = [ ./_filesystem.nix ];

@@ -3,7 +3,7 @@
   ...
 }:
 let
-  inherit (config.unify.modules) podman wsl;
+  unifyModules = config.unify.modules;
 
   hostName = "nixwsl";
 in
@@ -13,14 +13,17 @@ in
       config,
       ...
     }:
+    let
+      inherit (config.user) username;
+    in
     {
-      modules = [
+      modules = with unifyModules; [
         podman
         wsl
       ];
 
       nixos.nixpkgs.hostPlatform.system = "x86_64-linux";
 
-      users.${config.user.username} = { };
+      users.${username} = { inherit (config) modules; };
     };
 }
