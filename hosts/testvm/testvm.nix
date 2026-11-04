@@ -47,7 +47,7 @@ in
         };
       };
 
-      users.${username} = { };
+      users.${username} = { inherit (config) modules; };
     };
 
   perSystem.apps.${hostName} = {
