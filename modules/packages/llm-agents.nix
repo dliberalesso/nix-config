@@ -8,8 +8,10 @@
       home.packages = with pkgs.llm-agents; [
         pkgs.nodejs
 
+        claude-code
         codex
         herdr
+        herdr-core
         hunk
         pi
         skills
@@ -30,6 +32,8 @@
     {
       home.packages = with pkgs.llm-agents; [
         chatgpt
+        claude-desktop
+        herdr-app
       ];
     };
 }
