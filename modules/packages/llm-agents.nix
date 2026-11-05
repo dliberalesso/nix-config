@@ -9,8 +9,10 @@
         pkgs.nodejs
 
         antigravity-cli
+        claude-code
         codex
         herdr
+        herdr-core
         hunk
         nono
         openspec
@@ -33,6 +35,8 @@
     {
       home.packages = with pkgs.llm-agents; [
         chatgpt
+        claude-desktop
+        herdr-app
       ];
     };
 }
