@@ -48,6 +48,6 @@
       ...
     }:
     {
-      home.packages = with pkgs; [ irpf ];
+      home.packages = [ pkgs.irpf ];
     };
 }

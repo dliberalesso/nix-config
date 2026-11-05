@@ -5,15 +5,13 @@
       ...
     }:
     {
-      home.packages = builtins.attrValues {
-        inherit (pkgs)
-          google-chrome
-          obsidian
-          prismlauncher
-          qalculate-qt
-          spotify
-          ;
-      };
+      home.packages = with pkgs; [
+        google-chrome
+        obsidian
+        prismlauncher
+        qalculate-qt
+        spotify
+      ];
 
       xdg.mimeApps.defaultApplications = {
         "text/html" = [ "google-chrome.desktop" ];

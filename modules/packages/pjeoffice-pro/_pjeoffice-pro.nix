@@ -89,10 +89,8 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     homepage = "https://pjeoffice.trf3.jus.br/";
     license = licenses.unfree;
     platforms = platforms.all;
-    sourceProvenance = with sourceTypes; [ binaryBytecode ];
-    maintainers = with maintainers; [
-      dliberalesso
-    ];
+    sourceProvenance = [ sourceTypes.binaryBytecode ];
+    maintainers = [ maintainers.dliberalesso ];
     mainProgram = "pjeoffice-pro";
   };
 })

@@ -8,15 +8,16 @@
       lazymoji = pkgs.writeShellApplication {
         name = "lazymoji";
 
-        runtimeInputs = builtins.attrValues {
-          inherit (pkgs) git gum;
-        };
+        runtimeInputs = with pkgs; [
+          git
+          gum
+        ];
 
         text = builtins.readFile ./lazymoji.sh;
       };
     in
     {
-      make-shells.default.packages = [ pkgs.lazymoji ];
+      make-shells.default.packages = [ lazymoji ];
 
       overlayAttrs = { inherit lazymoji; };
 
