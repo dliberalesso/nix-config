@@ -9,8 +9,10 @@
         pkgs.nodejs
 
         antigravity-cli
+        claude-code
         codex
         herdr
+        herdr-core
         hunk
         opencode2
         pi
@@ -32,6 +34,8 @@
     {
       home.packages = with pkgs.llm-agents; [
         chatgpt
+        claude-desktop
+        herdr-app
         opencode2-desktop
       ];
     };
