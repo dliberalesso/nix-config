@@ -19,6 +19,6 @@
       ...
     }:
     {
-      home.packages = with pkgs; [ pjeoffice-pro ];
+      home.packages = [ pkgs.pjeoffice-pro ];
     };
 }

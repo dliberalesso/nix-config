@@ -5,30 +5,28 @@
       ...
     }:
     {
-      home.packages = builtins.attrValues {
-        inherit (pkgs)
-          cachix
-          chess-tui
-          devenv
-          dust
-          gitmoji-cli
-          glow
-          grex
-          fselect
-          hyperfine
-          lnav
-          ouch
-          presenterm
-          procs
-          sd
-          tokei
-          trash-cli
-          unzip
-          wget
-          xh
-          yq-go
-          zip
-          ;
-      };
+      home.packages = with pkgs; [
+        cachix
+        chess-tui
+        devenv
+        dust
+        gitmoji-cli
+        glow
+        grex
+        fselect
+        hyperfine
+        lnav
+        ouch
+        presenterm
+        procs
+        sd
+        tokei
+        trash-cli
+        unzip
+        wget
+        xh
+        yq-go
+        zip
+      ];
     };
 }
