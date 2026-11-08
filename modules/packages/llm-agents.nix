@@ -9,6 +9,8 @@
         pkgs.nodejs
 
         antigravity-cli
+        beads-rust
+        beads-viewer
         claude-code
         codex
         herdr
