@@ -8,6 +8,8 @@
       home.packages = with pkgs.llm-agents; [
         pkgs.nodejs
 
+        beads-rust
+        beads-viewer
         claude-code
         codex
         herdr
