@@ -1,7 +1,6 @@
 {
   unify.home =
     {
-      hostConfig,
       lib,
       pkgs,
       ...
@@ -69,25 +68,14 @@
               "$hostname"
               "$localip"
               "$directory"
-              "\${custom.vcs}"
+              "$vcs"
               "$all"
             ];
 
-            custom.vcs = {
-              command = "all";
-              detect_folders = [
-                ".git"
-                ".jj"
-              ];
-              format = "($output )";
-              ignore_timeout = true;
-              require_repo = true;
-              shell = [
-                "${hostConfig.flakePath}/modules/programs/starship/custom-vcs.sh"
-              ];
-              use_stdin = false;
-              when = true;
-            };
+            vcs.order = [
+              "jj"
+              "git"
+            ];
 
             nix_shell.format = "via [$symbol($name)]($style) ";
           }
