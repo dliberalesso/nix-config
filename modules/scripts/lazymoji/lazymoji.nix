@@ -23,4 +23,13 @@
 
       packages = { inherit lazymoji; };
     };
+
+  unify.home =
+    {
+      pkgs,
+      ...
+    }:
+    {
+      home.packages = [ pkgs.lazymoji ];
+    };
 }
