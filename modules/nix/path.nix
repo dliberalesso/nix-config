@@ -28,18 +28,30 @@
             foldl' (flip extends) (_: prev) overlays final
           '';
       };
+
+      # Search paths shared by $NIX_PATH (nix.nixPath) and nix.conf (nix.settings.nix-path)
+      path-list = [
+        "nixpkgs-overlays=${nixpkgs-overlays}"
+      ]
+      ++ (lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry);
     in
     {
       nix = {
         # - Add each flake input as a registry
         registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
 
+        # nix.nixPath is the only NixOS option that exports $NIX_PATH.
+        # A plain definition shadows the upstream mkDefault
+        # (nixpkgs.flake.setNixPath), so its entries are carried over here.
+        nixPath = [
+          "nixpkgs=flake:nixpkgs"
+        ]
+        ++ (lib.optional config.nix.channel.enable "/nix/var/nix/profiles/per-user/root/channels")
+        ++ path-list;
+
         # Make nix3 and legacy nix commands consistent:
         # - Add the inputs to the system's legacy channels
-        settings.nix-path = [
-          "nixpkgs-overlays=${nixpkgs-overlays}"
-        ]
-        ++ (lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry);
+        settings.nix-path = path-list;
       };
     };
 }
