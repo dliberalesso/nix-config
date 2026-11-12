@@ -52,6 +52,21 @@ in
 }
 ```
 
+## Per-host SSH Signing Key
+
+Each host declares the public key it signs commits with; the shared program modules read it through `hostConfig.signingKey`.
+
+```nix
+# hosts/my-host/my-host.nix
+unify.hosts.nixos.my-host =
+  { config, ... }:
+  {
+    signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI...";
+  };
+```
+
+`config.unify.options.allowedSigners` (declared in `modules/meta/signing.nix`) collects one `<email> namespaces="git" <public key>` line per host, so Git and Jujutsu share one generated `allowed_signers` file. Hosts without a key — a throwaway VM, or a laptop whose key does not exist yet — simply omit `signingKey` and end up with signing disabled.
+
 ## Host-Private Hardware Boundary (Keep Machine Facts Local)
 
 ```nix

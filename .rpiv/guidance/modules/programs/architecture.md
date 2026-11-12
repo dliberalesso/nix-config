@@ -8,7 +8,7 @@
 
 - **Home Manager `programs.*`**: Primary API for application settings and dotfile generation
 - **`unify`**: Module targeting across global (`unify.home`), system (`unify.nixos`), and GUI scopes
-- **`hostConfig`**: Supplies host paths (`flakePath`) and user identity for live-editable config links
+- **`hostConfig`**: Supplies host paths (`flakePath`), user identity and the per-host SSH `signingKey`
 
 ## Consumers
 
@@ -18,7 +18,7 @@
 ## Module Structure
 
 - `*.nix` — single-program configurations (`git.nix`, `zsh.nix`, `atuin.nix`, `yazi.nix`)
-- `cli.nix, gui.nix` — bulk toggles for simple CLI utilities and desktop apps
+- `cli.nix, gui.nix` — bulk toggles for simple CLI utilities and desktop apps; `gui.nix` also carries the NixOS-side `programs.ssh.startAgent` for the gui profile
 - `wezterm/` — program module with companion external script (`wezterm.lua`)
 - `nix-index-database.nix` — third-party flake module integration
 

@@ -18,8 +18,8 @@
 ## Module Structure
 
 - `home.nix, user.nix` — global Home Manager defaults and primary user account creation
-- `secrets.nix` — global secret-management tooling (`pass`, `secretspec`, GPG agent with SSH support)
-- `wsl.nix` — WSL2 guest platform profile
+- `secrets.nix` — global secret-management tooling (`passage` (age), `secretspec`)
+- `wsl.nix` — WSL2 guest platform profile (bridges the Windows ssh-agent through `wsl.ssh-agent`)
 - `niride.nix` — transitional Niri desktop session bundle (greeter, portals, lid handler)
 
 ## Global Baseline and Bridge Configuration
@@ -74,7 +74,7 @@
 ## Architectural Boundaries
 
 - **TREAT `niride` AS TRANSITIONAL**: session-specific wiring lives here, but general GUI apps stay in `modules/programs/gui.nix`
-- **SECRET WAYLAND HOOK IS A TRANSITIONAL STUB**: `secrets.nix:9` checks `config.programs.hyprland.enable` for `pass-wayland`; this is a known placeholder awaiting desktop session refactoring
+- **SECRET TOOLING IS DESKTOP-AGNOSTIC**: `secrets.nix` installs `passage` (age) and `secretspec`; the package drives the clipboard itself, so no desktop-session gate is needed
 - **DISTRIBUTED BUNDLE CONTRIBUTIONS ARE ACCEPTED**: packages and programs outside `toplevel/` (e.g. `modules/packages/zennotes-tui.nix`) may directly contribute to bundles like `wsl.home`
 
 <important if="you are adding or modifying desktop session profiles in this layer">
