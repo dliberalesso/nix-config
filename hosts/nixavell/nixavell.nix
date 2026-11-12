@@ -27,6 +27,8 @@ in
         work
       ];
 
+      signingKey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIKyq3xPJDWbCq9ba4CR7fjhs0fkwWT2hRzA2IOz/Dzr dli50@nixavell";
+
       nixos = {
         imports = [ ./_filesystem.nix ];
 

@@ -1,24 +1,12 @@
 {
   unify.nixos =
-    {
-      config,
-      pkgs,
-      ...
-    }:
-    let
-      waylandEnabled = config.programs.hyprland.enable;
-    in
+    { pkgs, ... }:
     {
       environment.systemPackages = with pkgs; [
-        (if waylandEnabled then pass-wayland else pass)
+        age
+        gnupg
+        passage
         secretspec
       ];
-
-      programs.gnupg = {
-        agent = {
-          enable = true;
-          enableSSHSupport = true;
-        };
-      };
     };
 }

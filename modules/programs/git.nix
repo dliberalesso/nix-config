@@ -2,6 +2,7 @@
   unify.home =
     {
       hostConfig,
+      lib,
       pkgs,
       ...
     }:
@@ -41,8 +42,11 @@
           };
 
           signing = {
-            format = "openpgp";
-            key = "EABBB5191B42D726";
+            inherit (hostConfig) allowedSigners;
+          }
+          // lib.optionalAttrs (hostConfig.signingKey != null) {
+            format = "ssh";
+            key = "key::${hostConfig.signingKey}";
             signByDefault = true;
           };
         };
