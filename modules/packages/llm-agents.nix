@@ -13,7 +13,7 @@
         beads-viewer
         claude-code
         codex
-        herdr-core
+        git-surgeon
         nono
         openspec
         pi
