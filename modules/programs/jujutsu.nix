@@ -1,6 +1,7 @@
 {
   unify.home =
     {
+      config,
       hostConfig,
       lib,
       pkgs,
@@ -140,8 +141,11 @@
 
           signing = {
             behavior = "keep";
-            backend = "gpg";
-            key = "EABBB5191B42D726";
+            backends.ssh."allowed-signers" = "${config.xdg.configHome}/git/allowed_signers";
+          }
+          // lib.optionalAttrs (hostConfig.signingKey != null) {
+            backend = "ssh";
+            key = hostConfig.signingKey;
           };
 
           snapshot.max-new-file-size = "15M";
