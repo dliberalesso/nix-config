@@ -21,6 +21,8 @@
         defaultUser = hostConfig.user.username;
         startMenuLaunchers = false;
 
+        ssh-agent.enable = true;
+
         wslConf = {
           automount.root = "/mnt";
           interop.appendWindowsPath = false;
