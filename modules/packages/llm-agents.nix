@@ -13,9 +13,7 @@
         beads-viewer
         claude-code
         codex
-        herdr
         herdr-core
-        hunk
         nono
         openspec
         pi
