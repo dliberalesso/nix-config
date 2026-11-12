@@ -36,7 +36,6 @@
       home.packages = with pkgs.llm-agents; [
         chatgpt
         claude-desktop
-        herdr-app
       ];
     };
 }
