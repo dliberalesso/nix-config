@@ -1,8 +1,5 @@
 .direnv/
 
-.rpiv/*
-!.rpiv/guidance/
-
 .pre-commit-config.yaml
 
 *.qcow2
