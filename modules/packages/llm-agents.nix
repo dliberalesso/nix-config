@@ -9,12 +9,14 @@
         pkgs.nodejs
 
         antigravity-cli
+        bb-app
         beads-rust
         beads-viewer
         claude-code
         codex
         git-surgeon
         nono
+        omp
         openspec
         pi
         skills
