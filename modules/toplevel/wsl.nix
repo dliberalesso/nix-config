@@ -28,4 +28,23 @@
         };
       };
     };
+
+  unify.modules.wsl.home =
+    {
+      config,
+      lib,
+      pkgs,
+      ...
+    }:
+    let
+      # Copy only the patched script so nixwsl doesn't retain the wezterm GUI closure.
+      shellIntegration = pkgs.runCommand "wezterm-shell-integration" { } ''
+        install -Dm644 ${pkgs.wezterm}/etc/profile.d/wezterm.sh -t $out/etc/profile.d
+      '';
+    in
+    {
+      programs.zsh.initContent = lib.mkIf config.programs.zsh.enable ''
+        source "${shellIntegration}/etc/profile.d/wezterm.sh"
+      '';
+    };
 }

@@ -69,6 +69,18 @@ config.font_rules = {
 config.keys = {
   -- Disable Alt+Enter for toggling fullscreen
   { key = "Enter", mods = "ALT", action = wezterm.action.DisableDefaultAssignment },
+  -- Jump between shell prompts (OSC 133 semantic zones)
+  { key = "UpArrow", mods = "ALT|SHIFT", action = wezterm.action.ScrollToPrompt(-1) },
+  { key = "DownArrow", mods = "ALT|SHIFT", action = wezterm.action.ScrollToPrompt(1) },
+}
+
+config.mouse_bindings = {
+  -- Right-click selects the semantic zone (command output) under the cursor
+  {
+    event = { Down = { streak = 1, button = "Right" } },
+    mods = "NONE",
+    action = wezterm.action.SelectTextAtMouseCursor("SemanticZone"),
+  },
 }
 
 return config
