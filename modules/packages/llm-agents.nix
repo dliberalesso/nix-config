@@ -17,6 +17,7 @@
         git-surgeon
         nono
         omp
+        opencode2
         openspec
         pi
         skills
@@ -38,6 +39,7 @@
       home.packages = with pkgs.llm-agents; [
         chatgpt
         claude-desktop
+        opencode2-desktop
       ];
     };
 }
