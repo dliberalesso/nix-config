@@ -7,6 +7,7 @@
     {
       home.packages = with pkgs.llm-agents; [
         pkgs.nodejs
+        pkgs.openssl # maki needs this
 
         antigravity-cli
         bb-app
@@ -15,6 +16,7 @@
         claude-code
         codex
         git-surgeon
+        maki
         nono
         omp
         opencode2

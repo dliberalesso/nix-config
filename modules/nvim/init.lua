@@ -610,6 +610,7 @@ require("lze").load({
           { words = { "Catppuccin" }, path = "catppuccin.nvim" },
           { words = { "nixCats" }, path = (nixCats.nixCatsPath or "") .. "/lua" },
           { mods = { "wezterm" }, path = "wezterm-types" },
+          { words = { "maki" }, path = (nixCats("nixCats_config_location") or "") .. "/lua-types" },
         },
       })
     end,
