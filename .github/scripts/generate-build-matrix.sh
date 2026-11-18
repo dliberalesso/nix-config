@@ -37,7 +37,7 @@ hosts)
   has_output_name="has_hosts"
   cached_message="All hosts are substitutable! Skipping matrix."
   uncached_message="Found hosts that need builds"
-  entries='["testvm","nixwsl","nixavell"]'
+  entries='["nixwsl","nixavell"]'
 
   flake_attr_for_entry() {
     echo "nixosConfigurations.${1}.config.system.build.toplevel"

@@ -76,5 +76,5 @@ lze.load({
 5. For formatters/linters, register in Conform (`formatters_by_ft`) or nvim-lint (`linters_by_ft`)
 6. For runtime pruning, add paths to `excludedRtpPlugins` in `nixcats.nix` preserving `old.postInstall`
 7. Place language query overrides under `queries/<language>/highlights.scm` using `;; extends`
-8. Format with `just fmt` and validate configuration with `just lint`. Runtime verification of the newly configured editor requires launching the generated nixCats wrapper (e.g. testing via `testvm` or the nixCats output package), as executing `nvim` in the current shell only checks the currently active system profile.
+8. Format with `just fmt` and validate configuration with `just lint`. Runtime verification of the newly configured editor requires launching the generated nixCats wrapper (e.g. the nixCats output package), as executing `nvim` in the current shell only checks the currently active system profile.
 </important>

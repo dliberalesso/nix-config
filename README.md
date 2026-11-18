@@ -25,7 +25,6 @@ A modular, reproducible NixOS configuration managing multiple systems with share
 
 - **nixavell** - Main laptop with the current Niri-based desktop environment
 - **nixwsl** - Minimal WSL2 development environment
-- **testvm** - Testing virtual machine
 
 ## 🛠️ Tech Stack
 
