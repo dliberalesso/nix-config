@@ -15,6 +15,8 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: "Installing Nix"
         uses: cachix/install-nix-action@v31
@@ -47,3 +49,4 @@ jobs:
         with:
           token: ${{ secrets.PAT }}
           pull-request-number: ${{ steps.nix-update.outputs.pull-request-number }}
+          merge-method: rebase
