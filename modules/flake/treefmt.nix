@@ -42,7 +42,12 @@
           };
 
           shellcheck.enable = true;
-          shfmt.enable = true;
+          # treefmt-nix 0ba5d67+ defaults indent_size/simplify off; keep shfmt flags explicit
+          shfmt = {
+            enable = true;
+            indent_size = 2;
+            simplify = true;
+          };
 
           stylua = {
             enable = true;

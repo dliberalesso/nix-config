@@ -63,3 +63,10 @@ Choose the narrowest reusable layer first:
 - Follow common inputs (`nixpkgs`, `flake-parts`, `systems`) across tooling and community flakes
 - For build-time non-flake inputs, use `flake = false;`
 </important>
+
+<important if="you are debugging CI or changing the update workflows">
+- `.github/workflows/update-flake-lock.yml` amends a `Refs: #N` footer onto the lock-update commit (preserving the original body via `%B`) and force-pushes with PAT basic auth: the step overwrites the checkout-persisted `http.https://github.com/.extraheader` with `basic x-access-token:<PAT>`, because the job token is read-only (`contents: read`) and a generic `bearer` extraheader does not override the persisted header. The amend is idempotent (footer guard) because the update action resets the branch on every run. The PR lands by rebase (`merge-method: rebase`, no merge commit); automerge is armed only on the Sunday cron or manual dispatch and waits for a green `Status` check.
+- `.github/workflows/build-and-cache.yml` skips the duplicate main push only when the push carries at least one commit and every commit carries a `Refs: #N` footer whose PR is merged and whose `Status` check-run was green (looked up with `per_page=100`); zero-commit and unverified pushes always build (the gate fails open).
+- The PR number in the footer — not the commit SHA, which rebase rewrites — is the lookup key between the two workflows. Cache keys are content hashes and are not the skip mechanism.
+- Lock updates can bump `treefmt-nix` and change formatter defaults: shfmt flags are pinned in `modules/flake/treefmt.nix` (`indent_size = 2`, `simplify = true`) because treefmt-nix commit `0ba5d67` stopped defaulting them, which let shfmt fall back to `.editorconfig` — whose `[{.*,secrets}/**]` rule unsets indentation for `.github/**`.
+</important>
