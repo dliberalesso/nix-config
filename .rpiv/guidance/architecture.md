@@ -63,3 +63,10 @@ Choose the narrowest reusable layer first:
 - Follow common inputs (`nixpkgs`, `flake-parts`, `systems`) across tooling and community flakes
 - For build-time non-flake inputs, use `flake = false;`
 </important>
+
+<important if="you are debugging CI or changing the update workflows">
+- `.github/workflows/update-flake-lock.yml` creates/updates a fixed-branch (`build/update-flake-lock`) PR with a fixed subject (`⬆️ build: update flake.lock`) and never amends or force-pushes it. The PR lands by rebase (`merge-method: rebase`, no merge commit); automerge is armed only on the Sunday cron or manual dispatch and waits for a green `Status` check.
+- `.github/workflows/build-and-cache.yml` skips the duplicate main push only when the push carries at least one commit, every commit subject starts with `⬆️ build: update flake.lock`, and the latest merged PR from `build/update-flake-lock` has a green `Status` check-run on its head SHA (looked up with `per_page=100`); zero-commit and unverified pushes always build (the gate fails open).
+- The fixed commit subject prefix — not the commit SHA, which rebase rewrites — plus the merged PR's head SHA are the lookup keys between the two workflows. Cache keys are content hashes and are not the skip mechanism.
+- Formatting for `.github/**` comes from `.editorconfig`: the `[{.*,secrets}/**]` rule unsets indentation for dot directories, so a later `[.github/**]` section re-asserts `indent_style = space` and `indent_size = 2`. Do not pin shfmt flags in `modules/flake/treefmt.nix` to compensate; keep it at bare `shfmt.enable = true;`.
+</important>

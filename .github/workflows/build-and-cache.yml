@@ -20,8 +20,43 @@ on:
   workflow_dispatch:
 
 jobs:
+  gate:
+    name: "Gate Duplicate Main Run"
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+      checks: read
+    outputs:
+      skip: ${{ steps.gate.outputs.skip }}
+    steps:
+      - name: "Check lock-update pushes against merged green PRs"
+        id: gate
+        env:
+          GH_TOKEN: ${{ github.token }}
+          COMMITS_JSON: ${{ toJSON(github.event.commits) }}
+        run: |
+          set -eu
+          skip=false
+          total=$(echo "$COMMITS_JSON" | jq 'length')
+          lock_commits=$(echo "$COMMITS_JSON" | jq -r '[.[]?.message | select(startswith("⬆️ build: update flake.lock"))] | length')
+          if [ "$total" -gt 0 ] && [ "$lock_commits" = "$total" ]; then
+            if pr=$(gh pr list --repo "$GITHUB_REPOSITORY" --head "build/update-flake-lock" --state merged --limit 1 --json headRefOid --jq '.[0] // empty') && [ -n "$pr" ]; then
+              sha=$(echo "$pr" | jq -r .headRefOid)
+              green=$(gh api "repos/${GITHUB_REPOSITORY}/commits/${sha}/check-runs?per_page=100" \
+                --jq '[.check_runs[] | select(.name == "Status")][0].conclusion' 2>/dev/null) || green=""
+              if [ -n "$green" ] && [ "$green" = "success" ]; then
+                skip=true
+              fi
+            fi
+          fi
+          echo "skip=$skip" >> "$GITHUB_OUTPUT"
+
   setup-matrix:
     name: "Setup Matrix"
+    needs: gate
+    if: always() && needs.gate.outputs.skip != 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -47,8 +82,8 @@ jobs:
 
   build-targets:
     name: "Build Targets"
-    needs: setup-matrix
-    if: always() && needs.setup-matrix.outputs.has_targets == 'true'
+    needs: [gate, setup-matrix]
+    if: always() && needs.gate.outputs.skip != 'true' && needs.setup-matrix.outputs.has_targets == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -91,8 +126,8 @@ jobs:
 
   check:
     name: "Check Flake"
-    needs: [setup-matrix, build-targets]
-    if: always() && needs.setup-matrix.result == 'success' && (needs.build-targets.result == 'success' || needs.build-targets.result == 'skipped')
+    needs: [gate, setup-matrix, build-targets]
+    if: always() && needs.gate.outputs.skip != 'true' && needs.setup-matrix.result == 'success' && (needs.build-targets.result == 'success' || needs.build-targets.result == 'skipped')
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -138,8 +173,8 @@ jobs:
 
   build-hosts:
     name: "Build Hosts"
-    needs: check
-    if: always() && needs.check.outputs.has_hosts == 'true'
+    needs: [gate, check]
+    if: always() && needs.gate.outputs.skip != 'true' && needs.check.outputs.has_hosts == 'true'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -185,6 +220,7 @@ jobs:
     name: "Status"
     if: always()
     needs:
+      - gate
       - setup-matrix
       - build-targets
       - check

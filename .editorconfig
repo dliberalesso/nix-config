@@ -27,3 +27,8 @@ trim_trailing_whitespace = unset
 
 [*.md]
 indent_size = unset
+
+[.github/**]
+indent_style = space
+indent_size = 2
+end_of_line = lf
