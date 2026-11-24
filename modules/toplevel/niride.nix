@@ -29,9 +29,18 @@
       };
 
       security.polkit.enable = true;
+      # dux-greeter authenticates through greetd, whose `greetd` PAM service
+      # substacks the `login` rules — the keyring auto-unlock rides that stack
+      # and consumes the same password typed at the greeter
+      security.pam.services.login.enableGnomeKeyring = true;
       security.pam.services.dms-shell = { };
 
       services = {
+        # explicitly own the libsecret daemon niri enables by default:
+        # pam_gnome_keyring unlocks its login keyring at the greeter, and
+        # gcr-ssh-agent stores/reads the SSH key passphrase from it
+        gnome.gnome-keyring.enable = true;
+
         displayManager.dux-greeter = {
           enable = true;
 

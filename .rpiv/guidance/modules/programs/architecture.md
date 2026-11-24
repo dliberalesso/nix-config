@@ -18,7 +18,7 @@
 ## Module Structure
 
 - `*.nix` — single-program configurations (`git.nix`, `zsh.nix`, `atuin.nix`, `yazi.nix`)
-- `cli.nix, gui.nix` — bulk toggles for simple CLI utilities and desktop apps; `gui.nix` also carries the NixOS-side `programs.ssh.startAgent` for the gui profile
+- `cli.nix, gui.nix` — bulk toggles for simple CLI utilities and desktop apps; GUI-session SSH agent handling (GCR `gcr-ssh-agent` plus keyring-backed unlock) lives in `modules/services/ssh.nix`
 - `wezterm/` — program module with companion external script (`wezterm.lua`)
 - `nix-index-database.nix` — third-party flake module integration
 

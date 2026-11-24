@@ -18,7 +18,7 @@
 ## Module Structure
 
 - `flake/, meta/, nix/` — flake infrastructure, shared metadata, and daemon defaults
-- `system/, hardware/, services/` — reusable machine/hardware capabilities (`laptop`, `facter`, `podman`)
+- `system/, hardware/, services/` — reusable machine/hardware capabilities (`laptop`, `facter`, `podman`, `ssh`)
 - `packages/, programs/, nvim/` — package derivations, user tools, and editor configuration
 - `theme/` — Catppuccin color scheme, GTK/Qt styling, and visual tokens
 - `toplevel/` — high-level profiles (`wsl`, `niride`) and cross-cutting account baselines
