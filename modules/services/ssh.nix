@@ -1,25 +1,27 @@
+_:
+let
+  # gcr-ssh-agent (gui) and wsl2-ssh-agent (wsl) both expose a session socket;
+  # the wrapper only points ssh-keygen at it when signing
+  sshSignEnsure =
+    pkgs: socket:
+    pkgs.writeShellApplication {
+      name = "ssh-sign-ensure";
+      runtimeInputs = [ pkgs.openssh ];
+      text = ''
+        if [ "''${1:-}" = "-Y" ] && [ "''${2:-}" = "sign" ]; then
+          export SSH_AUTH_SOCK="${socket}"
+        fi
+        exec ssh-keygen "$@"
+      '';
+    };
+in
 {
   unify.modules = {
     gui = {
       home =
         { lib, pkgs, ... }:
-        let
-          # the gcr-ssh-agent preloads ~/.ssh keys and decrypts them on demand,
-          # taking the passphrase from the PAM-unlocked gnome-keyring — the
-          # wrapper only needs to point ssh-keygen at the gcr socket
-          sshSignEnsure = pkgs.writeShellApplication {
-            name = "ssh-sign-ensure";
-            runtimeInputs = [ pkgs.openssh ];
-            text = ''
-              if [ "''${1:-}" = "-Y" ] && [ "''${2:-}" = "sign" ]; then
-                export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
-              fi
-              exec ssh-keygen "$@"
-            '';
-          };
-        in
         {
-          programs.git.signing.signer = lib.getExe sshSignEnsure;
+          programs.git.signing.signer = lib.getExe (sshSignEnsure pkgs "$XDG_RUNTIME_DIR/gcr/ssh");
 
           sshAuthSock = {
             enable = true;
@@ -40,16 +42,35 @@
       };
     };
 
-    wsl.nixos = {
-      services.openssh = {
-        enable = true;
-        ports = [ 2222 ];
+    wsl = {
+      home =
+        { lib, pkgs, ... }:
+        {
+          programs.git.signing.signer = lib.getExe (
+            sshSignEnsure pkgs "$XDG_RUNTIME_DIR/wsl2-ssh-agent.sock"
+          );
 
-        settings = {
-          PubkeyAuthentication = true;
-          PasswordAuthentication = false;
-          KbdInteractiveAuthentication = false;
-          PermitRootLogin = "no";
+          # nixos-wsl bridges the Windows ssh-agent onto this socket
+          # (modules/toplevel/wsl.nix); exporting it here reaches non-login
+          # shells (jj) as well as the git signer wrapper
+          sshAuthSock = {
+            enable = true;
+            initialization.bash = ''export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/wsl2-ssh-agent.sock"'';
+            systemd.socketProviderUnit = "wsl2-ssh-agent.service";
+          };
+        };
+
+      nixos = {
+        services.openssh = {
+          enable = true;
+          ports = [ 2222 ];
+
+          settings = {
+            PubkeyAuthentication = true;
+            PasswordAuthentication = false;
+            KbdInteractiveAuthentication = false;
+            PermitRootLogin = "no";
+          };
         };
       };
     };
