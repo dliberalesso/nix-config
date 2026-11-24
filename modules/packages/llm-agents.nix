@@ -10,17 +10,15 @@
         pkgs.openssl # maki needs this
 
         antigravity-cli
-        bb-app
         beads-rust
         beads-viewer
         claude-code
         codex
-        git-surgeon
+        herdr-core
         maki
         nono
         omp
         opencode2
-        openspec
         pi
         skills
       ];
@@ -41,6 +39,7 @@
       home.packages = with pkgs.llm-agents; [
         chatgpt
         claude-desktop
+        herdr-app
         opencode2-desktop
       ];
     };

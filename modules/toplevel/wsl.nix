@@ -16,6 +16,8 @@
 
       hardware.graphics.enable = lib.mkForce false;
 
+      users.users.${hostConfig.user.username}.linger = true;
+
       wsl = {
         enable = true;
         defaultUser = hostConfig.user.username;
