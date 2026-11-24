@@ -2,7 +2,7 @@
 
 ## Responsibility
 
-`modules/system/` manages core OS subsystems: bootloader, temporary directory cleanup, kernel tuning, audio, graphics, networking, container virtualization, and user XDG base directories.
+`modules/system/` manages core OS subsystems: bootloader, temporary directory cleanup, kernel tuning, audio, graphics, networking, timezone and localization, container virtualization, and user XDG base directories.
 
 ## Dependencies
 
@@ -12,16 +12,16 @@
 
 ## Consumers
 
-- **`laptop` profile**: Groups physical machine capabilities (boot, audio, graphics, network, locale, kernel)
+- **`laptop` profile**: Groups physical machine capabilities (boot, audio, graphics, network, kernel, dual-boot hardware clock in local time)
 - **`podman` profile**: Enables rootless container virtualization (`virtualization.nix`)
-- **All hosts**: Receive global temporary directory cleanup (`boot.tmp.cleanOnBoot`)
+- **All hosts**: Receive global temporary directory cleanup (`boot.tmp.cleanOnBoot`) and timezone/locale settings (`locale.nix`)
 - **All users**: Receive global user XDG directory configuration (`xdg.nix`)
 
 ## Module Structure
 
 - `boot.nix, kernel.nix` — systemd-boot, kernel packages, and initrd modules
 - `audio.nix, graphics.nix` — PipeWire audio server and GPU driver acceleration
-- `locale.nix, network.nix` — timezone, localization, and NetworkManager defaults
+- `locale.nix, network.nix` — global timezone and localization (laptop-only RTC local time), and NetworkManager defaults
 - `virtualization.nix` — Podman container engine configuration
 - `xdg.nix` — user XDG directory enforcement in Home Manager
 
