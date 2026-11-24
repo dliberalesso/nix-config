@@ -79,6 +79,7 @@
 - Package derivations: Reusable custom packages in `modules/packages/` export to both `packages.<name>` and `overlayAttrs.<name>` in `perSystem`; system-dependent wrappers (such as Espanso requiring `config.security.wrapperDir`) are instantiated directly inside the NixOS module via `callPackage`
 - Distributed bundles: Packages and programs may augment named bundles (e.g., `unify.modules.wsl.home` or `gui.home`) directly to keep definitions cohesive
 - Secrets are currently handled in `modules/toplevel/secrets.nix`; the Wayland check (`config.programs.hyprland.enable`) is a transitional stub anticipating a desktop-session refactor; keep broader changes aligned with `.rpiv/guidance/modules/toplevel/architecture.md`
+- Implementation plans (`.rpiv/artifacts/plans/*.md`): in phase bodies, refer to bundle contributions without the dotted key (e.g. "the `wsl` bundle home contribution", not `wsl.home`) and describe untouched files by name, not path — the plan-cite-check gate pattern-matches path-like tokens in phase bodies against the phase's declared `files:` array and stops the workflow on undeclared matches
 - For debugging: Toggle `debug = true` in `modules/flake/default.nix` and use REPL
 
 ## Special Notes
