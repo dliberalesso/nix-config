@@ -17,7 +17,7 @@
       '';
 
       programs = {
-        dms-shell = {
+        dux-shell = {
           enable = true;
 
           excludePackages = with pkgs; [
@@ -32,7 +32,7 @@
       security.pam.services.dms-shell = { };
 
       services = {
-        displayManager.dms-greeter = {
+        displayManager.dux-greeter = {
           enable = true;
 
           compositor.name = "niri";
