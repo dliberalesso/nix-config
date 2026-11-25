@@ -70,3 +70,8 @@ Choose the narrowest reusable layer first:
 - The fixed commit subject prefix — not the commit SHA, which rebase rewrites — plus the merged PR's head SHA are the lookup keys between the two workflows. Cache keys are content hashes and are not the skip mechanism.
 - Formatting for `.github/**` comes from `.editorconfig`: the `[{.*,secrets}/**]` rule unsets indentation for dot directories, so a later `[.github/**]` section re-asserts `indent_style = space` and `indent_size = 2`. Do not pin shfmt flags in `modules/flake/treefmt.nix` to compensate; keep it at bare `shfmt.enable = true;`.
 </important>
+
+<important if="you are triaging, claiming, updating, or closing beads issues">
+- Issue tracking uses the Beads workspace in `.beads/` with the `br` CLI; never run both trackers against the same workspace. `bv` is a graph-aware triage sidecar: invoke it only with its robot flags (bare `bv` launches a blocking TUI), and run `br sync --flush-only` after any `br` mutation so the JSONL export `bv` reads stays current.
+- The full triage/claim/close workflow, robot command tables, and TOON guidance live in the repo skill `.agents/skills/beads/SKILL.md` (source document: PRIME.md in the beads workspace); consult the skill rather than this router for command detail.
+</important>

@@ -17,6 +17,12 @@
 - Before changing a specific area, read the matching sub-guide under `.rpiv/guidance/**/architecture.md`
 - Treat `.rpiv/guidance/` as the canonical architecture and workflow reference; prefer linking to it over duplicating detailed patterns here
 
+## Issue Tracking
+
+- Issues live in `.beads/`; this repo uses the `br` CLI — never run both trackers against the same workspace
+- `bv` is a read-only triage sidecar: only invoke it with its robot flags, since bare `bv` launches a blocking TUI
+- Full triage, claim/close, and sync workflow: `.agents/skills/beads/SKILL.md` (source: PRIME.md in the beads workspace)
+
 ## Architecture
 
 - Framework: **unify** + **flake-parts** + **import-tree**
