@@ -10,6 +10,5 @@
     fd.enable = true;
     ripgrep.enable = true;
     ripgrep-all.enable = true;
-    zellij.enable = true;
   };
 }
