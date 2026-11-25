@@ -21,6 +21,16 @@
         opencode2
         pi
         skills
+
+        # testing
+        mcporter
+        mcptoon
+        pdfvision
+        plannotator
+        rea
+        terminal-browser
+        toon
+        treehouse
       ];
 
       home.sessionVariables = {
