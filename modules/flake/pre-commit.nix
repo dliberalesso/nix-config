@@ -15,7 +15,7 @@
     {
       pre-commit.settings = {
         excludes = [
-          "^.age"
+          "\\.age$"
           "^.gitignore"
           "^.gitmodules"
           "^.lock"
